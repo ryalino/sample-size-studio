@@ -33,9 +33,11 @@ test("server-renders the sample size calculator shell", async () => {
   const html = await response.text();
   assert.match(html, /<title>StudySize Studio<\/title>/i);
   assert.match(html, /Sample size calculators/);
+  assert.match(html, /Find my calculator/);
+  assert.match(html, /What is the main purpose of the study/);
   assert.match(html, /Prevalence \/ Single Proportion/);
   assert.match(html, /Two Independent Means/);
-  assert.match(html, /Download PDF/);
+  assert.match(html, /Calculator catalog/);
   assert.match(html, /Saved scenarios/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Your site is taking shape/);
 });

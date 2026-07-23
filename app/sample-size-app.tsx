@@ -40,6 +40,26 @@ type Scenario = {
   result: Output;
   createdAt: string;
 };
+type AppMode = "finder" | "calculator";
+type DecisionAnswers = Record<string, string>;
+type DecisionOption = {
+  value: string;
+  label: string;
+  description: string;
+};
+type DecisionQuestion = {
+  id: string;
+  prompt: string;
+  helper: string;
+  options: DecisionOption[];
+};
+type DecisionResult = {
+  calculatorId?: string;
+  title: string;
+  explanation: string;
+  assumptions: string[];
+  warnings: string[];
+};
 
 const pct = (value: number) => value / 100;
 const ceil = (value: number) => Math.max(1, Math.ceil(value));
@@ -456,6 +476,365 @@ const calculators: Calculator[] = [
 
 const categories = ["All", ...Array.from(new Set(calculators.map((calculator) => calculator.category)))];
 
+const decisionQuestions: Record<string, DecisionQuestion> = {
+  goal: {
+    id: "goal",
+    prompt: "What is the main purpose of the study?",
+    helper: "Choose the analysis goal that best matches the primary objective.",
+    options: [
+      { value: "estimate", label: "Estimate one quantity", description: "Prevalence, rate, proportion, or mean with a target precision." },
+      { value: "compare", label: "Compare groups", description: "Treatment vs control, exposed vs unexposed, or before vs after." },
+      { value: "association", label: "Study association", description: "Correlation, risk ratio, odds ratio, or hazard ratio." },
+      { value: "diagnostic", label: "Diagnostic accuracy", description: "Sensitivity or specificity of a test against a reference standard." },
+      { value: "modeling", label: "Prediction/modeling", description: "Regression or prediction model sample size planning." },
+    ],
+  },
+  estimateType: {
+    id: "estimateType",
+    prompt: "What are you estimating?",
+    helper: "This determines whether the app plans around a proportion or a continuous mean.",
+    options: [
+      { value: "proportion", label: "Proportion or prevalence", description: "A percentage such as prevalence, response, positivity, or coverage." },
+      { value: "mean", label: "Mean value", description: "A continuous measurement such as score, blood pressure, or biomarker level." },
+    ],
+  },
+  comparisonOutcome: {
+    id: "comparisonOutcome",
+    prompt: "What type of primary outcome are you comparing?",
+    helper: "Pick the outcome scale used for the primary sample size calculation.",
+    options: [
+      { value: "binary", label: "Binary", description: "Event/no event, response/no response, disease/no disease." },
+      { value: "continuous", label: "Continuous", description: "A numeric measurement summarized by means and standard deviations." },
+      { value: "survival", label: "Time-to-event", description: "Time until event, censoring, hazard ratio, or log-rank comparison." },
+    ],
+  },
+  comparisonStructure: {
+    id: "comparisonStructure",
+    prompt: "How are the observations arranged?",
+    helper: "This helps separate independent, paired, clustered, and benchmark comparisons.",
+    options: [
+      { value: "independent", label: "Two independent groups", description: "Different people in each group." },
+      { value: "paired", label: "Paired or before-after", description: "Same people measured twice or matched pairs." },
+      { value: "clustered", label: "Clustered groups", description: "People are nested in clinics, schools, wards, practices, or communities." },
+      { value: "benchmark", label: "One group vs benchmark", description: "A single group compared with a fixed historical or target value." },
+    ],
+  },
+  comparisonDesign: {
+    id: "comparisonDesign",
+    prompt: "What best describes the group comparison?",
+    helper: "Use the design as planned, not necessarily the later statistical model.",
+    options: [
+      { value: "trial", label: "Trial or experiment", description: "Groups are assigned by protocol or intervention." },
+      { value: "cohort", label: "Cohort/exposure groups", description: "Exposed and unexposed groups are followed for outcome risk." },
+      { value: "case-control", label: "Case-control", description: "Participants are sampled by outcome status, then exposure is compared." },
+    ],
+  },
+  trialObjective: {
+    id: "trialObjective",
+    prompt: "What is the trial objective?",
+    helper: "Most studies are superiority; choose non-inferiority or equivalence only when that is the protocol objective.",
+    options: [
+      { value: "superiority", label: "Superiority", description: "Show one group differs from or is better than another." },
+      { value: "noninferiority", label: "Non-inferiority", description: "Show a new approach is not unacceptably worse." },
+      { value: "equivalence", label: "Equivalence", description: "Show groups are similar within a symmetric margin." },
+    ],
+  },
+  associationType: {
+    id: "associationType",
+    prompt: "What association measure best matches your question?",
+    helper: "When in doubt, choose the measure named in the protocol or primary paper objective.",
+    options: [
+      { value: "correlation", label: "Correlation", description: "Two continuous variables measured on the same participants." },
+      { value: "risk-ratio", label: "Risk ratio", description: "Outcome risk compared between exposed and unexposed groups." },
+      { value: "odds-ratio", label: "Odds ratio", description: "Exposure odds compared between cases and controls." },
+      { value: "hazard-ratio", label: "Hazard ratio", description: "Time-to-event association or survival comparison." },
+    ],
+  },
+  diagnosticTarget: {
+    id: "diagnosticTarget",
+    prompt: "Which diagnostic accuracy target is primary?",
+    helper: "If both sensitivity and specificity are co-primary, calculate both and use the larger total.",
+    options: [
+      { value: "sensitivity", label: "Sensitivity", description: "Precision among participants who truly have the condition." },
+      { value: "specificity", label: "Specificity", description: "Precision among participants who truly do not have the condition." },
+    ],
+  },
+  modelType: {
+    id: "modelType",
+    prompt: "What kind of model are you planning?",
+    helper: "These are pragmatic planning tools; final prediction model protocols often need specialist methods.",
+    options: [
+      { value: "linear", label: "Linear regression", description: "Continuous outcome with predictors." },
+      { value: "logistic", label: "Logistic regression", description: "Binary outcome or event/no-event model." },
+    ],
+  },
+  complexity: {
+    id: "complexity",
+    prompt: "Does the design include advanced features?",
+    helper: "Examples: adaptive design, repeated longitudinal outcomes, rare events, competing risks, complex survey sampling, Bayesian design, dose finding, mediation, or more than two arms.",
+    options: [
+      { value: "no", label: "No", description: "A standard design is a reasonable starting point." },
+      { value: "yes", label: "Yes", description: "Use the recommendation as a starting point and request statistical review." },
+    ],
+  },
+};
+
+const decisionOrder = [
+  "goal",
+  "estimateType",
+  "comparisonOutcome",
+  "comparisonStructure",
+  "comparisonDesign",
+  "trialObjective",
+  "associationType",
+  "diagnosticTarget",
+  "modelType",
+  "complexity",
+];
+
+function getCurrentDecisionQuestion(answers: DecisionAnswers) {
+  if (!answers.goal) return decisionQuestions.goal;
+
+  if (answers.goal === "estimate" && !answers.estimateType) return decisionQuestions.estimateType;
+
+  if (answers.goal === "compare") {
+    if (!answers.comparisonOutcome) return decisionQuestions.comparisonOutcome;
+    if (answers.comparisonOutcome !== "survival" && !answers.comparisonStructure) return decisionQuestions.comparisonStructure;
+    if (
+      answers.comparisonOutcome === "binary" &&
+      answers.comparisonStructure === "independent" &&
+      !answers.comparisonDesign
+    ) {
+      return decisionQuestions.comparisonDesign;
+    }
+    if (
+      answers.comparisonOutcome === "continuous" &&
+      answers.comparisonStructure === "independent" &&
+      !answers.trialObjective
+    ) {
+      return decisionQuestions.trialObjective;
+    }
+  }
+
+  if (answers.goal === "association" && !answers.associationType) return decisionQuestions.associationType;
+  if (answers.goal === "diagnostic" && !answers.diagnosticTarget) return decisionQuestions.diagnosticTarget;
+  if (answers.goal === "modeling" && !answers.modelType) return decisionQuestions.modelType;
+  if (!answers.complexity) return decisionQuestions.complexity;
+
+  return undefined;
+}
+
+function decisionResult(answers: DecisionAnswers): DecisionResult | undefined {
+  if (getCurrentDecisionQuestion(answers)) return undefined;
+
+  const warnings =
+    answers.complexity === "yes"
+      ? ["Advanced design features can make closed-form sample size formulas misleading. Use this calculator as orientation, then get statistical review."]
+      : [];
+
+  if (answers.goal === "estimate") {
+    return answers.estimateType === "mean"
+      ? {
+          calculatorId: "single-mean",
+          title: "Use Single Mean",
+          explanation: "You are estimating one continuous quantity with target precision, so the planning driver is SD and margin of error.",
+          assumptions: ["Continuous outcome.", "Primary goal is estimation rather than a hypothesis test."],
+          warnings,
+        }
+      : {
+          calculatorId: "prevalence",
+          title: "Use Prevalence / Single Proportion",
+          explanation: "You are estimating one percentage or prevalence with target precision, so the proportion CI formula is the right starting point.",
+          assumptions: ["Binary or proportion outcome.", "Primary goal is confidence interval precision."],
+          warnings,
+        };
+  }
+
+  if (answers.goal === "diagnostic") {
+    return answers.diagnosticTarget === "specificity"
+      ? {
+          calculatorId: "diagnostic-specificity",
+          title: "Use Diagnostic Specificity",
+          explanation: "Specificity is estimated among people without the condition, then inflated by the expected non-disease fraction.",
+          assumptions: ["Reference standard is available.", "Specificity is the primary accuracy target."],
+          warnings,
+        }
+      : {
+          calculatorId: "diagnostic-sensitivity",
+          title: "Use Diagnostic Sensitivity",
+          explanation: "Sensitivity is estimated among people with the condition, then inflated by the expected prevalence.",
+          assumptions: ["Reference standard is available.", "Sensitivity is the primary accuracy target."],
+          warnings,
+        };
+  }
+
+  if (answers.goal === "modeling") {
+    return answers.modelType === "linear"
+      ? {
+          calculatorId: "linear-regression",
+          title: "Use Multiple Linear Regression",
+          explanation: "The planned outcome is continuous, so the regression calculator uses predictors and Cohen's f2 effect size.",
+          assumptions: ["Continuous outcome.", "Approximate omnibus model planning."],
+          warnings: [...warnings, "For clinical prediction model development, consider minimum sample size methods beyond simple rules."],
+        }
+      : {
+          calculatorId: "logistic-regression",
+          title: "Use Logistic Regression Events",
+          explanation: "The planned outcome is binary, so sample size is driven by expected events and model degrees of freedom.",
+          assumptions: ["Binary outcome.", "Event rate estimate is available."],
+          warnings: [...warnings, "For final prediction model protocols, consider Riley-style minimum sample size methods."],
+        };
+  }
+
+  if (answers.goal === "association") {
+    const associationMap: Record<string, DecisionResult> = {
+      correlation: {
+        calculatorId: "correlation",
+        title: "Use Correlation",
+        explanation: "The question is about association between two continuous variables measured on the same participants.",
+        assumptions: ["Pearson correlation is the target measure.", "No group allocation is being compared."],
+        warnings,
+      },
+      "risk-ratio": {
+        calculatorId: "cohort-rr",
+        title: "Use Cohort / Risk Ratio",
+        explanation: "The study compares outcome risk between exposed and unexposed groups.",
+        assumptions: ["Exposure groups are observed or assembled before outcome assessment.", "Risk ratio is the primary effect measure."],
+        warnings,
+      },
+      "odds-ratio": {
+        calculatorId: "case-control",
+        title: "Use Case-Control / Odds Ratio",
+        explanation: "The study samples cases and controls, then compares exposure odds.",
+        assumptions: ["Unmatched case-control design.", "Control exposure prevalence can be estimated."],
+        warnings,
+      },
+      "hazard-ratio": {
+        calculatorId: "survival",
+        title: "Use Survival / Time-to-Event",
+        explanation: "The target association is a hazard ratio, so planning is driven by required events.",
+        assumptions: ["Proportional hazards.", "Expected event rate by analysis is available."],
+        warnings,
+      },
+    };
+    return associationMap[answers.associationType];
+  }
+
+  if (answers.goal === "compare") {
+    if (answers.comparisonOutcome === "survival") {
+      return {
+        calculatorId: "survival",
+        title: "Use Survival / Time-to-Event",
+        explanation: "The primary comparison uses time until event, so the log-rank/event-based calculator is the correct starting point.",
+        assumptions: ["Proportional hazards.", "Event rate and hazard ratio can be estimated."],
+        warnings,
+      };
+    }
+
+    if (answers.comparisonStructure === "clustered") {
+      return {
+        calculatorId: "cluster-crt",
+        title: "Use Cluster Randomized Trial",
+        explanation: "Participants are nested within clusters, so the individual-level sample size needs a design-effect adjustment.",
+        assumptions: ["Average cluster size and ICC can be estimated.", "Cluster sizes are not extremely unequal."],
+        warnings: [...warnings, "Cluster studies are sensitive to ICC assumptions; run sensitivity scenarios."],
+      };
+    }
+
+    if (answers.comparisonStructure === "paired") {
+      return answers.comparisonOutcome === "continuous"
+        ? {
+            calculatorId: "paired-mean",
+            title: "Use Paired / Before-After Mean",
+            explanation: "The same participants or matched pairs contribute paired continuous measurements.",
+            assumptions: ["Paired differences are the primary outcome.", "SD of differences can be estimated."],
+            warnings,
+          }
+        : {
+            calculatorId: "two-proportions",
+            title: "Start With Two Independent Proportions",
+            explanation: "The current app does not yet include a paired binary formula, so this is only a conservative orientation point.",
+            assumptions: ["Binary outcome.", "Pairing/matching should be handled in a specialist calculation."],
+            warnings: [...warnings, "Paired binary outcomes usually need McNemar or matched-pair methods; request statistical review."],
+          };
+    }
+
+    if (answers.comparisonStructure === "benchmark") {
+      return answers.comparisonOutcome === "binary"
+        ? {
+            calculatorId: "one-proportion-test",
+            title: "Use One Proportion vs Benchmark",
+            explanation: "A single binary proportion is being tested against a fixed historical or target value.",
+            assumptions: ["Benchmark is fixed.", "One sample contributes the new proportion."],
+            warnings,
+          }
+        : {
+            calculatorId: "single-mean",
+            title: "Start With Single Mean",
+            explanation: "The current app estimates one mean precisely; testing a single mean against a benchmark can be added as a dedicated calculator.",
+            assumptions: ["Continuous outcome.", "Benchmark is fixed."],
+            warnings: [...warnings, "For a formal one-sample mean hypothesis test, confirm the exact formula before protocol use."],
+          };
+    }
+
+    if (answers.comparisonOutcome === "binary") {
+      if (answers.comparisonDesign === "cohort") {
+        return {
+          calculatorId: "cohort-rr",
+          title: "Use Cohort / Risk Ratio",
+          explanation: "The design compares exposed and unexposed groups on later outcome risk.",
+          assumptions: ["Binary outcome risk.", "Exposure groups are independent."],
+          warnings,
+        };
+      }
+      if (answers.comparisonDesign === "case-control") {
+        return {
+          calculatorId: "case-control",
+          title: "Use Case-Control / Odds Ratio",
+          explanation: "Participants are sampled by outcome status, so exposure prevalence and odds ratio drive the calculation.",
+          assumptions: ["Unmatched case-control design.", "Control exposure prevalence can be estimated."],
+          warnings,
+        };
+      }
+      return {
+        calculatorId: "two-proportions",
+        title: "Use Two Independent Proportions",
+        explanation: "Two independent groups are being compared on a binary event or response rate.",
+        assumptions: ["Independent binary outcomes.", "Superiority comparison by default."],
+        warnings,
+      };
+    }
+
+    if (answers.trialObjective === "noninferiority") {
+      return {
+        calculatorId: "noninferiority-means",
+        title: "Use Non-Inferiority Mean",
+        explanation: "The study is designed to rule out an unacceptable loss on a continuous endpoint.",
+        assumptions: ["Continuous outcome.", "One-sided non-inferiority margin is clinically justified."],
+        warnings,
+      };
+    }
+    if (answers.trialObjective === "equivalence") {
+      return {
+        calculatorId: "equivalence-means",
+        title: "Use Equivalence Mean",
+        explanation: "The study is designed to show the mean difference lies within a symmetric equivalence margin.",
+        assumptions: ["Continuous outcome.", "Two one-sided tests framework."],
+        warnings,
+      };
+    }
+    return {
+      calculatorId: "two-means",
+      title: "Use Two Independent Means",
+      explanation: "Two independent groups are being compared on a continuous outcome under a superiority objective.",
+      assumptions: ["Independent groups.", "Common SD can be estimated."],
+      warnings,
+    };
+  }
+
+  return undefined;
+}
+
 function initialValues(calculator: Calculator) {
   return Object.fromEntries(calculator.variables.map((variable) => [variable.key, variable.default]));
 }
@@ -494,8 +873,10 @@ function makePdf(title: string, lines: string[]) {
 }
 
 export function SampleSizeApp() {
+  const [mode, setMode] = useState<AppMode>("finder");
   const [activeCategory, setActiveCategory] = useState("All");
   const [activeId, setActiveId] = useState(calculators[0].id);
+  const [decisionAnswers, setDecisionAnswers] = useState<DecisionAnswers>({});
   const [valuesByCalculator, setValuesByCalculator] = useState<Record<string, Values>>(() =>
     Object.fromEntries(calculators.map((calculator) => [calculator.id, initialValues(calculator)])),
   );
@@ -511,6 +892,15 @@ export function SampleSizeApp() {
   const values = valuesByCalculator[calculator.id] ?? initialValues(calculator);
   const result = useMemo(() => calculator.compute(values), [calculator, values]);
   const filtered = calculators.filter((item) => activeCategory === "All" || item.category === activeCategory);
+  const currentDecisionQuestion = getCurrentDecisionQuestion(decisionAnswers);
+  const recommendation = decisionResult(decisionAnswers);
+  const decisionPath = decisionOrder
+    .filter((id) => decisionAnswers[id])
+    .map((id) => {
+      const question = decisionQuestions[id];
+      const answer = question.options.find((option) => option.value === decisionAnswers[id]);
+      return { question: question.prompt, answer: answer?.label ?? decisionAnswers[id] };
+    });
 
   function updateValue(key: string, value: number) {
     setValuesByCalculator((current) => ({
@@ -565,6 +955,38 @@ export function SampleSizeApp() {
     setStatus("PDF downloaded");
   }
 
+  function answerDecision(questionId: string, value: string) {
+    const index = decisionOrder.indexOf(questionId);
+    setDecisionAnswers((current) => {
+      const next: DecisionAnswers = {};
+      decisionOrder.slice(0, index).forEach((id) => {
+        if (current[id]) next[id] = current[id];
+      });
+      next[questionId] = value;
+      return next;
+    });
+  }
+
+  function goBackDecision() {
+    const answered = decisionOrder.filter((id) => decisionAnswers[id]);
+    const last = answered.at(-1);
+    if (!last) return;
+    setDecisionAnswers((current) => {
+      const next = { ...current };
+      delete next[last];
+      return next;
+    });
+  }
+
+  function useRecommendedCalculator(calculatorId: string) {
+    const nextCalculator = calculators.find((item) => item.id === calculatorId);
+    if (!nextCalculator) return;
+    setActiveId(nextCalculator.id);
+    setActiveCategory(nextCalculator.category);
+    setMode("calculator");
+    setStatus("Calculator selected from decision tree");
+  }
+
   return (
     <main className="app-shell">
       <section className="masthead" aria-labelledby="app-title">
@@ -579,9 +1001,18 @@ export function SampleSizeApp() {
         <div className="hero-metrics" aria-label="Catalog summary">
           <span><strong>{calculators.length}</strong> designs</span>
           <span><strong>{categories.length - 1}</strong> families</span>
-          <span><strong>Live</strong> results</span>
+          <span><strong>Guided</strong> tree</span>
         </div>
       </section>
+
+      <nav className="mode-tabs" aria-label="Main app modes">
+        <button className={mode === "finder" ? "active" : ""} type="button" onClick={() => setMode("finder")}>
+          Find my calculator
+        </button>
+        <button className={mode === "calculator" ? "active" : ""} type="button" onClick={() => setMode("calculator")}>
+          Calculator catalog
+        </button>
+      </nav>
 
       <section className="workspace">
         <aside className="catalog" aria-label="Study design catalog">
@@ -613,70 +1044,162 @@ export function SampleSizeApp() {
           </div>
         </aside>
 
-        <section className="calculator-panel" aria-labelledby="calculator-title">
-          <div className="panel-heading">
-            <div>
-              <p className="eyebrow">{calculator.category}</p>
-              <h2 id="calculator-title">{calculator.title}</h2>
-              <p>{calculator.purpose}</p>
+        {mode === "finder" ? (
+          <section className="finder-panel" aria-labelledby="finder-title">
+            <div className="panel-heading">
+              <div>
+                <p className="eyebrow">Decision support</p>
+                <h2 id="finder-title">Find my calculator</h2>
+                <p>
+                  Answer a few study-design questions and the app will suggest the closest calculator,
+                  explain why, and flag when statistical review is important.
+                </p>
+              </div>
+              <div className="actions">
+                <button type="button" onClick={goBackDecision} disabled={decisionPath.length === 0}>
+                  Back
+                </button>
+                <button type="button" onClick={() => setDecisionAnswers({})}>
+                  Reset
+                </button>
+              </div>
             </div>
-            <div className="actions">
-              <button type="button" onClick={saveScenario}>Save scenario</button>
-              <button type="button" onClick={downloadPdf}>Download PDF</button>
-            </div>
-          </div>
 
-          <div className="inputs-grid">
-            {calculator.variables.map((variable) => (
-              <label className="control" key={variable.key}>
-                <span>
-                  <strong>{variable.label}</strong>
-                  <small>{variable.help}</small>
-                </span>
-                <div className="input-row">
-                  {variable.slider && (
-                    <input
-                      aria-label={`${variable.label} slider`}
-                      max={variable.max}
-                      min={variable.min}
-                      onChange={(event) => updateValue(variable.key, Number(event.target.value))}
-                      step={variable.step}
-                      type="range"
-                      value={values[variable.key]}
-                    />
-                  )}
-                  <div className="number-wrap">
-                    <input
-                      aria-label={variable.label}
-                      max={variable.max}
-                      min={variable.min}
-                      onChange={(event) => updateValue(variable.key, Number(event.target.value))}
-                      step={variable.step}
-                      type="number"
-                      value={values[variable.key]}
-                    />
-                    <em>{variable.suffix}</em>
+            <div className="decision-body">
+              <div className="decision-card">
+                {currentDecisionQuestion ? (
+                  <>
+                    <span>Question {decisionPath.length + 1}</span>
+                    <h3>{currentDecisionQuestion.prompt}</h3>
+                    <p>{currentDecisionQuestion.helper}</p>
+                    <div className="choice-grid">
+                      {currentDecisionQuestion.options.map((option) => (
+                        <button
+                          key={option.value}
+                          type="button"
+                          onClick={() => answerDecision(currentDecisionQuestion.id, option.value)}
+                        >
+                          <strong>{option.label}</strong>
+                          <small>{option.description}</small>
+                        </button>
+                      ))}
+                    </div>
+                  </>
+                ) : recommendation ? (
+                  <>
+                    <span>Recommendation</span>
+                    <h3>{recommendation.title}</h3>
+                    <p>{recommendation.explanation}</p>
+                    <div className="recommendation-grid">
+                      <article>
+                        <strong>Assumptions to check</strong>
+                        <ul>{recommendation.assumptions.map((item) => <li key={item}>{item}</li>)}</ul>
+                      </article>
+                      <article>
+                        <strong>Warning flags</strong>
+                        {recommendation.warnings.length === 0 ? (
+                          <p>No major warning flags based on these answers.</p>
+                        ) : (
+                          <ul>{recommendation.warnings.map((item) => <li key={item}>{item}</li>)}</ul>
+                        )}
+                      </article>
+                    </div>
+                    {recommendation.calculatorId && (
+                      <button
+                        className="use-calculator"
+                        type="button"
+                        onClick={() => useRecommendedCalculator(recommendation.calculatorId!)}
+                      >
+                        Use this calculator
+                      </button>
+                    )}
+                  </>
+                ) : null}
+              </div>
+
+              <aside className="path-card" aria-label="Decision path">
+                <span>Decision path</span>
+                {decisionPath.length === 0 ? (
+                  <p>No answers yet.</p>
+                ) : (
+                  <ol>
+                    {decisionPath.map((step) => (
+                      <li key={`${step.question}-${step.answer}`}>
+                        <strong>{step.answer}</strong>
+                        <small>{step.question}</small>
+                      </li>
+                    ))}
+                  </ol>
+                )}
+              </aside>
+            </div>
+          </section>
+        ) : (
+          <section className="calculator-panel" aria-labelledby="calculator-title">
+            <div className="panel-heading">
+              <div>
+                <p className="eyebrow">{calculator.category}</p>
+                <h2 id="calculator-title">{calculator.title}</h2>
+                <p>{calculator.purpose}</p>
+              </div>
+              <div className="actions">
+                <button type="button" onClick={saveScenario}>Save scenario</button>
+                <button type="button" onClick={downloadPdf}>Download PDF</button>
+              </div>
+            </div>
+
+            <div className="inputs-grid">
+              {calculator.variables.map((variable) => (
+                <label className="control" key={variable.key}>
+                  <span>
+                    <strong>{variable.label}</strong>
+                    <small>{variable.help}</small>
+                  </span>
+                  <div className="input-row">
+                    {variable.slider && (
+                      <input
+                        aria-label={`${variable.label} slider`}
+                        max={variable.max}
+                        min={variable.min}
+                        onChange={(event) => updateValue(variable.key, Number(event.target.value))}
+                        step={variable.step}
+                        type="range"
+                        value={values[variable.key]}
+                      />
+                    )}
+                    <div className="number-wrap">
+                      <input
+                        aria-label={variable.label}
+                        max={variable.max}
+                        min={variable.min}
+                        onChange={(event) => updateValue(variable.key, Number(event.target.value))}
+                        step={variable.step}
+                        type="number"
+                        value={values[variable.key]}
+                      />
+                      <em>{variable.suffix}</em>
+                    </div>
                   </div>
-                </div>
-              </label>
-            ))}
-          </div>
+                </label>
+              ))}
+            </div>
 
-          <div className="evidence">
-            <article>
-              <h3>Formula</h3>
-              <p>{calculator.formula}</p>
-            </article>
-            <article>
-              <h3>Assumptions</h3>
-              <ul>{calculator.assumptions.map((item) => <li key={item}>{item}</li>)}</ul>
-            </article>
-            <article>
-              <h3>References</h3>
-              <ul>{calculator.references.map((item) => <li key={item}>{item}</li>)}</ul>
-            </article>
-          </div>
-        </section>
+            <div className="evidence">
+              <article>
+                <h3>Formula</h3>
+                <p>{calculator.formula}</p>
+              </article>
+              <article>
+                <h3>Assumptions</h3>
+                <ul>{calculator.assumptions.map((item) => <li key={item}>{item}</li>)}</ul>
+              </article>
+              <article>
+                <h3>References</h3>
+                <ul>{calculator.references.map((item) => <li key={item}>{item}</li>)}</ul>
+              </article>
+            </div>
+          </section>
+        )}
 
         <aside className="results" aria-label="Live result">
           <div className="result-card primary">

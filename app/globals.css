@@ -123,6 +123,29 @@ h3 {
   font-size: 1.55rem;
 }
 
+.mode-tabs {
+  display: flex;
+  gap: 10px;
+  max-width: 1500px;
+  margin: 0 auto 18px;
+}
+
+.mode-tabs button {
+  min-height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.86);
+  color: var(--foreground);
+  padding: 10px 16px;
+  font-weight: 800;
+}
+
+.mode-tabs button.active {
+  border-color: transparent;
+  background: var(--teal);
+  color: #fff;
+}
+
 .workspace {
   display: grid;
   grid-template-columns: minmax(240px, 300px) minmax(0, 1fr) minmax(280px, 340px);
@@ -133,6 +156,7 @@ h3 {
 }
 
 .catalog,
+.finder-panel,
 .calculator-panel,
 .results {
   border: 1px solid var(--line);
@@ -177,6 +201,11 @@ h3 {
   border-color: transparent;
   background: var(--coral);
   color: #fff;
+}
+
+.actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.42;
 }
 
 .design-list {
@@ -224,7 +253,8 @@ h3 {
   line-height: 1.35;
 }
 
-.calculator-panel {
+.calculator-panel,
+.finder-panel {
   padding: 22px;
 }
 
@@ -249,6 +279,146 @@ h3 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
   margin-top: 20px;
+}
+
+.decision-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 290px);
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.decision-card,
+.path-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  padding: 18px;
+}
+
+.decision-card {
+  min-height: 520px;
+  background:
+    linear-gradient(135deg, rgba(242, 184, 75, 0.18), transparent 34%),
+    linear-gradient(225deg, rgba(81, 102, 214, 0.12), transparent 36%),
+    #fff;
+}
+
+.decision-card > span,
+.path-card > span {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--indigo);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.decision-card h3 {
+  max-width: 780px;
+  margin-bottom: 10px;
+  font-size: clamp(1.45rem, 3vw, 2.4rem);
+  line-height: 1.04;
+}
+
+.decision-card p,
+.path-card p {
+  color: var(--ink-muted);
+  line-height: 1.5;
+}
+
+.choice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.choice-grid button {
+  display: grid;
+  gap: 8px;
+  min-height: 132px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 16px;
+  text-align: left;
+}
+
+.choice-grid button:hover,
+.choice-grid button:focus-visible,
+.use-calculator:hover,
+.use-calculator:focus-visible {
+  border-color: rgba(15, 159, 154, 0.55);
+  box-shadow: 0 12px 32px rgba(15, 159, 154, 0.13);
+  outline: none;
+}
+
+.choice-grid small {
+  color: var(--ink-muted);
+  line-height: 1.4;
+}
+
+.recommendation-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.recommendation-grid article {
+  min-height: 160px;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.recommendation-grid article:first-child {
+  background: var(--mint);
+}
+
+.recommendation-grid article:last-child {
+  background: var(--rose);
+}
+
+.recommendation-grid ul,
+.path-card ol {
+  margin: 10px 0 0;
+  padding-left: 18px;
+}
+
+.recommendation-grid li,
+.path-card li {
+  margin-bottom: 10px;
+  color: var(--ink-muted);
+  line-height: 1.4;
+}
+
+.use-calculator {
+  min-height: 48px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--foreground);
+  color: #fff;
+  margin-top: 18px;
+  padding: 12px 18px;
+  font-weight: 800;
+}
+
+.path-card {
+  align-self: start;
+  background: linear-gradient(180deg, #fff, var(--sky));
+}
+
+.path-card li strong,
+.path-card li small {
+  display: block;
+}
+
+.path-card li small {
+  margin-top: 3px;
+  color: var(--ink-muted);
+  font-size: 0.78rem;
 }
 
 .control {
@@ -440,6 +610,9 @@ input[type="number"] {
   .hero-metrics,
   .inputs-grid,
   .evidence,
+  .decision-body,
+  .choice-grid,
+  .recommendation-grid,
   .design-list {
     grid-template-columns: 1fr;
   }
