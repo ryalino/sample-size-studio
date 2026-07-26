@@ -164,11 +164,19 @@ h3 {
 
 .workspace {
   display: grid;
-  grid-template-columns: minmax(240px, 300px) minmax(0, 1fr) minmax(280px, 340px);
+  grid-template-columns: minmax(0, 1fr);
   gap: 18px;
   max-width: 1500px;
   margin: 0 auto;
   align-items: start;
+}
+
+.calculator-workspace {
+  grid-template-columns: minmax(240px, 300px) minmax(0, 1fr) minmax(280px, 340px);
+}
+
+.randomiser-workspace {
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
 }
 
 .catalog,
@@ -786,6 +794,79 @@ input:disabled {
   line-height: 0.95;
 }
 
+.protocol-card p {
+  color: var(--ink-muted);
+  line-height: 1.42;
+}
+
+.protocol-card button {
+  min-height: 40px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--foreground);
+  color: #fff;
+  margin-top: 10px;
+  padding: 9px 12px;
+  font-weight: 800;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  background: rgba(23, 32, 42, 0.48);
+  padding: 20px;
+}
+
+.citation-modal {
+  width: min(760px, 100%);
+  max-height: min(760px, calc(100vh - 40px));
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 24px 80px rgba(23, 32, 42, 0.28);
+  padding: 20px;
+}
+
+.modal-head {
+  display: flex;
+  gap: 14px;
+  align-items: start;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 14px;
+}
+
+.modal-head button {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--foreground);
+  color: #fff;
+  padding: 9px 13px;
+}
+
+.citation-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.citation-list article {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: linear-gradient(180deg, #fff, #fbfcff);
+  padding: 13px;
+}
+
+.citation-list p {
+  margin: 8px 0 0;
+  color: var(--ink-muted);
+  line-height: 1.45;
+}
+
 .saved {
   border-top: 1px solid var(--line);
   padding-top: 12px;
@@ -820,7 +901,9 @@ input:disabled {
 
 @media (max-width: 1120px) {
   .masthead,
-  .workspace {
+  .workspace,
+  .calculator-workspace,
+  .randomiser-workspace {
     grid-template-columns: 1fr;
   }
 

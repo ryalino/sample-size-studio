@@ -1110,6 +1110,7 @@ export function SampleSizeApp() {
   const [randomBlockSize, setRandomBlockSize] = useState(4);
   const [randomSeed, setRandomSeed] = useState("STUDY-2026");
   const [checklistType, setChecklistType] = useState<ChecklistKey>("trial");
+  const [showCitationModal, setShowCitationModal] = useState(false);
   const [valuesByCalculator, setValuesByCalculator] = useState<Record<string, Values>>(() =>
     Object.fromEntries(calculators.map((calculator) => [calculator.id, initialValues(calculator)])),
   );
@@ -1160,6 +1161,28 @@ export function SampleSizeApp() {
     `The calculation used the following formula/approach: ${calculator.formula}.`,
     `Key assumptions were: ${calculator.assumptions.join(" ")}`,
   ].join(" ");
+  const citationFormats = [
+    {
+      label: "Vancouver",
+      text: "Ryalino C. StudySize Studio [Internet]. 2026 [cited 2026 Jul 26]. Available from: https://studysize-studio.ryalino651800.chatgpt.site",
+    },
+    {
+      label: "PubMed/NLM",
+      text: "Ryalino C. StudySize Studio [Internet]. 2026 [cited 2026 Jul 26]. Available from: https://studysize-studio.ryalino651800.chatgpt.site",
+    },
+    {
+      label: "MLA",
+      text: "Ryalino, Christopher. StudySize Studio. 2026, https://studysize-studio.ryalino651800.chatgpt.site. Accessed 26 July 2026.",
+    },
+    {
+      label: "AMA",
+      text: "Ryalino C. StudySize Studio. Published 2026. Accessed July 26, 2026. https://studysize-studio.ryalino651800.chatgpt.site",
+    },
+    {
+      label: "APA",
+      text: "Ryalino, C. (2026). StudySize Studio [Web application]. https://studysize-studio.ryalino651800.chatgpt.site",
+    },
+  ];
 
   function updateValue(key: string, value: number) {
     setValuesByCalculator((current) => ({
@@ -1212,31 +1235,6 @@ export function SampleSizeApp() {
     anchor.click();
     URL.revokeObjectURL(url);
     setStatus("PDF downloaded");
-  }
-
-  function downloadCitationPdf() {
-    const lines = [
-      "App citation:",
-      "Vancouver/NLM: Ryalino C. StudySize Studio [Internet]. 2026 [cited 2026 Jul 26]. Available from: https://studysize-studio.ryalino651800.chatgpt.site",
-      "MLA: Ryalino, Christopher. StudySize Studio. 2026, https://studysize-studio.ryalino651800.chatgpt.site. Accessed 26 July 2026.",
-      "BibTeX:",
-      "@misc{ryalino2026studysize, author={Ryalino, Christopher}, title={StudySize Studio}, year={2026}, url={https://studysize-studio.ryalino651800.chatgpt.site}, note={Accessed 26 July 2026}}",
-      "Current calculator references:",
-      ...calculator.references,
-      "Reporting guideline resources:",
-      "EQUATOR Network reporting guidelines library: https://www.equator-network.org/library/",
-      "CONSORT-SPIRIT: https://www.consort-spirit.org/",
-      "STROBE: https://www.strobe-statement.org/",
-      "PRISMA: https://www.prisma-statement.org/",
-      "TRIPOD: https://www.tripod-statement.org/",
-    ];
-    const url = URL.createObjectURL(makePdf("StudySize Studio Citations", lines));
-    const anchor = document.createElement("a");
-    anchor.href = url;
-    anchor.download = "studysize-citations.pdf";
-    anchor.click();
-    URL.revokeObjectURL(url);
-    setStatus("Citation PDF downloaded");
   }
 
   function downloadProtocolPdf() {
@@ -1355,8 +1353,8 @@ export function SampleSizeApp() {
         <div>
           <p className="eyebrow">Sample size calculators</p>
           <h1 id="app-title">StudySize Studio</h1>
-          <button className="citation-button" type="button" onClick={downloadCitationPdf}>
-            Export citation and references
+          <button className="citation-button" type="button" onClick={() => setShowCitationModal(true)}>
+            How to cite us
           </button>
           <p>
             Live calculators for researchers and clinicians, with exact inputs beside slider controls,
@@ -1385,35 +1383,37 @@ export function SampleSizeApp() {
         </button>
       </nav>
 
-      <section className="workspace">
-        <aside className="catalog" aria-label="Study design catalog">
-          <div className="category-tabs" role="tablist" aria-label="Filter study designs">
-            {categories.map((category) => (
-              <button
-                className={activeCategory === category ? "active" : ""}
-                key={category}
-                onClick={() => setActiveCategory(category)}
-                type="button"
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-          <div className="design-list">
-            {filtered.map((item) => (
-              <button
-                className={item.id === calculator.id ? "design-card selected" : "design-card"}
-                key={item.id}
-                onClick={() => setActiveId(item.id)}
-                type="button"
-              >
-                <span>{item.category}</span>
-                <strong>{item.title}</strong>
-                <small>{item.purpose}</small>
-              </button>
-            ))}
-          </div>
-        </aside>
+      <section className={`workspace ${mode}-workspace`}>
+        {mode === "calculator" && (
+          <aside className="catalog" aria-label="Study design catalog">
+            <div className="category-tabs" role="tablist" aria-label="Filter study designs">
+              {categories.map((category) => (
+                <button
+                  className={activeCategory === category ? "active" : ""}
+                  key={category}
+                  onClick={() => setActiveCategory(category)}
+                  type="button"
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+            <div className="design-list">
+              {filtered.map((item) => (
+                <button
+                  className={item.id === calculator.id ? "design-card selected" : "design-card"}
+                  key={item.id}
+                  onClick={() => setActiveId(item.id)}
+                  type="button"
+                >
+                  <span>{item.category}</span>
+                  <strong>{item.title}</strong>
+                  <small>{item.purpose}</small>
+                </button>
+              ))}
+            </div>
+          </aside>
+        )}
 
         {mode === "finder" ? (
           <section className="finder-panel" aria-labelledby="finder-title">
@@ -1708,25 +1708,13 @@ export function SampleSizeApp() {
                 <p className="eyebrow">Planning assistant</p>
                 <h2 id="research-title">Research tools</h2>
                 <p>
-                  Generate protocol wording, compare saved sample-size scenarios, and choose a
-                  reporting checklist for the main study type.
+                  Compare saved sample-size scenarios and choose a reporting checklist for the main
+                  study type.
                 </p>
-              </div>
-              <div className="actions">
-                <button type="button" onClick={downloadProtocolPdf}>Protocol PDF</button>
               </div>
             </div>
 
             <div className="research-grid">
-              <section className="tool-card wide" aria-labelledby="protocol-title">
-                <span>Protocol wording generator</span>
-                <h3 id="protocol-title">Sample-size paragraph</h3>
-                <p>{protocolText}</p>
-                <button className="use-calculator" type="button" onClick={downloadProtocolPdf}>
-                  Download wording PDF
-                </button>
-              </section>
-
               <section className="tool-card wide" aria-labelledby="comparison-title">
                 <span>Scenario comparison</span>
                 <h3 id="comparison-title">Saved assumption sets</h3>
@@ -1880,7 +1868,7 @@ export function SampleSizeApp() {
               </ul>
             </div>
           </aside>
-        ) : (
+        ) : mode === "calculator" ? (
           <aside className="results" aria-label="Live result">
             <div className="result-card primary">
               <span>Required sample size</span>
@@ -1895,6 +1883,11 @@ export function SampleSizeApp() {
             <div className="result-card">
               <span>Planning notes</span>
               <ul>{result.details.map((detail) => <li key={detail}>{detail}</li>)}</ul>
+            </div>
+            <div className="result-card protocol-card">
+              <span>Protocol wording</span>
+              <p>{protocolText}</p>
+              <button type="button" onClick={downloadProtocolPdf}>Download wording PDF</button>
             </div>
             <div className="saved">
               <div className="saved-head">
@@ -1913,8 +1906,38 @@ export function SampleSizeApp() {
               )}
             </div>
           </aside>
-        )}
+        ) : null}
       </section>
+
+      {showCitationModal && (
+        <div className="modal-backdrop" role="presentation" onClick={() => setShowCitationModal(false)}>
+          <section
+            aria-labelledby="citation-title"
+            aria-modal="true"
+            className="citation-modal"
+            onClick={(event) => event.stopPropagation()}
+            role="dialog"
+          >
+            <div className="modal-head">
+              <div>
+                <p className="eyebrow">Citation</p>
+                <h2 id="citation-title">How to cite us</h2>
+              </div>
+              <button aria-label="Close citation dialog" type="button" onClick={() => setShowCitationModal(false)}>
+                Close
+              </button>
+            </div>
+            <div className="citation-list">
+              {citationFormats.map((citation) => (
+                <article key={citation.label}>
+                  <strong>{citation.label}</strong>
+                  <p>{citation.text}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+        </div>
+      )}
     </main>
   );
 }
