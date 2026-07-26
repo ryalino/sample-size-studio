@@ -41,7 +41,7 @@ type Scenario = {
   result: Output;
   createdAt: string;
 };
-type AppMode = "finder" | "calculator" | "randomiser" | "scenario" | "checklist";
+type AppMode = "finder" | "calculator" | "randomiser" | "blinding" | "scenario" | "checklist";
 type DecisionAnswers = Record<string, string>;
 type DecisionOption = {
   value: string;
@@ -62,6 +62,8 @@ type DecisionResult = {
   warnings: string[];
 };
 type RandomisationMethod = "simple" | "block";
+type ConcealmentMethod = "central" | "pharmacy" | "envelopes" | "open";
+type SequenceHolder = "statistician" | "pharmacy" | "system" | "investigator";
 type RandomisationAssignment = {
   subject: number;
   group: string;
@@ -884,6 +886,94 @@ const dutchText: Record<string, string> = {
   "Animal research / ARRIVE": "Dieronderzoek / ARRIVE",
   "Search EQUATOR library": "EQUATOR-bibliotheek zoeken",
 };
+
+Object.assign(indonesianText, {
+  "Copied": "Disalin",
+  "Randomisation wording": "Kalimat randomisasi",
+  "Copy randomisation wording": "Salin kalimat randomisasi",
+  "Review and revise this wording before using it in a manuscript.": "Tinjau dan sesuaikan kalimat ini sebelum digunakan dalam manuskrip.",
+  "Blinding setup": "Pengaturan pembutaan",
+  "Blinding inputs": "Input pembutaan",
+  "Who was blinded?": "Siapa yang dibutakan?",
+  "Mask participants to allocation.": "Buta peserta terhadap alokasi.",
+  "Mask care providers or interventionists to allocation.": "Buta pemberi layanan atau pelaksana intervensi terhadap alokasi.",
+  "Mask outcome assessors to allocation.": "Buta penilai luaran terhadap alokasi.",
+  "Mask data analysts to allocation.": "Buta analis data terhadap alokasi.",
+  "Participants": "Peserta",
+  "Care providers": "Pemberi layanan",
+  "Outcome assessors": "Penilai luaran",
+  "Data analysts": "Analis data",
+  "Allocation concealment method": "Metode penyembunyian alokasi",
+  "Sequence holder": "Pemegang urutan",
+  "Central randomisation or secure database": "Randomisasi sentral atau basis data aman",
+  "Pharmacy-controlled allocation": "Alokasi dikendalikan farmasi",
+  "Sequentially numbered opaque sealed envelopes": "Amplop buram tersegel bernomor urut",
+  "Open list or no allocation concealment": "Daftar terbuka atau tanpa penyembunyian alokasi",
+  "Independent statistician": "Statistikawan independen",
+  "Study pharmacy": "Farmasi studi",
+  "Secure randomisation system": "Sistem randomisasi aman",
+  "Principal investigator": "Peneliti utama",
+  "Blinding classification": "Klasifikasi pembutaan",
+  "Open-label": "Label terbuka",
+  "Single-blinded": "Buta tunggal",
+  "Double-blinded": "Buta ganda",
+  "Triple-blinded": "Buta tiga pihak",
+  "Blinded roles": "Peran yang dibutakan",
+  "No party is blinded to allocation.": "Tidak ada pihak yang dibutakan terhadap alokasi.",
+  "Allocation concealment": "Penyembunyian alokasi",
+  "Blinding wording": "Kalimat pembutaan",
+  "Copy blinding wording": "Salin kalimat pembutaan",
+  "Randomisation wording copied": "Kalimat randomisasi disalin",
+  "Blinding wording copied": "Kalimat pembutaan disalin",
+  "Classify blinding from the parties masked to allocation and generate manuscript wording that can be reviewed against CONSORT expectations.": "Klasifikasikan pembutaan dari pihak yang disamarkan terhadap alokasi dan buat kalimat manuskrip yang dapat ditinjau sesuai ekspektasi CONSORT.",
+  "Mask the parties who should not know the allocation before outcome interpretation or analysis.": "Pilih pihak yang tidak boleh mengetahui alokasi sebelum interpretasi luaran atau analisis.",
+  "Choose how the sequence is protected before assignment.": "Pilih bagaimana urutan dilindungi sebelum alokasi.",
+  "Document who generated, stored, and released the sequence.": "Dokumentasikan siapa yang membuat, menyimpan, dan membuka urutan.",
+});
+
+Object.assign(dutchText, {
+  "Copied": "Gekopieerd",
+  "Randomisation wording": "Randomisatietekst",
+  "Copy randomisation wording": "Randomisatietekst kopiëren",
+  "Review and revise this wording before using it in a manuscript.": "Controleer en pas deze tekst aan voordat u deze in een manuscript gebruikt.",
+  "Blinding setup": "Blindering instellen",
+  "Blinding inputs": "Blindering invoer",
+  "Who was blinded?": "Wie werd geblindeerd?",
+  "Mask participants to allocation.": "Blindeer deelnemers voor allocatie.",
+  "Mask care providers or interventionists to allocation.": "Blindeer zorgverleners of interventionisten voor allocatie.",
+  "Mask outcome assessors to allocation.": "Blindeer uitkomstbeoordelaars voor allocatie.",
+  "Mask data analysts to allocation.": "Blindeer data-analisten voor allocatie.",
+  "Participants": "Deelnemers",
+  "Care providers": "Zorgverleners",
+  "Outcome assessors": "Uitkomstbeoordelaars",
+  "Data analysts": "Data-analisten",
+  "Allocation concealment method": "Methode voor allocatieconcealment",
+  "Sequence holder": "Beheerder van de reeks",
+  "Central randomisation or secure database": "Centrale randomisatie of beveiligde database",
+  "Pharmacy-controlled allocation": "Apotheekgestuurde allocatie",
+  "Sequentially numbered opaque sealed envelopes": "Opeenvolgend genummerde ondoorzichtige verzegelde enveloppen",
+  "Open list or no allocation concealment": "Open lijst of geen allocatieconcealment",
+  "Independent statistician": "Onafhankelijke statisticus",
+  "Study pharmacy": "Studieapotheek",
+  "Secure randomisation system": "Beveiligd randomisatiesysteem",
+  "Principal investigator": "Hoofdonderzoeker",
+  "Blinding classification": "Blinderingclassificatie",
+  "Open-label": "Open-label",
+  "Single-blinded": "Enkelblind",
+  "Double-blinded": "Dubbelblind",
+  "Triple-blinded": "Tripelblind",
+  "Blinded roles": "Geblindeerde rollen",
+  "No party is blinded to allocation.": "Geen partij is geblindeerd voor allocatie.",
+  "Allocation concealment": "Allocatieconcealment",
+  "Blinding wording": "Blinderingstekst",
+  "Copy blinding wording": "Blinderingstekst kopiëren",
+  "Randomisation wording copied": "Randomisatietekst gekopieerd",
+  "Blinding wording copied": "Blinderingstekst gekopieerd",
+  "Classify blinding from the parties masked to allocation and generate manuscript wording that can be reviewed against CONSORT expectations.": "Classificeer blindering op basis van de partijen die gemaskeerd zijn voor allocatie en genereer manuscripttekst die aan CONSORT kan worden getoetst.",
+  "Mask the parties who should not know the allocation before outcome interpretation or analysis.": "Selecteer de partijen die de allocatie niet mogen kennen vóór interpretatie van uitkomsten of analyse.",
+  "Choose how the sequence is protected before assignment.": "Kies hoe de reeks vóór toewijzing wordt beschermd.",
+  "Document who generated, stored, and released the sequence.": "Documenteer wie de reeks heeft gegenereerd, opgeslagen en vrijgegeven.",
+});
 
 const pct = (value: number) => value / 100;
 const ceil = (value: number) => Math.max(1, Math.ceil(value));
@@ -1840,6 +1930,20 @@ const blindingGuide = [
   "For open-label studies, blind outcome assessment and data analysis when possible.",
 ];
 
+const concealmentMethodLabels: Record<ConcealmentMethod, string> = {
+  central: "Central randomisation or secure database",
+  pharmacy: "Pharmacy-controlled allocation",
+  envelopes: "Sequentially numbered opaque sealed envelopes",
+  open: "Open list or no allocation concealment",
+};
+
+const sequenceHolderLabels: Record<SequenceHolder, string> = {
+  statistician: "Independent statistician",
+  pharmacy: "Study pharmacy",
+  system: "Secure randomisation system",
+  investigator: "Principal investigator",
+};
+
 const checklistGuides: Record<ChecklistKey, { title: string; guideline: string; link: string; items: string[] }> = {
   trial: {
     title: "Randomised trial",
@@ -2120,6 +2224,12 @@ export function SampleSizeApp() {
   const [randomMethod, setRandomMethod] = useState<RandomisationMethod>("simple");
   const [randomBlockSize, setRandomBlockSize] = useState(4);
   const [randomSeed, setRandomSeed] = useState("STUDY-2026");
+  const [blindParticipants, setBlindParticipants] = useState(false);
+  const [blindCareProviders, setBlindCareProviders] = useState(false);
+  const [blindOutcomeAssessors, setBlindOutcomeAssessors] = useState(true);
+  const [blindDataAnalysts, setBlindDataAnalysts] = useState(true);
+  const [concealmentMethod, setConcealmentMethod] = useState<ConcealmentMethod>("central");
+  const [sequenceHolder, setSequenceHolder] = useState<SequenceHolder>("statistician");
   const [checklistType, setChecklistType] = useState<ChecklistKey>("trial");
   const [checklistTreeAnswers, setChecklistTreeAnswers] = useState<ChecklistTreeAnswers>({});
   const [showCitationModal, setShowCitationModal] = useState(false);
@@ -2134,6 +2244,7 @@ export function SampleSizeApp() {
     return saved ? JSON.parse(saved) : [];
   });
   const [status, setStatus] = useState("");
+  const [copiedNotice, setCopiedNotice] = useState("");
 
   useEffect(() => {
     document.documentElement.lang = language;
@@ -2164,6 +2275,84 @@ export function SampleSizeApp() {
     counts[assignment.group] = (counts[assignment.group] ?? 0) + 1;
     return counts;
   }, {});
+  const randomisationMethodName =
+    randomMethod === "block"
+      ? language === "id"
+        ? "randomisasi blok permutasi"
+        : language === "nl"
+          ? "gepermuteerde blokrandomisatie"
+          : "permuted block randomisation"
+      : language === "id"
+        ? "randomisasi seimbang sederhana"
+        : language === "nl"
+          ? "eenvoudige gebalanceerde randomisatie"
+          : "simple balanced randomisation";
+  const stratumDescription =
+    randomisationStrata.length === 1 && randomisationStrata[0] === "All participants"
+      ? language === "id"
+        ? "tanpa stratifikasi"
+        : language === "nl"
+          ? "zonder stratificatie"
+          : "without stratification"
+      : language === "id"
+        ? `distratifikasi berdasarkan ${randomisationStrata.join(", ")}`
+        : language === "nl"
+          ? `gestratificeerd naar ${randomisationStrata.join(", ")}`
+          : `stratified by ${randomisationStrata.join(", ")}`;
+  const blindedRoleLabels = [
+    blindParticipants ? "Participants" : "",
+    blindCareProviders ? "Care providers" : "",
+    blindOutcomeAssessors ? "Outcome assessors" : "",
+    blindDataAnalysts ? "Data analysts" : "",
+  ].filter(Boolean);
+  const translatedBlindedRoles = blindedRoleLabels.map((role) => t(role, language).toLowerCase());
+  const blindingClassification =
+    blindedRoleLabels.length === 0
+      ? "Open-label"
+      : blindedRoleLabels.length === 1
+        ? "Single-blinded"
+        : blindedRoleLabels.length === 2
+          ? "Double-blinded"
+          : "Triple-blinded";
+  const randomisationWording =
+    language === "id"
+      ? [
+          `Peserta akan dialokasikan ke ${randomisedGroups.join(" atau ")} menggunakan ${randomisationMethodName} ${stratumDescription}.`,
+          randomMethod === "block"
+            ? `Urutan alokasi akan menggunakan ukuran blok ${Math.max(randomisedGroups.length, randomBlockSize)}, yang harus dirahasiakan dari peneliti yang terlibat dalam rekrutmen.`
+            : "Urutan alokasi akan dibuat sebagai urutan acak seimbang sebelum rekrutmen dimulai.",
+          `Urutan akan berisi ${randomSubjectCount} slot randomisasi dan dibuat dengan seed terdokumentasi "${randomSeed || "studysize-studio"}" untuk mendukung reproduksibilitas dan audit.`,
+          "Randomisasi sebaiknya dilakukan hanya setelah kelayakan dikonfirmasi dan persetujuan tindakan selesai, dengan penyembunyian alokasi dipertahankan sampai penetapan.",
+        ].join(" ")
+      : language === "nl"
+        ? [
+            `Deelnemers worden toegewezen aan ${randomisedGroups.join(" of ")} met ${randomisationMethodName} ${stratumDescription}.`,
+            randomMethod === "block"
+              ? `De allocatiereeks gebruikt een blokgrootte van ${Math.max(randomisedGroups.length, randomBlockSize)}, die verborgen moet blijven voor onderzoekers die bij inclusie betrokken zijn.`
+              : "De allocatiereeks wordt vóór de start van de inclusie gegenereerd als een gebalanceerde geschudde reeks.",
+            `De reeks bevat ${randomSubjectCount} randomisatieslots en wordt gegenereerd met de gedocumenteerde seed "${randomSeed || "studysize-studio"}" ter ondersteuning van reproduceerbaarheid en audit.`,
+            "Randomisatie dient pas plaats te vinden nadat geschiktheid is bevestigd en geïnformeerde toestemming is afgerond, waarbij allocatieconcealment tot toewijzing behouden blijft.",
+          ].join(" ")
+        : [
+            `Participants will be allocated to ${randomisedGroups.join(" or ")} using ${randomisationMethodName} ${stratumDescription}.`,
+            randomMethod === "block"
+              ? `The allocation sequence will use a block size of ${Math.max(randomisedGroups.length, randomBlockSize)}, which should be concealed from investigators involved in recruitment.`
+              : "The allocation sequence will be generated as a balanced shuffled sequence before recruitment begins.",
+            `The sequence will contain ${randomSubjectCount} randomisation slots and will be generated with the documented seed "${randomSeed || "studysize-studio"}" to support reproducibility and audit.`,
+            "Randomisation should occur only after eligibility has been confirmed and informed consent has been completed, with allocation concealment maintained until assignment.",
+          ].join(" ");
+  const blindingWording =
+    language === "id"
+      ? blindedRoleLabels.length === 0
+        ? `Studi ini akan dilakukan sebagai studi label terbuka. Peserta, pemberi layanan, penilai luaran, dan analis data tidak akan dibutakan terhadap alokasi. Penyembunyian alokasi akan ditangani menggunakan ${t(concealmentMethodLabels[concealmentMethod], language).toLowerCase()}, dengan urutan dipegang oleh ${t(sequenceHolderLabels[sequenceHolder], language).toLowerCase()} sampai penetapan.`
+        : `Studi ini akan dilakukan sebagai studi ${t(blindingClassification, language).toLowerCase()}. Pihak berikut akan dibutakan terhadap alokasi perlakuan: ${translatedBlindedRoles.join(", ")}. Penyembunyian alokasi akan dipertahankan menggunakan ${t(concealmentMethodLabels[concealmentMethod], language).toLowerCase()}, dengan urutan alokasi dipegang oleh ${t(sequenceHolderLabels[sequenceHolder], language).toLowerCase()} sampai kelayakan dan persetujuan dikonfirmasi. Prosedur pembukaan pembutaan darurat dan setiap kejadian pembukaan pembutaan harus didokumentasikan dalam berkas uji klinis.`
+      : language === "nl"
+        ? blindedRoleLabels.length === 0
+          ? `Deze studie wordt uitgevoerd als een open-label studie. Deelnemers, zorgverleners, uitkomstbeoordelaars en data-analisten worden niet geblindeerd voor allocatie. Allocatieconcealment wordt geregeld met ${t(concealmentMethodLabels[concealmentMethod], language).toLowerCase()}, waarbij de reeks tot toewijzing wordt beheerd door ${t(sequenceHolderLabels[sequenceHolder], language).toLowerCase()}.`
+          : `Deze studie wordt uitgevoerd als een ${t(blindingClassification, language).toLowerCase()} studie. De volgende partijen worden geblindeerd voor behandelallocatie: ${translatedBlindedRoles.join(", ")}. Allocatieconcealment wordt behouden met ${t(concealmentMethodLabels[concealmentMethod], language).toLowerCase()}, waarbij de allocatiereeks wordt beheerd door ${t(sequenceHolderLabels[sequenceHolder], language).toLowerCase()} totdat geschiktheid en toestemming zijn bevestigd. Procedures voor noodontblindering en alle ontblinderingsevents moeten in het studiedossier worden vastgelegd.`
+        : blindedRoleLabels.length === 0
+          ? `This study will be conducted as an open-label study. Participants, care providers, outcome assessors, and data analysts will not be blinded to allocation. Allocation concealment will be handled using ${concealmentMethodLabels[concealmentMethod].toLowerCase()}, with the sequence held by ${sequenceHolderLabels[sequenceHolder].toLowerCase()} until assignment.`
+          : `This study will be conducted as a ${blindingClassification.toLowerCase()} study. The following parties will be blinded to treatment allocation: ${translatedBlindedRoles.join(", ")}. Allocation concealment will be maintained using ${t(concealmentMethodLabels[concealmentMethod], language).toLowerCase()}, with the allocation sequence held by ${t(sequenceHolderLabels[sequenceHolder], language).toLowerCase()} until eligibility and consent are confirmed. Emergency unblinding procedures and any unblinding events should be documented in the trial file.`;
   const decisionPath = decisionOrder
     .filter((id) => decisionAnswers[id])
     .map((id) => {
@@ -2439,11 +2628,24 @@ export function SampleSizeApp() {
   function copyProtocolWording() {
     void navigator.clipboard?.writeText(protocolText);
     setStatus(t("Protocol wording copied", language));
+    showCopiedToast();
   }
 
   function copyCitation(text: string) {
     void navigator.clipboard?.writeText(text);
     setStatus(t("Citation copied", language));
+    showCopiedToast();
+  }
+
+  function copyGeneratedWording(text: string, message: string) {
+    void navigator.clipboard?.writeText(text);
+    setStatus(t(message, language));
+    showCopiedToast();
+  }
+
+  function showCopiedToast() {
+    setCopiedNotice(t("Copied", language));
+    window.setTimeout(() => setCopiedNotice(""), 1500);
   }
 
   function answerChecklistTree(questionId: string, answer: boolean) {
@@ -2508,6 +2710,9 @@ export function SampleSizeApp() {
         </button>
         <button className={mode === "randomiser" ? "active" : ""} type="button" onClick={() => setMode("randomiser")}>
           {t("Randomiser", language)}
+        </button>
+        <button className={mode === "blinding" ? "active" : ""} type="button" onClick={() => setMode("blinding")}>
+          {t("Blinding", language)}
         </button>
         <button className={mode === "scenario" ? "active" : ""} type="button" onClick={() => setMode("scenario")}>
           {t("Scenario Comparison", language)}
@@ -2829,6 +3034,106 @@ export function SampleSizeApp() {
               </ol>
             </section>
           </section>
+        ) : mode === "blinding" ? (
+          <section className="blinding-panel" aria-labelledby="blinding-page-title">
+            <div className="panel-heading">
+              <div>
+                <p className="eyebrow">{t("Blinding setup", language)}</p>
+                <h2 id="blinding-page-title">{t("Blinding", language)}</h2>
+                <p>
+                  {t("Classify blinding from the parties masked to allocation and generate manuscript wording that can be reviewed against CONSORT expectations.", language)}
+                </p>
+              </div>
+            </div>
+
+            <div className="blinding-grid">
+              <section className="best-practice blinding-guide compact-guide" aria-labelledby="blinding-guide-title">
+                <div>
+                  <p className="eyebrow">{t("Blinding", language)}</p>
+                  <h3 id="blinding-guide-title">{t("Blinding and allocation concealment guide", language)}</h3>
+                  <p>
+                    {t("The allocation sequence should be protected before assignment, and blinding should be planned around who can influence enrolment, treatment, assessment, or analysis.", language)}
+                  </p>
+                </div>
+                <ol>
+                  {blindingGuide.map((item) => <li key={item}>{t(item, language)}</li>)}
+                </ol>
+              </section>
+
+              <section className="randomiser-controls blinding-controls" aria-label={t("Blinding inputs", language)}>
+                <div className="control checkbox-control">
+                  <span>
+                    <strong>{t("Who was blinded?", language)}</strong>
+                    <small>{t("Mask the parties who should not know the allocation before outcome interpretation or analysis.", language)}</small>
+                  </span>
+                  <div className="checkbox-grid">
+                    <label className="check-option">
+                      <input checked={blindParticipants} onChange={(event) => setBlindParticipants(event.target.checked)} type="checkbox" />
+                      <span>
+                        <strong>{t("Participants", language)}</strong>
+                        <small>{t("Mask participants to allocation.", language)}</small>
+                      </span>
+                    </label>
+                    <label className="check-option">
+                      <input checked={blindCareProviders} onChange={(event) => setBlindCareProviders(event.target.checked)} type="checkbox" />
+                      <span>
+                        <strong>{t("Care providers", language)}</strong>
+                        <small>{t("Mask care providers or interventionists to allocation.", language)}</small>
+                      </span>
+                    </label>
+                    <label className="check-option">
+                      <input checked={blindOutcomeAssessors} onChange={(event) => setBlindOutcomeAssessors(event.target.checked)} type="checkbox" />
+                      <span>
+                        <strong>{t("Outcome assessors", language)}</strong>
+                        <small>{t("Mask outcome assessors to allocation.", language)}</small>
+                      </span>
+                    </label>
+                    <label className="check-option">
+                      <input checked={blindDataAnalysts} onChange={(event) => setBlindDataAnalysts(event.target.checked)} type="checkbox" />
+                      <span>
+                        <strong>{t("Data analysts", language)}</strong>
+                        <small>{t("Mask data analysts to allocation.", language)}</small>
+                      </span>
+                    </label>
+                  </div>
+                </div>
+
+                <label className="control">
+                  <span>
+                    <strong>{t("Allocation concealment method", language)}</strong>
+                    <small>{t("Choose how the sequence is protected before assignment.", language)}</small>
+                  </span>
+                  <select
+                    aria-label={t("Allocation concealment method", language)}
+                    onChange={(event) => setConcealmentMethod(event.target.value as ConcealmentMethod)}
+                    value={concealmentMethod}
+                  >
+                    <option value="central">{t(concealmentMethodLabels.central, language)}</option>
+                    <option value="pharmacy">{t(concealmentMethodLabels.pharmacy, language)}</option>
+                    <option value="envelopes">{t(concealmentMethodLabels.envelopes, language)}</option>
+                    <option value="open">{t(concealmentMethodLabels.open, language)}</option>
+                  </select>
+                </label>
+
+                <label className="control">
+                  <span>
+                    <strong>{t("Sequence holder", language)}</strong>
+                    <small>{t("Document who generated, stored, and released the sequence.", language)}</small>
+                  </span>
+                  <select
+                    aria-label={t("Sequence holder", language)}
+                    onChange={(event) => setSequenceHolder(event.target.value as SequenceHolder)}
+                    value={sequenceHolder}
+                  >
+                    <option value="statistician">{t(sequenceHolderLabels.statistician, language)}</option>
+                    <option value="pharmacy">{t(sequenceHolderLabels.pharmacy, language)}</option>
+                    <option value="system">{t(sequenceHolderLabels.system, language)}</option>
+                    <option value="investigator">{t(sequenceHolderLabels.investigator, language)}</option>
+                  </select>
+                </label>
+              </section>
+            </div>
+          </section>
         ) : mode === "scenario" ? (
           <section className="scenario-panel" aria-labelledby="scenario-title">
             <div className="panel-heading">
@@ -3064,6 +3369,53 @@ export function SampleSizeApp() {
                 <li>{t("Keep the sequence concealed from recruiters.", language)}</li>
               </ul>
             </div>
+            <div className="result-card wording-card">
+              <span>{t("Randomisation wording", language)}</span>
+              <p>{randomisationWording}</p>
+              <small>{t("Review and revise this wording before using it in a manuscript.", language)}</small>
+              <button
+                type="button"
+                onClick={() => copyGeneratedWording(randomisationWording, "Randomisation wording copied")}
+              >
+                {t("Copy randomisation wording", language)}
+              </button>
+            </div>
+          </aside>
+        ) : mode === "blinding" ? (
+          <aside className="results" aria-label={t("Blinding classification", language)}>
+            <div className="result-card primary blinding-classification">
+              <span>{t("Blinding classification", language)}</span>
+              <strong>{t(blindingClassification, language)}</strong>
+              <small>
+                {blindedRoleLabels.length === 0
+                  ? t("No party is blinded to allocation.", language)
+                  : `${blindedRoleLabels.length} ${t("Blinded roles", language).toLowerCase()}`}
+              </small>
+            </div>
+            <div className="result-card">
+              <span>{t("Blinded roles", language)}</span>
+              {blindedRoleLabels.length === 0 ? (
+                <p>{t("No party is blinded to allocation.", language)}</p>
+              ) : (
+                <ul>{blindedRoleLabels.map((role) => <li key={role}>{t(role, language)}</li>)}</ul>
+              )}
+            </div>
+            <div className="result-card adjusted">
+              <span>{t("Allocation concealment", language)}</span>
+              <strong>{t(concealmentMethodLabels[concealmentMethod], language)}</strong>
+              <small>{t(sequenceHolderLabels[sequenceHolder], language)}</small>
+            </div>
+            <div className="result-card wording-card">
+              <span>{t("Blinding wording", language)}</span>
+              <p>{blindingWording}</p>
+              <small>{t("Review and revise this wording before using it in a manuscript.", language)}</small>
+              <button
+                type="button"
+                onClick={() => copyGeneratedWording(blindingWording, "Blinding wording copied")}
+              >
+                {t("Copy blinding wording", language)}
+              </button>
+            </div>
           </aside>
         ) : mode === "calculator" ? (
           <aside className="results" aria-label={t("Live result", language)}>
@@ -3107,6 +3459,12 @@ export function SampleSizeApp() {
       </section>
 
       <footer className="app-footer"><strong>{t("StudySize Studio version 1.1 © Ryalino, 2026.", language)}</strong></footer>
+
+      {copiedNotice && (
+        <div className="copy-toast" role="status" aria-live="polite">
+          {copiedNotice}
+        </div>
+      )}
 
       {showCitationModal && (
         <div className="modal-backdrop" role="presentation" onClick={() => setShowCitationModal(false)}>
