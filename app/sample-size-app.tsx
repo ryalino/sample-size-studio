@@ -3400,7 +3400,7 @@ export function SampleSizeApp() {
                 <ul>{blindedRoleLabels.map((role) => <li key={role}>{t(role, language)}</li>)}</ul>
               )}
             </div>
-            <div className="result-card adjusted">
+            <div className="result-card adjusted concealment-card">
               <span>{t("Allocation concealment", language)}</span>
               <strong>{t(concealmentMethodLabels[concealmentMethod], language)}</strong>
               <small>{t(sequenceHolderLabels[sequenceHolder], language)}</small>
