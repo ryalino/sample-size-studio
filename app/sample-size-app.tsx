@@ -919,10 +919,10 @@ Object.assign(indonesianText, {
   "Single-blinded": "Buta tunggal",
   "Double-blinded": "Buta ganda",
   "Triple-blinded": "Buta tiga pihak",
-  "Neither participants nor care providers are blinded; blinded outcome assessment or analysis should be reported separately.": "Peserta maupun pemberi layanan tidak dibutakan; penilaian luaran atau analisis yang dibutakan harus dilaporkan terpisah.",
-  "Participants or care providers are blinded, but not both.": "Peserta atau pemberi layanan dibutakan, tetapi tidak keduanya.",
-  "Participants and care providers are blinded; outcome assessment and data analysis are not additionally masked.": "Peserta dan pemberi layanan dibutakan; penilaian luaran dan analisis data tidak disamarkan sebagai lapisan tambahan.",
-  "Participants, care providers, and outcome assessment or analysis are blinded.": "Peserta, pemberi layanan, serta penilaian luaran atau analisis dibutakan.",
+  "Participants are not blinded; any blinded researcher, outcome-assessor, or data-analysis role should be reported separately.": "Peserta tidak dibutakan; setiap pembutaan pada peneliti, penilai luaran, atau analis data harus dilaporkan terpisah.",
+  "Participants are blinded; researchers, investigators, and data collectors are not blinded.": "Peserta dibutakan; peneliti, investigator, dan pengumpul data tidak dibutakan.",
+  "Participants and researchers, investigators, or data collectors are blinded; data analysts are not blinded.": "Peserta dan peneliti, investigator, atau pengumpul data dibutakan; analis data tidak dibutakan.",
+  "Participants, researchers, investigators or data collectors, and data analysts are blinded.": "Peserta, peneliti, investigator atau pengumpul data, serta analis data dibutakan.",
   "Blinded roles": "Peran yang dibutakan",
   "No party is blinded to allocation.": "Tidak ada pihak yang dibutakan terhadap alokasi.",
   "Allocation concealment": "Penyembunyian alokasi",
@@ -968,10 +968,10 @@ Object.assign(dutchText, {
   "Single-blinded": "Enkelblind",
   "Double-blinded": "Dubbelblind",
   "Triple-blinded": "Tripelblind",
-  "Neither participants nor care providers are blinded; blinded outcome assessment or analysis should be reported separately.": "Noch deelnemers noch zorgverleners zijn geblindeerd; geblindeerde uitkomstbeoordeling of analyse moet afzonderlijk worden gerapporteerd.",
-  "Participants or care providers are blinded, but not both.": "Deelnemers of zorgverleners zijn geblindeerd, maar niet allebei.",
-  "Participants and care providers are blinded; outcome assessment and data analysis are not additionally masked.": "Deelnemers en zorgverleners zijn geblindeerd; uitkomstbeoordeling en data-analyse zijn niet aanvullend gemaskeerd.",
-  "Participants, care providers, and outcome assessment or analysis are blinded.": "Deelnemers, zorgverleners en uitkomstbeoordeling of analyse zijn geblindeerd.",
+  "Participants are not blinded; any blinded researcher, outcome-assessor, or data-analysis role should be reported separately.": "Deelnemers zijn niet geblindeerd; elke geblindeerde rol van onderzoeker, uitkomstbeoordelaar of data-analyse moet afzonderlijk worden gerapporteerd.",
+  "Participants are blinded; researchers, investigators, and data collectors are not blinded.": "Deelnemers zijn geblindeerd; onderzoekers, investigator en dataverzamelaars zijn niet geblindeerd.",
+  "Participants and researchers, investigators, or data collectors are blinded; data analysts are not blinded.": "Deelnemers en onderzoekers, investigator of dataverzamelaars zijn geblindeerd; data-analisten zijn niet geblindeerd.",
+  "Participants, researchers, investigators or data collectors, and data analysts are blinded.": "Deelnemers, onderzoekers, investigator of dataverzamelaars, en data-analisten zijn geblindeerd.",
   "Blinded roles": "Geblindeerde rollen",
   "No party is blinded to allocation.": "Geen partij is geblindeerd voor allocatie.",
   "Allocation concealment": "Allocatieconcealment",
@@ -2316,25 +2316,23 @@ export function SampleSizeApp() {
     blindDataAnalysts ? "Data analysts" : "",
   ].filter(Boolean);
   const translatedBlindedRoles = blindedRoleLabels.map((role) => t(role, language).toLowerCase());
-  const coreTrialPartiesBlinded = blindParticipants && blindCareProviders;
-  const trialFacingPartyBlinded = blindParticipants || blindCareProviders;
-  const evaluationPartyBlinded = blindOutcomeAssessors || blindDataAnalysts;
+  const researcherLayerBlinded = blindCareProviders || blindOutcomeAssessors;
   const blindingClassification =
-    !trialFacingPartyBlinded
+    !blindParticipants
       ? "Open-label"
-      : !coreTrialPartiesBlinded
+      : !researcherLayerBlinded
         ? "Single-blinded"
-        : evaluationPartyBlinded
+        : blindDataAnalysts
           ? "Triple-blinded"
           : "Double-blinded";
   const blindingClassificationDetail =
     blindingClassification === "Open-label"
-      ? "Neither participants nor care providers are blinded; blinded outcome assessment or analysis should be reported separately."
+      ? "Participants are not blinded; any blinded researcher, outcome-assessor, or data-analysis role should be reported separately."
       : blindingClassification === "Single-blinded"
-        ? "Participants or care providers are blinded, but not both."
+        ? "Participants are blinded; researchers, investigators, and data collectors are not blinded."
         : blindingClassification === "Double-blinded"
-          ? "Participants and care providers are blinded; outcome assessment and data analysis are not additionally masked."
-          : "Participants, care providers, and outcome assessment or analysis are blinded.";
+          ? "Participants and researchers, investigators, or data collectors are blinded; data analysts are not blinded."
+          : "Participants, researchers, investigators or data collectors, and data analysts are blinded.";
   const blindedRoleSentence =
     translatedBlindedRoles.length === 0
       ? ""
@@ -2373,14 +2371,14 @@ export function SampleSizeApp() {
   const blindingWording =
     language === "id"
       ? blindingClassification === "Open-label"
-        ? `Studi ini akan dilakukan sebagai studi label terbuka karena peserta maupun pemberi layanan/pelaksana intervensi tidak dibutakan terhadap alokasi.${blindedRoleSentence} Penyembunyian alokasi akan ditangani menggunakan ${t(concealmentMethodLabels[concealmentMethod], language).toLowerCase()}, dengan urutan dipegang oleh ${t(sequenceHolderLabels[sequenceHolder], language).toLowerCase()} sampai penetapan.`
+        ? `Studi ini akan dilakukan sebagai studi label terbuka karena peserta tidak dibutakan terhadap alokasi.${blindedRoleSentence} Penyembunyian alokasi akan ditangani menggunakan ${t(concealmentMethodLabels[concealmentMethod], language).toLowerCase()}, dengan urutan dipegang oleh ${t(sequenceHolderLabels[sequenceHolder], language).toLowerCase()} sampai penetapan.`
         : `Studi ini akan dilakukan sebagai studi ${t(blindingClassification, language).toLowerCase()}. Pihak berikut akan dibutakan terhadap alokasi perlakuan: ${translatedBlindedRoles.join(", ")}. Penyembunyian alokasi akan dipertahankan menggunakan ${t(concealmentMethodLabels[concealmentMethod], language).toLowerCase()}, dengan urutan alokasi dipegang oleh ${t(sequenceHolderLabels[sequenceHolder], language).toLowerCase()} sampai kelayakan dan persetujuan dikonfirmasi. Prosedur pembukaan pembutaan darurat dan setiap kejadian pembukaan pembutaan harus didokumentasikan dalam berkas uji klinis.`
       : language === "nl"
         ? blindingClassification === "Open-label"
-          ? `Deze studie wordt uitgevoerd als een open-label studie omdat noch deelnemers noch zorgverleners/interventionisten geblindeerd zijn voor allocatie.${blindedRoleSentence} Allocatieconcealment wordt geregeld met ${t(concealmentMethodLabels[concealmentMethod], language).toLowerCase()}, waarbij de reeks tot toewijzing wordt beheerd door ${t(sequenceHolderLabels[sequenceHolder], language).toLowerCase()}.`
+          ? `Deze studie wordt uitgevoerd als een open-label studie omdat deelnemers niet geblindeerd zijn voor allocatie.${blindedRoleSentence} Allocatieconcealment wordt geregeld met ${t(concealmentMethodLabels[concealmentMethod], language).toLowerCase()}, waarbij de reeks tot toewijzing wordt beheerd door ${t(sequenceHolderLabels[sequenceHolder], language).toLowerCase()}.`
           : `Deze studie wordt uitgevoerd als een ${t(blindingClassification, language).toLowerCase()} studie. De volgende partijen worden geblindeerd voor behandelallocatie: ${translatedBlindedRoles.join(", ")}. Allocatieconcealment wordt behouden met ${t(concealmentMethodLabels[concealmentMethod], language).toLowerCase()}, waarbij de allocatiereeks wordt beheerd door ${t(sequenceHolderLabels[sequenceHolder], language).toLowerCase()} totdat geschiktheid en toestemming zijn bevestigd. Procedures voor noodontblindering en alle ontblinderingsevents moeten in het studiedossier worden vastgelegd.`
         : blindingClassification === "Open-label"
-          ? `This study will be conducted as an open-label study because neither participants nor care providers/interventionists are blinded to allocation.${blindedRoleSentence} Allocation concealment will be handled using ${concealmentMethodLabels[concealmentMethod].toLowerCase()}, with the sequence held by ${sequenceHolderLabels[sequenceHolder].toLowerCase()} until assignment.`
+          ? `This study will be conducted as an open-label study because participants are not blinded to allocation.${blindedRoleSentence} Allocation concealment will be handled using ${concealmentMethodLabels[concealmentMethod].toLowerCase()}, with the sequence held by ${sequenceHolderLabels[sequenceHolder].toLowerCase()} until assignment.`
           : `This study will be conducted as a ${blindingClassification.toLowerCase()} study. The following parties will be blinded to treatment allocation: ${translatedBlindedRoles.join(", ")}. Allocation concealment will be maintained using ${t(concealmentMethodLabels[concealmentMethod], language).toLowerCase()}, with the allocation sequence held by ${t(sequenceHolderLabels[sequenceHolder], language).toLowerCase()} until eligibility and consent are confirmed. Emergency unblinding procedures and any unblinding events should be documented in the trial file.`;
   const decisionPath = decisionOrder
     .filter((id) => decisionAnswers[id])
