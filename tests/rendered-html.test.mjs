@@ -38,7 +38,7 @@ test("server-renders the sample size calculator shell", async () => {
   assert.match(html, /Randomiser/);
   assert.match(html, /Scenario Comparison/);
   assert.match(html, /Study Design/);
-  assert.match(html, /StudySize Studio version 1\.1 © Ryalino, 2026\./);
+  assert.match(html, /StudySize Studio version 1\.19 © Ryalino, 2026\./);
   assert.match(html, /What is the main purpose of the study/);
   assert.match(html, /Calculator catalog/);
   assert.doesNotMatch(html, /Prevalence \/ Single Proportion|Two Independent Means|Saved scenarios/);
@@ -66,6 +66,9 @@ test("removes disposable starter references", async () => {
   assert.match(app, /Harvard\/APA/);
   assert.match(app, /Copy citation/);
   assert.match(app, /Clear scenarios/);
+  assert.match(app, /twoProportionSampleSize/);
+  assert.match(app, /normaliseBlockSize/);
+  assert.match(app, /Not estimable/);
   assert.match(app, /className="result-card adjusted"/);
   assert.match(app, /useState<RandomisationMethod>\("simple"\)/);
   assert.match(app, /makeTablePdf\("StudySize Studio Randomisation"/);

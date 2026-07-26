@@ -230,6 +230,7 @@ const indonesianText: Record<string, string> = {
   "Citation copied": "Sitasi disalin",
   "Clear scenarios": "Hapus skenario",
   "Scenarios cleared": "Skenario dihapus",
+  "StudySize Studio version 1.19 © Ryalino, 2026.": "StudySize Studio versi 1.19 © Ryalino, 2026.",
   "Scenario saved": "Skenario disimpan",
   "Scenario is ready": "Skenario siap",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Skenario ini sekarang tersedia di menu Perbandingan Skenario, tempat Anda dapat membandingkannya dengan skenario perencanaan tersimpan lainnya.",
@@ -784,7 +785,7 @@ const dutchText: Record<string, string> = {
   "Citation copied": "Citatie gekopieerd",
   "Clear scenarios": "Scenario's wissen",
   "Scenarios cleared": "Scenario's gewist",
-  "StudySize Studio version 1.1 © Ryalino, 2026.": "StudySize Studio versie 1.1 © Ryalino, 2026.",
+  "StudySize Studio version 1.19 © Ryalino, 2026.": "StudySize Studio versie 1.19 © Ryalino, 2026.",
   "Scenario is ready": "Scenario is klaar",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Dit scenario is nu beschikbaar in de balk Scenariovergelijking, waar u het kunt vergelijken met andere opgeslagen planningsscenario's.",
   "Open Scenario Comparison": "Scenariovergelijking openen",
@@ -1012,6 +1013,20 @@ function zPower(powerPct: number) {
   return zFromProbability(pct(powerPct));
 }
 
+function twoProportionSampleSize(pControl: number, pTreatment: number, allocationRatio: number, alpha: number, power: number) {
+  const ratio = Math.max(0.01, allocationRatio);
+  const pooled = (pControl + ratio * pTreatment) / (1 + ratio);
+  const difference = Math.abs(pTreatment - pControl);
+  if (difference < 1e-9) return { control: Number.POSITIVE_INFINITY, treatment: Number.POSITIVE_INFINITY, total: Number.POSITIVE_INFINITY };
+  const control =
+    ((zAlpha(alpha) * Math.sqrt((1 + 1 / ratio) * pooled * (1 - pooled)) +
+      zPower(power) * Math.sqrt(pControl * (1 - pControl) + (pTreatment * (1 - pTreatment)) / ratio)) ** 2) /
+    difference ** 2;
+  const controlN = ceil(control);
+  const treatmentN = ceil(controlN * ratio);
+  return { control: controlN, treatment: treatmentN, total: controlN + treatmentN };
+}
+
 const languageOptions: { code: Language; label: string; flag: string; aria: string }[] = [
   { code: "en", label: "English", flag: "🇬🇧", aria: "Switch to English" },
   { code: "id", label: "Bahasa Indonesia", flag: "🇮🇩", aria: "Ganti ke Bahasa Indonesia" },
@@ -1184,17 +1199,21 @@ const calculators: Calculator[] = [
       { key: "ratio", label: "Allocation ratio", min: 0.5, max: 3, step: 0.1, default: 1, help: "Treatment participants per control participant.", slider: true },
       ...commonPower(),
     ],
-    formula: "Equal-allocation approximation scaled by allocation ratio.",
+    formula: "n_control = [Zα/2√((1+1/r)p̄q̄) + Zβ√(p1q1 + p2q2/r)]² / (p2-p1)²; n_treatment = r×n_control",
     assumptions: ["Two-sided z-test approximation.", "Independent binary outcomes."],
     references: ["Fleiss JL, Levin B, Paik MC. Statistical Methods for Rates and Proportions.", "Chow SC et al. Sample Size Calculations in Clinical Research."],
     compute: (v) => {
       const p1 = pct(v.p1);
       const p2 = pct(v.p2);
-      const pbar = (p1 + p2) / 2;
-      const equal = ((zAlpha(v.alpha) * Math.sqrt(2 * pbar * (1 - pbar)) + zPower(v.power) * Math.sqrt(p1 * (1 - p1) + p2 * (1 - p2))) ** 2) / (p2 - p1) ** 2;
-      const control = ceil(equal * (1 + v.ratio) / (2 * v.ratio));
-      const treatment = ceil(control * v.ratio);
-      const total = control + treatment;
+      if (Math.abs(p2 - p1) < 1e-9) {
+        return {
+          primary: Number.POSITIVE_INFINITY,
+          total: Number.POSITIVE_INFINITY,
+          adjustedTotal: Number.POSITIVE_INFINITY,
+          details: ["Control and treatment proportions are equal; choose a clinically meaningful difference to estimate sample size."],
+        };
+      }
+      const { control, treatment, total } = twoProportionSampleSize(p1, p2, v.ratio, v.alpha, v.power);
       return { primary: total, perGroup: control, total, adjustedTotal: dropoutInflation(total, v.dropout), details: [`Control n = ${control}; treatment n = ${treatment}`, `Absolute difference = ${Math.abs(v.p2 - v.p1).toFixed(1)} percentage points`] };
     },
   },
@@ -1214,6 +1233,14 @@ const calculators: Calculator[] = [
     compute: (v) => {
       const p0 = pct(v.p0);
       const p1 = pct(v.p1);
+      if (Math.abs(p1 - p0) < 1e-9) {
+        return {
+          primary: Number.POSITIVE_INFINITY,
+          total: Number.POSITIVE_INFINITY,
+          adjustedTotal: Number.POSITIVE_INFINITY,
+          details: ["Target proportion equals the benchmark; choose a clinically meaningful difference to estimate sample size."],
+        };
+      }
       const n = ceil((zAlpha(v.alpha) * Math.sqrt(p0 * (1 - p0)) + zPower(v.power) * Math.sqrt(p1 * (1 - p1))) ** 2 / (p1 - p0) ** 2);
       return { primary: n, total: n, adjustedTotal: dropoutInflation(n, v.dropout), details: [`Absolute difference = ${Math.abs(v.p1 - v.p0).toFixed(1)} percentage points`, "Benchmark is treated as fixed."] };
     },
@@ -1295,8 +1322,24 @@ const calculators: Calculator[] = [
     assumptions: ["Independent exposed and unexposed groups.", "Approximate two-sided test for risk difference implied by the target RR."],
     references: ["Fleiss JL et al. Statistical Methods for Rates and Proportions.", "Kelsey JL et al. Methods in Observational Epidemiology."],
     compute: (v) => {
-      const p1 = Math.min(0.98, pct(v.p0) * v.rr);
-      return calculators.find((c) => c.id === "two-proportions")!.compute({ ...v, p1: v.p0, p2: p1 * 100 });
+      const unexposedRisk = pct(v.p0);
+      const exposedRisk = Math.min(0.98, unexposedRisk * v.rr);
+      if (Math.abs(exposedRisk - unexposedRisk) < 1e-9) {
+        return {
+          primary: Number.POSITIVE_INFINITY,
+          total: Number.POSITIVE_INFINITY,
+          adjustedTotal: Number.POSITIVE_INFINITY,
+          details: ["Risk ratio is 1.0, so no risk difference is available for sample size planning."],
+        };
+      }
+      const { control, treatment, total } = twoProportionSampleSize(unexposedRisk, exposedRisk, v.ratio, v.alpha, v.power);
+      return {
+        primary: total,
+        perGroup: control,
+        total,
+        adjustedTotal: dropoutInflation(total, v.dropout),
+        details: [`Unexposed n = ${control}; exposed n = ${treatment}`, `Implied exposed risk = ${(exposedRisk * 100).toFixed(1)}%`],
+      };
     },
   },
   {
@@ -1314,10 +1357,24 @@ const calculators: Calculator[] = [
     assumptions: ["Unmatched case-control design.", "Exposure is binary and measured independently."],
     references: ["Schlesselman JJ. Case-Control Studies.", "Kelsey JL et al. Methods in Observational Epidemiology."],
     compute: (v) => {
-      const p0 = pct(v.p0);
-      const pCase = (v.or * p0) / (1 - p0 + v.or * p0);
-      const result = calculators.find((c) => c.id === "two-proportions")!.compute({ ...v, p1: pCase * 100, p2: v.p0, ratio: v.ratio });
-      return { ...result, details: [`Cases n = ${result.perGroup}; controls follow selected ratio`, `Implied case exposure = ${(pCase * 100).toFixed(1)}%`] };
+      const controlExposure = pct(v.p0);
+      const caseExposure = (v.or * controlExposure) / (1 - controlExposure + v.or * controlExposure);
+      if (Math.abs(caseExposure - controlExposure) < 1e-9) {
+        return {
+          primary: Number.POSITIVE_INFINITY,
+          total: Number.POSITIVE_INFINITY,
+          adjustedTotal: Number.POSITIVE_INFINITY,
+          details: ["Odds ratio is 1.0, so no exposure difference is available for sample size planning."],
+        };
+      }
+      const { control: cases, treatment: controls, total } = twoProportionSampleSize(caseExposure, controlExposure, v.ratio, v.alpha, v.power);
+      return {
+        primary: total,
+        perGroup: cases,
+        total,
+        adjustedTotal: dropoutInflation(total, v.dropout),
+        details: [`Cases n = ${cases}; controls n = ${controls}`, `Implied case exposure = ${(caseExposure * 100).toFixed(1)}%`],
+      };
     },
   },
   {
@@ -1823,6 +1880,7 @@ function initialValues(calculator: Calculator) {
 
 function formatNumber(value?: number) {
   if (!value) return "—";
+  if (!Number.isFinite(value)) return "Not estimable";
   return value.toLocaleString("en-US");
 }
 
@@ -1880,6 +1938,12 @@ function makeBalancedPool(groups: string[], count: number) {
   return Array.from({ length: count }, (_, index) => groups[index % groups.length]);
 }
 
+function normaliseBlockSize(blockSize: number, groupCount: number) {
+  const groups = Math.max(1, groupCount);
+  const requested = Math.max(groups, Math.round(blockSize));
+  return Math.ceil(requested / groups) * groups;
+}
+
 function generateRandomisation(
   subjectCount: number,
   groups: string[],
@@ -1890,7 +1954,7 @@ function generateRandomisation(
   const random = seededRandom(seed || "studysize-studio");
 
   if (method === "block") {
-    const normalisedBlockSize = Math.max(groups.length, Math.round(blockSize));
+    const normalisedBlockSize = normaliseBlockSize(blockSize, groups.length);
     const assignments: RandomisationAssignment[] = [];
     let block = 1;
 
@@ -2287,6 +2351,7 @@ export function SampleSizeApp() {
   const recommendation = decisionResult(decisionAnswers);
   const randomisedGroups = useMemo(() => parseGroups(randomGroups), [randomGroups]);
   const randomisationStrata = useMemo(() => parseStrata(randomStrata), [randomStrata]);
+  const effectiveBlockSize = normaliseBlockSize(randomBlockSize, randomisedGroups.length);
   const randomisationAssignments = useMemo(
     () =>
       generateStratifiedRandomisation(
@@ -2294,10 +2359,10 @@ export function SampleSizeApp() {
         randomisedGroups,
         randomisationStrata,
         randomMethod,
-        randomBlockSize,
+        effectiveBlockSize,
         randomSeed,
       ),
-    [randomSubjectCount, randomisedGroups, randomisationStrata, randomMethod, randomBlockSize, randomSeed],
+    [randomSubjectCount, randomisedGroups, randomisationStrata, randomMethod, effectiveBlockSize, randomSeed],
   );
   const randomisationCounts = randomisationAssignments.reduce<Record<string, number>>((counts, assignment) => {
     counts[assignment.group] = (counts[assignment.group] ?? 0) + 1;
@@ -2364,7 +2429,7 @@ export function SampleSizeApp() {
       ? [
           `Peserta akan dialokasikan ke ${randomisedGroups.join(" atau ")} menggunakan ${randomisationMethodName} ${stratumDescription}.`,
           randomMethod === "block"
-            ? `Urutan alokasi akan menggunakan ukuran blok ${Math.max(randomisedGroups.length, randomBlockSize)}, yang harus dirahasiakan dari peneliti yang terlibat dalam rekrutmen.`
+            ? `Urutan alokasi akan menggunakan ukuran blok ${effectiveBlockSize}, yang harus dirahasiakan dari peneliti yang terlibat dalam rekrutmen.`
             : "Urutan alokasi akan dibuat sebagai urutan acak seimbang sebelum rekrutmen dimulai.",
           `Urutan akan berisi ${randomSubjectCount} slot randomisasi dan dibuat dengan seed terdokumentasi "${randomSeed || "studysize-studio"}" untuk mendukung reproduksibilitas dan audit.`,
           "Randomisasi sebaiknya dilakukan hanya setelah kelayakan dikonfirmasi dan persetujuan tindakan selesai, dengan penyembunyian alokasi dipertahankan sampai penetapan.",
@@ -2373,7 +2438,7 @@ export function SampleSizeApp() {
         ? [
             `Deelnemers worden toegewezen aan ${randomisedGroups.join(" of ")} met ${randomisationMethodName} ${stratumDescription}.`,
             randomMethod === "block"
-              ? `De allocatiereeks gebruikt een blokgrootte van ${Math.max(randomisedGroups.length, randomBlockSize)}, die verborgen moet blijven voor onderzoekers die bij inclusie betrokken zijn.`
+              ? `De allocatiereeks gebruikt een blokgrootte van ${effectiveBlockSize}, die verborgen moet blijven voor onderzoekers die bij inclusie betrokken zijn.`
               : "De allocatiereeks wordt vóór de start van de inclusie gegenereerd als een gebalanceerde geschudde reeks.",
             `De reeks bevat ${randomSubjectCount} randomisatieslots en wordt gegenereerd met de gedocumenteerde seed "${randomSeed || "studysize-studio"}" ter ondersteuning van reproduceerbaarheid en audit.`,
             "Randomisatie dient pas plaats te vinden nadat geschiktheid is bevestigd en geïnformeerde toestemming is afgerond, waarbij allocatieconcealment tot toewijzing behouden blijft.",
@@ -2381,7 +2446,7 @@ export function SampleSizeApp() {
         : [
             `Participants will be allocated to ${randomisedGroups.join(" or ")} using ${randomisationMethodName} ${stratumDescription}.`,
             randomMethod === "block"
-              ? `The allocation sequence will use a block size of ${Math.max(randomisedGroups.length, randomBlockSize)}, which should be concealed from investigators involved in recruitment.`
+              ? `The allocation sequence will use a block size of ${effectiveBlockSize}, which should be concealed from investigators involved in recruitment.`
               : "The allocation sequence will be generated as a balanced shuffled sequence before recruitment begins.",
             `The sequence will contain ${randomSubjectCount} randomisation slots and will be generated with the documented seed "${randomSeed || "studysize-studio"}" to support reproducibility and audit.`,
             "Randomisation should occur only after eligibility has been confirmed and informed consent has been completed, with allocation concealment maintained until assignment.",
@@ -2553,7 +2618,7 @@ export function SampleSizeApp() {
       ["Groups", randomisedGroups.join(", ")],
       ["Strata", randomisationStrata.join(", ")],
       ["Seed", randomSeed || "studysize-studio"],
-      ["Block size", randomMethod === "block" ? String(Math.max(randomisedGroups.length, Math.round(randomBlockSize))) : "Not used"],
+      ["Block size", randomMethod === "block" ? String(effectiveBlockSize) : "Not used"],
     ];
     const countRows = Object.entries(randomisationCounts).map(([group, count]) => [group, String(count)]);
     const assignmentRows = randomisationAssignments.map((assignment) =>
@@ -2988,7 +3053,7 @@ export function SampleSizeApp() {
                       onChange={(event) => setRandomBlockSize(Number(event.target.value))}
                       step={1}
                       type="range"
-                      value={Math.max(randomisedGroups.length, randomBlockSize)}
+                      value={effectiveBlockSize}
                     />
                     <div className="number-wrap">
                       <input
@@ -2999,7 +3064,7 @@ export function SampleSizeApp() {
                         onChange={(event) => setRandomBlockSize(Number(event.target.value))}
                         step={1}
                         type="number"
-                        value={Math.max(randomisedGroups.length, randomBlockSize)}
+                        value={effectiveBlockSize}
                       />
                     </div>
                   </div>
@@ -3400,7 +3465,7 @@ export function SampleSizeApp() {
             <div className="result-card">
               <span>{t("Method", language)}</span>
               <strong>{randomMethod === "block" ? t("Blocked", language) : t("Simple", language)}</strong>
-              <small>{randomMethod === "block" ? `${t("Block size", language)} ${Math.max(randomisedGroups.length, randomBlockSize)}` : t("Balanced shuffled sequence", language)}</small>
+              <small>{randomMethod === "block" ? `${t("Block size", language)} ${effectiveBlockSize}` : t("Balanced shuffled sequence", language)}</small>
             </div>
             <div className="result-card">
               <span>{t("Allocation counts", language)}</span>
@@ -3505,7 +3570,7 @@ export function SampleSizeApp() {
         ) : null}
       </section>
 
-      <footer className="app-footer"><strong>{t("StudySize Studio version 1.1 © Ryalino, 2026.", language)}</strong></footer>
+      <footer className="app-footer"><strong>{t("StudySize Studio version 1.19 © Ryalino, 2026.", language)}</strong></footer>
 
       {copiedNotice && (
         <div className="copy-toast" role="status" aria-live="polite">
