@@ -47,16 +47,20 @@ test("server-renders the sample size calculator shell", async () => {
 });
 
 test("removes disposable starter references", async () => {
-  const [page, layout, packageJson, files] = await Promise.all([
+  const [page, layout, packageJson, app, files] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
     readFile(new URL("../package.json", import.meta.url), "utf8"),
+    readFile(new URL("../app/sample-size-app.tsx", import.meta.url), "utf8"),
     readdir(previewRoot),
   ]);
 
   assert.deepEqual(files, []);
   assert.match(page, /<SampleSizeApp \/>/);
   assert.match(layout, /title:\s*"StudySize Studio"/);
+  assert.match(app, /The Method section should at least describe the following:/);
+  assert.match(app, /bmjopen\.bmj\.com\/content\/bmjopen\/15\/10\/e104236\/DC2\/embed\/inline-supplementary-material-2\.pdf\?download=true/);
+  assert.match(app, /EQUATOR decision tree/);
   assert.doesNotMatch(page, /SkeletonPreview|codex-preview/);
   assert.doesNotMatch(layout, /Starter Project|codex-preview/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);

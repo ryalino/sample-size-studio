@@ -77,7 +77,21 @@ type ChecklistKey =
   | "qualitative"
   | "quality-improvement"
   | "economic"
-  | "prediction-model";
+  | "prediction-model"
+  | "arrive"
+  | "entreq"
+  | "srqr"
+  | "stard"
+  | "remark"
+  | "moose"
+  | "equator-library";
+type ChecklistTreeAnswers = Record<string, boolean>;
+type ChecklistTreeQuestion = {
+  id: string;
+  prompt: string;
+  yes?: string | ChecklistKey;
+  no?: string | ChecklistKey;
+};
 
 const pct = (value: number) => value / 100;
 const ceil = (value: number) => Math.max(1, Math.ceil(value));
@@ -1032,7 +1046,7 @@ const checklistGuides: Record<ChecklistKey, { title: string; guideline: string; 
   qualitative: {
     title: "Qualitative research",
     guideline: "COREQ or SRQR for qualitative studies.",
-    link: "https://www.equator-network.org/library/",
+    link: "https://bmjopen.bmj.com/content/bmjopen/15/10/e104236/DC2/embed/inline-supplementary-material-2.pdf?download=true",
     items: ["Research team and reflexivity", "Study design and theoretical framework", "Sampling strategy", "Setting and participants", "Data collection", "Data analysis", "Themes and quotations", "Trustworthiness and limitations"],
   },
   "quality-improvement": {
@@ -1052,6 +1066,123 @@ const checklistGuides: Record<ChecklistKey, { title: string; guideline: string; 
     guideline: "TRIPOD for prediction model development and validation.",
     link: "https://www.tripod-statement.org/",
     items: ["Source of data", "Participants", "Outcome definition", "Predictor handling", "Sample size rationale", "Missing data", "Model development", "Performance measures", "Internal/external validation", "Model presentation"],
+  },
+  arrive: {
+    title: "Animal research",
+    guideline: "ARRIVE for in vivo animal experiments.",
+    link: "https://arriveguidelines.org/",
+    items: ["Study design and experimental unit", "Animal species, strain, sex, and age", "Housing and husbandry", "Sample size rationale", "Randomisation and blinding", "Experimental procedures", "Outcome measures", "Statistical methods", "Ethical statement"],
+  },
+  entreq: {
+    title: "Qualitative evidence synthesis",
+    guideline: "ENTREQ for syntheses of qualitative research.",
+    link: "https://www.equator-network.org/reporting-guidelines/entreq/",
+    items: ["Aim and synthesis approach", "Search strategy", "Study screening and selection", "Appraisal approach", "Data extraction", "Coding and theme development", "Synthesis findings", "Researcher reflexivity", "Limitations"],
+  },
+  srqr: {
+    title: "Qualitative research",
+    guideline: "SRQR for qualitative research reports.",
+    link: "https://bmjopen.bmj.com/content/bmjopen/15/10/e104236/DC2/embed/inline-supplementary-material-2.pdf?download=true",
+    items: ["Qualitative approach and research paradigm", "Researcher characteristics and reflexivity", "Context and setting", "Sampling strategy", "Ethical issues", "Data collection methods", "Data processing and analysis", "Techniques to enhance trustworthiness", "Synthesis and interpretation"],
+  },
+  stard: {
+    title: "Diagnostic accuracy study",
+    guideline: "STARD for diagnostic accuracy studies.",
+    link: "https://www.equator-network.org/reporting-guidelines/stard/",
+    items: ["Clinical role of the index test", "Eligibility criteria and sampling", "Index test and reference standard", "Test operator training", "Blinding between tests", "Indeterminate or missing results", "Accuracy estimates with precision", "Adverse events if relevant"],
+  },
+  remark: {
+    title: "Prognostic tumour marker study",
+    guideline: "REMARK for tumour marker prognostic studies.",
+    link: "https://www.equator-network.org/reporting-guidelines/remark/",
+    items: ["Patient population and treatments", "Specimen characteristics", "Assay methods", "Marker prespecification", "Clinical endpoints", "Statistical analysis plan", "Missing data handling", "Prognostic estimates and uncertainty"],
+  },
+  moose: {
+    title: "Meta-analysis of observational studies",
+    guideline: "MOOSE for meta-analyses of observational studies.",
+    link: "https://www.equator-network.org/reporting-guidelines/meta-analysis-of-observational-studies-in-epidemiology-a-proposal-for-reporting-meta-analysis-of-observational-studies-in-epidemiology-moose-group/",
+    items: ["Background and rationale", "Search strategy", "Eligibility criteria", "Data extraction", "Assessment of study quality and bias", "Quantitative synthesis methods", "Heterogeneity assessment", "Sensitivity analyses", "Limitations"],
+  },
+  "equator-library": {
+    title: "Search EQUATOR library",
+    guideline: "No single common checklist was identified; search the EQUATOR library for a design-specific checklist.",
+    link: "https://www.equator-network.org/library/",
+    items: ["Study design name", "Health area or specialty", "Population or material studied", "Primary outcome or objective", "Analysis approach", "Existing protocol or registry entry", "Any discipline-specific reporting requirements"],
+  },
+};
+
+const checklistTreeQuestions: Record<string, ChecklistTreeQuestion> = {
+  humans: {
+    id: "humans",
+    prompt: "Was the research on humans?",
+    yes: "quantitative",
+    no: "animals",
+  },
+  animals: {
+    id: "animals",
+    prompt: "Was your research on animals in the lab?",
+    yes: "arrive",
+    no: "equator-library",
+  },
+  quantitative: {
+    id: "quantitative",
+    prompt: "Did your research generate quantitative data?",
+    yes: "combinedReview",
+    no: "qualReview",
+  },
+  qualReview: {
+    id: "qualReview",
+    prompt: "Did you pool the results of previous studies in a review?",
+    yes: "entreq",
+    no: "caseSeries",
+  },
+  combinedReview: {
+    id: "combinedReview",
+    prompt: "Did you combine and analyse the results of previous studies?",
+    yes: "observationalReview",
+    no: "randomizedTrial",
+  },
+  observationalReview: {
+    id: "observationalReview",
+    prompt: "Is it a review of observational cohort, case-control, or cross-sectional studies?",
+    yes: "moose",
+    no: "systematic-review",
+  },
+  randomizedTrial: {
+    id: "randomizedTrial",
+    prompt: "Was your study a randomized trial comparing two or more health interventions?",
+    yes: "trial",
+    no: "caseSeries",
+  },
+  caseSeries: {
+    id: "caseSeries",
+    prompt: "Do you describe a clinical case or a series of cases?",
+    yes: "case-report",
+    no: "exposureOutcome",
+  },
+  exposureOutcome: {
+    id: "exposureOutcome",
+    prompt: "Did your study explore the relationship between exposure to risk or protective factors and outcomes?",
+    yes: "observational",
+    no: "diagnosticAccuracy",
+  },
+  diagnosticAccuracy: {
+    id: "diagnosticAccuracy",
+    prompt: "Did you compare the accuracy of a new or alternative diagnostic test against an established reference standard?",
+    yes: "stard",
+    no: "biomarker",
+  },
+  biomarker: {
+    id: "biomarker",
+    prompt: "Did the study evaluate the prognostic value of one or more biomarkers?",
+    yes: "remark",
+    no: "prediction",
+  },
+  prediction: {
+    id: "prediction",
+    prompt: "Did the research develop, validate, or update a general prediction model for diagnosis or prognosis?",
+    yes: "prediction-model",
+    no: "srqr",
   },
 };
 
@@ -1110,6 +1241,7 @@ export function SampleSizeApp() {
   const [randomBlockSize, setRandomBlockSize] = useState(4);
   const [randomSeed, setRandomSeed] = useState("STUDY-2026");
   const [checklistType, setChecklistType] = useState<ChecklistKey>("trial");
+  const [checklistTreeAnswers, setChecklistTreeAnswers] = useState<ChecklistTreeAnswers>({});
   const [showCitationModal, setShowCitationModal] = useState(false);
   const [showProtocolModal, setShowProtocolModal] = useState(false);
   const [valuesByCalculator, setValuesByCalculator] = useState<Record<string, Values>>(() =>
@@ -1155,6 +1287,39 @@ export function SampleSizeApp() {
       return { question: question.prompt, answer: answer?.label ?? decisionAnswers[id] };
     });
   const checklist = checklistGuides[checklistType];
+  const checklistTreePath = useMemo(() => {
+    const path: { question: ChecklistTreeQuestion; answer: boolean }[] = [];
+    let currentId = "humans";
+    const visited = new Set<string>();
+
+    while (currentId && checklistTreeQuestions[currentId] && checklistTreeAnswers[currentId] !== undefined && !visited.has(currentId)) {
+      visited.add(currentId);
+      const question = checklistTreeQuestions[currentId];
+      const answer = checklistTreeAnswers[currentId];
+      path.push({ question, answer });
+      const next = answer ? question.yes : question.no;
+      if (!next || checklistGuides[next as ChecklistKey]) break;
+      currentId = next;
+    }
+
+    return path;
+  }, [checklistTreeAnswers]);
+  const currentChecklistTreeQuestion = useMemo(() => {
+    let currentId = "humans";
+    const visited = new Set<string>();
+
+    while (currentId && checklistTreeQuestions[currentId] && !visited.has(currentId)) {
+      visited.add(currentId);
+      const question = checklistTreeQuestions[currentId];
+      const answer = checklistTreeAnswers[currentId];
+      if (answer === undefined) return question;
+      const next = answer ? question.yes : question.no;
+      if (!next || checklistGuides[next as ChecklistKey]) return undefined;
+      currentId = next;
+    }
+
+    return undefined;
+  }, [checklistTreeAnswers]);
   const protocolText = [
     `Sample size was estimated using StudySize Studio for ${calculator.title.toLowerCase()}.`,
     `The primary planning assumptions were: ${calculator.variables.map((variable) => `${variable.label} ${values[variable.key]}${variable.suffix ?? ""}`).join("; ")}.`,
@@ -1333,6 +1498,28 @@ export function SampleSizeApp() {
   function copyProtocolWording() {
     void navigator.clipboard?.writeText(protocolText);
     setStatus("Protocol wording copied");
+  }
+
+  function answerChecklistTree(questionId: string, answer: boolean) {
+    const orderedPath = [...checklistTreePath.map((item) => item.question.id), questionId];
+    const nextAnswers = Object.fromEntries(
+      orderedPath
+        .filter((id, index) => orderedPath.indexOf(id) === index)
+        .map((id) => [id, id === questionId ? answer : checklistTreeAnswers[id]]),
+    ) as ChecklistTreeAnswers;
+    const question = checklistTreeQuestions[questionId];
+    const next = answer ? question.yes : question.no;
+
+    setChecklistTreeAnswers(nextAnswers);
+    if (next && checklistGuides[next as ChecklistKey]) {
+      setChecklistType(next as ChecklistKey);
+      setStatus(`${checklistGuides[next as ChecklistKey].title} checklist selected`);
+    }
+  }
+
+  function resetChecklistTree() {
+    setChecklistTreeAnswers({});
+    setStatus("Checklist tree reset");
   }
 
   return (
@@ -1749,6 +1936,47 @@ export function SampleSizeApp() {
             </div>
 
             <div className="research-grid">
+              <section className="tool-card checklist-tree-card" aria-labelledby="checklist-tree-title">
+                <span>EQUATOR decision tree</span>
+                <h3 id="checklist-tree-title">Find the reporting checklist</h3>
+                <p>
+                  Answer the yes/no prompts adapted from the EQUATOR Network decision tree to select
+                  the most relevant checklist.
+                </p>
+                {checklistTreePath.length > 0 && (
+                  <ol className="checklist-path" aria-label="Answered checklist tree questions">
+                    {checklistTreePath.map((item) => (
+                      <li key={item.question.id}>
+                        <span>{item.question.prompt}</span>
+                        <strong>{item.answer ? "Yes" : "No"}</strong>
+                      </li>
+                    ))}
+                  </ol>
+                )}
+                {currentChecklistTreeQuestion ? (
+                  <div className="tree-question">
+                    <strong>{currentChecklistTreeQuestion.prompt}</strong>
+                    <div className="tree-actions">
+                      <button type="button" onClick={() => answerChecklistTree(currentChecklistTreeQuestion.id, true)}>
+                        Yes
+                      </button>
+                      <button type="button" onClick={() => answerChecklistTree(currentChecklistTreeQuestion.id, false)}>
+                        No
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="tree-result" aria-live="polite">
+                    <span>Suggested checklist</span>
+                    <strong>{checklist.title}</strong>
+                    <p>{checklist.guideline}</p>
+                  </div>
+                )}
+                <button className="subtle-button" type="button" onClick={resetChecklistTree}>
+                  Reset tree
+                </button>
+              </section>
+
               <section className="tool-card checklist-tool" aria-labelledby="checklist-title">
                 <span>Reporting checklist helper</span>
                 <h3 id="checklist-title">{checklist.title}</h3>
@@ -1769,10 +1997,18 @@ export function SampleSizeApp() {
                     <option value="quality-improvement">Quality improvement</option>
                     <option value="economic">Economic evaluation</option>
                     <option value="prediction-model">Prediction model</option>
+                    <option value="arrive">Animal research / ARRIVE</option>
+                    <option value="entreq">Qualitative evidence synthesis / ENTREQ</option>
+                    <option value="srqr">Qualitative research / SRQR</option>
+                    <option value="stard">Diagnostic accuracy / STARD</option>
+                    <option value="remark">Prognostic marker / REMARK</option>
+                    <option value="moose">Observational meta-analysis / MOOSE</option>
+                    <option value="equator-library">Search EQUATOR library</option>
                   </select>
                 </label>
                 <p>{checklist.guideline}</p>
-                <p><a href={checklist.link} target="_blank" rel="noreferrer">Open guideline resource</a></p>
+                <a className="resource-button" href={checklist.link} target="_blank" rel="noreferrer">Open guideline resource</a>
+                <p className="method-lead">The Method section should at least describe the following:</p>
                 <ul>
                   {checklist.items.map((item) => <li key={item}>{item}</li>)}
                 </ul>
