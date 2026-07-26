@@ -2379,6 +2379,9 @@ export function SampleSizeApp() {
   const filtered = calculators.filter((item) =>
     activeCategory === "All" || (activeCategory === "Most used" ? mostUsedCalculatorIds.has(item.id) : item.category === activeCategory),
   );
+  const planningAssumptionsText = calculator.variables
+    .map((variable) => `${t(variable.label, language)} ${values[variable.key]}${variable.suffix ?? ""}`)
+    .join("; ");
   const currentDecisionQuestion = getCurrentDecisionQuestion(decisionAnswers);
   const recommendation = decisionResult(decisionAnswers);
   const randomisedGroups = useMemo(() => parseGroups(randomGroups), [randomGroups]);
@@ -2459,42 +2462,42 @@ export function SampleSizeApp() {
   const randomisationWording =
     language === "id"
       ? [
-          `Peserta akan dialokasikan ke ${randomisedGroups.join(" atau ")} menggunakan ${randomisationMethodName} ${stratumDescription}.`,
+          `Randomisasi akan dilakukan sebelum rekrutmen dimulai dengan menggunakan ${randomisationMethodName} ${stratumDescription}, dan peserta akan dialokasikan ke ${randomisedGroups.join(" atau ")} sesuai urutan yang telah dibuat.`,
           randomMethod === "block"
-            ? `Urutan alokasi akan menggunakan ukuran blok ${effectiveBlockSize}, yang harus dirahasiakan dari peneliti yang terlibat dalam rekrutmen.`
-            : "Urutan alokasi akan dibuat sebagai urutan acak seimbang sebelum rekrutmen dimulai.",
-          `Urutan akan berisi ${randomSubjectCount} slot randomisasi dan dibuat dengan seed terdokumentasi "${randomSeed || "studysize-studio"}" untuk mendukung reproduksibilitas dan audit.`,
-          "Randomisasi sebaiknya dilakukan hanya setelah kelayakan dikonfirmasi dan persetujuan tindakan selesai, dengan penyembunyian alokasi dipertahankan sampai penetapan.",
+            ? `Ukuran blok yang digunakan adalah ${effectiveBlockSize}; informasi ini sebaiknya tidak diketahui oleh personel yang terlibat dalam rekrutmen agar alokasi berikutnya tidak dapat diprediksi.`
+            : "Urutan dibuat sebagai urutan acak seimbang untuk mempertahankan distribusi alokasi yang sebanding antar kelompok.",
+          `Daftar randomisasi berisi ${randomSubjectCount} slot dan dibuat dengan seed terdokumentasi "${randomSeed || "studysize-studio"}", sehingga proses pembuatan urutan dapat diaudit bila diperlukan.`,
+          "Alokasi sebaiknya dibuka hanya setelah kriteria kelayakan terpenuhi dan persetujuan tindakan selesai, dengan penyembunyian alokasi dipertahankan sampai peserta ditetapkan ke kelompok studi.",
         ].join(" ")
       : language === "nl"
         ? [
-            `Deelnemers worden toegewezen aan ${randomisedGroups.join(" of ")} met ${randomisationMethodName} ${stratumDescription}.`,
+            `Randomisatie wordt vóór de start van de inclusie uitgevoerd met ${randomisationMethodName} ${stratumDescription}, waarna deelnemers volgens de gegenereerde reeks worden toegewezen aan ${randomisedGroups.join(" of ")}.`,
             randomMethod === "block"
-              ? `De allocatiereeks gebruikt een blokgrootte van ${effectiveBlockSize}, die verborgen moet blijven voor onderzoekers die bij inclusie betrokken zijn.`
-              : "De allocatiereeks wordt vóór de start van de inclusie gegenereerd als een gebalanceerde geschudde reeks.",
-            `De reeks bevat ${randomSubjectCount} randomisatieslots en wordt gegenereerd met de gedocumenteerde seed "${randomSeed || "studysize-studio"}" ter ondersteuning van reproduceerbaarheid en audit.`,
-            "Randomisatie dient pas plaats te vinden nadat geschiktheid is bevestigd en geïnformeerde toestemming is afgerond, waarbij allocatieconcealment tot toewijzing behouden blijft.",
+              ? `De toegepaste blokgrootte is ${effectiveBlockSize}; deze informatie dient verborgen te blijven voor personen die deelnemers includeren, zodat toekomstige toewijzingen niet voorspelbaar worden.`
+              : "De reeks wordt gegenereerd als een gebalanceerde geschudde reeks om een vergelijkbare verdeling over de groepen te ondersteunen.",
+            `De randomisatielijst bevat ${randomSubjectCount} slots en wordt gegenereerd met de gedocumenteerde seed "${randomSeed || "studysize-studio"}", zodat het genereren van de reeks indien nodig kan worden gecontroleerd.`,
+            "Toewijzing dient pas te worden vrijgegeven nadat geschiktheid is bevestigd en geïnformeerde toestemming is afgerond, waarbij allocatieconcealment tot het moment van toewijzing behouden blijft.",
           ].join(" ")
         : [
-            `Participants will be allocated to ${randomisedGroups.join(" or ")} using ${randomisationMethodName} ${stratumDescription}.`,
+            `Randomisation will be performed before recruitment using ${randomisationMethodName} ${stratumDescription}, with participants assigned to ${randomisedGroups.join(" or ")} according to the generated allocation sequence.`,
             randomMethod === "block"
-              ? `The allocation sequence will use a block size of ${effectiveBlockSize}, which should be concealed from investigators involved in recruitment.`
-              : "The allocation sequence will be generated as a balanced shuffled sequence before recruitment begins.",
-            `The sequence will contain ${randomSubjectCount} randomisation slots and will be generated with the documented seed "${randomSeed || "studysize-studio"}" to support reproducibility and audit.`,
-            "Randomisation should occur only after eligibility has been confirmed and informed consent has been completed, with allocation concealment maintained until assignment.",
+              ? `A block size of ${effectiveBlockSize} will be used; this information should remain concealed from personnel involved in recruitment to prevent prediction of future assignments.`
+              : "The sequence will be generated as a balanced shuffled list to support comparable allocation across study groups.",
+            `The randomisation list will contain ${randomSubjectCount} allocation slots and will be generated with the documented seed "${randomSeed || "studysize-studio"}", allowing the sequence-generation process to be audited if required.`,
+            "Allocation should be released only after eligibility has been confirmed and informed consent has been completed, with allocation concealment maintained until the point of assignment.",
           ].join(" ");
   const blindingWording =
     language === "id"
       ? blindingClassification === "Open-label"
-        ? `Studi ini akan dilakukan sebagai studi label terbuka karena peserta tidak dibutakan terhadap alokasi.${blindedRoleSentence} Penyembunyian alokasi akan ditangani menggunakan ${t(concealmentMethodLabels[concealmentMethod], language).toLowerCase()}, dengan urutan dipegang oleh ${t(sequenceHolderLabels[sequenceHolder], language).toLowerCase()} sampai penetapan.`
-        : `Studi ini akan dilakukan sebagai studi ${t(blindingClassification, language).toLowerCase()}. Pihak berikut akan dibutakan terhadap alokasi perlakuan: ${translatedBlindedRoles.join(", ")}. Penyembunyian alokasi akan dipertahankan menggunakan ${t(concealmentMethodLabels[concealmentMethod], language).toLowerCase()}, dengan urutan alokasi dipegang oleh ${t(sequenceHolderLabels[sequenceHolder], language).toLowerCase()} sampai kelayakan dan persetujuan dikonfirmasi. Prosedur pembukaan pembutaan darurat dan setiap kejadian pembukaan pembutaan harus didokumentasikan dalam berkas uji klinis.`
+        ? `Studi ini akan menggunakan desain label terbuka karena peserta tidak dibutakan terhadap alokasi intervensi.${blindedRoleSentence} Meskipun demikian, risiko bias seleksi tetap harus dikendalikan melalui penyembunyian alokasi menggunakan ${t(concealmentMethodLabels[concealmentMethod], language).toLowerCase()}. Urutan alokasi akan dipegang oleh ${t(sequenceHolderLabels[sequenceHolder], language).toLowerCase()} dan hanya dibuka setelah kelayakan serta persetujuan peserta dikonfirmasi.`
+        : `Studi ini direncanakan sebagai studi ${t(blindingClassification, language).toLowerCase()}, dengan pembutaan terhadap alokasi intervensi diterapkan pada ${translatedBlindedRoles.join(", ")}. Untuk mengurangi risiko bias seleksi, penyembunyian alokasi akan dipertahankan menggunakan ${t(concealmentMethodLabels[concealmentMethod], language).toLowerCase()}, dan urutan alokasi akan dipegang oleh ${t(sequenceHolderLabels[sequenceHolder], language).toLowerCase()} sampai kelayakan serta persetujuan peserta dikonfirmasi. Prosedur pembukaan pembutaan darurat, bila diperlukan, harus ditetapkan sebelumnya dan setiap kejadian pembukaan pembutaan harus dicatat dalam berkas studi.`
       : language === "nl"
         ? blindingClassification === "Open-label"
-          ? `Deze studie wordt uitgevoerd als een open-label studie omdat deelnemers niet geblindeerd zijn voor allocatie.${blindedRoleSentence} Allocatieconcealment wordt geregeld met ${t(concealmentMethodLabels[concealmentMethod], language).toLowerCase()}, waarbij de reeks tot toewijzing wordt beheerd door ${t(sequenceHolderLabels[sequenceHolder], language).toLowerCase()}.`
-          : `Deze studie wordt uitgevoerd als een ${t(blindingClassification, language).toLowerCase()} studie. De volgende partijen worden geblindeerd voor behandelallocatie: ${translatedBlindedRoles.join(", ")}. Allocatieconcealment wordt behouden met ${t(concealmentMethodLabels[concealmentMethod], language).toLowerCase()}, waarbij de allocatiereeks wordt beheerd door ${t(sequenceHolderLabels[sequenceHolder], language).toLowerCase()} totdat geschiktheid en toestemming zijn bevestigd. Procedures voor noodontblindering en alle ontblinderingsevents moeten in het studiedossier worden vastgelegd.`
+          ? `Deze studie wordt uitgevoerd als een open-label studie, omdat deelnemers niet worden geblindeerd voor de interventietoewijzing.${blindedRoleSentence} Het risico op selectiebias dient desondanks te worden beperkt door allocatieconcealment met ${t(concealmentMethodLabels[concealmentMethod], language).toLowerCase()}. De allocatiereeks wordt beheerd door ${t(sequenceHolderLabels[sequenceHolder], language).toLowerCase()} en wordt pas vrijgegeven nadat geschiktheid en geïnformeerde toestemming zijn bevestigd.`
+          : `Deze studie wordt opgezet als een ${t(blindingClassification, language).toLowerCase()} studie, waarbij ${translatedBlindedRoles.join(", ")} geblindeerd blijven voor de interventietoewijzing. Om selectiebias te beperken, wordt allocatieconcealment behouden met ${t(concealmentMethodLabels[concealmentMethod], language).toLowerCase()}, en wordt de allocatiereeks beheerd door ${t(sequenceHolderLabels[sequenceHolder], language).toLowerCase()} totdat geschiktheid en geïnformeerde toestemming zijn bevestigd. Procedures voor noodontblindering moeten vooraf worden vastgelegd, en elke ontblindering dient in het studiedossier te worden gedocumenteerd.`
         : blindingClassification === "Open-label"
-          ? `This study will be conducted as an open-label study because participants are not blinded to allocation.${blindedRoleSentence} Allocation concealment will be handled using ${concealmentMethodLabels[concealmentMethod].toLowerCase()}, with the sequence held by ${sequenceHolderLabels[sequenceHolder].toLowerCase()} until assignment.`
-          : `This study will be conducted as a ${blindingClassification.toLowerCase()} study. The following parties will be blinded to treatment allocation: ${translatedBlindedRoles.join(", ")}. Allocation concealment will be maintained using ${t(concealmentMethodLabels[concealmentMethod], language).toLowerCase()}, with the allocation sequence held by ${t(sequenceHolderLabels[sequenceHolder], language).toLowerCase()} until eligibility and consent are confirmed. Emergency unblinding procedures and any unblinding events should be documented in the trial file.`;
+          ? `This study will be conducted as an open-label study because participants will not be blinded to intervention allocation.${blindedRoleSentence} Nevertheless, selection bias should be limited by maintaining allocation concealment through ${concealmentMethodLabels[concealmentMethod].toLowerCase()}. The allocation sequence will be held by ${sequenceHolderLabels[sequenceHolder].toLowerCase()} and released only after eligibility and informed consent have been confirmed.`
+          : `This study is planned as a ${blindingClassification.toLowerCase()} study, with ${translatedBlindedRoles.join(", ")} blinded to intervention allocation. To reduce the risk of selection bias, allocation concealment will be maintained using ${t(concealmentMethodLabels[concealmentMethod], language).toLowerCase()}, and the allocation sequence will be held by ${t(sequenceHolderLabels[sequenceHolder], language).toLowerCase()} until eligibility and informed consent have been confirmed. Emergency unblinding procedures should be prespecified, and any unblinding events should be documented in the study file.`;
   const decisionPath = decisionOrder
     .filter((id) => decisionAnswers[id])
     .map((id) => {
@@ -2539,26 +2542,26 @@ export function SampleSizeApp() {
   const protocolText =
     language === "id"
       ? [
-          `Besar sampel diperkirakan menggunakan StudySize Studio untuk ${t(calculator.title, language).toLowerCase()}.`,
-          `Asumsi perencanaan utama adalah: ${calculator.variables.map((variable) => `${t(variable.label, language)} ${values[variable.key]}${variable.suffix ?? ""}`).join("; ")}.`,
-          `Besar sampel yang dibutuhkan adalah ${formatNumber(result.total ?? result.primary)} sebelum penyesuaian dropout atau data hilang dan ${formatNumber(result.adjustedTotal)} setelah penyesuaian.`,
-          `Perhitungan menggunakan rumus/pendekatan berikut: ${calculator.formula}.`,
-          `Asumsi utama: ${calculator.assumptions.map((item) => t(item, language)).join(" ")}`,
+          `Perhitungan besar sampel dilakukan untuk desain ${t(calculator.title, language).toLowerCase()} dengan bantuan StudySize Studio.`,
+          `Perencanaan didasarkan pada parameter berikut: ${planningAssumptionsText}.`,
+          `Dengan asumsi tersebut, jumlah sampel minimum yang dibutuhkan adalah ${formatNumber(result.total ?? result.primary)} sebelum memperhitungkan dropout, data hilang, atau data yang tidak dapat dievaluasi.`,
+          `Setelah penyesuaian terhadap kehilangan data yang diperkirakan, jumlah sampel yang direncanakan menjadi ${formatNumber(result.adjustedTotal)}.`,
+          `Estimasi ini menggunakan pendekatan ${calculator.formula}; asumsi interpretasi utama adalah: ${calculator.assumptions.map((item) => t(item, language)).join(" ")}`,
         ].join(" ")
       : language === "nl"
         ? [
-            `De steekproefgrootte werd geschat met StudySize Studio voor ${t(calculator.title, language).toLowerCase()}.`,
-            `De belangrijkste planningsaannames waren: ${calculator.variables.map((variable) => `${t(variable.label, language)} ${values[variable.key]}${variable.suffix ?? ""}`).join("; ")}.`,
-            `De benodigde steekproefgrootte was ${formatNumber(result.total ?? result.primary)} vóór correctie voor uitval of ontbrekende gegevens en ${formatNumber(result.adjustedTotal)} na correctie.`,
-            `De berekening gebruikte de volgende formule/benadering: ${calculator.formula}.`,
-            `Belangrijke aannames waren: ${calculator.assumptions.map((item) => t(item, language)).join(" ")}`,
+            `De steekproefgrootte werd berekend voor een ${t(calculator.title, language).toLowerCase()} ontwerp met behulp van StudySize Studio.`,
+            `De berekening was gebaseerd op de volgende planningsparameters: ${planningAssumptionsText}.`,
+            `Onder deze aannames zijn minimaal ${formatNumber(result.total ?? result.primary)} deelnemers of observaties nodig vóór correctie voor uitval, ontbrekende gegevens of niet-evalueerbare metingen.`,
+            `Na correctie voor het verwachte verlies aan bruikbare gegevens bedraagt de geplande steekproefgrootte ${formatNumber(result.adjustedTotal)}.`,
+            `De schatting is gebaseerd op de benadering ${calculator.formula}; de belangrijkste interpretatieve aannames zijn: ${calculator.assumptions.map((item) => t(item, language)).join(" ")}`,
           ].join(" ")
       : [
-          `Sample size was estimated using StudySize Studio for ${calculator.title.toLowerCase()}.`,
-          `The primary planning assumptions were: ${calculator.variables.map((variable) => `${variable.label} ${values[variable.key]}${variable.suffix ?? ""}`).join("; ")}.`,
-          `The required sample size was ${formatNumber(result.total ?? result.primary)} before allowance for dropout or missing data and ${formatNumber(result.adjustedTotal)} after adjustment.`,
-          `The calculation used the following formula/approach: ${calculator.formula}.`,
-          `Key assumptions were: ${calculator.assumptions.join(" ")}`,
+          `Sample size was estimated for a ${calculator.title.toLowerCase()} design using StudySize Studio.`,
+          `The calculation was based on the following planning parameters: ${planningAssumptionsText}.`,
+          `Under these assumptions, a minimum of ${formatNumber(result.total ?? result.primary)} participants or observations is required before accounting for dropout, missing data, or non-evaluable measurements.`,
+          `After adjustment for the anticipated loss of usable data, the planned sample size is ${formatNumber(result.adjustedTotal)}.`,
+          `This estimate uses the ${calculator.formula} approach; the main interpretive assumptions are: ${calculator.assumptions.join(" ")}`,
         ].join(" ");
   const citationFormats = [
     {
