@@ -230,7 +230,7 @@ const indonesianText: Record<string, string> = {
   "Citation copied": "Sitasi disalin",
   "Clear scenarios": "Hapus skenario",
   "Scenarios cleared": "Skenario dihapus",
-  "StudySize Studio version 1.22 © Ryalino, 2026.": "StudySize Studio versi 1.22 © Ryalino, 2026.",
+  "StudySize Studio version 1.23 © Ryalino, 2026.": "StudySize Studio versi 1.23 © Ryalino, 2026.",
   "Scenario saved": "Skenario disimpan",
   "Scenario is ready": "Skenario siap",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Skenario ini sekarang tersedia di menu Perbandingan Skenario, tempat Anda dapat membandingkannya dengan skenario perencanaan tersimpan lainnya.",
@@ -785,7 +785,7 @@ const dutchText: Record<string, string> = {
   "Citation copied": "Citatie gekopieerd",
   "Clear scenarios": "Scenario's wissen",
   "Scenarios cleared": "Scenario's gewist",
-  "StudySize Studio version 1.22 © Ryalino, 2026.": "StudySize Studio versie 1.22 © Ryalino, 2026.",
+  "StudySize Studio version 1.23 © Ryalino, 2026.": "StudySize Studio versie 1.23 © Ryalino, 2026.",
   "Scenario is ready": "Scenario is klaar",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Dit scenario is nu beschikbaar in de balk Scenariovergelijking, waar u het kunt vergelijken met andere opgeslagen planningsscenario's.",
   "Open Scenario Comparison": "Scenariovergelijking openen",
@@ -1137,6 +1137,239 @@ function commonPower(alphaDefault = 5, powerDefault = 80, dropoutDefault = 10) {
       slider: true,
     },
   ];
+}
+
+const parameterGuidanceText: Record<string, Partial<Record<Language, string>>> = {
+  "common.alpha": {
+    en: "Alpha is the planned Type I error rate, usually two-sided. A 5% alpha is standard for superiority studies; non-inferiority commonly uses a one-sided 2.5%.",
+    id: "Alfa adalah tingkat kesalahan tipe I yang direncanakan, biasanya dua sisi. Nilai 5% lazim untuk studi superioritas; non-inferioritas sering memakai satu sisi 2,5%.",
+    nl: "Alfa is de geplande type-I-foutkans, meestal tweezijdig. 5% is standaard voor superioriteitsstudies; non-inferioriteit gebruikt vaak eenzijdig 2,5%.",
+  },
+  "common.power": {
+    en: "Power is the probability of detecting the planned effect if it is real. 80% is common; 90% is often chosen for pivotal or higher-stakes studies.",
+    id: "Power adalah peluang mendeteksi efek yang direncanakan bila efek itu benar ada. Nilai 80% lazim; 90% sering dipilih untuk studi penting atau berisiko tinggi.",
+    nl: "Power is de kans om het geplande effect te vinden als het werkelijk bestaat. 80% is gebruikelijk; 90% wordt vaak gekozen voor doorslaggevende of risicovolle studies.",
+  },
+  "common.dropout": {
+    en: "This inflates the calculated sample size for loss to follow-up, non-response, missing data, or non-evaluable records. Use pilot or prior-study rates; 10-20% is common when uncertain.",
+    id: "Parameter ini menambah besar sampel untuk kehilangan tindak lanjut, non-respons, data hilang, atau data yang tidak dapat dievaluasi. Gunakan data pilot atau studi sebelumnya; 10-20% lazim bila belum pasti.",
+    nl: "Dit verhoogt de berekende steekproefgrootte voor uitval, non-respons, ontbrekende gegevens of niet-beoordeelbare dossiers. Gebruik pilot- of eerdere studiecijfers; 10-20% is gebruikelijk bij onzekerheid.",
+  },
+  "common.confidence": {
+    en: "Confidence sets the long-run coverage of the interval estimate. 95% is the usual scientific standard; 90% or 99% should be justified by the study context.",
+    id: "Kepercayaan menentukan cakupan jangka panjang dari estimasi interval. 95% adalah standar ilmiah umum; 90% atau 99% perlu dijustifikasi sesuai konteks studi.",
+    nl: "Betrouwbaarheid bepaalt de langetermijndekking van de intervalschatting. 95% is de gebruikelijke wetenschappelijke standaard; 90% of 99% vraagt contextuele onderbouwing.",
+  },
+  "common.ratio": {
+    en: "Allocation ratio compares group sizes. A 1:1 ratio is statistically efficient; unequal ratios are used for feasibility, cost, safety, or ethical reasons.",
+    id: "Rasio alokasi membandingkan ukuran kelompok. Rasio 1:1 paling efisien secara statistik; rasio tidak seimbang digunakan karena alasan kelayakan, biaya, keamanan, atau etik.",
+    nl: "De allocatieratio vergelijkt groepsgroottes. Een 1:1-ratio is statistisch efficient; ongelijke ratio's worden gebruikt om haalbaarheid, kosten, veiligheid of ethische redenen.",
+  },
+  "prevalence.p": {
+    en: "This is the expected prevalence or proportion in the target population. If no reliable estimate exists, 50% is conventionally used because it gives the largest conservative sample size.",
+    id: "Ini adalah prevalensi atau proporsi yang diperkirakan pada populasi target. Bila tidak ada estimasi yang andal, 50% lazim digunakan karena menghasilkan besar sampel konservatif terbesar.",
+    nl: "Dit is de verwachte prevalentie of proportie in de doelpopulatie. Als er geen betrouwbare schatting is, wordt 50% vaak gebruikt omdat dit de grootste conservatieve steekproef oplevert.",
+  },
+  "prevalence.margin": {
+    en: "Margin of error is the desired half-width of the confidence interval around the proportion. A 5 percentage-point margin is common; narrower margins require substantially larger samples.",
+    id: "Batas galat adalah setengah lebar interval kepercayaan yang diinginkan di sekitar proporsi. Margin 5 poin persentase lazim; margin lebih sempit memerlukan sampel jauh lebih besar.",
+    nl: "De foutmarge is de gewenste halve breedte van het betrouwbaarheidsinterval rond de proportie. 5 procentpunten is gebruikelijk; smallere marges vragen veel grotere steekproeven.",
+  },
+  "single-mean.sd": {
+    en: "The standard deviation describes expected spread of the continuous outcome. There is no universal standard value; use a pilot study, registry, or comparable publication.",
+    id: "Simpangan baku menggambarkan sebaran luaran kontinu yang diperkirakan. Tidak ada nilai standar universal; gunakan studi pilot, registri, atau publikasi yang sebanding.",
+    nl: "De standaarddeviatie beschrijft de verwachte spreiding van de continue uitkomst. Er is geen universele standaardwaarde; gebruik een pilotstudie, register of vergelijkbare publicatie.",
+  },
+  "single-mean.margin": {
+    en: "This is the acceptable error around the estimated mean in original measurement units. Choose the smallest difference that would still be clinically or scientifically meaningful.",
+    id: "Ini adalah galat yang dapat diterima di sekitar rerata dalam satuan pengukuran asli. Pilih selisih terkecil yang masih bermakna secara klinis atau ilmiah.",
+    nl: "Dit is de aanvaardbare fout rond het geschatte gemiddelde in de oorspronkelijke meeteenheid. Kies het kleinste verschil dat klinisch of wetenschappelijk nog betekenisvol is.",
+  },
+  "two-means.delta": {
+    en: "Mean difference is the smallest between-group difference the study should detect. It should be clinically important, not merely statistically convenient.",
+    id: "Selisih rerata adalah perbedaan antarkelompok terkecil yang ingin dideteksi studi. Nilai ini harus bermakna secara klinis, bukan hanya mudah secara statistik.",
+    nl: "Het gemiddelde verschil is het kleinste groepsverschil dat de studie moet aantonen. Het hoort klinisch relevant te zijn, niet alleen statistisch handig.",
+  },
+  "two-means.sd": {
+    en: "Common SD is the expected within-group variability. Use prior data on the same scale; when groups differ, use a pooled or conservative larger SD.",
+    id: "SD bersama adalah variasi dalam kelompok yang diperkirakan. Gunakan data terdahulu pada skala yang sama; bila kelompok berbeda, gunakan SD gabungan atau SD lebih besar yang konservatif.",
+    nl: "De gezamenlijke SD is de verwachte variatie binnen groepen. Gebruik eerdere gegevens op dezelfde schaal; bij verschillende groepen gebruikt u een gepoolde of conservatief hogere SD.",
+  },
+  "paired-mean.delta": {
+    en: "Mean change is the smallest within-person or matched-pair change worth detecting. It should come from the minimally important change or a justified scientific target.",
+    id: "Perubahan rerata adalah perubahan dalam individu atau pasangan yang paling kecil tetapi layak dideteksi. Nilai ini sebaiknya berasal dari perubahan minimal penting atau target ilmiah yang beralasan.",
+    nl: "De gemiddelde verandering is de kleinste binnen-persoons- of gematchte verandering die detectie waard is. Baseer dit op de minimale belangrijke verandering of een onderbouwd wetenschappelijk doel.",
+  },
+  "paired-mean.sdDiff": {
+    en: "This is the SD of paired differences, not the baseline SD. It is often smaller than the raw outcome SD; use paired pilot data whenever possible.",
+    id: "Ini adalah SD dari selisih berpasangan, bukan SD awal. Nilainya sering lebih kecil daripada SD luaran mentah; gunakan data pilot berpasangan bila memungkinkan.",
+    nl: "Dit is de SD van gepaarde verschillen, niet de baseline-SD. Deze is vaak kleiner dan de ruwe uitkomst-SD; gebruik waar mogelijk gepaarde pilotgegevens.",
+  },
+  "two-proportions.p1": {
+    en: "Control proportion is the expected event, response, or risk in the comparison group. Use the best local or recent estimate because this strongly affects sample size.",
+    id: "Proporsi kontrol adalah kejadian, respons, atau risiko yang diperkirakan pada kelompok pembanding. Gunakan estimasi lokal atau terbaru terbaik karena sangat memengaruhi besar sampel.",
+    nl: "De controleproportie is de verwachte gebeurtenis, respons of kans in de vergelijkingsgroep. Gebruik de beste lokale of recente schatting omdat dit de steekproefgrootte sterk beinvloedt.",
+  },
+  "two-proportions.p2": {
+    en: "Treatment proportion is the expected rate in the intervention group. The clinically meaningful absolute difference from control should drive the choice.",
+    id: "Proporsi perlakuan adalah angka yang diperkirakan pada kelompok intervensi. Selisih absolut yang bermakna klinis dari kontrol harus menjadi dasar pemilihan nilai.",
+    nl: "De behandelproportie is het verwachte percentage in de interventiegroep. Het klinisch relevante absolute verschil met controle moet de keuze sturen.",
+  },
+  "one-proportion-test.p0": {
+    en: "Benchmark is the fixed null, historical, or target proportion. It should come from a standard, registry, previous study, or protocol-defined threshold.",
+    id: "Benchmark adalah proporsi nol, historis, atau target yang dianggap tetap. Nilai ini sebaiknya berasal dari standar, registri, studi sebelumnya, atau ambang yang ditetapkan protokol.",
+    nl: "De benchmark is de vaste nul-, historische of doelproportie. Baseer deze op een standaard, register, eerdere studie of protocolgedefinieerde drempel.",
+  },
+  "one-proportion-test.p1": {
+    en: "Target proportion is the true proportion the study is powered to detect. Choose a value that would change interpretation or practice.",
+    id: "Proporsi target adalah proporsi sebenarnya yang ingin dideteksi dengan power studi. Pilih nilai yang dapat mengubah interpretasi atau praktik.",
+    nl: "De doelproportie is de werkelijke proportie waarop de studie gepowerd is. Kies een waarde die interpretatie of praktijk zou veranderen.",
+  },
+  "correlation.rho": {
+    en: "Expected correlation is the smallest Pearson correlation worth detecting. Cohen's rough benchmarks are 0.10 small, 0.30 moderate, and 0.50 large.",
+    id: "Korelasi yang diharapkan adalah korelasi Pearson terkecil yang layak dideteksi. Patokan kasar Cohen: 0,10 kecil, 0,30 sedang, dan 0,50 besar.",
+    nl: "De verwachte correlatie is de kleinste Pearson-correlatie die detectie waard is. Cohens grove richtlijnen zijn 0,10 klein, 0,30 matig en 0,50 groot.",
+  },
+  "diagnostic-sensitivity.sensitivity": {
+    en: "Sensitivity is the probability that the index test is positive among participants who truly have the condition. Values of 80-90% are common planning targets, but disease risk should guide the target.",
+    id: "Sensitivitas adalah peluang tes indeks positif pada peserta yang benar-benar memiliki kondisi. Target 80-90% lazim dalam perencanaan, tetapi risiko penyakit harus memandu target.",
+    nl: "Sensitiviteit is de kans dat de indextest positief is bij deelnemers die de aandoening werkelijk hebben. 80-90% is vaak een planningsdoel, maar ziekterisico moet het doel sturen.",
+  },
+  "diagnostic-sensitivity.margin": {
+    en: "This is the acceptable precision around sensitivity. Margins of 5-10 percentage points are common; serious diagnostic consequences usually require tighter precision.",
+    id: "Ini adalah presisi yang dapat diterima di sekitar sensitivitas. Margin 5-10 poin persentase lazim; konsekuensi diagnostik serius biasanya memerlukan presisi lebih ketat.",
+    nl: "Dit is de aanvaardbare precisie rond sensitiviteit. Marges van 5-10 procentpunten zijn gebruikelijk; ernstige diagnostische gevolgen vragen meestal smallere marges.",
+  },
+  "diagnostic-sensitivity.prevalence": {
+    en: "Disease prevalence determines how many screened participants are needed to obtain enough diseased participants. Use the expected prevalence in the recruited setting, not the general population if different.",
+    id: "Prevalensi penyakit menentukan berapa peserta yang perlu direkrut untuk memperoleh cukup peserta dengan penyakit. Gunakan prevalensi pada setting rekrutmen, bukan populasi umum bila berbeda.",
+    nl: "Ziekteprevalentie bepaalt hoeveel gescreende deelnemers nodig zijn om genoeg zieke deelnemers te verkrijgen. Gebruik de prevalentie in de wervingssetting, niet de algemene populatie als die verschilt.",
+  },
+  "diagnostic-specificity.specificity": {
+    en: "Specificity is the probability that the index test is negative among participants without the condition. High specificity targets are often needed when false positives are harmful or costly.",
+    id: "Spesifisitas adalah peluang tes indeks negatif pada peserta tanpa kondisi. Target spesifisitas tinggi sering diperlukan bila positif palsu berbahaya atau mahal.",
+    nl: "Specificiteit is de kans dat de indextest negatief is bij deelnemers zonder de aandoening. Hoge specificiteitsdoelen zijn vaak nodig als fout-positieven schadelijk of kostbaar zijn.",
+  },
+  "diagnostic-specificity.margin": {
+    en: "This is the acceptable precision around specificity. Margins of 5-10 percentage points are common, with tighter margins for screening or high-impact decisions.",
+    id: "Ini adalah presisi yang dapat diterima di sekitar spesifisitas. Margin 5-10 poin persentase lazim, dengan margin lebih ketat untuk skrining atau keputusan berdampak besar.",
+    nl: "Dit is de aanvaardbare precisie rond specificiteit. Marges van 5-10 procentpunten zijn gebruikelijk, met smallere marges voor screening of beslissingen met grote gevolgen.",
+  },
+  "diagnostic-specificity.prevalence": {
+    en: "Prevalence determines the non-diseased fraction available for estimating specificity. Lower prevalence usually makes specificity easier to estimate than sensitivity.",
+    id: "Prevalensi menentukan fraksi tanpa penyakit yang tersedia untuk memperkirakan spesifisitas. Prevalensi rendah biasanya membuat spesifisitas lebih mudah diestimasi daripada sensitivitas.",
+    nl: "Prevalentie bepaalt de niet-zieke fractie die beschikbaar is om specificiteit te schatten. Bij lage prevalentie is specificiteit meestal makkelijker te schatten dan sensitiviteit.",
+  },
+  "cohort-rr.p0": {
+    en: "Unexposed risk is the expected outcome risk in the reference group. It should come from similar cohorts or surveillance data.",
+    id: "Risiko tidak terpajan adalah risiko luaran yang diperkirakan pada kelompok rujukan. Nilai ini sebaiknya berasal dari kohort serupa atau data surveilans.",
+    nl: "Het risico bij niet-blootgestelden is het verwachte uitkomstrisico in de referentiegroep. Baseer dit op vergelijkbare cohorten of surveillancegegevens.",
+  },
+  "cohort-rr.rr": {
+    en: "Risk ratio is the expected exposed/unexposed risk contrast. RR = 1 means no association; choose the smallest clinically meaningful departure from 1.",
+    id: "Rasio risiko adalah kontras risiko terpajan/tidak terpajan yang diharapkan. RR = 1 berarti tidak ada asosiasi; pilih penyimpangan terkecil dari 1 yang bermakna klinis.",
+    nl: "De risicoratio is het verwachte risico-contrast blootgesteld/niet-blootgesteld. RR = 1 betekent geen associatie; kies de kleinste klinisch relevante afwijking van 1.",
+  },
+  "cohort-rr.ratio": {
+    en: "This is the number of exposed participants per unexposed participant. 1:1 is efficient, but observational cohorts often use the naturally available exposure distribution.",
+    id: "Ini adalah jumlah peserta terpajan per peserta tidak terpajan. Rasio 1:1 efisien, tetapi kohort observasional sering mengikuti distribusi pajanan yang tersedia.",
+    nl: "Dit is het aantal blootgestelde deelnemers per niet-blootgestelde deelnemer. 1:1 is efficient, maar observationele cohorten volgen vaak de beschikbare blootstellingsverdeling.",
+  },
+  "case-control.p0": {
+    en: "Control exposure is the expected exposure prevalence among controls. This is the anchor for translating the odds ratio into case exposure.",
+    id: "Pajanan kontrol adalah prevalensi pajanan yang diperkirakan pada kontrol. Ini menjadi dasar untuk menerjemahkan odds ratio menjadi pajanan pada kasus.",
+    nl: "Controleblootstelling is de verwachte blootstellingsprevalentie bij controles. Dit is het anker om de oddsratio naar casusblootstelling te vertalen.",
+  },
+  "case-control.or": {
+    en: "Odds ratio is the planned exposure contrast between cases and controls. OR = 1 means no association; use the smallest important OR.",
+    id: "Odds ratio adalah kontras pajanan yang direncanakan antara kasus dan kontrol. OR = 1 berarti tidak ada asosiasi; gunakan OR terkecil yang penting.",
+    nl: "De oddsratio is het geplande blootstellingscontrast tussen cases en controles. OR = 1 betekent geen associatie; gebruik de kleinste belangrijke OR.",
+  },
+  "case-control.ratio": {
+    en: "Controls per case can improve power when cases are limited. Gains become modest beyond about 4 controls per case, so 1:1 to 1:4 is typical.",
+    id: "Kontrol per kasus dapat meningkatkan power bila jumlah kasus terbatas. Keuntungan menjadi kecil setelah sekitar 4 kontrol per kasus, sehingga 1:1 hingga 1:4 lazim.",
+    nl: "Controles per case kunnen de power verhogen als cases schaars zijn. De winst wordt beperkt na ongeveer 4 controles per case; 1:1 tot 1:4 is gebruikelijk.",
+  },
+  "noninferiority-means.margin": {
+    en: "The non-inferiority margin is the largest acceptable loss versus control. It must be clinically justified before calculation; there is no generic standard value.",
+    id: "Margin non-inferioritas adalah kehilangan terbesar yang masih dapat diterima dibanding kontrol. Nilai ini harus dijustifikasi secara klinis sebelum perhitungan; tidak ada standar generik.",
+    nl: "De non-inferioriteitsmarge is het grootste aanvaardbare verlies ten opzichte van controle. Deze moet klinisch onderbouwd zijn voor de berekening; er is geen algemene standaardwaarde.",
+  },
+  "noninferiority-means.sd": {
+    en: "Common SD is the expected within-group variability of the continuous endpoint. Use previous trials on the same endpoint and population when possible.",
+    id: "SD bersama adalah variasi dalam kelompok yang diperkirakan pada endpoint kontinu. Gunakan uji sebelumnya dengan endpoint dan populasi yang sama bila memungkinkan.",
+    nl: "De gezamenlijke SD is de verwachte variatie binnen groepen voor het continue eindpunt. Gebruik waar mogelijk eerdere trials met hetzelfde eindpunt en dezelfde populatie.",
+  },
+  "equivalence-means.margin": {
+    en: "The equivalence margin is the maximum difference considered practically the same in either direction. It must be prespecified and clinically justified.",
+    id: "Margin ekuivalensi adalah perbedaan maksimum yang dianggap praktis sama pada kedua arah. Nilai ini harus ditetapkan sebelumnya dan dijustifikasi secara klinis.",
+    nl: "De equivalentiemarge is het maximale verschil dat in beide richtingen praktisch gelijk wordt geacht. Deze moet vooraf zijn vastgelegd en klinisch onderbouwd.",
+  },
+  "equivalence-means.sd": {
+    en: "Common SD is the expected variability in both groups. Use the same measurement scale and population as the planned equivalence endpoint.",
+    id: "SD bersama adalah variasi yang diperkirakan pada kedua kelompok. Gunakan skala pengukuran dan populasi yang sama dengan endpoint ekuivalensi yang direncanakan.",
+    nl: "De gezamenlijke SD is de verwachte variatie in beide groepen. Gebruik dezelfde meetschaal en populatie als het geplande equivalentie-eindpunt.",
+  },
+  "cluster-crt.p1": {
+    en: "Control proportion is the expected event or response rate in control clusters. Use cluster-level setting data when available.",
+    id: "Proporsi kontrol adalah angka kejadian atau respons yang diperkirakan pada klaster kontrol. Gunakan data setting tingkat klaster bila tersedia.",
+    nl: "De controleproportie is het verwachte gebeurtenis- of responspercentage in controleclusters. Gebruik settinggegevens op clusterniveau als die beschikbaar zijn.",
+  },
+  "cluster-crt.p2": {
+    en: "Intervention proportion is the expected rate after the cluster-level intervention. The absolute difference should be realistic for the intervention and implementation setting.",
+    id: "Proporsi intervensi adalah angka yang diperkirakan setelah intervensi tingkat klaster. Selisih absolut harus realistis untuk intervensi dan setting implementasi.",
+    nl: "De interventieproportie is het verwachte percentage na de interventie op clusterniveau. Het absolute verschil moet realistisch zijn voor interventie en implementatiesetting.",
+  },
+  "cluster-crt.clusterSize": {
+    en: "Cluster size is the average number of participants per cluster. Unequal clusters reduce efficiency, so run sensitivity checks if sizes vary widely.",
+    id: "Ukuran klaster adalah rata-rata jumlah peserta per klaster. Klaster yang tidak seimbang menurunkan efisiensi, jadi lakukan skenario sensitivitas bila ukurannya sangat bervariasi.",
+    nl: "Clustergrootte is het gemiddelde aantal deelnemers per cluster. Ongelijke clusters verlagen de efficientie; voer gevoeligheidsanalyses uit bij grote variatie.",
+  },
+  "cluster-crt.icc": {
+    en: "ICC measures similarity of participants within the same cluster. Even small ICC values can greatly increase sample size; 0.01-0.05 is common in many health-service settings.",
+    id: "ICC mengukur kemiripan peserta dalam klaster yang sama. Bahkan ICC kecil dapat sangat meningkatkan besar sampel; 0,01-0,05 lazim pada banyak setting layanan kesehatan.",
+    nl: "ICC meet de gelijkenis van deelnemers binnen hetzelfde cluster. Zelfs kleine ICC's kunnen de steekproef sterk vergroten; 0,01-0,05 is gebruikelijk in veel zorgsettings.",
+  },
+  "survival.hr": {
+    en: "Hazard ratio is the planned treatment/control hazard contrast over time. HR below 1 favors treatment in this calculator; choose the smallest clinically important effect.",
+    id: "Hazard ratio adalah kontras hazard perlakuan/kontrol yang direncanakan sepanjang waktu. HR di bawah 1 menguntungkan perlakuan pada kalkulator ini; pilih efek terkecil yang penting secara klinis.",
+    nl: "De hazardratio is het geplande hazardcontrast behandeling/controle over de tijd. In deze calculator wijst HR onder 1 op voordeel voor behandeling; kies het kleinste klinisch belangrijke effect.",
+  },
+  "survival.eventRate": {
+    en: "Overall event rate is the proportion expected to have the event by analysis. This links required events to total sample size; use expected follow-up and censoring patterns.",
+    id: "Angka kejadian keseluruhan adalah proporsi yang diperkirakan mengalami kejadian saat analisis. Nilai ini menghubungkan jumlah kejadian yang diperlukan dengan total sampel; gunakan perkiraan follow-up dan sensor.",
+    nl: "Het totale eventpercentage is het verwachte aandeel met een event bij analyse. Dit koppelt benodigde events aan totale steekproefgrootte; gebruik verwachte follow-up en censuurpatronen.",
+  },
+  "linear-regression.f2": {
+    en: "Cohen's f2 expresses explained variance relative to unexplained variance. Rough standards are 0.02 small, 0.15 medium, and 0.35 large.",
+    id: "Cohen f2 menyatakan varians yang dijelaskan relatif terhadap varians yang tidak dijelaskan. Patokan kasar: 0,02 kecil, 0,15 sedang, dan 0,35 besar.",
+    nl: "Cohens f2 drukt verklaarde variantie uit ten opzichte van onverklaarde variantie. Grove richtlijnen zijn 0,02 klein, 0,15 middelgroot en 0,35 groot.",
+  },
+  "linear-regression.predictors": {
+    en: "Predictors are the tested covariates or degrees of freedom in the model. Count dummy variables, nonlinear terms, and planned interaction terms when relevant.",
+    id: "Prediktor adalah kovariat atau derajat kebebasan yang diuji dalam model. Hitung variabel dummy, bentuk nonlinier, dan interaksi yang direncanakan bila relevan.",
+    nl: "Predictoren zijn de geteste covariaten of vrijheidsgraden in het model. Tel dummyvariabelen, niet-lineaire termen en geplande interacties mee waar relevant.",
+  },
+  "logistic-regression.predictors": {
+    en: "Predictors means candidate predictors or model degrees of freedom. Prediction models should count all planned parameters, including categories and nonlinear terms.",
+    id: "Prediktor berarti kandidat prediktor atau derajat kebebasan model. Model prediksi harus menghitung semua parameter yang direncanakan, termasuk kategori dan bentuk nonlinier.",
+    nl: "Predictoren betekent kandidaat-predictoren of vrijheidsgraden van het model. Voorspelmodellen moeten alle geplande parameters tellen, inclusief categorieen en niet-lineaire termen.",
+  },
+  "logistic-regression.eventsPerPredictor": {
+    en: "Events per predictor is a stability rule of thumb. 10 has been traditional; 15-20 is more conservative, and formal Riley/van Smeden methods are preferred for final prediction models.",
+    id: "Kejadian per prediktor adalah aturan praktis untuk stabilitas model. Nilai 10 tradisional; 15-20 lebih konservatif, dan metode formal Riley/van Smeden lebih disukai untuk model prediksi akhir.",
+    nl: "Events per predictor is een vuistregel voor stabiliteit. 10 is traditioneel; 15-20 is conservatiever, en formele Riley/van Smeden-methoden hebben de voorkeur voor definitieve voorspelmodellen.",
+  },
+  "logistic-regression.eventRate": {
+    en: "Outcome event rate converts the required number of events into total sample size. Use the expected event prevalence in the intended study population.",
+    id: "Angka kejadian luaran mengubah jumlah kejadian yang diperlukan menjadi total besar sampel. Gunakan prevalensi kejadian yang diperkirakan pada populasi studi.",
+    nl: "Het uitkomst-eventpercentage zet het benodigde aantal events om naar totale steekproefgrootte. Gebruik de verwachte eventprevalentie in de beoogde studiepopulatie.",
+  },
+};
+
+function parameterGuidance(calculatorId: string, variableKey: string, language: Language) {
+  const guidance = parameterGuidanceText[`${calculatorId}.${variableKey}`] ?? parameterGuidanceText[`common.${variableKey}`];
+  return guidance?.[language] ?? guidance?.en ?? "";
 }
 
 const calculators: Calculator[] = [
@@ -3426,39 +3659,44 @@ export function SampleSizeApp() {
             </div>
 
             <div className="inputs-grid">
-              {calculator.variables.map((variable) => (
-                <label className="control" key={variable.key}>
-                  <span>
-                    <strong>{t(variable.label, language)}</strong>
-                    <small>{t(variable.help, language)}</small>
-                  </span>
-                  <div className="input-row">
-                    {variable.slider && (
-                      <input
-                        aria-label={`${t(variable.label, language)} slider`}
-                        max={variable.max}
-                        min={variable.min}
-                        onChange={(event) => updateValue(variable.key, Number(event.target.value))}
-                        step={variable.step}
-                        type="range"
-                        value={values[variable.key]}
-                      />
-                    )}
-                    <div className="number-wrap">
-                      <input
-                        aria-label={t(variable.label, language)}
-                        max={variable.max}
-                        min={variable.min}
-                        onChange={(event) => updateValue(variable.key, Number(event.target.value))}
-                        step={variable.step}
-                        type="number"
-                        value={values[variable.key]}
-                      />
-                      <em>{variable.suffix}</em>
+              {calculator.variables.map((variable) => {
+                const guidance = parameterGuidance(calculator.id, variable.key, language);
+
+                return (
+                  <label className="control" key={variable.key}>
+                    <span>
+                      <strong>{t(variable.label, language)}</strong>
+                      <small>{t(variable.help, language)}</small>
+                      {guidance && <small className="parameter-guidance">{guidance}</small>}
+                    </span>
+                    <div className="input-row">
+                      {variable.slider && (
+                        <input
+                          aria-label={`${t(variable.label, language)} slider`}
+                          max={variable.max}
+                          min={variable.min}
+                          onChange={(event) => updateValue(variable.key, Number(event.target.value))}
+                          step={variable.step}
+                          type="range"
+                          value={values[variable.key]}
+                        />
+                      )}
+                      <div className="number-wrap">
+                        <input
+                          aria-label={t(variable.label, language)}
+                          max={variable.max}
+                          min={variable.min}
+                          onChange={(event) => updateValue(variable.key, Number(event.target.value))}
+                          step={variable.step}
+                          type="number"
+                          value={values[variable.key]}
+                        />
+                        <em>{variable.suffix}</em>
+                      </div>
                     </div>
-                  </div>
-                </label>
-              ))}
+                  </label>
+                );
+              })}
             </div>
 
             <div className="evidence">
@@ -3593,7 +3831,7 @@ export function SampleSizeApp() {
         ) : null}
       </section>
 
-      <footer className="app-footer"><strong>{t("StudySize Studio version 1.22 © Ryalino, 2026.", language)}</strong></footer>
+      <footer className="app-footer"><strong>{t("StudySize Studio version 1.23 © Ryalino, 2026.", language)}</strong></footer>
 
       {copiedNotice && (
         <div className="copy-toast" role="status" aria-live="polite">
