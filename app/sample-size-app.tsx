@@ -230,7 +230,7 @@ const indonesianText: Record<string, string> = {
   "Citation copied": "Sitasi disalin",
   "Clear scenarios": "Hapus skenario",
   "Scenarios cleared": "Skenario dihapus",
-  "StudySize Studio version 1.19 © Ryalino, 2026.": "StudySize Studio versi 1.19 © Ryalino, 2026.",
+  "StudySize Studio version 1.22 © Ryalino, 2026.": "StudySize Studio versi 1.22 © Ryalino, 2026.",
   "Scenario saved": "Skenario disimpan",
   "Scenario is ready": "Skenario siap",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Skenario ini sekarang tersedia di menu Perbandingan Skenario, tempat Anda dapat membandingkannya dengan skenario perencanaan tersimpan lainnya.",
@@ -785,7 +785,7 @@ const dutchText: Record<string, string> = {
   "Citation copied": "Citatie gekopieerd",
   "Clear scenarios": "Scenario's wissen",
   "Scenarios cleared": "Scenario's gewist",
-  "StudySize Studio version 1.19 © Ryalino, 2026.": "StudySize Studio versie 1.19 © Ryalino, 2026.",
+  "StudySize Studio version 1.22 © Ryalino, 2026.": "StudySize Studio versie 1.22 © Ryalino, 2026.",
   "Scenario is ready": "Scenario is klaar",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Dit scenario is nu beschikbaar in de balk Scenariovergelijking, waar u het kunt vergelijken met andere opgeslagen planningsscenario's.",
   "Open Scenario Comparison": "Scenariovergelijking openen",
@@ -3166,18 +3166,6 @@ export function SampleSizeApp() {
               </ol>
             </section>
 
-            <section className="best-practice blinding-guide" aria-labelledby="blinding-title">
-              <div>
-                <p className="eyebrow">{t("Blinding", language)}</p>
-                <h3 id="blinding-title">{t("Blinding and allocation concealment guide", language)}</h3>
-                <p>
-                  {t("The allocation sequence should be protected before assignment, and blinding should be planned around who can influence enrolment, treatment, assessment, or analysis.", language)}
-                </p>
-              </div>
-              <ol>
-                {blindingGuide.map((item) => <li key={item}>{t(item, language)}</li>)}
-              </ol>
-            </section>
           </section>
         ) : mode === "blinding" ? (
           <section className="blinding-panel" aria-labelledby="blinding-page-title">
@@ -3605,7 +3593,7 @@ export function SampleSizeApp() {
         ) : null}
       </section>
 
-      <footer className="app-footer"><strong>{t("StudySize Studio version 1.19 © Ryalino, 2026.", language)}</strong></footer>
+      <footer className="app-footer"><strong>{t("StudySize Studio version 1.22 © Ryalino, 2026.", language)}</strong></footer>
 
       {copiedNotice && (
         <div className="copy-toast" role="status" aria-live="polite">

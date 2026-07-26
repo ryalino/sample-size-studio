@@ -88,13 +88,33 @@ button {
 }
 
 .masthead {
+  position: relative;
+  overflow: hidden;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 28px;
   align-items: center;
   max-width: 1500px;
   margin: 0 auto 24px;
-  padding: 26px 0 10px;
+  padding: 30px 24px 18px;
+}
+
+.masthead::before {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url("/masthead-bg.png");
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: min(980px, 76%) auto;
+  content: "";
+  opacity: 0.34;
+  pointer-events: none;
+}
+
+.masthead > * {
+  position: relative;
+  z-index: 1;
 }
 
 .eyebrow {

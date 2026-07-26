@@ -38,7 +38,7 @@ test("server-renders the sample size calculator shell", async () => {
   assert.match(html, /Randomiser/);
   assert.match(html, /Scenario Comparison/);
   assert.match(html, /Study Design/);
-  assert.match(html, /StudySize Studio version 1\.19 © Ryalino, 2026\./);
+  assert.match(html, /StudySize Studio version 1\.22 © Ryalino, 2026\./);
   assert.match(html, /What is the main purpose of the study/);
   assert.match(html, /Calculator catalog/);
   assert.doesNotMatch(html, /Prevalence \/ Single Proportion|Two Independent Means|Saved scenarios/);
@@ -87,4 +87,6 @@ test("removes disposable starter references", async () => {
 test("ships generated favicon asset", async () => {
   const favicon = await stat(new URL("../public/favicon.png", import.meta.url));
   assert.ok(favicon.size > 1000);
+  const masthead = await stat(new URL("../public/masthead-bg.png", import.meta.url));
+  assert.ok(masthead.size > 1000);
 });
