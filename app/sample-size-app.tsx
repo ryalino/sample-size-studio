@@ -224,6 +224,10 @@ const indonesianText: Record<string, string> = {
   "Close protocol wording dialog": "Tutup dialog kalimat protokol",
   "Protocol wording text": "Teks kalimat protokol",
   "Copy wording": "Salin kalimat",
+  "Copy citation": "Salin sitasi",
+  "Citation copied": "Sitasi disalin",
+  "Clear scenarios": "Hapus skenario",
+  "Scenarios cleared": "Skenario dihapus",
   "Scenario saved": "Skenario disimpan",
   "Scenario is ready": "Skenario siap",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Skenario ini sekarang tersedia di menu Perbandingan Skenario, tempat Anda dapat membandingkannya dengan skenario perencanaan tersimpan lainnya.",
@@ -773,6 +777,10 @@ const dutchText: Record<string, string> = {
   "Close": "Sluiten",
   "Copy wording for your protocol": "Kopieer tekst voor uw protocol",
   "Copy wording": "Tekst kopiëren",
+  "Copy citation": "Citatie kopiëren",
+  "Citation copied": "Citatie gekopieerd",
+  "Clear scenarios": "Scenario's wissen",
+  "Scenarios cleared": "Scenario's gewist",
   "StudySize Studio version 1.1 © Ryalino, 2026.": "StudySize Studio versie 1.1 © Ryalino, 2026.",
   "Scenario is ready": "Scenario is klaar",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Dit scenario is nu beschikbaar in de balk Scenariovergelijking, waar u het kunt vergelijken met andere opgeslagen planningsscenario's.",
@@ -2239,7 +2247,7 @@ export function SampleSizeApp() {
       text: "Ryalino C. StudySize Studio. Published 2026. Accessed July 26, 2026. https://sample-size-studio.ryalino.workers.dev",
     },
     {
-      label: "APA",
+      label: "Harvard/APA",
       text: "Ryalino, C. (2026). StudySize Studio [Web application]. https://sample-size-studio.ryalino.workers.dev",
     },
   ];
@@ -2275,6 +2283,12 @@ export function SampleSizeApp() {
     setActiveCategory(calculators.find((item) => item.id === scenario.calculatorId)?.category ?? "All");
     setValuesByCalculator((current) => ({ ...current, [scenario.calculatorId]: scenario.values }));
     setStatus(t("Scenario loaded", language));
+  }
+
+  function clearScenarios() {
+    setScenarios([]);
+    window.localStorage.removeItem("studysize-scenarios");
+    setStatus(t("Scenarios cleared", language));
   }
 
   function downloadPdf() {
@@ -2425,6 +2439,11 @@ export function SampleSizeApp() {
   function copyProtocolWording() {
     void navigator.clipboard?.writeText(protocolText);
     setStatus(t("Protocol wording copied", language));
+  }
+
+  function copyCitation(text: string) {
+    void navigator.clipboard?.writeText(text);
+    setStatus(t("Citation copied", language));
   }
 
   function answerChecklistTree(questionId: string, answer: boolean) {
@@ -2820,6 +2839,11 @@ export function SampleSizeApp() {
                   {t("Compare saved sample-size scenarios by base sample size, adjusted sample size, and the assumption set used for planning.", language)}
                 </p>
               </div>
+              <div className="actions">
+                <button type="button" onClick={clearScenarios} disabled={scenarios.length === 0}>
+                  {t("Clear scenarios", language)}
+                </button>
+              </div>
             </div>
 
             <div className="research-grid">
@@ -3048,7 +3072,7 @@ export function SampleSizeApp() {
               <strong>{formatNumber(result.total ?? result.primary)}</strong>
               <small>{t("Total before dropout adjustment", language)}</small>
             </div>
-            <div className="result-card">
+            <div className="result-card adjusted">
               <span>{t("Adjusted total", language)}</span>
               <strong>{formatNumber(result.adjustedTotal)}</strong>
               <small>{t("Includes expected dropout or missing data", language)}</small>
@@ -3105,7 +3129,12 @@ export function SampleSizeApp() {
             <div className="citation-list">
               {citationFormats.map((citation) => (
                 <article key={citation.label}>
-                  <strong>{citation.label}</strong>
+                  <div className="citation-item-head">
+                    <strong>{citation.label}</strong>
+                    <button type="button" onClick={() => copyCitation(citation.text)}>
+                      {t("Copy citation", language)}
+                    </button>
+                  </div>
                   <p>{citation.text}</p>
                 </article>
               ))}

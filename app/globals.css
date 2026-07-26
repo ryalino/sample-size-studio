@@ -921,6 +921,15 @@ input:disabled {
   color: #fff;
 }
 
+.result-card.adjusted {
+  border-color: rgba(15, 159, 154, 0.24);
+  background: linear-gradient(135deg, var(--mint), var(--sky));
+}
+
+.result-card.adjusted span {
+  color: var(--teal);
+}
+
 .result-card.primary span,
 .result-card.primary small {
   color: rgba(255, 255, 255, 0.72);
@@ -998,6 +1007,23 @@ input:disabled {
   border-radius: 8px;
   background: linear-gradient(180deg, #fff, #fbfcff);
   padding: 13px;
+}
+
+.citation-item-head {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.citation-item-head button {
+  min-height: 34px;
+  border: 1px solid rgba(15, 159, 154, 0.28);
+  border-radius: 999px;
+  background: var(--mint);
+  color: var(--foreground);
+  padding: 7px 11px;
+  font-weight: 800;
 }
 
 .citation-list p {
