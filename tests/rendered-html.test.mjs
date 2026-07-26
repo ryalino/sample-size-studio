@@ -33,14 +33,17 @@ test("server-renders the sample size calculator shell", async () => {
   const html = await response.text();
   assert.match(html, /<title>StudySize Studio<\/title>/i);
   assert.match(html, /Sample size calculators/);
+  assert.match(html, /Your one-stop solution for research preparation\./);
   assert.match(html, /How to cite us/);
   assert.match(html, /Find my calculator/);
   assert.match(html, /Randomiser/);
-  assert.match(html, /Research tools/);
+  assert.match(html, /Scenario Comparison/);
+  assert.match(html, /Reporting Checklist Helper/);
+  assert.match(html, /Sample Size Studio version 1\.1\. © Ryalino, 2026\./);
   assert.match(html, /What is the main purpose of the study/);
   assert.match(html, /Calculator catalog/);
   assert.doesNotMatch(html, /Prevalence \/ Single Proportion|Two Independent Means|Saved scenarios/);
-  assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Your site is taking shape|Export citation and references/);
+  assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Your site is taking shape|Export citation and references|Research tools/);
 });
 
 test("removes disposable starter references", async () => {

@@ -40,7 +40,7 @@ type Scenario = {
   result: Output;
   createdAt: string;
 };
-type AppMode = "finder" | "calculator" | "randomiser" | "research";
+type AppMode = "finder" | "calculator" | "randomiser" | "scenario" | "checklist";
 type DecisionAnswers = Record<string, string>;
 type DecisionOption = {
   value: string;
@@ -1111,6 +1111,7 @@ export function SampleSizeApp() {
   const [randomSeed, setRandomSeed] = useState("STUDY-2026");
   const [checklistType, setChecklistType] = useState<ChecklistKey>("trial");
   const [showCitationModal, setShowCitationModal] = useState(false);
+  const [showProtocolModal, setShowProtocolModal] = useState(false);
   const [valuesByCalculator, setValuesByCalculator] = useState<Record<string, Values>>(() =>
     Object.fromEntries(calculators.map((calculator) => [calculator.id, initialValues(calculator)])),
   );
@@ -1237,24 +1238,6 @@ export function SampleSizeApp() {
     setStatus("PDF downloaded");
   }
 
-  function downloadProtocolPdf() {
-    const lines = [
-      "Protocol wording:",
-      protocolText,
-      "Notes for adaptation:",
-      "Replace generic wording with the final protocol endpoint, population, intervention/exposure, comparator, and statistical test.",
-      "Document whether the calculation is for estimation, superiority, non-inferiority, equivalence, diagnostic accuracy, modeling, or randomisation planning.",
-      "Keep the final sample size justification aligned with the analysis plan.",
-    ];
-    const url = URL.createObjectURL(makePdf("StudySize Studio Protocol Wording", lines));
-    const anchor = document.createElement("a");
-    anchor.href = url;
-    anchor.download = "studysize-protocol-wording.pdf";
-    anchor.click();
-    URL.revokeObjectURL(url);
-    setStatus("Protocol wording PDF downloaded");
-  }
-
   function downloadRandomisationPdf() {
     const visibleAssignments = randomisationAssignments.map((assignment) =>
       `Subject ${assignment.subject}: ${assignment.group}; stratum ${assignment.stratum ?? "All participants"}${assignment.block ? `; block ${assignment.block}` : ""}`,
@@ -1347,6 +1330,11 @@ export function SampleSizeApp() {
     setStatus("Calculator selected from decision tree");
   }
 
+  function copyProtocolWording() {
+    void navigator.clipboard?.writeText(protocolText);
+    setStatus("Protocol wording copied");
+  }
+
   return (
     <main className="app-shell">
       <section className="masthead" aria-labelledby="app-title">
@@ -1356,10 +1344,7 @@ export function SampleSizeApp() {
           <button className="citation-button" type="button" onClick={() => setShowCitationModal(true)}>
             How to cite us
           </button>
-          <p>
-            Live calculators for researchers and clinicians, with exact inputs beside slider controls,
-            visible assumptions, citations, dropout adjustment, and saved planning scenarios.
-          </p>
+          <p>Your one-stop solution for research preparation.</p>
         </div>
         <div className="hero-metrics" aria-label="Catalog summary">
           <span><strong>{calculators.length}</strong> designs</span>
@@ -1378,8 +1363,11 @@ export function SampleSizeApp() {
         <button className={mode === "randomiser" ? "active" : ""} type="button" onClick={() => setMode("randomiser")}>
           Randomiser
         </button>
-        <button className={mode === "research" ? "active" : ""} type="button" onClick={() => setMode("research")}>
-          Research tools
+        <button className={mode === "scenario" ? "active" : ""} type="button" onClick={() => setMode("scenario")}>
+          Scenario Comparison
+        </button>
+        <button className={mode === "checklist" ? "active" : ""} type="button" onClick={() => setMode("checklist")}>
+          Reporting Checklist Helper
         </button>
       </nav>
 
@@ -1701,15 +1689,15 @@ export function SampleSizeApp() {
               </ol>
             </section>
           </section>
-        ) : mode === "research" ? (
-          <section className="research-panel" aria-labelledby="research-title">
+        ) : mode === "scenario" ? (
+          <section className="scenario-panel" aria-labelledby="scenario-title">
             <div className="panel-heading">
               <div>
                 <p className="eyebrow">Planning assistant</p>
-                <h2 id="research-title">Research tools</h2>
+                <h2 id="scenario-title">Scenario Comparison</h2>
                 <p>
-                  Compare saved sample-size scenarios and choose a reporting checklist for the main
-                  study type.
+                  Compare saved sample-size scenarios by base sample size, adjusted sample size,
+                  and the assumption set used for planning.
                 </p>
               </div>
             </div>
@@ -1745,7 +1733,22 @@ export function SampleSizeApp() {
                   </div>
                 )}
               </section>
+            </div>
+          </section>
+        ) : mode === "checklist" ? (
+          <section className="checklist-panel" aria-labelledby="checklist-page-title">
+            <div className="panel-heading">
+              <div>
+                <p className="eyebrow">Reporting support</p>
+                <h2 id="checklist-page-title">Reporting Checklist Helper</h2>
+                <p>
+                  Select the study or report type and use the checklist prompts to prepare a more
+                  complete manuscript, protocol, or project report.
+                </p>
+              </div>
+            </div>
 
+            <div className="research-grid">
               <section className="tool-card checklist-tool" aria-labelledby="checklist-title">
                 <span>Reporting checklist helper</span>
                 <h3 id="checklist-title">{checklist.title}</h3>
@@ -1887,7 +1890,7 @@ export function SampleSizeApp() {
             <div className="result-card protocol-card">
               <span>Protocol wording</span>
               <p>{protocolText}</p>
-              <button type="button" onClick={downloadProtocolPdf}>Download wording PDF</button>
+              <button type="button" onClick={() => setShowProtocolModal(true)}>Open wording popup</button>
             </div>
             <div className="saved">
               <div className="saved-head">
@@ -1908,6 +1911,8 @@ export function SampleSizeApp() {
           </aside>
         ) : null}
       </section>
+
+      <footer className="app-footer">Sample Size Studio version 1.1. © Ryalino, 2026.</footer>
 
       {showCitationModal && (
         <div className="modal-backdrop" role="presentation" onClick={() => setShowCitationModal(false)}>
@@ -1934,6 +1939,37 @@ export function SampleSizeApp() {
                   <p>{citation.text}</p>
                 </article>
               ))}
+            </div>
+          </section>
+        </div>
+      )}
+
+      {showProtocolModal && (
+        <div className="modal-backdrop" role="presentation" onClick={() => setShowProtocolModal(false)}>
+          <section
+            aria-labelledby="protocol-modal-title"
+            aria-modal="true"
+            className="citation-modal protocol-modal"
+            onClick={(event) => event.stopPropagation()}
+            role="dialog"
+          >
+            <div className="modal-head">
+              <div>
+                <p className="eyebrow">Protocol wording</p>
+                <h2 id="protocol-modal-title">Copy wording for your protocol</h2>
+              </div>
+              <button aria-label="Close protocol wording dialog" type="button" onClick={() => setShowProtocolModal(false)}>
+                Close
+              </button>
+            </div>
+            <textarea
+              aria-label="Protocol wording text"
+              className="protocol-copy-box"
+              readOnly
+              value={protocolText}
+            />
+            <div className="copy-actions">
+              <button type="button" onClick={copyProtocolWording}>Copy wording</button>
             </div>
           </section>
         </div>
