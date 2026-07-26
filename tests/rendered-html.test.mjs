@@ -61,6 +61,9 @@ test("removes disposable starter references", async () => {
   assert.match(app, /The Method section should at least describe the following:/);
   assert.match(app, /bmjopen\.bmj\.com\/content\/bmjopen\/15\/10\/e104236\/DC2\/embed\/inline-supplementary-material-2\.pdf\?download=true/);
   assert.match(app, /EQUATOR decision tree/);
+  assert.match(app, /useState<RandomisationMethod>\("simple"\)/);
+  assert.match(app, /makeTablePdf\("StudySize Studio Randomisation"/);
+  assert.match(app, /makeTablePdf\("StudySize Studio Randomisation Log"/);
   assert.doesNotMatch(page, /SkeletonPreview|codex-preview/);
   assert.doesNotMatch(layout, /Starter Project|codex-preview/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);

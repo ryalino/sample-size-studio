@@ -1189,10 +1189,19 @@ const checklistTreeQuestions: Record<string, ChecklistTreeQuestion> = {
 function makePdf(title: string, lines: string[]) {
   const escaped = lines.map((line) => line.replace(/[^\x20-\x7e]/g, "-").replace(/[()\\]/g, "\\$&"));
   const perPage = 39;
-  const chunks = Array.from({ length: Math.ceil(escaped.length / perPage) }, (_, index) =>
-    escaped.slice(index * perPage, index * perPage + perPage),
+  return makeTextPdf(title, escaped, 10, 15, "Helvetica", perPage);
+}
+
+function makeTablePdf(title: string, lines: string[]) {
+  const escaped = lines.map((line) => line.replace(/[^\x20-\x7e]/g, "-").replace(/[()\\]/g, "\\$&"));
+  return makeTextPdf(title, escaped, 7, 10, "Courier", 68);
+}
+
+function makeTextPdf(title: string, escapedLines: string[], fontSize: number, lineHeight: number, font: string, perPage: number) {
+  const chunks = Array.from({ length: Math.ceil(escapedLines.length / perPage) }, (_, index) =>
+    escapedLines.slice(index * perPage, index * perPage + perPage),
   );
-  const objects = ["<< /Type /Catalog /Pages 2 0 R >>", "", "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>"];
+  const objects = ["<< /Type /Catalog /Pages 2 0 R >>", "", `<< /Type /Font /Subtype /Type1 /BaseFont /${font} >>`];
   const pageObjectIds: number[] = [];
 
   chunks.forEach((chunk, pageIndex) => {
@@ -1202,9 +1211,9 @@ function makePdf(title: string, lines: string[]) {
     const text = [
       `BT /F1 18 Tf 54 770 Td (${title}) Tj`,
       `/F1 9 Tf 0 -18 Td (Page ${pageIndex + 1} of ${chunks.length}) Tj`,
-      "/F1 10 Tf 0 -22 Td",
+      `/F1 ${fontSize} Tf 0 -22 Td`,
     ];
-    chunk.forEach((line) => text.push(`(${line}) Tj 0 -15 Td`));
+    chunk.forEach((line) => text.push(`(${line}) Tj 0 -${lineHeight} Td`));
     text.push("ET");
     const stream = text.join("\n");
     objects.push(
@@ -1229,6 +1238,19 @@ function makePdf(title: string, lines: string[]) {
   return new Blob([pdf], { type: "application/pdf" });
 }
 
+function tableLines(headers: string[], rows: string[][], widths: number[]) {
+  const fit = (value: string, width: number) => {
+    const normalised = value.replace(/[^\x20-\x7e]/g, "-");
+    return normalised.length > width ? `${normalised.slice(0, Math.max(0, width - 1))}.` : normalised.padEnd(width, " ");
+  };
+  const renderRow = (cells: string[]) => cells.map((cell, index) => fit(cell, widths[index])).join(" | ");
+  return [
+    renderRow(headers),
+    widths.map((width) => "-".repeat(width)).join("-|-"),
+    ...rows.map(renderRow),
+  ];
+}
+
 export function SampleSizeApp() {
   const [mode, setMode] = useState<AppMode>("finder");
   const [activeCategory, setActiveCategory] = useState("All");
@@ -1237,7 +1259,7 @@ export function SampleSizeApp() {
   const [randomSubjectCount, setRandomSubjectCount] = useState(60);
   const [randomGroups, setRandomGroups] = useState("Intervention, Control");
   const [randomStrata, setRandomStrata] = useState("All participants");
-  const [randomMethod, setRandomMethod] = useState<RandomisationMethod>("block");
+  const [randomMethod, setRandomMethod] = useState<RandomisationMethod>("simple");
   const [randomBlockSize, setRandomBlockSize] = useState(4);
   const [randomSeed, setRandomSeed] = useState("STUDY-2026");
   const [checklistType, setChecklistType] = useState<ChecklistKey>("trial");
@@ -1404,24 +1426,37 @@ export function SampleSizeApp() {
   }
 
   function downloadRandomisationPdf() {
-    const visibleAssignments = randomisationAssignments.map((assignment) =>
-      `Subject ${assignment.subject}: ${assignment.group}; stratum ${assignment.stratum ?? "All participants"}${assignment.block ? `; block ${assignment.block}` : ""}`,
+    const settingsRows = [
+      ["Randomisation method", randomMethod === "block" ? "Permuted block randomisation" : "Simple balanced randomisation"],
+      ["Subjects", String(randomSubjectCount)],
+      ["Groups", randomisedGroups.join(", ")],
+      ["Strata", randomisationStrata.join(", ")],
+      ["Seed", randomSeed || "studysize-studio"],
+      ["Block size", randomMethod === "block" ? String(Math.max(randomisedGroups.length, Math.round(randomBlockSize))) : "Not used"],
+    ];
+    const countRows = Object.entries(randomisationCounts).map(([group, count]) => [group, String(count)]);
+    const assignmentRows = randomisationAssignments.map((assignment) =>
+      [
+        String(assignment.subject),
+        assignment.stratum ?? "All participants",
+        assignment.group,
+        assignment.block ? String(assignment.block) : "-",
+      ],
     );
     const lines = [
-      `Randomisation method: ${randomMethod === "block" ? "Permuted block randomisation" : "Simple balanced randomisation"}`,
-      `Subjects: ${randomSubjectCount}`,
-      `Groups: ${randomisedGroups.join(", ")}`,
-      `Strata: ${randomisationStrata.join(", ")}`,
-      `Seed: ${randomSeed || "studysize-studio"}`,
-      randomMethod === "block" ? `Block size: ${Math.max(randomisedGroups.length, Math.round(randomBlockSize))}` : "Block size: Not used",
+      "Randomisation settings:",
+      ...tableLines(["Setting", "Value"], settingsRows, [24, 74]),
+      "",
       "Allocation counts:",
-      ...Object.entries(randomisationCounts).map(([group, count]) => `${group}: ${count}`),
+      ...tableLines(["Group", "Count"], countRows, [34, 10]),
+      "",
       "Assignments:",
-      ...visibleAssignments,
+      ...tableLines(["Subject", "Stratum", "Group", "Block"], assignmentRows, [8, 30, 26, 7]),
+      "",
       "Best-practice notes:",
-      ...randomisationBestPractice,
+      ...randomisationBestPractice.map((item, index) => `${index + 1}. ${item}`),
     ];
-    const url = URL.createObjectURL(makePdf("StudySize Studio Randomisation", lines));
+    const url = URL.createObjectURL(makeTablePdf("StudySize Studio Randomisation", lines));
     const anchor = document.createElement("a");
     anchor.href = url;
     anchor.download = "studysize-randomisation.pdf";
@@ -1431,30 +1466,49 @@ export function SampleSizeApp() {
   }
 
   function downloadRandomisationLogPdf() {
+    const recommendedRows = [
+      ["1", "Screening ID"],
+      ["2", "Study subject ID"],
+      ["3", "Stratum"],
+      ["4", "Eligibility confirmed"],
+      ["5", "Consent completed"],
+      ["6", "Randomisation date/time"],
+      ["7", "Allocation"],
+      ["8", "Person assigning allocation"],
+      ["9", "Concealment method used"],
+      ["10", "Envelope/database/randomisation code number"],
+      ["11", "Protocol deviation notes"],
+      ["12", "Withdrawal or replacement notes"],
+      ["13", "Emergency unblinding date/time and reason"],
+    ];
+    const templateRows = randomisationAssignments.slice(0, 80).map((assignment) => [
+      String(assignment.subject),
+      assignment.stratum ?? "All participants",
+      assignment.group,
+      "___",
+      "___",
+      "___",
+      "___",
+      "___",
+      "___",
+    ]);
     const lines = [
       "Randomisation log template:",
+      "",
       "Recommended columns:",
-      "Screening ID",
-      "Study subject ID",
-      "Stratum",
-      "Eligibility confirmed",
-      "Consent completed",
-      "Randomisation date/time",
-      "Allocation",
-      "Person assigning allocation",
-      "Concealment method used",
-      "Envelope/database/randomisation code number",
-      "Protocol deviation notes",
-      "Withdrawal or replacement notes",
-      "Emergency unblinding date/time and reason",
+      ...tableLines(["No.", "Column"], recommendedRows, [4, 48]),
+      "",
       "Template rows:",
-      ...randomisationAssignments.slice(0, 80).map((assignment) =>
-        `Subject ${assignment.subject} | ${assignment.stratum ?? "All participants"} | ${assignment.group} | eligibility ___ | consent ___ | date/time ___ | allocator ___ | notes ___`,
+      ...tableLines(
+        ["Subject", "Stratum", "Allocation", "Eligible", "Consent", "Date/time", "Assigner", "Conceal", "Notes"],
+        templateRows,
+        [7, 18, 16, 8, 7, 10, 10, 10, 9],
       ),
+      "",
       "Best-practice reminders:",
-      ...randomisationBestPractice,
+      ...randomisationBestPractice.map((item, index) => `${index + 1}. ${item}`),
     ];
-    const url = URL.createObjectURL(makePdf("StudySize Studio Randomisation Log", lines));
+    const url = URL.createObjectURL(makeTablePdf("StudySize Studio Randomisation Log", lines));
     const anchor = document.createElement("a");
     anchor.href = url;
     anchor.download = "studysize-randomisation-log-template.pdf";
