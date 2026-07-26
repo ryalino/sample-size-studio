@@ -32,18 +32,17 @@ test("server-renders the sample size calculator shell", async () => {
 
   const html = await response.text();
   assert.match(html, /<title>StudySize Studio<\/title>/i);
-  assert.match(html, /Sample size calculators/);
-  assert.match(html, /Your one-stop solution for research preparation\./);
+  assert.match(html, /Your one-stop solution for medical research/i);
   assert.match(html, /How to cite us/);
   assert.match(html, /Find my calculator/);
   assert.match(html, /Randomiser/);
   assert.match(html, /Scenario Comparison/);
   assert.match(html, /Reporting Checklist Helper/);
-  assert.match(html, /Sample Size Studio version 1\.1\. © Ryalino, 2026\./);
+  assert.match(html, /StudySize Studio version 1\.1 © Ryalino, 2026\./);
   assert.match(html, /What is the main purpose of the study/);
   assert.match(html, /Calculator catalog/);
   assert.doesNotMatch(html, /Prevalence \/ Single Proportion|Two Independent Means|Saved scenarios/);
-  assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Your site is taking shape|Export citation and references|Research tools/);
+  assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Your site is taking shape|Export citation and references|Research tools|Your one-stop solution for research preparation/);
 });
 
 test("removes disposable starter references", async () => {
@@ -67,6 +66,9 @@ test("removes disposable starter references", async () => {
   assert.match(app, /type Language = "en" \| "id" \| "nl"/);
   assert.match(app, /Schakel naar Nederlands/);
   assert.match(app, /className="choice-icon"/);
+  assert.match(app, /wrapPdfLines/);
+  assert.match(app, /showScenarioModal/);
+  assert.match(app, /hero-logo/);
   assert.doesNotMatch(page, /SkeletonPreview|codex-preview/);
   assert.doesNotMatch(layout, /Starter Project|codex-preview/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);

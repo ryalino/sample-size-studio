@@ -97,6 +97,7 @@ type ChecklistTreeQuestion = {
 const indonesianText: Record<string, string> = {
   "Language selector": "Pemilih bahasa",
   "Sample size calculators": "Kalkulator besar sampel",
+  "Your one-stop solution for medical research": "Solusi terpadu untuk penelitian medis",
   "How to cite us": "Cara mengutip kami",
   "Your one-stop solution for research preparation.": "Solusi terpadu untuk persiapan penelitian.",
   "Catalog summary": "Ringkasan katalog",
@@ -220,6 +221,9 @@ const indonesianText: Record<string, string> = {
   "Protocol wording text": "Teks kalimat protokol",
   "Copy wording": "Salin kalimat",
   "Scenario saved": "Skenario disimpan",
+  "Scenario is ready": "Skenario siap",
+  "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Skenario ini sekarang tersedia di menu Perbandingan Skenario, tempat Anda dapat membandingkannya dengan skenario perencanaan tersimpan lainnya.",
+  "Open Scenario Comparison": "Buka Perbandingan Skenario",
   "Scenario loaded": "Skenario dimuat",
   "PDF downloaded": "PDF diunduh",
   "Randomisation PDF downloaded": "PDF randomisasi diunduh",
@@ -655,6 +659,7 @@ function t(text: string, language: Language) {
 const dutchText: Record<string, string> = {
   "Language selector": "Taalkiezer",
   "Sample size calculators": "Steekproefgrootte-calculators",
+  "Your one-stop solution for medical research": "Uw alles-in-een oplossing voor medisch onderzoek",
   "How to cite us": "Hoe citeert u ons",
   "Your one-stop solution for research preparation.": "Uw alles-in-een oplossing voor onderzoeksvoorbereiding.",
   "Catalog summary": "Catalogusoverzicht",
@@ -760,7 +765,10 @@ const dutchText: Record<string, string> = {
   "Close": "Sluiten",
   "Copy wording for your protocol": "Kopieer tekst voor uw protocol",
   "Copy wording": "Tekst kopiëren",
-  "Sample Size Studio version 1.1. © Ryalino, 2026.": "Sample Size Studio versie 1.1. © Ryalino, 2026.",
+  "StudySize Studio version 1.1 © Ryalino, 2026.": "StudySize Studio versie 1.1 © Ryalino, 2026.",
+  "Scenario is ready": "Scenario is klaar",
+  "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Dit scenario is nu beschikbaar in de balk Scenariovergelijking, waar u het kunt vergelijken met andere opgeslagen planningsscenario's.",
+  "Open Scenario Comparison": "Scenariovergelijking openen",
   "All": "Alle",
   "Descriptive": "Beschrijvend",
   "Comparative": "Vergelijkend",
@@ -1999,17 +2007,36 @@ const checklistTreeQuestions: Record<string, ChecklistTreeQuestion> = {
 function makePdf(title: string, lines: string[]) {
   const escaped = lines.map((line) => line.replace(/[^\x20-\x7e]/g, "-").replace(/[()\\]/g, "\\$&"));
   const perPage = 39;
-  return makeTextPdf(title, escaped, 10, 15, "Helvetica", perPage);
+  return makeTextPdf(title, escaped, 10, 15, "Helvetica", perPage, 88);
 }
 
 function makeTablePdf(title: string, lines: string[]) {
   const escaped = lines.map((line) => line.replace(/[^\x20-\x7e]/g, "-").replace(/[()\\]/g, "\\$&"));
-  return makeTextPdf(title, escaped, 7, 10, "Courier", 68);
+  return makeTextPdf(title, escaped, 7, 10, "Courier", 68, 106);
 }
 
-function makeTextPdf(title: string, escapedLines: string[], fontSize: number, lineHeight: number, font: string, perPage: number) {
-  const chunks = Array.from({ length: Math.ceil(escapedLines.length / perPage) }, (_, index) =>
-    escapedLines.slice(index * perPage, index * perPage + perPage),
+function wrapPdfLines(lines: string[], maxChars: number) {
+  return lines.flatMap((line) => {
+    if (line.length <= maxChars) return [line];
+    const wrapped: string[] = [];
+    let remaining = line;
+    const indent = line.match(/^\d+\.\s/) ? "   " : "";
+
+    while (remaining.length > maxChars) {
+      const breakAt = remaining.lastIndexOf(" ", maxChars);
+      const sliceAt = breakAt > Math.floor(maxChars * 0.6) ? breakAt : maxChars;
+      wrapped.push(remaining.slice(0, sliceAt));
+      remaining = `${indent}${remaining.slice(sliceAt).trimStart()}`;
+    }
+    wrapped.push(remaining);
+    return wrapped;
+  });
+}
+
+function makeTextPdf(title: string, escapedLines: string[], fontSize: number, lineHeight: number, font: string, perPage: number, maxChars: number) {
+  const wrappedLines = wrapPdfLines(escapedLines, maxChars);
+  const chunks = Array.from({ length: Math.ceil(wrappedLines.length / perPage) }, (_, index) =>
+    wrappedLines.slice(index * perPage, index * perPage + perPage),
   );
   const objects = ["<< /Type /Catalog /Pages 2 0 R >>", "", `<< /Type /Font /Subtype /Type1 /BaseFont /${font} >>`];
   const pageObjectIds: number[] = [];
@@ -2081,6 +2108,7 @@ export function SampleSizeApp() {
   const [checklistTreeAnswers, setChecklistTreeAnswers] = useState<ChecklistTreeAnswers>({});
   const [showCitationModal, setShowCitationModal] = useState(false);
   const [showProtocolModal, setShowProtocolModal] = useState(false);
+  const [showScenarioModal, setShowScenarioModal] = useState(false);
   const [valuesByCalculator, setValuesByCalculator] = useState<Record<string, Values>>(() =>
     Object.fromEntries(calculators.map((calculator) => [calculator.id, initialValues(calculator)])),
   );
@@ -2231,6 +2259,7 @@ export function SampleSizeApp() {
     setScenarios(next);
     window.localStorage.setItem("studysize-scenarios", JSON.stringify(next));
     setStatus(t("Scenario saved", language));
+    setShowScenarioModal(true);
   }
 
   function loadScenario(scenario: Scenario) {
@@ -2432,17 +2461,14 @@ export function SampleSizeApp() {
       </div>
       <section className="masthead" aria-labelledby="app-title">
         <div>
-          <p className="eyebrow">{t("Sample size calculators", language)}</p>
+          <p className="eyebrow">{t("Your one-stop solution for medical research", language)}</p>
           <h1 id="app-title">StudySize Studio</h1>
           <button className="citation-button" type="button" onClick={() => setShowCitationModal(true)}>
             {t("How to cite us", language)}
           </button>
-          <p>{t("Your one-stop solution for research preparation.", language)}</p>
         </div>
-        <div className="hero-metrics" aria-label={t("Catalog summary", language)}>
-          <span><strong>{calculators.length}</strong> {t("designs", language)}</span>
-          <span><strong>{categories.length - 1}</strong> {t("families", language)}</span>
-          <span><strong>{t("Guided", language)}</strong> {t("tree", language)}</span>
+        <div className="hero-logo" aria-label="StudySize Studio logo">
+          <img src="/favicon.png" alt="" />
         </div>
       </section>
 
@@ -3048,7 +3074,7 @@ export function SampleSizeApp() {
         ) : null}
       </section>
 
-      <footer className="app-footer">{t("Sample Size Studio version 1.1. © Ryalino, 2026.", language)}</footer>
+      <footer className="app-footer"><strong>{t("StudySize Studio version 1.1 © Ryalino, 2026.", language)}</strong></footer>
 
       {showCitationModal && (
         <div className="modal-backdrop" role="presentation" onClick={() => setShowCitationModal(false)}>
@@ -3075,6 +3101,42 @@ export function SampleSizeApp() {
                   <p>{citation.text}</p>
                 </article>
               ))}
+            </div>
+          </section>
+        </div>
+      )}
+
+      {showScenarioModal && (
+        <div className="modal-backdrop" role="presentation" onClick={() => setShowScenarioModal(false)}>
+          <section
+            aria-labelledby="scenario-modal-title"
+            aria-modal="true"
+            className="citation-modal scenario-modal"
+            onClick={(event) => event.stopPropagation()}
+            role="dialog"
+          >
+            <div className="modal-head">
+              <div>
+                <p className="eyebrow">{t("Saved scenarios", language)}</p>
+                <h2 id="scenario-modal-title">{t("Scenario is ready", language)}</h2>
+              </div>
+              <button aria-label={t("Close", language)} type="button" onClick={() => setShowScenarioModal(false)}>
+                {t("Close", language)}
+              </button>
+            </div>
+            <p className="modal-copy">
+              {t("This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.", language)}
+            </p>
+            <div className="copy-actions">
+              <button
+                type="button"
+                onClick={() => {
+                  setShowScenarioModal(false);
+                  setMode("scenario");
+                }}
+              >
+                {t("Open Scenario Comparison", language)}
+              </button>
             </div>
           </section>
         </div>
