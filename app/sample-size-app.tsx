@@ -110,6 +110,7 @@ const indonesianText: Record<string, string> = {
   "Calculator catalog": "Katalog kalkulator",
   "Randomiser": "Randomisasi",
   "Scenario Comparison": "Perbandingan skenario",
+  "Study Design": "Desain Studi",
   "Reporting Checklist Helper": "Bantuan daftar periksa pelaporan",
   "Study design catalog": "Katalog desain studi",
   "Filter study designs": "Saring desain studi",
@@ -176,8 +177,11 @@ const indonesianText: Record<string, string> = {
   "Reporting support": "Bantuan pelaporan",
   "Select the study or report type and use the checklist prompts to prepare a more complete manuscript, protocol, or project report.": "Pilih jenis studi atau laporan dan gunakan petunjuk daftar periksa untuk menyiapkan manuskrip, protokol, atau laporan proyek yang lebih lengkap.",
   "EQUATOR decision tree": "Alur keputusan EQUATOR",
+  "Find your study design": "Temukan desain studi Anda",
   "Find the reporting checklist": "Temukan daftar periksa pelaporan",
   "Answer the yes/no prompts adapted from the EQUATOR Network decision tree to select the most relevant checklist.": "Jawab pertanyaan ya/tidak yang diadaptasi dari alur keputusan EQUATOR Network untuk memilih daftar periksa yang paling relevan.",
+  "Reporting checklist": "Daftar periksa pelaporan",
+  "Reporting checklists improve transparency, reduce avoidable omissions, and help readers, reviewers, and editors assess whether the study methods and results are complete enough to interpret and reproduce. They should be used from protocol planning through manuscript submission, not only at the final writing stage.": "Daftar periksa pelaporan meningkatkan transparansi, mengurangi kelalaian yang dapat dihindari, dan membantu pembaca, penelaah, serta editor menilai apakah metode dan hasil studi cukup lengkap untuk ditafsirkan dan direproduksi. Daftar periksa sebaiknya digunakan sejak perencanaan protokol hingga pengiriman manuskrip, bukan hanya pada tahap penulisan akhir.",
   "Answered checklist tree questions": "Pertanyaan alur daftar periksa yang sudah dijawab",
   "Yes": "Ya",
   "No": "Tidak",
@@ -672,6 +676,7 @@ const dutchText: Record<string, string> = {
   "Calculator catalog": "Calculatorcatalogus",
   "Randomiser": "Randomisator",
   "Scenario Comparison": "Scenariovergelijking",
+  "Study Design": "Studiedesign",
   "Reporting Checklist Helper": "Hulp bij rapportagechecklists",
   "Study design catalog": "Catalogus met studiedesigns",
   "Filter study designs": "Filter studiedesigns",
@@ -728,7 +733,10 @@ const dutchText: Record<string, string> = {
   "Adjusted n": "Aangepaste n",
   "Reporting support": "Rapportageondersteuning",
   "EQUATOR decision tree": "EQUATOR-beslisboom",
+  "Find your study design": "Vind uw studiedesign",
   "Find the reporting checklist": "Vind de rapportagechecklist",
+  "Reporting checklist": "Rapportagechecklist",
+  "Reporting checklists improve transparency, reduce avoidable omissions, and help readers, reviewers, and editors assess whether the study methods and results are complete enough to interpret and reproduce. They should be used from protocol planning through manuscript submission, not only at the final writing stage.": "Rapportagechecklists verbeteren transparantie, verminderen vermijdbare omissies en helpen lezers, reviewers en redacteuren beoordelen of de methoden en resultaten volledig genoeg zijn om te interpreteren en te reproduceren. Ze horen vanaf protocolplanning tot en met manuscriptindiening te worden gebruikt, niet pas in de laatste schrijffase.",
   "Yes": "Ja",
   "No": "Nee",
   "Suggested checklist": "Voorgestelde checklist",
@@ -2467,12 +2475,12 @@ export function SampleSizeApp() {
             {t("How to cite us", language)}
           </button>
         </div>
-        <div className="hero-logo" aria-label="StudySize Studio logo">
-          <img src="/favicon.png" alt="" />
-        </div>
       </section>
 
       <nav className="mode-tabs" aria-label={t("Main app modes", language)}>
+        <button className={mode === "checklist" ? "active" : ""} type="button" onClick={() => setMode("checklist")}>
+          {t("Study Design", language)}
+        </button>
         <button className={mode === "finder" ? "active" : ""} type="button" onClick={() => setMode("finder")}>
           {t("Find my calculator", language)}
         </button>
@@ -2484,9 +2492,6 @@ export function SampleSizeApp() {
         </button>
         <button className={mode === "scenario" ? "active" : ""} type="button" onClick={() => setMode("scenario")}>
           {t("Scenario Comparison", language)}
-        </button>
-        <button className={mode === "checklist" ? "active" : ""} type="button" onClick={() => setMode("checklist")}>
-          {t("Reporting Checklist Helper", language)}
         </button>
       </nav>
 
@@ -2855,17 +2860,20 @@ export function SampleSizeApp() {
             <div className="panel-heading">
               <div>
                 <p className="eyebrow">{t("Reporting support", language)}</p>
-                <h2 id="checklist-page-title">{t("Reporting Checklist Helper", language)}</h2>
+                <h2 id="checklist-page-title">{t("Study Design", language)}</h2>
                 <p>
                   {t("Select the study or report type and use the checklist prompts to prepare a more complete manuscript, protocol, or project report.", language)}
+                </p>
+                <p>
+                  {t("Reporting checklists improve transparency, reduce avoidable omissions, and help readers, reviewers, and editors assess whether the study methods and results are complete enough to interpret and reproduce. They should be used from protocol planning through manuscript submission, not only at the final writing stage.", language)}
                 </p>
               </div>
             </div>
 
             <div className="research-grid">
               <section className="tool-card checklist-tree-card" aria-labelledby="checklist-tree-title">
-                <span>{t("EQUATOR decision tree", language)}</span>
-                <h3 id="checklist-tree-title">{t("Find the reporting checklist", language)}</h3>
+                <span>{t("Find your study design", language)}</span>
+                <h3 id="checklist-tree-title">{t("Find your study design", language)}</h3>
                 <p>
                   {t("Answer the yes/no prompts adapted from the EQUATOR Network decision tree to select the most relevant checklist.", language)}
                 </p>
@@ -2904,7 +2912,7 @@ export function SampleSizeApp() {
               </section>
 
               <section className="tool-card checklist-tool" aria-labelledby="checklist-title">
-                <span>{t("Reporting checklist helper", language)}</span>
+                <span>{t("Reporting checklist", language)}</span>
                 <h3 id="checklist-title">{t(checklist.title, language)}</h3>
                 <label>
                   <strong>{t("Study/report type", language)}</strong>

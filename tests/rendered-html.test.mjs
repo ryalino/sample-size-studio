@@ -37,12 +37,12 @@ test("server-renders the sample size calculator shell", async () => {
   assert.match(html, /Find my calculator/);
   assert.match(html, /Randomiser/);
   assert.match(html, /Scenario Comparison/);
-  assert.match(html, /Reporting Checklist Helper/);
+  assert.match(html, /Study Design/);
   assert.match(html, /StudySize Studio version 1\.1 © Ryalino, 2026\./);
   assert.match(html, /What is the main purpose of the study/);
   assert.match(html, /Calculator catalog/);
   assert.doesNotMatch(html, /Prevalence \/ Single Proportion|Two Independent Means|Saved scenarios/);
-  assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Your site is taking shape|Export citation and references|Research tools|Your one-stop solution for research preparation/);
+  assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Your site is taking shape|Export citation and references|Research tools|Your one-stop solution for research preparation|Reporting Checklist Helper/);
 });
 
 test("removes disposable starter references", async () => {
@@ -59,7 +59,8 @@ test("removes disposable starter references", async () => {
   assert.match(layout, /title:\s*"StudySize Studio"/);
   assert.match(app, /The Method section should at least describe the following:/);
   assert.match(app, /bmjopen\.bmj\.com\/content\/bmjopen\/15\/10\/e104236\/DC2\/embed\/inline-supplementary-material-2\.pdf\?download=true/);
-  assert.match(app, /EQUATOR decision tree/);
+  assert.match(app, /Find your study design/);
+  assert.match(app, /Reporting checklists improve transparency/);
   assert.match(app, /useState<RandomisationMethod>\("simple"\)/);
   assert.match(app, /makeTablePdf\("StudySize Studio Randomisation"/);
   assert.match(app, /makeTablePdf\("StudySize Studio Randomisation Log"/);
@@ -68,7 +69,7 @@ test("removes disposable starter references", async () => {
   assert.match(app, /className="choice-icon"/);
   assert.match(app, /wrapPdfLines/);
   assert.match(app, /showScenarioModal/);
-  assert.match(app, /hero-logo/);
+  assert.doesNotMatch(app, /hero-logo/);
   assert.doesNotMatch(page, /SkeletonPreview|codex-preview/);
   assert.doesNotMatch(layout, /Starter Project|codex-preview/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
