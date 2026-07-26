@@ -88,9 +88,14 @@ h1 {
   line-height: 0.92;
 }
 
-.byline {
-  margin-bottom: 14px;
+.citation-button {
+  min-height: 38px;
+  border: 1px solid rgba(15, 159, 154, 0.35);
+  border-radius: 999px;
+  background: var(--mint);
   color: var(--foreground);
+  margin-bottom: 14px;
+  padding: 8px 13px;
   font-weight: 800;
 }
 
@@ -169,6 +174,7 @@ h3 {
 .catalog,
 .finder-panel,
 .randomiser-panel,
+.research-panel,
 .calculator-panel,
 .results {
   border: 1px solid var(--line);
@@ -267,7 +273,8 @@ h3 {
 
 .calculator-panel,
 .finder-panel,
-.randomiser-panel {
+.randomiser-panel,
+.research-panel {
   padding: 22px;
 }
 
@@ -582,7 +589,7 @@ input:disabled {
 
 .allocation-row {
   display: grid;
-  grid-template-columns: 90px minmax(0, 1fr) 80px;
+  grid-template-columns: 80px minmax(120px, 1fr) minmax(110px, 0.8fr) 70px;
   gap: 10px;
   align-items: center;
   min-height: 38px;
@@ -636,6 +643,83 @@ input:disabled {
 .best-practice li {
   break-inside: avoid;
   margin-bottom: 10px;
+}
+
+.blinding-guide {
+  background: var(--rose);
+}
+
+.research-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.tool-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  padding: 16px;
+}
+
+.tool-card.wide {
+  grid-column: 1 / -1;
+}
+
+.tool-card > span,
+.checklist-tool > span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--indigo);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.tool-card p,
+.tool-card li {
+  color: var(--ink-muted);
+  line-height: 1.45;
+}
+
+.tool-card a {
+  color: var(--teal);
+  font-weight: 800;
+}
+
+.tool-card label {
+  display: grid;
+  gap: 8px;
+  margin: 10px 0 12px;
+}
+
+.scenario-table {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.scenario-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 110px 120px;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  padding: 10px;
+  text-align: left;
+}
+
+.scenario-row.heading {
+  border: 0;
+  background: var(--sky);
+  color: var(--foreground);
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
 }
 
 .evidence article {
@@ -772,6 +856,7 @@ input:disabled {
   .recommendation-grid,
   .randomiser-grid,
   .best-practice,
+  .research-grid,
   .design-list {
     grid-template-columns: 1fr;
   }
@@ -794,6 +879,11 @@ input:disabled {
 
   .input-row,
   .input-row:has(> .number-wrap:first-child) {
+    grid-template-columns: 1fr;
+  }
+
+  .allocation-row,
+  .scenario-row {
     grid-template-columns: 1fr;
   }
 }

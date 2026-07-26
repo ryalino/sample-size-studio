@@ -40,7 +40,7 @@ type Scenario = {
   result: Output;
   createdAt: string;
 };
-type AppMode = "finder" | "calculator" | "randomiser";
+type AppMode = "finder" | "calculator" | "randomiser" | "research";
 type DecisionAnswers = Record<string, string>;
 type DecisionOption = {
   value: string;
@@ -64,8 +64,20 @@ type RandomisationMethod = "simple" | "block";
 type RandomisationAssignment = {
   subject: number;
   group: string;
+  stratum?: string;
   block?: number;
 };
+type ChecklistKey =
+  | "trial"
+  | "observational"
+  | "systematic-review"
+  | "diagnostic"
+  | "protocol"
+  | "case-report"
+  | "qualitative"
+  | "quality-improvement"
+  | "economic"
+  | "prediction-model";
 
 const pct = (value: number) => value / 100;
 const ceil = (value: number) => Math.max(1, Math.ceil(value));
@@ -892,6 +904,14 @@ function parseGroups(rawGroups: string) {
   return groups.length >= 2 ? groups : ["Group A", "Group B"];
 }
 
+function parseStrata(rawStrata: string) {
+  const strata = rawStrata
+    .split(/[\n,]+/)
+    .map((stratum) => stratum.trim())
+    .filter(Boolean);
+  return strata.length ? strata : ["All participants"];
+}
+
 function makeBalancedPool(groups: string[], count: number) {
   return Array.from({ length: count }, (_, index) => groups[index % groups.length]);
 }
@@ -929,6 +949,28 @@ function generateRandomisation(
   }));
 }
 
+function generateStratifiedRandomisation(
+  subjectCount: number,
+  groups: string[],
+  strata: string[],
+  method: RandomisationMethod,
+  blockSize: number,
+  seed: string,
+) {
+  let subject = 1;
+  return strata.flatMap((stratum, stratumIndex) => {
+    const base = Math.floor(subjectCount / strata.length);
+    const remainder = subjectCount % strata.length;
+    const stratumCount = base + (stratumIndex < remainder ? 1 : 0);
+    const assignments = generateRandomisation(stratumCount, groups, method, blockSize, `${seed}-${stratum}`);
+    return assignments.map((assignment) => ({
+      ...assignment,
+      subject: subject++,
+      stratum,
+    }));
+  });
+}
+
 const randomisationBestPractice = [
   "Define the randomisation unit before generating the sequence: individual participant, cluster, eye, lesion, or another unit.",
   "Generate the allocation sequence before enrolment using a documented method, seed, date, study title, groups, and allocation ratio.",
@@ -940,6 +982,78 @@ const randomisationBestPractice = [
   "Preserve an audit trail: who generated the list, who held it, who assigned participants, timestamps, and any emergency unblinding.",
   "Report the sequence generation method, allocation concealment mechanism, and implementation roles in the protocol and manuscript.",
 ];
+
+const blindingGuide = [
+  "Decide who must be blinded: participants, clinicians, outcome assessors, data analysts, or adjudication committee.",
+  "Separate roles so the person generating the sequence is not the person recruiting participants.",
+  "Use allocation concealment until assignment: central randomisation, pharmacy-controlled allocation, secure database release, or sequentially numbered opaque sealed envelopes.",
+  "For sealed envelopes, use tamper-evident opaque envelopes, identical size and weight, sequential numbering, signatures across seals, and a log of opening date/time.",
+  "Document emergency unblinding criteria before recruitment starts and keep every unblinding event in the audit file.",
+  "For open-label studies, blind outcome assessment and data analysis when possible.",
+];
+
+const checklistGuides: Record<ChecklistKey, { title: string; guideline: string; link: string; items: string[] }> = {
+  trial: {
+    title: "Randomised trial",
+    guideline: "CONSORT for trial reports; SPIRIT for trial protocols.",
+    link: "https://www.consort-spirit.org/",
+    items: ["Trial design and allocation ratio", "Eligibility criteria and settings", "Interventions with enough detail to replicate", "Sequence generation and allocation concealment", "Blinding and outcome assessment", "Primary/secondary outcomes", "Sample size justification", "Participant flow", "Harms and protocol deviations"],
+  },
+  observational: {
+    title: "Observational study",
+    guideline: "STROBE for cohort, case-control, and cross-sectional studies.",
+    link: "https://www.strobe-statement.org/",
+    items: ["Study design in title/abstract", "Setting and dates", "Participants and eligibility", "Variables and data sources", "Bias handling", "Study size rationale", "Statistical methods", "Descriptive data and missing data", "Limitations and generalisability"],
+  },
+  "systematic-review": {
+    title: "Systematic review",
+    guideline: "PRISMA for systematic reviews and meta-analyses.",
+    link: "https://www.prisma-statement.org/",
+    items: ["Protocol registration", "Eligibility criteria", "Information sources and search strategy", "Selection process", "Data collection process", "Risk of bias assessment", "Synthesis methods", "Study selection flow", "Certainty of evidence"],
+  },
+  diagnostic: {
+    title: "Diagnostic/prognostic accuracy",
+    guideline: "STARD for diagnostic accuracy; TRIPOD for prediction models.",
+    link: "https://www.equator-network.org/library/",
+    items: ["Clinical role of the index test", "Reference standard", "Participant sampling", "Eligibility and setting", "Blinding between index and reference tests", "Indeterminate/missing results", "Accuracy estimates with precision", "Model specification when prediction is involved"],
+  },
+  protocol: {
+    title: "Study protocol",
+    guideline: "SPIRIT for clinical trial protocols; PRISMA-P for review protocols.",
+    link: "https://www.equator-network.org/library/",
+    items: ["Administrative details", "Rationale and objectives", "Eligibility criteria", "Interventions/exposures", "Outcomes", "Sample size", "Recruitment plan", "Randomisation/blinding if applicable", "Data management and monitoring", "Ethics and dissemination"],
+  },
+  "case-report": {
+    title: "Case report",
+    guideline: "CARE for clinical case reports.",
+    link: "https://www.care-statement.org/",
+    items: ["Patient information", "Clinical findings", "Timeline", "Diagnostic assessment", "Therapeutic intervention", "Follow-up and outcomes", "Patient perspective", "Informed consent"],
+  },
+  qualitative: {
+    title: "Qualitative research",
+    guideline: "COREQ or SRQR for qualitative studies.",
+    link: "https://www.equator-network.org/library/",
+    items: ["Research team and reflexivity", "Study design and theoretical framework", "Sampling strategy", "Setting and participants", "Data collection", "Data analysis", "Themes and quotations", "Trustworthiness and limitations"],
+  },
+  "quality-improvement": {
+    title: "Quality improvement",
+    guideline: "SQUIRE for healthcare improvement studies.",
+    link: "https://www.equator-network.org/library/",
+    items: ["Local problem", "Available knowledge", "Rationale", "Intervention description", "Study of the intervention", "Measures", "Context", "Results over time", "Sustainability and limitations"],
+  },
+  economic: {
+    title: "Economic evaluation",
+    guideline: "CHEERS for health economic evaluations.",
+    link: "https://www.equator-network.org/library/",
+    items: ["Perspective", "Comparators", "Time horizon", "Discount rate", "Choice of outcomes", "Measurement and valuation", "Resource costs", "Analytical methods", "Uncertainty and heterogeneity"],
+  },
+  "prediction-model": {
+    title: "Prediction model",
+    guideline: "TRIPOD for prediction model development and validation.",
+    link: "https://www.tripod-statement.org/",
+    items: ["Source of data", "Participants", "Outcome definition", "Predictor handling", "Sample size rationale", "Missing data", "Model development", "Performance measures", "Internal/external validation", "Model presentation"],
+  },
+};
 
 function makePdf(title: string, lines: string[]) {
   const escaped = lines.map((line) => line.replace(/[^\x20-\x7e]/g, "-").replace(/[()\\]/g, "\\$&"));
@@ -991,9 +1105,11 @@ export function SampleSizeApp() {
   const [decisionAnswers, setDecisionAnswers] = useState<DecisionAnswers>({});
   const [randomSubjectCount, setRandomSubjectCount] = useState(60);
   const [randomGroups, setRandomGroups] = useState("Intervention, Control");
+  const [randomStrata, setRandomStrata] = useState("All participants");
   const [randomMethod, setRandomMethod] = useState<RandomisationMethod>("block");
   const [randomBlockSize, setRandomBlockSize] = useState(4);
   const [randomSeed, setRandomSeed] = useState("STUDY-2026");
+  const [checklistType, setChecklistType] = useState<ChecklistKey>("trial");
   const [valuesByCalculator, setValuesByCalculator] = useState<Record<string, Values>>(() =>
     Object.fromEntries(calculators.map((calculator) => [calculator.id, initialValues(calculator)])),
   );
@@ -1012,16 +1128,18 @@ export function SampleSizeApp() {
   const currentDecisionQuestion = getCurrentDecisionQuestion(decisionAnswers);
   const recommendation = decisionResult(decisionAnswers);
   const randomisedGroups = useMemo(() => parseGroups(randomGroups), [randomGroups]);
+  const randomisationStrata = useMemo(() => parseStrata(randomStrata), [randomStrata]);
   const randomisationAssignments = useMemo(
     () =>
-      generateRandomisation(
+      generateStratifiedRandomisation(
         randomSubjectCount,
         randomisedGroups,
+        randomisationStrata,
         randomMethod,
         randomBlockSize,
         randomSeed,
       ),
-    [randomSubjectCount, randomisedGroups, randomMethod, randomBlockSize, randomSeed],
+    [randomSubjectCount, randomisedGroups, randomisationStrata, randomMethod, randomBlockSize, randomSeed],
   );
   const randomisationCounts = randomisationAssignments.reduce<Record<string, number>>((counts, assignment) => {
     counts[assignment.group] = (counts[assignment.group] ?? 0) + 1;
@@ -1034,6 +1152,14 @@ export function SampleSizeApp() {
       const answer = question.options.find((option) => option.value === decisionAnswers[id]);
       return { question: question.prompt, answer: answer?.label ?? decisionAnswers[id] };
     });
+  const checklist = checklistGuides[checklistType];
+  const protocolText = [
+    `Sample size was estimated using StudySize Studio for ${calculator.title.toLowerCase()}.`,
+    `The primary planning assumptions were: ${calculator.variables.map((variable) => `${variable.label} ${values[variable.key]}${variable.suffix ?? ""}`).join("; ")}.`,
+    `The required sample size was ${formatNumber(result.total ?? result.primary)} before allowance for dropout or missing data and ${formatNumber(result.adjustedTotal)} after adjustment.`,
+    `The calculation used the following formula/approach: ${calculator.formula}.`,
+    `Key assumptions were: ${calculator.assumptions.join(" ")}`,
+  ].join(" ");
 
   function updateValue(key: string, value: number) {
     setValuesByCalculator((current) => ({
@@ -1088,14 +1214,58 @@ export function SampleSizeApp() {
     setStatus("PDF downloaded");
   }
 
+  function downloadCitationPdf() {
+    const lines = [
+      "App citation:",
+      "Vancouver/NLM: Ryalino C. StudySize Studio [Internet]. 2026 [cited 2026 Jul 26]. Available from: https://studysize-studio.ryalino651800.chatgpt.site",
+      "MLA: Ryalino, Christopher. StudySize Studio. 2026, https://studysize-studio.ryalino651800.chatgpt.site. Accessed 26 July 2026.",
+      "BibTeX:",
+      "@misc{ryalino2026studysize, author={Ryalino, Christopher}, title={StudySize Studio}, year={2026}, url={https://studysize-studio.ryalino651800.chatgpt.site}, note={Accessed 26 July 2026}}",
+      "Current calculator references:",
+      ...calculator.references,
+      "Reporting guideline resources:",
+      "EQUATOR Network reporting guidelines library: https://www.equator-network.org/library/",
+      "CONSORT-SPIRIT: https://www.consort-spirit.org/",
+      "STROBE: https://www.strobe-statement.org/",
+      "PRISMA: https://www.prisma-statement.org/",
+      "TRIPOD: https://www.tripod-statement.org/",
+    ];
+    const url = URL.createObjectURL(makePdf("StudySize Studio Citations", lines));
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = "studysize-citations.pdf";
+    anchor.click();
+    URL.revokeObjectURL(url);
+    setStatus("Citation PDF downloaded");
+  }
+
+  function downloadProtocolPdf() {
+    const lines = [
+      "Protocol wording:",
+      protocolText,
+      "Notes for adaptation:",
+      "Replace generic wording with the final protocol endpoint, population, intervention/exposure, comparator, and statistical test.",
+      "Document whether the calculation is for estimation, superiority, non-inferiority, equivalence, diagnostic accuracy, modeling, or randomisation planning.",
+      "Keep the final sample size justification aligned with the analysis plan.",
+    ];
+    const url = URL.createObjectURL(makePdf("StudySize Studio Protocol Wording", lines));
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = "studysize-protocol-wording.pdf";
+    anchor.click();
+    URL.revokeObjectURL(url);
+    setStatus("Protocol wording PDF downloaded");
+  }
+
   function downloadRandomisationPdf() {
     const visibleAssignments = randomisationAssignments.map((assignment) =>
-      `Subject ${assignment.subject}: ${assignment.group}${assignment.block ? ` (block ${assignment.block})` : ""}`,
+      `Subject ${assignment.subject}: ${assignment.group}; stratum ${assignment.stratum ?? "All participants"}${assignment.block ? `; block ${assignment.block}` : ""}`,
     );
     const lines = [
       `Randomisation method: ${randomMethod === "block" ? "Permuted block randomisation" : "Simple balanced randomisation"}`,
       `Subjects: ${randomSubjectCount}`,
       `Groups: ${randomisedGroups.join(", ")}`,
+      `Strata: ${randomisationStrata.join(", ")}`,
       `Seed: ${randomSeed || "studysize-studio"}`,
       randomMethod === "block" ? `Block size: ${Math.max(randomisedGroups.length, Math.round(randomBlockSize))}` : "Block size: Not used",
       "Allocation counts:",
@@ -1112,6 +1282,39 @@ export function SampleSizeApp() {
     anchor.click();
     URL.revokeObjectURL(url);
     setStatus("Randomisation PDF downloaded");
+  }
+
+  function downloadRandomisationLogPdf() {
+    const lines = [
+      "Randomisation log template:",
+      "Recommended columns:",
+      "Screening ID",
+      "Study subject ID",
+      "Stratum",
+      "Eligibility confirmed",
+      "Consent completed",
+      "Randomisation date/time",
+      "Allocation",
+      "Person assigning allocation",
+      "Concealment method used",
+      "Envelope/database/randomisation code number",
+      "Protocol deviation notes",
+      "Withdrawal or replacement notes",
+      "Emergency unblinding date/time and reason",
+      "Template rows:",
+      ...randomisationAssignments.slice(0, 80).map((assignment) =>
+        `Subject ${assignment.subject} | ${assignment.stratum ?? "All participants"} | ${assignment.group} | eligibility ___ | consent ___ | date/time ___ | allocator ___ | notes ___`,
+      ),
+      "Best-practice reminders:",
+      ...randomisationBestPractice,
+    ];
+    const url = URL.createObjectURL(makePdf("StudySize Studio Randomisation Log", lines));
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = "studysize-randomisation-log-template.pdf";
+    anchor.click();
+    URL.revokeObjectURL(url);
+    setStatus("Randomisation log PDF downloaded");
   }
 
   function answerDecision(questionId: string, value: string) {
@@ -1152,7 +1355,9 @@ export function SampleSizeApp() {
         <div>
           <p className="eyebrow">Sample size calculators</p>
           <h1 id="app-title">StudySize Studio</h1>
-          <p className="byline">By: Christopher Ryalino (c) 2026.</p>
+          <button className="citation-button" type="button" onClick={downloadCitationPdf}>
+            Export citation and references
+          </button>
           <p>
             Live calculators for researchers and clinicians, with exact inputs beside slider controls,
             visible assumptions, citations, dropout adjustment, and saved planning scenarios.
@@ -1174,6 +1379,9 @@ export function SampleSizeApp() {
         </button>
         <button className={mode === "randomiser" ? "active" : ""} type="button" onClick={() => setMode("randomiser")}>
           Randomiser
+        </button>
+        <button className={mode === "research" ? "active" : ""} type="button" onClick={() => setMode("research")}>
+          Research tools
         </button>
       </nav>
 
@@ -1310,6 +1518,7 @@ export function SampleSizeApp() {
               </div>
               <div className="actions">
                 <button type="button" onClick={downloadRandomisationPdf}>Download PDF</button>
+                <button type="button" onClick={downloadRandomisationLogPdf}>Log template PDF</button>
               </div>
             </div>
 
@@ -1354,6 +1563,19 @@ export function SampleSizeApp() {
                     onChange={(event) => setRandomGroups(event.target.value)}
                     rows={3}
                     value={randomGroups}
+                  />
+                </label>
+
+                <label className="control">
+                  <span>
+                    <strong>Strata</strong>
+                    <small>Optional. Separate sites or prognostic strata with commas or line breaks.</small>
+                  </span>
+                  <textarea
+                    aria-label="Randomisation strata"
+                    onChange={(event) => setRandomStrata(event.target.value)}
+                    rows={3}
+                    value={randomStrata}
                   />
                 </label>
 
@@ -1433,12 +1655,14 @@ export function SampleSizeApp() {
                   <div className="allocation-row heading" role="row">
                     <span>Subject</span>
                     <span>Assignment</span>
+                    <span>Stratum</span>
                     <span>Block</span>
                   </div>
                   {randomisationAssignments.slice(0, 120).map((assignment) => (
                     <div className="allocation-row" key={assignment.subject} role="row">
                       <span>{assignment.subject}</span>
                       <strong>{assignment.group}</strong>
+                      <span>{assignment.stratum ?? "All participants"}</span>
                       <span>{assignment.block ?? "—"}</span>
                     </div>
                   ))}
@@ -1462,6 +1686,107 @@ export function SampleSizeApp() {
                 {randomisationBestPractice.map((item) => <li key={item}>{item}</li>)}
               </ol>
             </section>
+
+            <section className="best-practice blinding-guide" aria-labelledby="blinding-title">
+              <div>
+                <p className="eyebrow">Blinding</p>
+                <h3 id="blinding-title">Blinding and allocation concealment guide</h3>
+                <p>
+                  The allocation sequence should be protected before assignment, and blinding should
+                  be planned around who can influence enrolment, treatment, assessment, or analysis.
+                </p>
+              </div>
+              <ol>
+                {blindingGuide.map((item) => <li key={item}>{item}</li>)}
+              </ol>
+            </section>
+          </section>
+        ) : mode === "research" ? (
+          <section className="research-panel" aria-labelledby="research-title">
+            <div className="panel-heading">
+              <div>
+                <p className="eyebrow">Planning assistant</p>
+                <h2 id="research-title">Research tools</h2>
+                <p>
+                  Generate protocol wording, compare saved sample-size scenarios, and choose a
+                  reporting checklist for the main study type.
+                </p>
+              </div>
+              <div className="actions">
+                <button type="button" onClick={downloadProtocolPdf}>Protocol PDF</button>
+              </div>
+            </div>
+
+            <div className="research-grid">
+              <section className="tool-card wide" aria-labelledby="protocol-title">
+                <span>Protocol wording generator</span>
+                <h3 id="protocol-title">Sample-size paragraph</h3>
+                <p>{protocolText}</p>
+                <button className="use-calculator" type="button" onClick={downloadProtocolPdf}>
+                  Download wording PDF
+                </button>
+              </section>
+
+              <section className="tool-card wide" aria-labelledby="comparison-title">
+                <span>Scenario comparison</span>
+                <h3 id="comparison-title">Saved assumption sets</h3>
+                {scenarios.length === 0 ? (
+                  <p>Save scenarios from the calculator catalog to compare assumptions and adjusted sample sizes here.</p>
+                ) : (
+                  <div className="scenario-table" role="table" aria-label="Saved scenario comparison">
+                    <div className="scenario-row heading" role="row">
+                      <span>Calculator</span>
+                      <span>Base n</span>
+                      <span>Adjusted n</span>
+                    </div>
+                    {scenarios.map((scenario) => (
+                      <button
+                        className="scenario-row"
+                        key={scenario.id}
+                        type="button"
+                        onClick={() => {
+                          loadScenario(scenario);
+                          setMode("calculator");
+                        }}
+                      >
+                        <strong>{scenario.calculatorTitle}</strong>
+                        <span>{formatNumber(scenario.result.total ?? scenario.result.primary)}</span>
+                        <span>{formatNumber(scenario.result.adjustedTotal)}</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </section>
+
+              <section className="tool-card checklist-tool" aria-labelledby="checklist-title">
+                <span>Reporting checklist helper</span>
+                <h3 id="checklist-title">{checklist.title}</h3>
+                <label>
+                  <strong>Study/report type</strong>
+                  <select
+                    aria-label="Reporting checklist type"
+                    onChange={(event) => setChecklistType(event.target.value as ChecklistKey)}
+                    value={checklistType}
+                  >
+                    <option value="trial">Randomised trial</option>
+                    <option value="observational">Observational study</option>
+                    <option value="systematic-review">Systematic review</option>
+                    <option value="diagnostic">Diagnostic/prognostic accuracy</option>
+                    <option value="protocol">Study protocol</option>
+                    <option value="case-report">Case report</option>
+                    <option value="qualitative">Qualitative research</option>
+                    <option value="quality-improvement">Quality improvement</option>
+                    <option value="economic">Economic evaluation</option>
+                    <option value="prediction-model">Prediction model</option>
+                  </select>
+                </label>
+                <p>{checklist.guideline}</p>
+                <p><a href={checklist.link} target="_blank" rel="noreferrer">Open guideline resource</a></p>
+                <ul>
+                  {checklist.items.map((item) => <li key={item}>{item}</li>)}
+                </ul>
+              </section>
+            </div>
           </section>
         ) : (
           <section className="calculator-panel" aria-labelledby="calculator-title">
