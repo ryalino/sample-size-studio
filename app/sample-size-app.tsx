@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 
 type Values = Record<string, number>;
+type Language = "en" | "id";
 type Output = {
   primary: number;
   perGroup?: number;
@@ -92,6 +93,561 @@ type ChecklistTreeQuestion = {
   yes?: string | ChecklistKey;
   no?: string | ChecklistKey;
 };
+
+const indonesianText: Record<string, string> = {
+  "Sample size calculators": "Kalkulator besar sampel",
+  "How to cite us": "Cara mengutip kami",
+  "Your one-stop solution for research preparation.": "Solusi terpadu untuk persiapan penelitian.",
+  "Catalog summary": "Ringkasan katalog",
+  "designs": "desain",
+  "families": "keluarga",
+  "Guided": "Terpandu",
+  "tree": "alur",
+  "Main app modes": "Mode utama aplikasi",
+  "Find my calculator": "Temukan kalkulator saya",
+  "Calculator catalog": "Katalog kalkulator",
+  "Randomiser": "Randomisasi",
+  "Scenario Comparison": "Perbandingan skenario",
+  "Reporting Checklist Helper": "Bantuan daftar periksa pelaporan",
+  "Study design catalog": "Katalog desain studi",
+  "Filter study designs": "Saring desain studi",
+  "Decision support": "Bantuan keputusan",
+  "Answer a few study-design questions and the app will suggest the closest calculator, explain why, and flag when statistical review is important.": "Jawab beberapa pertanyaan desain studi, lalu aplikasi akan menyarankan kalkulator yang paling sesuai, menjelaskan alasannya, dan menandai kapan tinjauan statistik penting.",
+  "Back": "Kembali",
+  "Reset": "Atur ulang",
+  "Question": "Pertanyaan",
+  "Recommendation": "Rekomendasi",
+  "Assumptions to check": "Asumsi yang perlu diperiksa",
+  "Warning flags": "Tanda peringatan",
+  "No major warning flags based on these answers.": "Tidak ada tanda peringatan besar berdasarkan jawaban ini.",
+  "Use this calculator": "Gunakan kalkulator ini",
+  "Decision path": "Alur keputusan",
+  "No answers yet.": "Belum ada jawaban.",
+  "Allocation sequence": "Urutan alokasi",
+  "Subject randomiser": "Randomisasi subjek",
+  "Generate a documented allocation sequence for standard individual randomisation, then export the settings, sequence, and best-practice notes as a PDF.": "Buat urutan alokasi terdokumentasi untuk randomisasi individu standar, lalu ekspor pengaturan, urutan, dan catatan praktik baik sebagai PDF.",
+  "Download PDF": "Unduh PDF",
+  "Log template PDF": "PDF templat log",
+  "Randomiser settings": "Pengaturan randomisasi",
+  "Number of subjects": "Jumlah subjek",
+  "Total number of randomisation slots to generate.": "Total slot randomisasi yang akan dibuat.",
+  "Number of subjects slider": "Penggeser jumlah subjek",
+  "Groups": "Kelompok",
+  "Separate treatment arms with commas or line breaks.": "Pisahkan lengan perlakuan dengan koma atau baris baru.",
+  "Randomisation groups": "Kelompok randomisasi",
+  "Strata": "Strata",
+  "Optional. Separate sites or prognostic strata with commas or line breaks.": "Opsional. Pisahkan lokasi atau strata prognostik dengan koma atau baris baru.",
+  "Randomisation strata": "Strata randomisasi",
+  "Method": "Metode",
+  "Blocked randomisation helps preserve balance during recruitment.": "Randomisasi blok membantu menjaga keseimbangan selama rekrutmen.",
+  "Randomisation method": "Metode randomisasi",
+  "Permuted block": "Blok permutasi",
+  "Simple balanced": "Seimbang sederhana",
+  "Block size": "Ukuran blok",
+  "Used only for permuted blocks; keep it concealed in open-label trials.": "Digunakan hanya untuk blok permutasi; rahasiakan pada uji label terbuka.",
+  "Block size slider": "Penggeser ukuran blok",
+  "Seed": "Seed",
+  "Record this in the randomisation file to reproduce the sequence.": "Catat ini dalam file randomisasi agar urutan dapat direproduksi.",
+  "Randomisation seed": "Seed randomisasi",
+  "Generated allocation": "Alokasi yang dibuat",
+  "Generated sequence": "Urutan yang dibuat",
+  "subjects": "subjek",
+  "Subject": "Subjek",
+  "Assignment": "Alokasi",
+  "Stratum": "Stratum",
+  "Block": "Blok",
+  "Showing the first 120 assignments. The PDF includes the full sequence.": "Menampilkan 120 alokasi pertama. PDF memuat urutan lengkap.",
+  "Best practice": "Praktik baik",
+  "How to conduct randomisation properly": "Cara melakukan randomisasi dengan benar",
+  "Randomisation is not only the sequence. Good practice also requires allocation concealment, documented roles, and a clear audit trail from consent through assignment.": "Randomisasi bukan hanya urutan. Praktik baik juga memerlukan penyembunyian alokasi, peran terdokumentasi, dan jejak audit yang jelas sejak persetujuan hingga alokasi.",
+  "Blinding": "Pembutaan",
+  "Blinding and allocation concealment guide": "Panduan pembutaan dan penyembunyian alokasi",
+  "The allocation sequence should be protected before assignment, and blinding should be planned around who can influence enrolment, treatment, assessment, or analysis.": "Urutan alokasi harus dilindungi sebelum penetapan, dan pembutaan harus direncanakan berdasarkan siapa yang dapat memengaruhi rekrutmen, perlakuan, penilaian, atau analisis.",
+  "Planning assistant": "Asisten perencanaan",
+  "Compare saved sample-size scenarios by base sample size, adjusted sample size, and the assumption set used for planning.": "Bandingkan skenario besar sampel tersimpan berdasarkan besar sampel awal, besar sampel yang disesuaikan, dan asumsi yang digunakan untuk perencanaan.",
+  "Scenario comparison": "Perbandingan skenario",
+  "Saved assumption sets": "Set asumsi tersimpan",
+  "Save scenarios from the calculator catalog to compare assumptions and adjusted sample sizes here.": "Simpan skenario dari katalog kalkulator untuk membandingkan asumsi dan besar sampel yang disesuaikan di sini.",
+  "Calculator": "Kalkulator",
+  "Base n": "n awal",
+  "Adjusted n": "n disesuaikan",
+  "Reporting support": "Bantuan pelaporan",
+  "Select the study or report type and use the checklist prompts to prepare a more complete manuscript, protocol, or project report.": "Pilih jenis studi atau laporan dan gunakan petunjuk daftar periksa untuk menyiapkan manuskrip, protokol, atau laporan proyek yang lebih lengkap.",
+  "EQUATOR decision tree": "Alur keputusan EQUATOR",
+  "Find the reporting checklist": "Temukan daftar periksa pelaporan",
+  "Answer the yes/no prompts adapted from the EQUATOR Network decision tree to select the most relevant checklist.": "Jawab pertanyaan ya/tidak yang diadaptasi dari alur keputusan EQUATOR Network untuk memilih daftar periksa yang paling relevan.",
+  "Answered checklist tree questions": "Pertanyaan alur daftar periksa yang sudah dijawab",
+  "Yes": "Ya",
+  "No": "Tidak",
+  "Suggested checklist": "Daftar periksa yang disarankan",
+  "Reset tree": "Atur ulang alur",
+  "Reporting checklist helper": "Bantuan daftar periksa pelaporan",
+  "Study/report type": "Jenis studi/laporan",
+  "Reporting checklist type": "Jenis daftar periksa pelaporan",
+  "Open guideline resource": "Buka sumber pedoman",
+  "The Method section should at least describe the following:": "Bagian Metode setidaknya harus menjelaskan hal berikut:",
+  "Save scenario": "Simpan skenario",
+  "Formula": "Rumus",
+  "Assumptions": "Asumsi",
+  "References": "Referensi",
+  "Randomiser summary": "Ringkasan randomisasi",
+  "Randomisation slots": "Slot randomisasi",
+  "allocation groups": "kelompok alokasi",
+  "Blocked": "Blok",
+  "Simple": "Sederhana",
+  "Balanced shuffled sequence": "Urutan acak yang seimbang",
+  "Allocation counts": "Jumlah alokasi",
+  "Documentation": "Dokumentasi",
+  "Export the PDF before enrolment.": "Ekspor PDF sebelum rekrutmen.",
+  "Keep the sequence concealed from recruiters.": "Rahasiakan urutan dari perekrut.",
+  "Live result": "Hasil langsung",
+  "Required sample size": "Besar sampel yang dibutuhkan",
+  "Total before dropout adjustment": "Total sebelum penyesuaian dropout",
+  "Adjusted total": "Total disesuaikan",
+  "Includes expected dropout or missing data": "Termasuk dropout atau data hilang yang diperkirakan",
+  "Planning notes": "Catatan perencanaan",
+  "Protocol wording": "Kalimat protokol",
+  "Open wording popup": "Buka jendela kalimat",
+  "Saved scenarios": "Skenario tersimpan",
+  "No saved scenarios yet.": "Belum ada skenario tersimpan.",
+  "adjusted": "disesuaikan",
+  "Citation": "Kutipan",
+  "Close": "Tutup",
+  "Close citation dialog": "Tutup dialog kutipan",
+  "Copy wording for your protocol": "Salin kalimat untuk protokol Anda",
+  "Close protocol wording dialog": "Tutup dialog kalimat protokol",
+  "Protocol wording text": "Teks kalimat protokol",
+  "Copy wording": "Salin kalimat",
+  "Scenario saved": "Skenario disimpan",
+  "Scenario loaded": "Skenario dimuat",
+  "PDF downloaded": "PDF diunduh",
+  "Randomisation PDF downloaded": "PDF randomisasi diunduh",
+  "Randomisation log PDF downloaded": "PDF log randomisasi diunduh",
+  "Calculator selected from decision tree": "Kalkulator dipilih dari alur keputusan",
+  "Protocol wording copied": "Kalimat protokol disalin",
+  "Checklist tree reset": "Alur daftar periksa diatur ulang",
+  "All": "Semua",
+  "Descriptive": "Deskriptif",
+  "Comparative": "Komparatif",
+  "Association": "Asosiasi",
+  "Diagnostic": "Diagnostik",
+  "Epidemiology": "Epidemiologi",
+  "Advanced Trials": "Uji klinis lanjutan",
+  "Modeling": "Pemodelan",
+};
+
+Object.assign(indonesianText, {
+  "Prevalence / Single Proportion": "Prevalensi / Proporsi Tunggal",
+  "Estimate a population proportion with a target margin of error.": "Memperkirakan proporsi populasi dengan margin kesalahan target.",
+  "Expected proportion": "Proporsi yang diharapkan",
+  "Best estimate of prevalence.": "Perkiraan prevalensi terbaik.",
+  "Margin of error": "Margin kesalahan",
+  "Half-width of the confidence interval.": "Setengah lebar interval kepercayaan.",
+  "Confidence": "Kepercayaan",
+  "Confidence level for the estimate.": "Tingkat kepercayaan untuk estimasi.",
+  "Non-response": "Non-respons",
+  "Expected missing or unusable records.": "Catatan yang diperkirakan hilang atau tidak dapat digunakan.",
+  "Large-sample Wald interval planning.": "Perencanaan interval Wald sampel besar.",
+  "Use 50% when prevalence is unknown for a conservative estimate.": "Gunakan 50% bila prevalensi tidak diketahui untuk estimasi konservatif.",
+  "Single Mean": "Rerata Tunggal",
+  "Estimate a mean with a target margin of error.": "Memperkirakan rerata dengan margin kesalahan target.",
+  "Standard deviation": "Simpangan baku",
+  "Expected standard deviation.": "Simpangan baku yang diharapkan.",
+  "Target half-width in original units.": "Setengah lebar target dalam satuan asli.",
+  "Expected missing measurements.": "Pengukuran yang diperkirakan hilang.",
+  "Continuous outcome with planning SD supplied from prior data.": "Luaran kontinu dengan SD perencanaan dari data sebelumnya.",
+  "Normal approximation for the confidence interval.": "Aproksimasi normal untuk interval kepercayaan.",
+  "Two Independent Means": "Dua Rerata Independen",
+  "Compare two independent groups on a continuous outcome.": "Membandingkan dua kelompok independen pada luaran kontinu.",
+  "Mean difference": "Perbedaan rerata",
+  "Smallest difference worth detecting.": "Perbedaan terkecil yang layak dideteksi.",
+  "Common SD": "SD bersama",
+  "Expected within-group standard deviation.": "Simpangan baku dalam kelompok yang diharapkan.",
+  "Allocation ratio": "Rasio alokasi",
+  "Treatment participants per control participant.": "Peserta perlakuan per peserta kontrol.",
+  "Alpha": "Alfa",
+  "Type I error rate.": "Tingkat kesalahan tipe I.",
+  "Power": "Power",
+  "Chance of detecting the target effect.": "Peluang mendeteksi efek target.",
+  "Dropout": "Dropout",
+  "Expected unusable or lost participants.": "Peserta yang diperkirakan tidak dapat digunakan atau hilang.",
+  "Two-sided test with equal variance approximation.": "Uji dua sisi dengan aproksimasi varians sama.",
+  "Normal outcome or sufficiently large samples.": "Luaran normal atau sampel cukup besar.",
+  "Paired / Before-After Mean": "Rerata Berpasangan / Sebelum-Sesudah",
+  "Detect a mean change in paired measurements.": "Mendeteksi perubahan rerata pada pengukuran berpasangan.",
+  "Mean change": "Perubahan rerata",
+  "Smallest paired change worth detecting.": "Perubahan berpasangan terkecil yang layak dideteksi.",
+  "SD of differences": "SD selisih",
+  "Standard deviation of within-person differences.": "Simpangan baku selisih dalam individu.",
+  "Continuous paired difference outcome.": "Luaran selisih berpasangan yang kontinu.",
+  "Two-sided paired t-test planning approximation.": "Aproksimasi perencanaan uji t berpasangan dua sisi.",
+  "Two Independent Proportions": "Dua Proporsi Independen",
+  "Compare event risks or response rates between two groups.": "Membandingkan risiko kejadian atau tingkat respons antara dua kelompok.",
+  "Control proportion": "Proporsi kontrol",
+  "Expected event or response rate in control.": "Tingkat kejadian atau respons yang diharapkan pada kontrol.",
+  "Treatment proportion": "Proporsi perlakuan",
+  "Expected event or response rate in treatment.": "Tingkat kejadian atau respons yang diharapkan pada perlakuan.",
+  "Independent binary outcomes.": "Luaran biner independen.",
+  "One Proportion vs Benchmark": "Satu Proporsi vs Tolok Ukur",
+  "Test whether a single proportion differs from a fixed benchmark.": "Menguji apakah satu proporsi berbeda dari tolok ukur tetap.",
+  "Benchmark": "Tolok ukur",
+  "Null or historical proportion.": "Proporsi nol atau historis.",
+  "Target proportion": "Proporsi target",
+  "Expected true proportion.": "Proporsi sebenarnya yang diharapkan.",
+  "One-sample z-test approximation.": "Aproksimasi uji z satu sampel.",
+  "Two-sided alternative.": "Alternatif dua sisi.",
+  "Correlation": "Korelasi",
+  "Detect a non-zero Pearson correlation.": "Mendeteksi korelasi Pearson yang tidak nol.",
+  "Expected correlation": "Korelasi yang diharapkan",
+  "Smallest correlation worth detecting.": "Korelasi terkecil yang layak dideteksi.",
+  "Fisher z transformation.": "Transformasi z Fisher.",
+  "Bivariate normal planning approximation.": "Aproksimasi perencanaan normal bivariat.",
+  "Diagnostic Sensitivity": "Sensitivitas Diagnostik",
+  "Estimate sensitivity with a target confidence interval width.": "Memperkirakan sensitivitas dengan lebar interval kepercayaan target.",
+  "Sensitivity": "Sensitivitas",
+  "Expected sensitivity among diseased participants.": "Sensitivitas yang diharapkan pada peserta dengan penyakit.",
+  "Precision around sensitivity.": "Presisi di sekitar sensitivitas.",
+  "Disease prevalence": "Prevalensi penyakit",
+  "Expected prevalence in the recruited population.": "Prevalensi yang diharapkan pada populasi yang direkrut.",
+  "Confidence level.": "Tingkat kepercayaan.",
+  "Non-evaluable": "Tidak dapat dievaluasi",
+  "Expected participants without usable index/reference results.": "Peserta yang diperkirakan tidak memiliki hasil indeks/referensi yang dapat digunakan.",
+  "Sensitivity estimated among diseased participants.": "Sensitivitas diperkirakan pada peserta dengan penyakit.",
+  "Reference standard classification is assumed correct.": "Klasifikasi standar referensi dianggap benar.",
+  "Diagnostic Specificity": "Spesifisitas Diagnostik",
+  "Estimate specificity with a target confidence interval width.": "Memperkirakan spesifisitas dengan lebar interval kepercayaan target.",
+  "Specificity": "Spesifisitas",
+  "Expected specificity among non-diseased participants.": "Spesifisitas yang diharapkan pada peserta tanpa penyakit.",
+  "Precision around specificity.": "Presisi di sekitar spesifisitas.",
+  "Expected unusable test results.": "Hasil tes yang diperkirakan tidak dapat digunakan.",
+  "Specificity estimated among non-diseased participants.": "Spesifisitas diperkirakan pada peserta tanpa penyakit.",
+  "Cohort / Risk Ratio": "Kohort / Rasio Risiko",
+  "Compare exposed and unexposed groups in a cohort study.": "Membandingkan kelompok terpajan dan tidak terpajan dalam studi kohort.",
+  "Unexposed risk": "Risiko tidak terpajan",
+  "Outcome risk among unexposed participants.": "Risiko luaran pada peserta tidak terpajan.",
+  "Risk ratio": "Rasio risiko",
+  "Target exposed/unexposed risk ratio.": "Rasio risiko terpajan/tidak terpajan target.",
+  "Exposed:unexposed": "Terpajan:tidak terpajan",
+  "Exposed participants per unexposed participant.": "Peserta terpajan per peserta tidak terpajan.",
+  "Independent exposed and unexposed groups.": "Kelompok terpajan dan tidak terpajan independen.",
+  "Approximate two-sided test for risk difference implied by the target RR.": "Uji dua sisi aproksimasi untuk perbedaan risiko yang tersirat oleh RR target.",
+  "Case-Control / Odds Ratio": "Kasus-Kontrol / Odds Ratio",
+  "Detect an odds ratio using expected control exposure prevalence.": "Mendeteksi odds ratio menggunakan prevalensi pajanan kontrol yang diharapkan.",
+  "Control exposure": "Pajanan kontrol",
+  "Exposure prevalence among controls.": "Prevalensi pajanan pada kontrol.",
+  "Odds ratio": "Odds ratio",
+  "Target odds ratio.": "Odds ratio target.",
+  "Controls per case": "Kontrol per kasus",
+  "Number of controls for each case.": "Jumlah kontrol untuk setiap kasus.",
+  "Unmatched case-control design.": "Desain kasus-kontrol tidak berpasangan.",
+  "Exposure is binary and measured independently.": "Pajanan bersifat biner dan diukur secara independen.",
+  "Non-Inferiority Mean": "Rerata Non-Inferioritas",
+  "Compare a mean outcome against a non-inferiority margin.": "Membandingkan luaran rerata terhadap margin non-inferioritas.",
+  "NI margin": "Margin NI",
+  "Largest acceptable loss in original units.": "Kehilangan terbesar yang masih dapat diterima dalam satuan asli.",
+  "Experimental participants per control participant.": "Peserta eksperimental per peserta kontrol.",
+  "One-sided non-inferiority framework.": "Kerangka non-inferioritas satu sisi.",
+  "True difference is planned as zero unless a stricter effect is specified externally.": "Perbedaan sebenarnya direncanakan nol kecuali efek yang lebih ketat ditentukan secara eksternal.",
+  "Equivalence Mean": "Rerata Ekivalensi",
+  "Plan a two one-sided tests equivalence study for a mean outcome.": "Merencanakan studi ekivalensi dua uji satu sisi untuk luaran rerata.",
+  "Equivalence margin": "Margin ekivalensi",
+  "Symmetric acceptable difference.": "Perbedaan simetris yang dapat diterima.",
+  "Group B participants per group A participant.": "Peserta kelompok B per peserta kelompok A.",
+  "Two one-sided tests approximation.": "Aproksimasi dua uji satu sisi.",
+  "True mean difference planned at zero.": "Perbedaan rerata sebenarnya direncanakan nol.",
+  "Cluster Randomized Trial": "Uji Acak Klaster",
+  "Adjust an individual-level comparison for clustering.": "Menyesuaikan perbandingan tingkat individu untuk pengelompokan.",
+  "Intervention proportion": "Proporsi intervensi",
+  "Intervention event or response rate.": "Tingkat kejadian atau respons intervensi.",
+  "Cluster size": "Ukuran klaster",
+  "Average participants per cluster.": "Rata-rata peserta per klaster.",
+  "Intracluster correlation coefficient.": "Koefisien korelasi intraklaster.",
+  "Equal cluster sizes approximation.": "Aproksimasi ukuran klaster sama.",
+  "Binary endpoint with two-arm cluster allocation.": "Endpoint biner dengan alokasi klaster dua lengan.",
+  "Survival / Time-to-Event": "Survival / Waktu-ke-Kejadian",
+  "Estimate required events and participants for a log-rank comparison.": "Memperkirakan jumlah kejadian dan peserta untuk perbandingan log-rank.",
+  "Hazard ratio": "Hazard ratio",
+  "Target hazard ratio for treatment vs control.": "Hazard ratio target untuk perlakuan vs kontrol.",
+  "Overall event rate": "Tingkat kejadian keseluruhan",
+  "Expected proportion with observed events by analysis.": "Proporsi yang diharapkan mengalami kejadian teramati saat analisis.",
+  "Proportional hazards.": "Hazard proporsional.",
+  "Log-rank test with approximately uniform information accrual.": "Uji log-rank dengan akrual informasi yang kira-kira seragam.",
+  "Multiple Linear Regression": "Regresi Linear Berganda",
+  "Plan for detecting model R² using Cohen's f² effect size.": "Merencanakan deteksi R² model menggunakan ukuran efek f² Cohen.",
+  "Effect size f²": "Ukuran efek f²",
+  "Small=.02, medium=.15, large=.35.": "Kecil=.02, sedang=.15, besar=.35.",
+  "Predictors": "Prediktor",
+  "Number of tested predictors.": "Jumlah prediktor yang diuji.",
+  "Planning approximation for omnibus regression signal.": "Aproksimasi perencanaan untuk sinyal regresi omnibus.",
+  "Use simulation for complex predictor distributions.": "Gunakan simulasi untuk distribusi prediktor yang kompleks.",
+  "Logistic Regression Events": "Kejadian Regresi Logistik",
+  "Plan minimum events for a multivariable logistic model.": "Merencanakan kejadian minimum untuk model logistik multivariabel.",
+  "Events per predictor": "Kejadian per prediktor",
+  "Conservative modeling target.": "Target pemodelan konservatif.",
+  "Outcome event rate": "Tingkat kejadian luaran",
+  "Expected outcome prevalence.": "Prevalensi luaran yang diharapkan.",
+  "Missing data": "Data hilang",
+  "Expected incomplete records.": "Catatan tidak lengkap yang diperkirakan.",
+  "Rule-of-thumb planning for model stability.": "Perencanaan aturan praktis untuk stabilitas model.",
+  "Prefer Riley/van Smeden style calculations for final prediction model protocols.": "Utamakan perhitungan gaya Riley/van Smeden untuk protokol model prediksi final.",
+});
+
+Object.assign(indonesianText, {
+  "What is the main purpose of the study?": "Apa tujuan utama studi?",
+  "Choose the analysis goal that best matches the primary objective.": "Pilih tujuan analisis yang paling sesuai dengan objektif utama.",
+  "Estimate one quantity": "Memperkirakan satu besaran",
+  "Prevalence, rate, proportion, or mean with a target precision.": "Prevalensi, angka, proporsi, atau rerata dengan presisi target.",
+  "Compare groups": "Membandingkan kelompok",
+  "Treatment vs control, exposed vs unexposed, or before vs after.": "Perlakuan vs kontrol, terpajan vs tidak terpajan, atau sebelum vs sesudah.",
+  "Study association": "Mempelajari asosiasi",
+  "Correlation, risk ratio, odds ratio, or hazard ratio.": "Korelasi, rasio risiko, odds ratio, atau hazard ratio.",
+  "Diagnostic accuracy": "Akurasi diagnostik",
+  "Sensitivity or specificity of a test against a reference standard.": "Sensitivitas atau spesifisitas tes terhadap standar referensi.",
+  "Prediction/modeling": "Prediksi/pemodelan",
+  "Regression or prediction model sample size planning.": "Perencanaan besar sampel untuk regresi atau model prediksi.",
+  "What are you estimating?": "Apa yang Anda estimasi?",
+  "This determines whether the app plans around a proportion or a continuous mean.": "Ini menentukan apakah aplikasi merencanakan berdasarkan proporsi atau rerata kontinu.",
+  "Proportion or prevalence": "Proporsi atau prevalensi",
+  "A percentage such as prevalence, response, positivity, or coverage.": "Persentase seperti prevalensi, respons, positivitas, atau cakupan.",
+  "Mean value": "Nilai rerata",
+  "A continuous measurement such as score, blood pressure, or biomarker level.": "Pengukuran kontinu seperti skor, tekanan darah, atau kadar biomarker.",
+  "What type of primary outcome are you comparing?": "Jenis luaran utama apa yang dibandingkan?",
+  "Pick the outcome scale used for the primary sample size calculation.": "Pilih skala luaran yang digunakan untuk perhitungan besar sampel utama.",
+  "Binary": "Biner",
+  "Event/no event, response/no response, disease/no disease.": "Kejadian/tidak, respons/tidak, penyakit/tidak.",
+  "Continuous": "Kontinu",
+  "A numeric measurement summarized by means and standard deviations.": "Pengukuran numerik yang diringkas dengan rerata dan simpangan baku.",
+  "Time-to-event": "Waktu-ke-kejadian",
+  "Time until event, censoring, hazard ratio, or log-rank comparison.": "Waktu hingga kejadian, sensor, hazard ratio, atau perbandingan log-rank.",
+  "How are the observations arranged?": "Bagaimana observasi disusun?",
+  "This helps separate independent, paired, clustered, and benchmark comparisons.": "Ini membantu membedakan perbandingan independen, berpasangan, berklaster, dan tolok ukur.",
+  "Two independent groups": "Dua kelompok independen",
+  "Different people in each group.": "Orang berbeda di setiap kelompok.",
+  "Paired or before-after": "Berpasangan atau sebelum-sesudah",
+  "Same people measured twice or matched pairs.": "Orang yang sama diukur dua kali atau pasangan yang dicocokkan.",
+  "Clustered groups": "Kelompok berklaster",
+  "People are nested in clinics, schools, wards, practices, or communities.": "Orang berada dalam klinik, sekolah, bangsal, praktik, atau komunitas.",
+  "One group vs benchmark": "Satu kelompok vs tolok ukur",
+  "A single group compared with a fixed historical or target value.": "Satu kelompok dibandingkan dengan nilai historis atau target tetap.",
+  "What best describes the group comparison?": "Apa yang paling menggambarkan perbandingan kelompok?",
+  "Use the design as planned, not necessarily the later statistical model.": "Gunakan desain yang direncanakan, bukan harus model statistik akhirnya.",
+  "Trial or experiment": "Uji coba atau eksperimen",
+  "Groups are assigned by protocol or intervention.": "Kelompok ditetapkan oleh protokol atau intervensi.",
+  "Cohort/exposure groups": "Kelompok kohort/pajanan",
+  "Exposed and unexposed groups are followed for outcome risk.": "Kelompok terpajan dan tidak terpajan diikuti untuk risiko luaran.",
+  "Case-control": "Kasus-kontrol",
+  "Participants are sampled by outcome status, then exposure is compared.": "Peserta diambil berdasarkan status luaran, lalu pajanan dibandingkan.",
+  "What is the trial objective?": "Apa tujuan uji klinis?",
+  "Most studies are superiority; choose non-inferiority or equivalence only when that is the protocol objective.": "Sebagian besar studi bersifat superiority; pilih non-inferioritas atau ekivalensi hanya bila itu objektif protokol.",
+  "Superiority": "Superiority",
+  "Show one group differs from or is better than another.": "Menunjukkan satu kelompok berbeda dari atau lebih baik daripada kelompok lain.",
+  "Non-inferiority": "Non-inferioritas",
+  "Show a new approach is not unacceptably worse.": "Menunjukkan pendekatan baru tidak lebih buruk secara tidak dapat diterima.",
+  "Equivalence": "Ekivalensi",
+  "Show groups are similar within a symmetric margin.": "Menunjukkan kelompok serupa dalam margin simetris.",
+  "What association measure best matches your question?": "Ukuran asosiasi apa yang paling sesuai dengan pertanyaan Anda?",
+  "When in doubt, choose the measure named in the protocol or primary paper objective.": "Jika ragu, pilih ukuran yang disebut dalam protokol atau objektif utama artikel.",
+  "Outcome risk compared between exposed and unexposed groups.": "Risiko luaran dibandingkan antara kelompok terpajan dan tidak terpajan.",
+  "Exposure odds compared between cases and controls.": "Odds pajanan dibandingkan antara kasus dan kontrol.",
+  "Time-to-event association or survival comparison.": "Asosiasi waktu-ke-kejadian atau perbandingan survival.",
+  "Which diagnostic accuracy target is primary?": "Target akurasi diagnostik mana yang utama?",
+  "If both sensitivity and specificity are co-primary, calculate both and use the larger total.": "Jika sensitivitas dan spesifisitas sama-sama primer, hitung keduanya dan gunakan total yang lebih besar.",
+  "Precision among participants who truly have the condition.": "Presisi pada peserta yang benar-benar memiliki kondisi.",
+  "Precision among participants who truly do not have the condition.": "Presisi pada peserta yang benar-benar tidak memiliki kondisi.",
+  "What kind of model are you planning?": "Model seperti apa yang Anda rencanakan?",
+  "These are pragmatic planning tools; final prediction model protocols often need specialist methods.": "Ini adalah alat perencanaan pragmatis; protokol model prediksi final sering memerlukan metode khusus.",
+  "Linear regression": "Regresi linear",
+  "Continuous outcome with predictors.": "Luaran kontinu dengan prediktor.",
+  "Logistic regression": "Regresi logistik",
+  "Binary outcome or event/no-event model.": "Luaran biner atau model kejadian/tidak.",
+  "Does the design include advanced features?": "Apakah desain mencakup fitur lanjutan?",
+  "Examples: adaptive design, repeated longitudinal outcomes, rare events, competing risks, complex survey sampling, Bayesian design, dose finding, mediation, or more than two arms.": "Contoh: desain adaptif, luaran longitudinal berulang, kejadian jarang, risiko bersaing, sampling survei kompleks, desain Bayesian, pencarian dosis, mediasi, atau lebih dari dua lengan.",
+  "A standard design is a reasonable starting point.": "Desain standar adalah titik awal yang masuk akal.",
+  "Use the recommendation as a starting point and request statistical review.": "Gunakan rekomendasi sebagai titik awal dan minta tinjauan statistik.",
+  "Use Single Mean": "Gunakan Rerata Tunggal",
+  "You are estimating one continuous quantity with target precision, so the planning driver is SD and margin of error.": "Anda memperkirakan satu besaran kontinu dengan presisi target, sehingga penggerak perencanaan adalah SD dan margin kesalahan.",
+  "Primary goal is estimation rather than a hypothesis test.": "Tujuan utama adalah estimasi, bukan uji hipotesis.",
+  "Use Prevalence / Single Proportion": "Gunakan Prevalensi / Proporsi Tunggal",
+  "You are estimating one percentage or prevalence with target precision, so the proportion CI formula is the right starting point.": "Anda memperkirakan satu persentase atau prevalensi dengan presisi target, sehingga rumus CI proporsi adalah titik awal yang tepat.",
+  "Binary or proportion outcome.": "Luaran biner atau proporsi.",
+  "Primary goal is confidence interval precision.": "Tujuan utama adalah presisi interval kepercayaan.",
+  "Use Diagnostic Specificity": "Gunakan Spesifisitas Diagnostik",
+  "Specificity is estimated among people without the condition, then inflated by the expected non-disease fraction.": "Spesifisitas diperkirakan pada orang tanpa kondisi, lalu dinaikkan berdasarkan fraksi tanpa penyakit yang diharapkan.",
+  "Reference standard is available.": "Standar referensi tersedia.",
+  "Specificity is the primary accuracy target.": "Spesifisitas adalah target akurasi utama.",
+  "Use Diagnostic Sensitivity": "Gunakan Sensitivitas Diagnostik",
+  "Sensitivity is estimated among people with the condition, then inflated by the expected prevalence.": "Sensitivitas diperkirakan pada orang dengan kondisi, lalu dinaikkan berdasarkan prevalensi yang diharapkan.",
+  "Sensitivity is the primary accuracy target.": "Sensitivitas adalah target akurasi utama.",
+  "Use Multiple Linear Regression": "Gunakan Regresi Linear Berganda",
+  "The planned outcome is continuous, so the regression calculator uses predictors and Cohen's f2 effect size.": "Luaran yang direncanakan kontinu, sehingga kalkulator regresi menggunakan prediktor dan ukuran efek f2 Cohen.",
+  "Approximate omnibus model planning.": "Perencanaan model omnibus aproksimasi.",
+  "Use Logistic Regression Events": "Gunakan Kejadian Regresi Logistik",
+  "The planned outcome is binary, so sample size is driven by expected events and model degrees of freedom.": "Luaran yang direncanakan biner, sehingga besar sampel ditentukan oleh kejadian yang diharapkan dan derajat kebebasan model.",
+  "Event rate estimate is available.": "Estimasi tingkat kejadian tersedia.",
+  "Saved scenario comparison": "Perbandingan skenario tersimpan",
+  "Randomisation allocation table": "Tabel alokasi randomisasi",
+  "All participants": "Semua peserta",
+  "Use Correlation": "Gunakan Korelasi",
+  "The question is about association between two continuous variables measured on the same participants.": "Pertanyaannya tentang asosiasi antara dua variabel kontinu yang diukur pada peserta yang sama.",
+  "Pearson correlation is the target measure.": "Korelasi Pearson adalah ukuran target.",
+  "No group allocation is being compared.": "Tidak ada alokasi kelompok yang dibandingkan.",
+  "Use Cohort / Risk Ratio": "Gunakan Kohort / Rasio Risiko",
+  "The study compares outcome risk between exposed and unexposed groups.": "Studi membandingkan risiko luaran antara kelompok terpajan dan tidak terpajan.",
+  "Exposure groups are observed or assembled before outcome assessment.": "Kelompok pajanan diamati atau dibentuk sebelum penilaian luaran.",
+  "Risk ratio is the primary effect measure.": "Rasio risiko adalah ukuran efek utama.",
+  "Use Case-Control / Odds Ratio": "Gunakan Kasus-Kontrol / Odds Ratio",
+  "The study samples cases and controls, then compares exposure odds.": "Studi mengambil sampel kasus dan kontrol, lalu membandingkan odds pajanan.",
+  "Control exposure prevalence can be estimated.": "Prevalensi pajanan kontrol dapat diperkirakan.",
+  "Use Survival / Time-to-Event": "Gunakan Survival / Waktu-ke-Kejadian",
+  "The target association is a hazard ratio, so planning is driven by required events.": "Asosiasi target adalah hazard ratio, sehingga perencanaan ditentukan oleh jumlah kejadian yang dibutuhkan.",
+  "Expected event rate by analysis is available.": "Tingkat kejadian yang diharapkan saat analisis tersedia.",
+  "The primary comparison uses time until event, so the log-rank/event-based calculator is the correct starting point.": "Perbandingan utama menggunakan waktu hingga kejadian, sehingga kalkulator berbasis log-rank/kejadian adalah titik awal yang tepat.",
+  "Use Cluster Randomized Trial": "Gunakan Uji Acak Klaster",
+  "Participants are nested within clusters, so the individual-level sample size needs a design-effect adjustment.": "Peserta berada dalam klaster, sehingga besar sampel tingkat individu memerlukan penyesuaian efek desain.",
+  "Average cluster size and ICC can be estimated.": "Ukuran klaster rata-rata dan ICC dapat diperkirakan.",
+  "Cluster sizes are not extremely unequal.": "Ukuran klaster tidak sangat tidak seimbang.",
+  "Cluster studies are sensitive to ICC assumptions; run sensitivity scenarios.": "Studi klaster sensitif terhadap asumsi ICC; jalankan skenario sensitivitas.",
+  "Use Paired / Before-After Mean": "Gunakan Rerata Berpasangan / Sebelum-Sesudah",
+  "The same participants or matched pairs contribute paired continuous measurements.": "Peserta yang sama atau pasangan yang dicocokkan memberikan pengukuran kontinu berpasangan.",
+  "Paired differences are the primary outcome.": "Selisih berpasangan adalah luaran utama.",
+  "SD of differences can be estimated.": "SD selisih dapat diperkirakan.",
+  "Start With Two Independent Proportions": "Mulai dengan Dua Proporsi Independen",
+  "The current app does not yet include a paired binary formula, so this is only a conservative orientation point.": "Aplikasi ini belum menyertakan rumus biner berpasangan, sehingga ini hanya titik orientasi konservatif.",
+  "Pairing/matching should be handled in a specialist calculation.": "Pemasangan/pencocokan sebaiknya ditangani dalam perhitungan khusus.",
+  "Paired binary outcomes usually need McNemar or matched-pair methods; request statistical review.": "Luaran biner berpasangan biasanya memerlukan metode McNemar atau pasangan cocok; minta tinjauan statistik.",
+  "Use One Proportion vs Benchmark": "Gunakan Satu Proporsi vs Tolok Ukur",
+  "A single binary proportion is being tested against a fixed historical or target value.": "Satu proporsi biner diuji terhadap nilai historis atau target tetap.",
+  "Benchmark is fixed.": "Tolok ukur bersifat tetap.",
+  "One sample contributes the new proportion.": "Satu sampel memberikan proporsi baru.",
+  "Start With Single Mean": "Mulai dengan Rerata Tunggal",
+  "The current app estimates one mean precisely; testing a single mean against a benchmark can be added as a dedicated calculator.": "Aplikasi ini memperkirakan satu rerata secara presisi; pengujian satu rerata terhadap tolok ukur dapat ditambahkan sebagai kalkulator khusus.",
+  "Benchmark is fixed.": "Tolok ukur bersifat tetap.",
+  "For a formal one-sample mean hypothesis test, confirm the exact formula before protocol use.": "Untuk uji hipotesis rerata satu sampel formal, konfirmasi rumus yang tepat sebelum digunakan dalam protokol.",
+  "Use Two Independent Proportions": "Gunakan Dua Proporsi Independen",
+  "Two independent groups are being compared on a binary event or response rate.": "Dua kelompok independen dibandingkan pada kejadian biner atau tingkat respons.",
+  "Superiority comparison by default.": "Perbandingan superiority secara default.",
+  "Use Non-Inferiority Mean": "Gunakan Rerata Non-Inferioritas",
+  "The study is designed to rule out an unacceptable loss on a continuous endpoint.": "Studi dirancang untuk menyingkirkan kerugian yang tidak dapat diterima pada endpoint kontinu.",
+  "One-sided non-inferiority margin is clinically justified.": "Margin non-inferioritas satu sisi dibenarkan secara klinis.",
+  "Use Equivalence Mean": "Gunakan Rerata Ekivalensi",
+  "The study is designed to show the mean difference lies within a symmetric equivalence margin.": "Studi dirancang untuk menunjukkan perbedaan rerata berada dalam margin ekivalensi simetris.",
+  "Two one-sided tests framework.": "Kerangka dua uji satu sisi.",
+  "Use Two Independent Means": "Gunakan Dua Rerata Independen",
+  "Two independent groups are being compared on a continuous outcome under a superiority objective.": "Dua kelompok independen dibandingkan pada luaran kontinu dengan objektif superiority.",
+  "Independent groups.": "Kelompok independen.",
+  "Common SD can be estimated.": "SD bersama dapat diperkirakan.",
+  "Advanced design features can make closed-form sample size formulas misleading. Use this calculator as orientation, then get statistical review.": "Fitur desain lanjutan dapat membuat rumus besar sampel bentuk tertutup menyesatkan. Gunakan kalkulator ini sebagai orientasi, lalu dapatkan tinjauan statistik.",
+  "For clinical prediction model development, consider minimum sample size methods beyond simple rules.": "Untuk pengembangan model prediksi klinis, pertimbangkan metode besar sampel minimum di luar aturan sederhana.",
+  "For final prediction model protocols, consider Riley-style minimum sample size methods.": "Untuk protokol model prediksi final, pertimbangkan metode besar sampel minimum gaya Riley.",
+});
+
+Object.assign(indonesianText, {
+  "Randomised trial": "Uji acak",
+  "CONSORT for trial reports; SPIRIT for trial protocols.": "CONSORT untuk laporan uji; SPIRIT untuk protokol uji.",
+  "Observational study": "Studi observasional",
+  "STROBE for cohort, case-control, and cross-sectional studies.": "STROBE untuk studi kohort, kasus-kontrol, dan potong lintang.",
+  "Systematic review": "Tinjauan sistematis",
+  "PRISMA for systematic reviews and meta-analyses.": "PRISMA untuk tinjauan sistematis dan meta-analisis.",
+  "Diagnostic/prognostic accuracy": "Akurasi diagnostik/prognostik",
+  "STARD for diagnostic accuracy; TRIPOD for prediction models.": "STARD untuk akurasi diagnostik; TRIPOD untuk model prediksi.",
+  "Study protocol": "Protokol studi",
+  "SPIRIT for clinical trial protocols; PRISMA-P for review protocols.": "SPIRIT untuk protokol uji klinis; PRISMA-P untuk protokol tinjauan.",
+  "Case report": "Laporan kasus",
+  "CARE for clinical case reports.": "CARE untuk laporan kasus klinis.",
+  "Qualitative research": "Penelitian kualitatif",
+  "COREQ or SRQR for qualitative studies.": "COREQ atau SRQR untuk studi kualitatif.",
+  "Quality improvement": "Peningkatan mutu",
+  "SQUIRE for healthcare improvement studies.": "SQUIRE untuk studi peningkatan layanan kesehatan.",
+  "Economic evaluation": "Evaluasi ekonomi",
+  "CHEERS for health economic evaluations.": "CHEERS untuk evaluasi ekonomi kesehatan.",
+  "Prediction model": "Model prediksi",
+  "TRIPOD for prediction model development and validation.": "TRIPOD untuk pengembangan dan validasi model prediksi.",
+  "Animal research / ARRIVE": "Penelitian hewan / ARRIVE",
+  "Animal research": "Penelitian hewan",
+  "ARRIVE for in vivo animal experiments.": "ARRIVE untuk eksperimen in vivo pada hewan.",
+  "Qualitative evidence synthesis / ENTREQ": "Sintesis bukti kualitatif / ENTREQ",
+  "Qualitative evidence synthesis": "Sintesis bukti kualitatif",
+  "ENTREQ for syntheses of qualitative research.": "ENTREQ untuk sintesis penelitian kualitatif.",
+  "Qualitative research / SRQR": "Penelitian kualitatif / SRQR",
+  "SRQR for qualitative research reports.": "SRQR untuk laporan penelitian kualitatif.",
+  "Diagnostic accuracy / STARD": "Akurasi diagnostik / STARD",
+  "Diagnostic accuracy study": "Studi akurasi diagnostik",
+  "STARD for diagnostic accuracy studies.": "STARD untuk studi akurasi diagnostik.",
+  "Prognostic marker / REMARK": "Penanda prognostik / REMARK",
+  "Prognostic tumour marker study": "Studi penanda tumor prognostik",
+  "REMARK for tumour marker prognostic studies.": "REMARK untuk studi prognostik penanda tumor.",
+  "Observational meta-analysis / MOOSE": "Meta-analisis observasional / MOOSE",
+  "Meta-analysis of observational studies": "Meta-analisis studi observasional",
+  "MOOSE for meta-analyses of observational studies.": "MOOSE untuk meta-analisis studi observasional.",
+  "Search EQUATOR library": "Cari pustaka EQUATOR",
+  "No single common checklist was identified; search the EQUATOR library for a design-specific checklist.": "Tidak ada satu daftar periksa umum yang teridentifikasi; cari pustaka EQUATOR untuk daftar periksa spesifik desain.",
+  "Trial design and allocation ratio": "Desain uji dan rasio alokasi",
+  "Eligibility criteria and settings": "Kriteria kelayakan dan tempat penelitian",
+  "Interventions with enough detail to replicate": "Intervensi dengan detail yang cukup untuk direplikasi",
+  "Sequence generation and allocation concealment": "Pembuatan urutan dan penyembunyian alokasi",
+  "Blinding and outcome assessment": "Pembutaan dan penilaian luaran",
+  "Primary/secondary outcomes": "Luaran primer/sekunder",
+  "Sample size justification": "Justifikasi besar sampel",
+  "Participant flow": "Alur peserta",
+  "Harms and protocol deviations": "Efek merugikan dan deviasi protokol",
+  "Study design in title/abstract": "Desain studi dalam judul/abstrak",
+  "Setting and dates": "Tempat dan tanggal",
+  "Participants and eligibility": "Peserta dan kelayakan",
+  "Variables and data sources": "Variabel dan sumber data",
+  "Bias handling": "Penanganan bias",
+  "Study size rationale": "Rasional ukuran studi",
+  "Statistical methods": "Metode statistik",
+  "Descriptive data and missing data": "Data deskriptif dan data hilang",
+  "Limitations and generalisability": "Keterbatasan dan generalisasi",
+  "Protocol registration": "Registrasi protokol",
+  "Eligibility criteria": "Kriteria kelayakan",
+  "Information sources and search strategy": "Sumber informasi dan strategi pencarian",
+  "Selection process": "Proses seleksi",
+  "Data collection process": "Proses pengumpulan data",
+  "Risk of bias assessment": "Penilaian risiko bias",
+  "Synthesis methods": "Metode sintesis",
+  "Study selection flow": "Alur seleksi studi",
+  "Certainty of evidence": "Kepastian bukti",
+  "Clinical role of the index test": "Peran klinis tes indeks",
+  "Reference standard": "Standar referensi",
+  "Participant sampling": "Pengambilan sampel peserta",
+  "Eligibility and setting": "Kelayakan dan tempat",
+  "Blinding between index and reference tests": "Pembutaan antara tes indeks dan referensi",
+  "Indeterminate/missing results": "Hasil tidak pasti/hilang",
+  "Accuracy estimates with precision": "Estimasi akurasi dengan presisi",
+  "Model specification when prediction is involved": "Spesifikasi model bila prediksi terlibat",
+  "Define the randomisation unit before generating the sequence: individual participant, cluster, eye, lesion, or another unit.": "Tentukan unit randomisasi sebelum membuat urutan: peserta individu, klaster, mata, lesi, atau unit lain.",
+  "Generate the allocation sequence before enrolment using a documented method, seed, date, study title, groups, and allocation ratio.": "Buat urutan alokasi sebelum rekrutmen menggunakan metode, seed, tanggal, judul studi, kelompok, dan rasio alokasi yang terdokumentasi.",
+  "Keep the sequence concealed from recruiters and outcome assessors whenever possible. Use a central randomisation service, pharmacy, database, or sequentially numbered opaque sealed envelopes.": "Rahasiakan urutan dari perekrut dan penilai luaran bila memungkinkan. Gunakan layanan randomisasi terpusat, farmasi, basis data, atau amplop buram tertutup bernomor berurutan.",
+  "Randomise only after eligibility is confirmed and informed consent is complete.": "Lakukan randomisasi hanya setelah kelayakan dikonfirmasi dan persetujuan tindakan selesai.",
+  "Use blocked randomisation when balance over time matters; keep block sizes confidential and consider variable block sizes for open-label trials.": "Gunakan randomisasi blok bila keseimbangan dari waktu ke waktu penting; rahasiakan ukuran blok dan pertimbangkan ukuran blok bervariasi untuk uji label terbuka.",
+  "Use stratified randomisation when key prognostic variables must be balanced, but avoid too many strata for the sample size.": "Gunakan randomisasi berstrata bila variabel prognostik utama harus seimbang, tetapi hindari terlalu banyak strata untuk besar sampel.",
+  "Do not replace, skip, or reassign allocations after the sequence is generated. Record withdrawals and protocol deviations separately.": "Jangan mengganti, melewati, atau menetapkan ulang alokasi setelah urutan dibuat. Catat pengunduran diri dan deviasi protokol secara terpisah.",
+  "Preserve an audit trail: who generated the list, who held it, who assigned participants, timestamps, and any emergency unblinding.": "Simpan jejak audit: siapa yang membuat daftar, siapa yang menyimpannya, siapa yang menetapkan peserta, cap waktu, dan pembukaan pembutaan darurat apa pun.",
+  "Report the sequence generation method, allocation concealment mechanism, and implementation roles in the protocol and manuscript.": "Laporkan metode pembuatan urutan, mekanisme penyembunyian alokasi, dan peran implementasi dalam protokol dan manuskrip.",
+  "Decide who must be blinded: participants, clinicians, outcome assessors, data analysts, or adjudication committee.": "Tentukan siapa yang harus dibutakan: peserta, klinisi, penilai luaran, analis data, atau komite adjudikasi.",
+  "Separate roles so the person generating the sequence is not the person recruiting participants.": "Pisahkan peran agar orang yang membuat urutan bukan orang yang merekrut peserta.",
+  "Use allocation concealment until assignment: central randomisation, pharmacy-controlled allocation, secure database release, or sequentially numbered opaque sealed envelopes.": "Gunakan penyembunyian alokasi hingga penetapan: randomisasi terpusat, alokasi yang dikendalikan farmasi, rilis basis data aman, atau amplop buram tertutup bernomor berurutan.",
+  "For sealed envelopes, use tamper-evident opaque envelopes, identical size and weight, sequential numbering, signatures across seals, and a log of opening date/time.": "Untuk amplop tertutup, gunakan amplop buram anti-rusak, ukuran dan berat identik, penomoran berurutan, tanda tangan melintasi segel, dan log tanggal/waktu pembukaan.",
+  "Document emergency unblinding criteria before recruitment starts and keep every unblinding event in the audit file.": "Dokumentasikan kriteria pembukaan pembutaan darurat sebelum rekrutmen dimulai dan simpan setiap kejadian pembukaan pembutaan dalam file audit.",
+  "For open-label studies, blind outcome assessment and data analysis when possible.": "Untuk studi label terbuka, butakan penilaian luaran dan analisis data bila memungkinkan.",
+  "Was the research on humans?": "Apakah penelitian dilakukan pada manusia?",
+  "Was your research on animals in the lab?": "Apakah penelitian Anda dilakukan pada hewan di laboratorium?",
+  "Did your research generate quantitative data?": "Apakah penelitian Anda menghasilkan data kuantitatif?",
+  "Did you pool the results of previous studies in a review?": "Apakah Anda menggabungkan hasil studi sebelumnya dalam sebuah tinjauan?",
+  "Did you combine and analyse the results of previous studies?": "Apakah Anda menggabungkan dan menganalisis hasil studi sebelumnya?",
+  "Is it a review of observational cohort, case-control, or cross-sectional studies?": "Apakah ini tinjauan studi kohort observasional, kasus-kontrol, atau potong lintang?",
+  "Was your study a randomized trial comparing two or more health interventions?": "Apakah studi Anda uji acak yang membandingkan dua atau lebih intervensi kesehatan?",
+  "Do you describe a clinical case or a series of cases?": "Apakah Anda mendeskripsikan kasus klinis atau seri kasus?",
+  "Did your study explore the relationship between exposure to risk or protective factors and outcomes?": "Apakah studi Anda mengeksplorasi hubungan antara pajanan terhadap faktor risiko atau protektif dan luaran?",
+  "Did you compare the accuracy of a new or alternative diagnostic test against an established reference standard?": "Apakah Anda membandingkan akurasi tes diagnostik baru atau alternatif terhadap standar referensi yang sudah mapan?",
+  "Did the study evaluate the prognostic value of one or more biomarkers?": "Apakah studi mengevaluasi nilai prognostik satu atau lebih biomarker?",
+  "Did the research develop, validate, or update a general prediction model for diagnosis or prognosis?": "Apakah penelitian mengembangkan, memvalidasi, atau memperbarui model prediksi umum untuk diagnosis atau prognosis?",
+});
+
+function t(text: string, language: Language) {
+  return language === "id" ? indonesianText[text] ?? text : text;
+}
 
 const pct = (value: number) => value / 100;
 const ceil = (value: number) => Math.max(1, Math.ceil(value));
@@ -1252,6 +1808,7 @@ function tableLines(headers: string[], rows: string[][], widths: number[]) {
 }
 
 export function SampleSizeApp() {
+  const [language, setLanguage] = useState<Language>("en");
   const [mode, setMode] = useState<AppMode>("finder");
   const [activeCategory, setActiveCategory] = useState("All");
   const [activeId, setActiveId] = useState(calculators[0].id);
@@ -1269,13 +1826,16 @@ export function SampleSizeApp() {
   const [valuesByCalculator, setValuesByCalculator] = useState<Record<string, Values>>(() =>
     Object.fromEntries(calculators.map((calculator) => [calculator.id, initialValues(calculator)])),
   );
-  const [scenarios, setScenarios] = useState<Scenario[]>([]);
+  const [scenarios, setScenarios] = useState<Scenario[]>(() => {
+    if (typeof window === "undefined") return [];
+    const saved = window.localStorage.getItem("studysize-scenarios");
+    return saved ? JSON.parse(saved) : [];
+  });
   const [status, setStatus] = useState("");
 
   useEffect(() => {
-    const saved = window.localStorage.getItem("studysize-scenarios");
-    if (saved) setScenarios(JSON.parse(saved));
-  }, []);
+    document.documentElement.lang = language === "id" ? "id" : "en";
+  }, [language]);
 
   const calculator = calculators.find((item) => item.id === activeId) ?? calculators[0];
   const values = valuesByCalculator[calculator.id] ?? initialValues(calculator);
@@ -1342,13 +1902,22 @@ export function SampleSizeApp() {
 
     return undefined;
   }, [checklistTreeAnswers]);
-  const protocolText = [
-    `Sample size was estimated using StudySize Studio for ${calculator.title.toLowerCase()}.`,
-    `The primary planning assumptions were: ${calculator.variables.map((variable) => `${variable.label} ${values[variable.key]}${variable.suffix ?? ""}`).join("; ")}.`,
-    `The required sample size was ${formatNumber(result.total ?? result.primary)} before allowance for dropout or missing data and ${formatNumber(result.adjustedTotal)} after adjustment.`,
-    `The calculation used the following formula/approach: ${calculator.formula}.`,
-    `Key assumptions were: ${calculator.assumptions.join(" ")}`,
-  ].join(" ");
+  const protocolText =
+    language === "id"
+      ? [
+          `Besar sampel diperkirakan menggunakan StudySize Studio untuk ${t(calculator.title, language).toLowerCase()}.`,
+          `Asumsi perencanaan utama adalah: ${calculator.variables.map((variable) => `${t(variable.label, language)} ${values[variable.key]}${variable.suffix ?? ""}`).join("; ")}.`,
+          `Besar sampel yang dibutuhkan adalah ${formatNumber(result.total ?? result.primary)} sebelum penyesuaian dropout atau data hilang dan ${formatNumber(result.adjustedTotal)} setelah penyesuaian.`,
+          `Perhitungan menggunakan rumus/pendekatan berikut: ${calculator.formula}.`,
+          `Asumsi utama: ${calculator.assumptions.map((item) => t(item, language)).join(" ")}`,
+        ].join(" ")
+      : [
+          `Sample size was estimated using StudySize Studio for ${calculator.title.toLowerCase()}.`,
+          `The primary planning assumptions were: ${calculator.variables.map((variable) => `${variable.label} ${values[variable.key]}${variable.suffix ?? ""}`).join("; ")}.`,
+          `The required sample size was ${formatNumber(result.total ?? result.primary)} before allowance for dropout or missing data and ${formatNumber(result.adjustedTotal)} after adjustment.`,
+          `The calculation used the following formula/approach: ${calculator.formula}.`,
+          `Key assumptions were: ${calculator.assumptions.join(" ")}`,
+        ].join(" ");
   const citationFormats = [
     {
       label: "Vancouver",
@@ -1394,14 +1963,14 @@ export function SampleSizeApp() {
     const next = [scenario, ...scenarios].slice(0, 12);
     setScenarios(next);
     window.localStorage.setItem("studysize-scenarios", JSON.stringify(next));
-    setStatus("Scenario saved");
+    setStatus(t("Scenario saved", language));
   }
 
   function loadScenario(scenario: Scenario) {
     setActiveId(scenario.calculatorId);
     setActiveCategory(calculators.find((item) => item.id === scenario.calculatorId)?.category ?? "All");
     setValuesByCalculator((current) => ({ ...current, [scenario.calculatorId]: scenario.values }));
-    setStatus("Scenario loaded");
+    setStatus(t("Scenario loaded", language));
   }
 
   function downloadPdf() {
@@ -1422,7 +1991,7 @@ export function SampleSizeApp() {
     anchor.download = `${calculator.id}-sample-size.pdf`;
     anchor.click();
     URL.revokeObjectURL(url);
-    setStatus("PDF downloaded");
+    setStatus(t("PDF downloaded", language));
   }
 
   function downloadRandomisationPdf() {
@@ -1462,7 +2031,7 @@ export function SampleSizeApp() {
     anchor.download = "studysize-randomisation.pdf";
     anchor.click();
     URL.revokeObjectURL(url);
-    setStatus("Randomisation PDF downloaded");
+    setStatus(t("Randomisation PDF downloaded", language));
   }
 
   function downloadRandomisationLogPdf() {
@@ -1514,7 +2083,7 @@ export function SampleSizeApp() {
     anchor.download = "studysize-randomisation-log-template.pdf";
     anchor.click();
     URL.revokeObjectURL(url);
-    setStatus("Randomisation log PDF downloaded");
+    setStatus(t("Randomisation log PDF downloaded", language));
   }
 
   function answerDecision(questionId: string, value: string) {
@@ -1540,18 +2109,18 @@ export function SampleSizeApp() {
     });
   }
 
-  function useRecommendedCalculator(calculatorId: string) {
+  function selectRecommendedCalculator(calculatorId: string) {
     const nextCalculator = calculators.find((item) => item.id === calculatorId);
     if (!nextCalculator) return;
     setActiveId(nextCalculator.id);
     setActiveCategory(nextCalculator.category);
     setMode("calculator");
-    setStatus("Calculator selected from decision tree");
+    setStatus(t("Calculator selected from decision tree", language));
   }
 
   function copyProtocolWording() {
     void navigator.clipboard?.writeText(protocolText);
-    setStatus("Protocol wording copied");
+    setStatus(t("Protocol wording copied", language));
   }
 
   function answerChecklistTree(questionId: string, answer: boolean) {
@@ -1567,55 +2136,75 @@ export function SampleSizeApp() {
     setChecklistTreeAnswers(nextAnswers);
     if (next && checklistGuides[next as ChecklistKey]) {
       setChecklistType(next as ChecklistKey);
-      setStatus(`${checklistGuides[next as ChecklistKey].title} checklist selected`);
+      setStatus(`${t(checklistGuides[next as ChecklistKey].title, language)} ${language === "id" ? "dipilih" : "checklist selected"}`);
     }
   }
 
   function resetChecklistTree() {
     setChecklistTreeAnswers({});
-    setStatus("Checklist tree reset");
+    setStatus(t("Checklist tree reset", language));
   }
 
   return (
     <main className="app-shell">
+      <div className="language-switcher" aria-label="Language selector">
+        <button
+          aria-label="Switch to English"
+          className={language === "en" ? "active" : ""}
+          type="button"
+          onClick={() => setLanguage("en")}
+          title="English"
+        >
+          <span aria-hidden="true">🇬🇧</span>
+        </button>
+        <button
+          aria-label="Ganti ke Bahasa Indonesia"
+          className={language === "id" ? "active" : ""}
+          type="button"
+          onClick={() => setLanguage("id")}
+          title="Bahasa Indonesia"
+        >
+          <span aria-hidden="true">🇮🇩</span>
+        </button>
+      </div>
       <section className="masthead" aria-labelledby="app-title">
         <div>
-          <p className="eyebrow">Sample size calculators</p>
+          <p className="eyebrow">{t("Sample size calculators", language)}</p>
           <h1 id="app-title">StudySize Studio</h1>
           <button className="citation-button" type="button" onClick={() => setShowCitationModal(true)}>
-            How to cite us
+            {t("How to cite us", language)}
           </button>
-          <p>Your one-stop solution for research preparation.</p>
+          <p>{t("Your one-stop solution for research preparation.", language)}</p>
         </div>
-        <div className="hero-metrics" aria-label="Catalog summary">
-          <span><strong>{calculators.length}</strong> designs</span>
-          <span><strong>{categories.length - 1}</strong> families</span>
-          <span><strong>Guided</strong> tree</span>
+        <div className="hero-metrics" aria-label={t("Catalog summary", language)}>
+          <span><strong>{calculators.length}</strong> {t("designs", language)}</span>
+          <span><strong>{categories.length - 1}</strong> {t("families", language)}</span>
+          <span><strong>{t("Guided", language)}</strong> {t("tree", language)}</span>
         </div>
       </section>
 
-      <nav className="mode-tabs" aria-label="Main app modes">
+      <nav className="mode-tabs" aria-label={t("Main app modes", language)}>
         <button className={mode === "finder" ? "active" : ""} type="button" onClick={() => setMode("finder")}>
-          Find my calculator
+          {t("Find my calculator", language)}
         </button>
         <button className={mode === "calculator" ? "active" : ""} type="button" onClick={() => setMode("calculator")}>
-          Calculator catalog
+          {t("Calculator catalog", language)}
         </button>
         <button className={mode === "randomiser" ? "active" : ""} type="button" onClick={() => setMode("randomiser")}>
-          Randomiser
+          {t("Randomiser", language)}
         </button>
         <button className={mode === "scenario" ? "active" : ""} type="button" onClick={() => setMode("scenario")}>
-          Scenario Comparison
+          {t("Scenario Comparison", language)}
         </button>
         <button className={mode === "checklist" ? "active" : ""} type="button" onClick={() => setMode("checklist")}>
-          Reporting Checklist Helper
+          {t("Reporting Checklist Helper", language)}
         </button>
       </nav>
 
       <section className={`workspace ${mode}-workspace`}>
         {mode === "calculator" && (
-          <aside className="catalog" aria-label="Study design catalog">
-            <div className="category-tabs" role="tablist" aria-label="Filter study designs">
+          <aside className="catalog" aria-label={t("Study design catalog", language)}>
+            <div className="category-tabs" role="tablist" aria-label={t("Filter study designs", language)}>
               {categories.map((category) => (
                 <button
                   className={activeCategory === category ? "active" : ""}
@@ -1623,7 +2212,7 @@ export function SampleSizeApp() {
                   onClick={() => setActiveCategory(category)}
                   type="button"
                 >
-                  {category}
+                  {t(category, language)}
                 </button>
               ))}
             </div>
@@ -1635,9 +2224,9 @@ export function SampleSizeApp() {
                   onClick={() => setActiveId(item.id)}
                   type="button"
                 >
-                  <span>{item.category}</span>
-                  <strong>{item.title}</strong>
-                  <small>{item.purpose}</small>
+                  <span>{t(item.category, language)}</span>
+                  <strong>{t(item.title, language)}</strong>
+                  <small>{t(item.purpose, language)}</small>
                 </button>
               ))}
             </div>
@@ -1648,19 +2237,18 @@ export function SampleSizeApp() {
           <section className="finder-panel" aria-labelledby="finder-title">
             <div className="panel-heading">
               <div>
-                <p className="eyebrow">Decision support</p>
-                <h2 id="finder-title">Find my calculator</h2>
+                <p className="eyebrow">{t("Decision support", language)}</p>
+                <h2 id="finder-title">{t("Find my calculator", language)}</h2>
                 <p>
-                  Answer a few study-design questions and the app will suggest the closest calculator,
-                  explain why, and flag when statistical review is important.
+                  {t("Answer a few study-design questions and the app will suggest the closest calculator, explain why, and flag when statistical review is important.", language)}
                 </p>
               </div>
               <div className="actions">
                 <button type="button" onClick={goBackDecision} disabled={decisionPath.length === 0}>
-                  Back
+                  {t("Back", language)}
                 </button>
                 <button type="button" onClick={() => setDecisionAnswers({})}>
-                  Reset
+                  {t("Reset", language)}
                 </button>
               </div>
             </div>
@@ -1669,9 +2257,9 @@ export function SampleSizeApp() {
               <div className="decision-card">
                 {currentDecisionQuestion ? (
                   <>
-                    <span>Question {decisionPath.length + 1}</span>
-                    <h3>{currentDecisionQuestion.prompt}</h3>
-                    <p>{currentDecisionQuestion.helper}</p>
+                    <span>{t("Question", language)} {decisionPath.length + 1}</span>
+                    <h3>{t(currentDecisionQuestion.prompt, language)}</h3>
+                    <p>{t(currentDecisionQuestion.helper, language)}</p>
                     <div className="choice-grid">
                       {currentDecisionQuestion.options.map((option) => (
                         <button
@@ -1679,28 +2267,28 @@ export function SampleSizeApp() {
                           type="button"
                           onClick={() => answerDecision(currentDecisionQuestion.id, option.value)}
                         >
-                          <strong>{option.label}</strong>
-                          <small>{option.description}</small>
+                          <strong>{t(option.label, language)}</strong>
+                          <small>{t(option.description, language)}</small>
                         </button>
                       ))}
                     </div>
                   </>
                 ) : recommendation ? (
                   <>
-                    <span>Recommendation</span>
-                    <h3>{recommendation.title}</h3>
-                    <p>{recommendation.explanation}</p>
+                    <span>{t("Recommendation", language)}</span>
+                    <h3>{t(recommendation.title, language)}</h3>
+                    <p>{t(recommendation.explanation, language)}</p>
                     <div className="recommendation-grid">
                       <article>
-                        <strong>Assumptions to check</strong>
-                        <ul>{recommendation.assumptions.map((item) => <li key={item}>{item}</li>)}</ul>
+                        <strong>{t("Assumptions to check", language)}</strong>
+                        <ul>{recommendation.assumptions.map((item) => <li key={item}>{t(item, language)}</li>)}</ul>
                       </article>
                       <article>
-                        <strong>Warning flags</strong>
+                        <strong>{t("Warning flags", language)}</strong>
                         {recommendation.warnings.length === 0 ? (
-                          <p>No major warning flags based on these answers.</p>
+                          <p>{t("No major warning flags based on these answers.", language)}</p>
                         ) : (
-                          <ul>{recommendation.warnings.map((item) => <li key={item}>{item}</li>)}</ul>
+                          <ul>{recommendation.warnings.map((item) => <li key={item}>{t(item, language)}</li>)}</ul>
                         )}
                       </article>
                     </div>
@@ -1708,25 +2296,25 @@ export function SampleSizeApp() {
                       <button
                         className="use-calculator"
                         type="button"
-                        onClick={() => useRecommendedCalculator(recommendation.calculatorId!)}
+                        onClick={() => selectRecommendedCalculator(recommendation.calculatorId!)}
                       >
-                        Use this calculator
+                        {t("Use this calculator", language)}
                       </button>
                     )}
                   </>
                 ) : null}
               </div>
 
-              <aside className="path-card" aria-label="Decision path">
-                <span>Decision path</span>
+              <aside className="path-card" aria-label={t("Decision path", language)}>
+                <span>{t("Decision path", language)}</span>
                 {decisionPath.length === 0 ? (
-                  <p>No answers yet.</p>
+                  <p>{t("No answers yet.", language)}</p>
                 ) : (
                   <ol>
                     {decisionPath.map((step) => (
                       <li key={`${step.question}-${step.answer}`}>
-                        <strong>{step.answer}</strong>
-                        <small>{step.question}</small>
+                        <strong>{t(step.answer, language)}</strong>
+                        <small>{t(step.question, language)}</small>
                       </li>
                     ))}
                   </ol>
@@ -1738,29 +2326,28 @@ export function SampleSizeApp() {
           <section className="randomiser-panel" aria-labelledby="randomiser-title">
             <div className="panel-heading">
               <div>
-                <p className="eyebrow">Allocation sequence</p>
-                <h2 id="randomiser-title">Subject randomiser</h2>
+                <p className="eyebrow">{t("Allocation sequence", language)}</p>
+                <h2 id="randomiser-title">{t("Subject randomiser", language)}</h2>
                 <p>
-                  Generate a documented allocation sequence for standard individual randomisation,
-                  then export the settings, sequence, and best-practice notes as a PDF.
+                  {t("Generate a documented allocation sequence for standard individual randomisation, then export the settings, sequence, and best-practice notes as a PDF.", language)}
                 </p>
               </div>
               <div className="actions">
-                <button type="button" onClick={downloadRandomisationPdf}>Download PDF</button>
-                <button type="button" onClick={downloadRandomisationLogPdf}>Log template PDF</button>
+                <button type="button" onClick={downloadRandomisationPdf}>{t("Download PDF", language)}</button>
+                <button type="button" onClick={downloadRandomisationLogPdf}>{t("Log template PDF", language)}</button>
               </div>
             </div>
 
             <div className="randomiser-grid">
-              <section className="randomiser-controls" aria-label="Randomiser settings">
+              <section className="randomiser-controls" aria-label={t("Randomiser settings", language)}>
                 <label className="control">
                   <span>
-                    <strong>Number of subjects</strong>
-                    <small>Total number of randomisation slots to generate.</small>
+                    <strong>{t("Number of subjects", language)}</strong>
+                    <small>{t("Total number of randomisation slots to generate.", language)}</small>
                   </span>
                   <div className="input-row">
                     <input
-                      aria-label="Number of subjects slider"
+                      aria-label={t("Number of subjects slider", language)}
                       max={500}
                       min={2}
                       onChange={(event) => setRandomSubjectCount(Number(event.target.value))}
@@ -1770,7 +2357,7 @@ export function SampleSizeApp() {
                     />
                     <div className="number-wrap">
                       <input
-                        aria-label="Number of subjects"
+                        aria-label={t("Number of subjects", language)}
                         max={500}
                         min={2}
                         onChange={(event) => setRandomSubjectCount(Number(event.target.value))}
@@ -1784,11 +2371,11 @@ export function SampleSizeApp() {
 
                 <label className="control">
                   <span>
-                    <strong>Groups</strong>
-                    <small>Separate treatment arms with commas or line breaks.</small>
+                    <strong>{t("Groups", language)}</strong>
+                    <small>{t("Separate treatment arms with commas or line breaks.", language)}</small>
                   </span>
                   <textarea
-                    aria-label="Randomisation groups"
+                    aria-label={t("Randomisation groups", language)}
                     onChange={(event) => setRandomGroups(event.target.value)}
                     rows={3}
                     value={randomGroups}
@@ -1797,11 +2384,11 @@ export function SampleSizeApp() {
 
                 <label className="control">
                   <span>
-                    <strong>Strata</strong>
-                    <small>Optional. Separate sites or prognostic strata with commas or line breaks.</small>
+                    <strong>{t("Strata", language)}</strong>
+                    <small>{t("Optional. Separate sites or prognostic strata with commas or line breaks.", language)}</small>
                   </span>
                   <textarea
-                    aria-label="Randomisation strata"
+                    aria-label={t("Randomisation strata", language)}
                     onChange={(event) => setRandomStrata(event.target.value)}
                     rows={3}
                     value={randomStrata}
@@ -1810,27 +2397,27 @@ export function SampleSizeApp() {
 
                 <label className="control">
                   <span>
-                    <strong>Method</strong>
-                    <small>Blocked randomisation helps preserve balance during recruitment.</small>
+                    <strong>{t("Method", language)}</strong>
+                    <small>{t("Blocked randomisation helps preserve balance during recruitment.", language)}</small>
                   </span>
                   <select
-                    aria-label="Randomisation method"
+                    aria-label={t("Randomisation method", language)}
                     onChange={(event) => setRandomMethod(event.target.value as RandomisationMethod)}
                     value={randomMethod}
                   >
-                    <option value="block">Permuted block</option>
-                    <option value="simple">Simple balanced</option>
+                    <option value="block">{t("Permuted block", language)}</option>
+                    <option value="simple">{t("Simple balanced", language)}</option>
                   </select>
                 </label>
 
                 <label className="control">
                   <span>
-                    <strong>Block size</strong>
-                    <small>Used only for permuted blocks; keep it concealed in open-label trials.</small>
+                    <strong>{t("Block size", language)}</strong>
+                    <small>{t("Used only for permuted blocks; keep it concealed in open-label trials.", language)}</small>
                   </span>
                   <div className="input-row">
                     <input
-                      aria-label="Block size slider"
+                      aria-label={t("Block size slider", language)}
                       disabled={randomMethod !== "block"}
                       max={24}
                       min={randomisedGroups.length}
@@ -1841,7 +2428,7 @@ export function SampleSizeApp() {
                     />
                     <div className="number-wrap">
                       <input
-                        aria-label="Block size"
+                        aria-label={t("Block size", language)}
                         disabled={randomMethod !== "block"}
                         max={24}
                         min={randomisedGroups.length}
@@ -1856,11 +2443,11 @@ export function SampleSizeApp() {
 
                 <label className="control">
                   <span>
-                    <strong>Seed</strong>
-                    <small>Record this in the randomisation file to reproduce the sequence.</small>
+                    <strong>{t("Seed", language)}</strong>
+                    <small>{t("Record this in the randomisation file to reproduce the sequence.", language)}</small>
                   </span>
                   <input
-                    aria-label="Randomisation seed"
+                    aria-label={t("Randomisation seed", language)}
                     onChange={(event) => setRandomSeed(event.target.value)}
                     type="text"
                     value={randomSeed}
@@ -1868,11 +2455,11 @@ export function SampleSizeApp() {
                 </label>
               </section>
 
-              <section className="allocation-card" aria-label="Generated allocation">
+              <section className="allocation-card" aria-label={t("Generated allocation", language)}>
                 <div className="allocation-head">
                   <div>
-                    <span>Generated sequence</span>
-                    <strong>{randomSubjectCount} subjects</strong>
+                    <span>{t("Generated sequence", language)}</span>
+                    <strong>{randomSubjectCount} {t("subjects", language)}</strong>
                   </div>
                   <div className="allocation-counts">
                     {Object.entries(randomisationCounts).map(([group, count]) => (
@@ -1880,53 +2467,51 @@ export function SampleSizeApp() {
                     ))}
                   </div>
                 </div>
-                <div className="allocation-table" role="table" aria-label="Randomisation allocation table">
+                <div className="allocation-table" role="table" aria-label={t("Randomisation allocation table", language)}>
                   <div className="allocation-row heading" role="row">
-                    <span>Subject</span>
-                    <span>Assignment</span>
-                    <span>Stratum</span>
-                    <span>Block</span>
+                    <span>{t("Subject", language)}</span>
+                    <span>{t("Assignment", language)}</span>
+                    <span>{t("Stratum", language)}</span>
+                    <span>{t("Block", language)}</span>
                   </div>
                   {randomisationAssignments.slice(0, 120).map((assignment) => (
                     <div className="allocation-row" key={assignment.subject} role="row">
                       <span>{assignment.subject}</span>
                       <strong>{assignment.group}</strong>
-                      <span>{assignment.stratum ?? "All participants"}</span>
+                      <span>{t(assignment.stratum ?? "All participants", language)}</span>
                       <span>{assignment.block ?? "—"}</span>
                     </div>
                   ))}
                 </div>
                 {randomisationAssignments.length > 120 && (
-                  <p className="table-note">Showing the first 120 assignments. The PDF includes the full sequence.</p>
+                  <p className="table-note">{t("Showing the first 120 assignments. The PDF includes the full sequence.", language)}</p>
                 )}
               </section>
             </div>
 
             <section className="best-practice" aria-labelledby="best-practice-title">
               <div>
-                <p className="eyebrow">Best practice</p>
-                <h3 id="best-practice-title">How to conduct randomisation properly</h3>
+                <p className="eyebrow">{t("Best practice", language)}</p>
+                <h3 id="best-practice-title">{t("How to conduct randomisation properly", language)}</h3>
                 <p>
-                  Randomisation is not only the sequence. Good practice also requires allocation
-                  concealment, documented roles, and a clear audit trail from consent through assignment.
+                  {t("Randomisation is not only the sequence. Good practice also requires allocation concealment, documented roles, and a clear audit trail from consent through assignment.", language)}
                 </p>
               </div>
               <ol>
-                {randomisationBestPractice.map((item) => <li key={item}>{item}</li>)}
+                {randomisationBestPractice.map((item) => <li key={item}>{t(item, language)}</li>)}
               </ol>
             </section>
 
             <section className="best-practice blinding-guide" aria-labelledby="blinding-title">
               <div>
-                <p className="eyebrow">Blinding</p>
-                <h3 id="blinding-title">Blinding and allocation concealment guide</h3>
+                <p className="eyebrow">{t("Blinding", language)}</p>
+                <h3 id="blinding-title">{t("Blinding and allocation concealment guide", language)}</h3>
                 <p>
-                  The allocation sequence should be protected before assignment, and blinding should
-                  be planned around who can influence enrolment, treatment, assessment, or analysis.
+                  {t("The allocation sequence should be protected before assignment, and blinding should be planned around who can influence enrolment, treatment, assessment, or analysis.", language)}
                 </p>
               </div>
               <ol>
-                {blindingGuide.map((item) => <li key={item}>{item}</li>)}
+                {blindingGuide.map((item) => <li key={item}>{t(item, language)}</li>)}
               </ol>
             </section>
           </section>
@@ -1934,27 +2519,26 @@ export function SampleSizeApp() {
           <section className="scenario-panel" aria-labelledby="scenario-title">
             <div className="panel-heading">
               <div>
-                <p className="eyebrow">Planning assistant</p>
-                <h2 id="scenario-title">Scenario Comparison</h2>
+                <p className="eyebrow">{t("Planning assistant", language)}</p>
+                <h2 id="scenario-title">{t("Scenario Comparison", language)}</h2>
                 <p>
-                  Compare saved sample-size scenarios by base sample size, adjusted sample size,
-                  and the assumption set used for planning.
+                  {t("Compare saved sample-size scenarios by base sample size, adjusted sample size, and the assumption set used for planning.", language)}
                 </p>
               </div>
             </div>
 
             <div className="research-grid">
               <section className="tool-card wide" aria-labelledby="comparison-title">
-                <span>Scenario comparison</span>
-                <h3 id="comparison-title">Saved assumption sets</h3>
+                <span>{t("Scenario comparison", language)}</span>
+                <h3 id="comparison-title">{t("Saved assumption sets", language)}</h3>
                 {scenarios.length === 0 ? (
-                  <p>Save scenarios from the calculator catalog to compare assumptions and adjusted sample sizes here.</p>
+                  <p>{t("Save scenarios from the calculator catalog to compare assumptions and adjusted sample sizes here.", language)}</p>
                 ) : (
-                  <div className="scenario-table" role="table" aria-label="Saved scenario comparison">
+                  <div className="scenario-table" role="table" aria-label={t("Saved scenario comparison", language)}>
                     <div className="scenario-row heading" role="row">
-                      <span>Calculator</span>
-                      <span>Base n</span>
-                      <span>Adjusted n</span>
+                      <span>{t("Calculator", language)}</span>
+                      <span>{t("Base n", language)}</span>
+                      <span>{t("Adjusted n", language)}</span>
                     </div>
                     {scenarios.map((scenario) => (
                       <button
@@ -1966,7 +2550,7 @@ export function SampleSizeApp() {
                           setMode("calculator");
                         }}
                       >
-                        <strong>{scenario.calculatorTitle}</strong>
+                        <strong>{t(scenario.calculatorTitle, language)}</strong>
                         <span>{formatNumber(scenario.result.total ?? scenario.result.primary)}</span>
                         <span>{formatNumber(scenario.result.adjustedTotal)}</span>
                       </button>
@@ -1980,91 +2564,89 @@ export function SampleSizeApp() {
           <section className="checklist-panel" aria-labelledby="checklist-page-title">
             <div className="panel-heading">
               <div>
-                <p className="eyebrow">Reporting support</p>
-                <h2 id="checklist-page-title">Reporting Checklist Helper</h2>
+                <p className="eyebrow">{t("Reporting support", language)}</p>
+                <h2 id="checklist-page-title">{t("Reporting Checklist Helper", language)}</h2>
                 <p>
-                  Select the study or report type and use the checklist prompts to prepare a more
-                  complete manuscript, protocol, or project report.
+                  {t("Select the study or report type and use the checklist prompts to prepare a more complete manuscript, protocol, or project report.", language)}
                 </p>
               </div>
             </div>
 
             <div className="research-grid">
               <section className="tool-card checklist-tree-card" aria-labelledby="checklist-tree-title">
-                <span>EQUATOR decision tree</span>
-                <h3 id="checklist-tree-title">Find the reporting checklist</h3>
+                <span>{t("EQUATOR decision tree", language)}</span>
+                <h3 id="checklist-tree-title">{t("Find the reporting checklist", language)}</h3>
                 <p>
-                  Answer the yes/no prompts adapted from the EQUATOR Network decision tree to select
-                  the most relevant checklist.
+                  {t("Answer the yes/no prompts adapted from the EQUATOR Network decision tree to select the most relevant checklist.", language)}
                 </p>
                 {checklistTreePath.length > 0 && (
-                  <ol className="checklist-path" aria-label="Answered checklist tree questions">
+                  <ol className="checklist-path" aria-label={t("Answered checklist tree questions", language)}>
                     {checklistTreePath.map((item) => (
                       <li key={item.question.id}>
-                        <span>{item.question.prompt}</span>
-                        <strong>{item.answer ? "Yes" : "No"}</strong>
+                        <span>{t(item.question.prompt, language)}</span>
+                        <strong>{item.answer ? t("Yes", language) : t("No", language)}</strong>
                       </li>
                     ))}
                   </ol>
                 )}
                 {currentChecklistTreeQuestion ? (
                   <div className="tree-question">
-                    <strong>{currentChecklistTreeQuestion.prompt}</strong>
+                    <strong>{t(currentChecklistTreeQuestion.prompt, language)}</strong>
                     <div className="tree-actions">
                       <button type="button" onClick={() => answerChecklistTree(currentChecklistTreeQuestion.id, true)}>
-                        Yes
+                        {t("Yes", language)}
                       </button>
                       <button type="button" onClick={() => answerChecklistTree(currentChecklistTreeQuestion.id, false)}>
-                        No
+                        {t("No", language)}
                       </button>
                     </div>
                   </div>
                 ) : (
                   <div className="tree-result" aria-live="polite">
-                    <span>Suggested checklist</span>
-                    <strong>{checklist.title}</strong>
-                    <p>{checklist.guideline}</p>
+                    <span>{t("Suggested checklist", language)}</span>
+                    <strong>{t(checklist.title, language)}</strong>
+                    <p>{t(checklist.guideline, language)}</p>
                   </div>
                 )}
                 <button className="subtle-button" type="button" onClick={resetChecklistTree}>
-                  Reset tree
+                  {t("Reset tree", language)}
                 </button>
               </section>
 
               <section className="tool-card checklist-tool" aria-labelledby="checklist-title">
-                <span>Reporting checklist helper</span>
-                <h3 id="checklist-title">{checklist.title}</h3>
+                <span>{t("Reporting checklist helper", language)}</span>
+                <h3 id="checklist-title">{t(checklist.title, language)}</h3>
                 <label>
-                  <strong>Study/report type</strong>
+                  <strong>{t("Study/report type", language)}</strong>
                   <select
-                    aria-label="Reporting checklist type"
+                    aria-label={t("Reporting checklist type", language)}
                     onChange={(event) => setChecklistType(event.target.value as ChecklistKey)}
                     value={checklistType}
                   >
-                    <option value="trial">Randomised trial</option>
-                    <option value="observational">Observational study</option>
-                    <option value="systematic-review">Systematic review</option>
-                    <option value="diagnostic">Diagnostic/prognostic accuracy</option>
-                    <option value="protocol">Study protocol</option>
-                    <option value="case-report">Case report</option>
-                    <option value="qualitative">Qualitative research</option>
-                    <option value="quality-improvement">Quality improvement</option>
-                    <option value="economic">Economic evaluation</option>
-                    <option value="prediction-model">Prediction model</option>
-                    <option value="arrive">Animal research / ARRIVE</option>
-                    <option value="entreq">Qualitative evidence synthesis / ENTREQ</option>
-                    <option value="srqr">Qualitative research / SRQR</option>
-                    <option value="stard">Diagnostic accuracy / STARD</option>
-                    <option value="remark">Prognostic marker / REMARK</option>
-                    <option value="moose">Observational meta-analysis / MOOSE</option>
-                    <option value="equator-library">Search EQUATOR library</option>
+                    <option value="trial">{t("Randomised trial", language)}</option>
+                    <option value="observational">{t("Observational study", language)}</option>
+                    <option value="systematic-review">{t("Systematic review", language)}</option>
+                    <option value="diagnostic">{t("Diagnostic/prognostic accuracy", language)}</option>
+                    <option value="protocol">{t("Study protocol", language)}</option>
+                    <option value="case-report">{t("Case report", language)}</option>
+                    <option value="qualitative">{t("Qualitative research", language)}</option>
+                    <option value="quality-improvement">{t("Quality improvement", language)}</option>
+                    <option value="economic">{t("Economic evaluation", language)}</option>
+                    <option value="prediction-model">{t("Prediction model", language)}</option>
+                    <option value="arrive">{t("Animal research / ARRIVE", language)}</option>
+                    <option value="entreq">{t("Qualitative evidence synthesis / ENTREQ", language)}</option>
+                    <option value="srqr">{t("Qualitative research / SRQR", language)}</option>
+                    <option value="stard">{t("Diagnostic accuracy / STARD", language)}</option>
+                    <option value="remark">{t("Prognostic marker / REMARK", language)}</option>
+                    <option value="moose">{t("Observational meta-analysis / MOOSE", language)}</option>
+                    <option value="equator-library">{t("Search EQUATOR library", language)}</option>
                   </select>
                 </label>
-                <p>{checklist.guideline}</p>
-                <a className="resource-button" href={checklist.link} target="_blank" rel="noreferrer">Open guideline resource</a>
-                <p className="method-lead">The Method section should at least describe the following:</p>
+                <p>{t(checklist.guideline, language)}</p>
+                <a className="resource-button" href={checklist.link} target="_blank" rel="noreferrer">{t("Open guideline resource", language)}</a>
+                <p className="method-lead">{t("The Method section should at least describe the following:", language)}</p>
                 <ul>
-                  {checklist.items.map((item) => <li key={item}>{item}</li>)}
+                  {checklist.items.map((item) => <li key={item}>{t(item, language)}</li>)}
                 </ul>
               </section>
             </div>
@@ -2073,13 +2655,13 @@ export function SampleSizeApp() {
           <section className="calculator-panel" aria-labelledby="calculator-title">
             <div className="panel-heading">
               <div>
-                <p className="eyebrow">{calculator.category}</p>
-                <h2 id="calculator-title">{calculator.title}</h2>
-                <p>{calculator.purpose}</p>
+                <p className="eyebrow">{t(calculator.category, language)}</p>
+                <h2 id="calculator-title">{t(calculator.title, language)}</h2>
+                <p>{t(calculator.purpose, language)}</p>
               </div>
               <div className="actions">
-                <button type="button" onClick={saveScenario}>Save scenario</button>
-                <button type="button" onClick={downloadPdf}>Download PDF</button>
+                <button type="button" onClick={saveScenario}>{t("Save scenario", language)}</button>
+                <button type="button" onClick={downloadPdf}>{t("Download PDF", language)}</button>
               </div>
             </div>
 
@@ -2087,13 +2669,13 @@ export function SampleSizeApp() {
               {calculator.variables.map((variable) => (
                 <label className="control" key={variable.key}>
                   <span>
-                    <strong>{variable.label}</strong>
-                    <small>{variable.help}</small>
+                    <strong>{t(variable.label, language)}</strong>
+                    <small>{t(variable.help, language)}</small>
                   </span>
                   <div className="input-row">
                     {variable.slider && (
                       <input
-                        aria-label={`${variable.label} slider`}
+                        aria-label={`${t(variable.label, language)} slider`}
                         max={variable.max}
                         min={variable.min}
                         onChange={(event) => updateValue(variable.key, Number(event.target.value))}
@@ -2104,7 +2686,7 @@ export function SampleSizeApp() {
                     )}
                     <div className="number-wrap">
                       <input
-                        aria-label={variable.label}
+                        aria-label={t(variable.label, language)}
                         max={variable.max}
                         min={variable.min}
                         onChange={(event) => updateValue(variable.key, Number(event.target.value))}
@@ -2121,15 +2703,15 @@ export function SampleSizeApp() {
 
             <div className="evidence">
               <article>
-                <h3>Formula</h3>
+                <h3>{t("Formula", language)}</h3>
                 <p>{calculator.formula}</p>
               </article>
               <article>
-                <h3>Assumptions</h3>
-                <ul>{calculator.assumptions.map((item) => <li key={item}>{item}</li>)}</ul>
+                <h3>{t("Assumptions", language)}</h3>
+                <ul>{calculator.assumptions.map((item) => <li key={item}>{t(item, language)}</li>)}</ul>
               </article>
               <article>
-                <h3>References</h3>
+                <h3>{t("References", language)}</h3>
                 <ul>{calculator.references.map((item) => <li key={item}>{item}</li>)}</ul>
               </article>
             </div>
@@ -2137,63 +2719,63 @@ export function SampleSizeApp() {
         )}
 
         {mode === "randomiser" ? (
-          <aside className="results" aria-label="Randomiser summary">
+          <aside className="results" aria-label={t("Randomiser summary", language)}>
             <div className="result-card primary">
-              <span>Randomisation slots</span>
+              <span>{t("Randomisation slots", language)}</span>
               <strong>{formatNumber(randomSubjectCount)}</strong>
-              <small>{randomisedGroups.length} allocation groups</small>
+              <small>{randomisedGroups.length} {t("allocation groups", language)}</small>
             </div>
             <div className="result-card">
-              <span>Method</span>
-              <strong>{randomMethod === "block" ? "Blocked" : "Simple"}</strong>
-              <small>{randomMethod === "block" ? `Block size ${Math.max(randomisedGroups.length, randomBlockSize)}` : "Balanced shuffled sequence"}</small>
+              <span>{t("Method", language)}</span>
+              <strong>{randomMethod === "block" ? t("Blocked", language) : t("Simple", language)}</strong>
+              <small>{randomMethod === "block" ? `${t("Block size", language)} ${Math.max(randomisedGroups.length, randomBlockSize)}` : t("Balanced shuffled sequence", language)}</small>
             </div>
             <div className="result-card">
-              <span>Allocation counts</span>
+              <span>{t("Allocation counts", language)}</span>
               <ul>{Object.entries(randomisationCounts).map(([group, count]) => <li key={group}>{group}: {count}</li>)}</ul>
             </div>
             <div className="result-card">
-              <span>Documentation</span>
+              <span>{t("Documentation", language)}</span>
               <ul>
                 <li>Seed: {randomSeed || "studysize-studio"}</li>
-                <li>Export the PDF before enrolment.</li>
-                <li>Keep the sequence concealed from recruiters.</li>
+                <li>{t("Export the PDF before enrolment.", language)}</li>
+                <li>{t("Keep the sequence concealed from recruiters.", language)}</li>
               </ul>
             </div>
           </aside>
         ) : mode === "calculator" ? (
-          <aside className="results" aria-label="Live result">
+          <aside className="results" aria-label={t("Live result", language)}>
             <div className="result-card primary">
-              <span>Required sample size</span>
+              <span>{t("Required sample size", language)}</span>
               <strong>{formatNumber(result.total ?? result.primary)}</strong>
-              <small>Total before dropout adjustment</small>
+              <small>{t("Total before dropout adjustment", language)}</small>
             </div>
             <div className="result-card">
-              <span>Adjusted total</span>
+              <span>{t("Adjusted total", language)}</span>
               <strong>{formatNumber(result.adjustedTotal)}</strong>
-              <small>Includes expected dropout or missing data</small>
+              <small>{t("Includes expected dropout or missing data", language)}</small>
             </div>
             <div className="result-card">
-              <span>Planning notes</span>
-              <ul>{result.details.map((detail) => <li key={detail}>{detail}</li>)}</ul>
+              <span>{t("Planning notes", language)}</span>
+              <ul>{result.details.map((detail) => <li key={detail}>{t(detail, language)}</li>)}</ul>
             </div>
             <div className="result-card protocol-card">
-              <span>Protocol wording</span>
+              <span>{t("Protocol wording", language)}</span>
               <p>{protocolText}</p>
-              <button type="button" onClick={() => setShowProtocolModal(true)}>Open wording popup</button>
+              <button type="button" onClick={() => setShowProtocolModal(true)}>{t("Open wording popup", language)}</button>
             </div>
             <div className="saved">
               <div className="saved-head">
-                <span>Saved scenarios</span>
+                <span>{t("Saved scenarios", language)}</span>
                 <small>{status}</small>
               </div>
               {scenarios.length === 0 ? (
-                <p>No saved scenarios yet.</p>
+                <p>{t("No saved scenarios yet.", language)}</p>
               ) : (
                 scenarios.map((scenario) => (
                   <button key={scenario.id} type="button" onClick={() => loadScenario(scenario)}>
-                    <strong>{scenario.calculatorTitle}</strong>
-                    <span>{formatNumber(scenario.result.adjustedTotal)} adjusted</span>
+                    <strong>{t(scenario.calculatorTitle, language)}</strong>
+                    <span>{formatNumber(scenario.result.adjustedTotal)} {t("adjusted", language)}</span>
                   </button>
                 ))
               )}
@@ -2215,11 +2797,11 @@ export function SampleSizeApp() {
           >
             <div className="modal-head">
               <div>
-                <p className="eyebrow">Citation</p>
-                <h2 id="citation-title">How to cite us</h2>
+                <p className="eyebrow">{t("Citation", language)}</p>
+                <h2 id="citation-title">{t("How to cite us", language)}</h2>
               </div>
-              <button aria-label="Close citation dialog" type="button" onClick={() => setShowCitationModal(false)}>
-                Close
+              <button aria-label={t("Close citation dialog", language)} type="button" onClick={() => setShowCitationModal(false)}>
+                {t("Close", language)}
               </button>
             </div>
             <div className="citation-list">
@@ -2245,21 +2827,21 @@ export function SampleSizeApp() {
           >
             <div className="modal-head">
               <div>
-                <p className="eyebrow">Protocol wording</p>
-                <h2 id="protocol-modal-title">Copy wording for your protocol</h2>
+                <p className="eyebrow">{t("Protocol wording", language)}</p>
+                <h2 id="protocol-modal-title">{t("Copy wording for your protocol", language)}</h2>
               </div>
-              <button aria-label="Close protocol wording dialog" type="button" onClick={() => setShowProtocolModal(false)}>
-                Close
+              <button aria-label={t("Close protocol wording dialog", language)} type="button" onClick={() => setShowProtocolModal(false)}>
+                {t("Close", language)}
               </button>
             </div>
             <textarea
-              aria-label="Protocol wording text"
+              aria-label={t("Protocol wording text", language)}
               className="protocol-copy-box"
               readOnly
               value={protocolText}
             />
             <div className="copy-actions">
-              <button type="button" onClick={copyProtocolWording}>Copy wording</button>
+              <button type="button" onClick={copyProtocolWording}>{t("Copy wording", language)}</button>
             </div>
           </section>
         </div>

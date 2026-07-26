@@ -29,8 +29,8 @@ export const metadata: Metadata = {
       "Interactive sample size calculators for researchers and clinicians.",
   },
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
+    icon: "/favicon.png",
+    shortcut: "/favicon.png",
   },
 };
 

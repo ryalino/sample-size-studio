@@ -51,8 +51,39 @@ button {
 }
 
 .app-shell {
+  position: relative;
   min-height: 100vh;
   padding: 28px;
+}
+
+.language-switcher {
+  position: absolute;
+  top: 18px;
+  right: 28px;
+  z-index: 5;
+  display: inline-flex;
+  gap: 6px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  padding: 5px;
+  box-shadow: 0 10px 28px rgba(34, 51, 84, 0.08);
+}
+
+.language-switcher button {
+  display: grid;
+  width: 38px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  font-size: 1.25rem;
+}
+
+.language-switcher button.active {
+  border-color: rgba(15, 159, 154, 0.35);
+  background: var(--mint);
 }
 
 .masthead {
@@ -1071,6 +1102,12 @@ input:disabled {
 @media (max-width: 760px) {
   .app-shell {
     padding: 16px;
+  }
+
+  .language-switcher {
+    position: static;
+    justify-self: end;
+    margin: 0 0 10px auto;
   }
 
   .masthead {
