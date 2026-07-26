@@ -408,6 +408,18 @@ h3 {
   text-align: left;
 }
 
+.choice-icon {
+  display: inline-grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--sky);
+  color: var(--foreground);
+  font-size: 1.05rem;
+  font-weight: 900;
+}
+
 .choice-grid button:hover,
 .choice-grid button:focus-visible,
 .use-calculator:hover,
@@ -1114,6 +1126,31 @@ input:disabled {
     padding-top: 12px;
   }
 
+  h1 {
+    font-size: clamp(2.25rem, 15vw, 3.2rem);
+    line-height: 0.96;
+  }
+
+  h2 {
+    font-size: 1.55rem;
+  }
+
+  .mode-tabs {
+    position: sticky;
+    top: 0;
+    z-index: 4;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    margin-inline: -16px;
+    padding: 8px 16px 12px;
+    background: rgba(247, 248, 251, 0.94);
+  }
+
+  .mode-tabs button {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
   .hero-metrics,
   .inputs-grid,
   .evidence,
@@ -1151,5 +1188,54 @@ input:disabled {
   .allocation-row,
   .scenario-row {
     grid-template-columns: 1fr;
+  }
+
+  .choice-grid button {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    min-height: 0;
+  }
+
+  .choice-grid small {
+    grid-column: 2;
+  }
+
+  .citation-modal {
+    max-height: calc(100vh - 24px);
+    padding: 16px;
+  }
+}
+
+@media (max-width: 430px) {
+  .app-shell {
+    padding: 12px;
+  }
+
+  .language-switcher button {
+    width: 34px;
+    height: 32px;
+  }
+
+  .hero-metrics {
+    gap: 8px;
+  }
+
+  .hero-metrics span {
+    min-height: 0;
+    padding: 11px;
+  }
+
+  .mode-tabs {
+    margin-inline: -12px;
+    padding-inline: 12px;
+  }
+
+  .calculator-panel,
+  .finder-panel,
+  .randomiser-panel,
+  .scenario-panel,
+  .checklist-panel,
+  .results {
+    padding: 16px;
   }
 }

@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 
 type Values = Record<string, number>;
-type Language = "en" | "id";
+type Language = "en" | "id" | "nl";
 type Output = {
   primary: number;
   perGroup?: number;
@@ -95,6 +95,7 @@ type ChecklistTreeQuestion = {
 };
 
 const indonesianText: Record<string, string> = {
+  "Language selector": "Pemilih bahasa",
   "Sample size calculators": "Kalkulator besar sampel",
   "How to cite us": "Cara mengutip kami",
   "Your one-stop solution for research preparation.": "Solusi terpadu untuk persiapan penelitian.",
@@ -646,8 +647,219 @@ Object.assign(indonesianText, {
 });
 
 function t(text: string, language: Language) {
-  return language === "id" ? indonesianText[text] ?? text : text;
+  if (language === "id") return indonesianText[text] ?? text;
+  if (language === "nl") return dutchText[text] ?? text;
+  return text;
 }
+
+const dutchText: Record<string, string> = {
+  "Language selector": "Taalkiezer",
+  "Sample size calculators": "Steekproefgrootte-calculators",
+  "How to cite us": "Hoe citeert u ons",
+  "Your one-stop solution for research preparation.": "Uw alles-in-een oplossing voor onderzoeksvoorbereiding.",
+  "Catalog summary": "Catalogusoverzicht",
+  "designs": "ontwerpen",
+  "families": "families",
+  "Guided": "Begeleide",
+  "tree": "beslisboom",
+  "Main app modes": "Hoofdmodi van de app",
+  "Find my calculator": "Vind mijn calculator",
+  "Calculator catalog": "Calculatorcatalogus",
+  "Randomiser": "Randomisator",
+  "Scenario Comparison": "Scenariovergelijking",
+  "Reporting Checklist Helper": "Hulp bij rapportagechecklists",
+  "Study design catalog": "Catalogus met studiedesigns",
+  "Filter study designs": "Filter studiedesigns",
+  "Decision support": "Beslisondersteuning",
+  "Answer a few study-design questions and the app will suggest the closest calculator, explain why, and flag when statistical review is important.": "Beantwoord enkele vragen over het studiedesign; de app stelt de best passende calculator voor, legt uit waarom en geeft aan wanneer statistische beoordeling belangrijk is.",
+  "Back": "Terug",
+  "Reset": "Opnieuw",
+  "Question": "Vraag",
+  "Recommendation": "Aanbeveling",
+  "Assumptions to check": "Te controleren aannames",
+  "Warning flags": "Waarschuwingen",
+  "No major warning flags based on these answers.": "Geen grote waarschuwingen op basis van deze antwoorden.",
+  "Use this calculator": "Gebruik deze calculator",
+  "Decision path": "Beslispad",
+  "No answers yet.": "Nog geen antwoorden.",
+  "Allocation sequence": "Allocatiereeks",
+  "Subject randomiser": "Deelnemer-randomisator",
+  "Generate a documented allocation sequence for standard individual randomisation, then export the settings, sequence, and best-practice notes as a PDF.": "Genereer een gedocumenteerde allocatiereeks voor standaard individuele randomisatie en exporteer instellingen, reeks en best-practice-notities als PDF.",
+  "Download PDF": "PDF downloaden",
+  "Log template PDF": "Logsjabloon PDF",
+  "Randomiser settings": "Randomisatie-instellingen",
+  "Number of subjects": "Aantal deelnemers",
+  "Total number of randomisation slots to generate.": "Totaal aantal te genereren randomisatieslots.",
+  "Number of subjects slider": "Schuifregelaar aantal deelnemers",
+  "Groups": "Groepen",
+  "Separate treatment arms with commas or line breaks.": "Scheid behandelarmen met komma's of regeleinden.",
+  "Randomisation groups": "Randomisatiegroepen",
+  "Strata": "Strata",
+  "Optional. Separate sites or prognostic strata with commas or line breaks.": "Optioneel. Scheid centra of prognostische strata met komma's of regeleinden.",
+  "Randomisation strata": "Randomisatiestrata",
+  "Method": "Methode",
+  "Blocked randomisation helps preserve balance during recruitment.": "Blokrandomisatie helpt balans tijdens inclusie te behouden.",
+  "Randomisation method": "Randomisatiemethode",
+  "Permuted block": "Gepermuteerd blok",
+  "Simple balanced": "Eenvoudig gebalanceerd",
+  "Block size": "Blokgrootte",
+  "Used only for permuted blocks; keep it concealed in open-label trials.": "Alleen gebruikt voor gepermuteerde blokken; houd dit verborgen in open-label studies.",
+  "Seed": "Seed",
+  "Record this in the randomisation file to reproduce the sequence.": "Leg dit vast in het randomisatiebestand om de reeks te reproduceren.",
+  "Generated allocation": "Gegenereerde allocatie",
+  "Generated sequence": "Gegenereerde reeks",
+  "subjects": "deelnemers",
+  "Subject": "Deelnemer",
+  "Assignment": "Toewijzing",
+  "Stratum": "Stratum",
+  "Block": "Blok",
+  "Best practice": "Best practice",
+  "How to conduct randomisation properly": "Randomisatie correct uitvoeren",
+  "Planning assistant": "Planningsassistent",
+  "Scenario comparison": "Scenariovergelijking",
+  "Saved assumption sets": "Opgeslagen aannamesets",
+  "Calculator": "Calculator",
+  "Base n": "Basis n",
+  "Adjusted n": "Aangepaste n",
+  "Reporting support": "Rapportageondersteuning",
+  "EQUATOR decision tree": "EQUATOR-beslisboom",
+  "Find the reporting checklist": "Vind de rapportagechecklist",
+  "Yes": "Ja",
+  "No": "Nee",
+  "Suggested checklist": "Voorgestelde checklist",
+  "Reset tree": "Boom resetten",
+  "Reporting checklist helper": "Hulp bij rapportagechecklists",
+  "Study/report type": "Type studie/rapport",
+  "Reporting checklist type": "Type rapportagechecklist",
+  "Open guideline resource": "Richtlijnbron openen",
+  "The Method section should at least describe the following:": "De methodesectie moet ten minste het volgende beschrijven:",
+  "Save scenario": "Scenario opslaan",
+  "Formula": "Formule",
+  "Assumptions": "Aannames",
+  "References": "Referenties",
+  "Randomiser summary": "Randomisatieoverzicht",
+  "Randomisation slots": "Randomisatieslots",
+  "allocation groups": "allocatiegroepen",
+  "Blocked": "Geblokkeerd",
+  "Simple": "Eenvoudig",
+  "Balanced shuffled sequence": "Gebalanceerde geschudde reeks",
+  "Allocation counts": "Allocatieaantallen",
+  "Documentation": "Documentatie",
+  "Live result": "Live resultaat",
+  "Required sample size": "Benodigde steekproefgrootte",
+  "Total before dropout adjustment": "Totaal voor uitvalcorrectie",
+  "Adjusted total": "Aangepast totaal",
+  "Includes expected dropout or missing data": "Inclusief verwachte uitval of ontbrekende gegevens",
+  "Planning notes": "Planningsnotities",
+  "Protocol wording": "Protocoltekst",
+  "Open wording popup": "Protocoltekst openen",
+  "Saved scenarios": "Opgeslagen scenario's",
+  "No saved scenarios yet.": "Nog geen opgeslagen scenario's.",
+  "adjusted": "aangepast",
+  "Citation": "Citatie",
+  "Close": "Sluiten",
+  "Copy wording for your protocol": "Kopieer tekst voor uw protocol",
+  "Copy wording": "Tekst kopiëren",
+  "Sample Size Studio version 1.1. © Ryalino, 2026.": "Sample Size Studio versie 1.1. © Ryalino, 2026.",
+  "All": "Alle",
+  "Descriptive": "Beschrijvend",
+  "Comparative": "Vergelijkend",
+  "Association": "Associatie",
+  "Diagnostic": "Diagnostisch",
+  "Epidemiology": "Epidemiologie",
+  "Advanced Trials": "Geavanceerde trials",
+  "Modeling": "Modellering",
+  "Prevalence / Single Proportion": "Prevalentie / enkele proportie",
+  "Single Mean": "Enkel gemiddelde",
+  "Two Independent Means": "Twee onafhankelijke gemiddelden",
+  "Paired / Before-After Mean": "Gepaarde / voor-na gemiddelde",
+  "Two Independent Proportions": "Twee onafhankelijke proporties",
+  "One Proportion vs Benchmark": "Eén proportie versus benchmark",
+  "Correlation": "Correlatie",
+  "Diagnostic Sensitivity": "Diagnostische sensitiviteit",
+  "Diagnostic Specificity": "Diagnostische specificiteit",
+  "Cohort / Risk Ratio": "Cohort / risicoratio",
+  "Case-Control / Odds Ratio": "Case-control / oddsratio",
+  "Non-Inferiority Mean": "Non-inferioriteitsgemiddelde",
+  "Equivalence Mean": "Equivalentiegemiddelde",
+  "Cluster Randomized Trial": "Clustergerandomiseerde trial",
+  "Survival / Time-to-Event": "Overleving / tijd-tot-event",
+  "Multiple Linear Regression": "Meervoudige lineaire regressie",
+  "Logistic Regression Events": "Logistische regressie-events",
+  "Expected proportion": "Verwachte proportie",
+  "Margin of error": "Foutmarge",
+  "Confidence": "Betrouwbaarheid",
+  "Non-response": "Non-respons",
+  "Standard deviation": "Standaarddeviatie",
+  "Mean difference": "Gemiddeld verschil",
+  "Common SD": "Gemeenschappelijke SD",
+  "Allocation ratio": "Allocatieratio",
+  "Alpha": "Alfa",
+  "Power": "Power",
+  "Dropout": "Uitval",
+  "Mean change": "Gemiddelde verandering",
+  "SD of differences": "SD van verschillen",
+  "Control proportion": "Controleproportie",
+  "Treatment proportion": "Behandelproportie",
+  "Benchmark": "Benchmark",
+  "Target proportion": "Doelproportie",
+  "Expected correlation": "Verwachte correlatie",
+  "Sensitivity": "Sensitiviteit",
+  "Specificity": "Specificiteit",
+  "Disease prevalence": "Ziekteprevalentie",
+  "Non-evaluable": "Niet-evalueerbaar",
+  "Risk ratio": "Risicoratio",
+  "Odds ratio": "Oddsratio",
+  "Predictors": "Predictoren",
+  "Missing data": "Ontbrekende gegevens",
+  "What is the main purpose of the study?": "Wat is het hoofddoel van de studie?",
+  "Choose the analysis goal that best matches the primary objective.": "Kies het analysedoel dat het best past bij de primaire doelstelling.",
+  "Estimate one quantity": "Eén grootheid schatten",
+  "Prevalence, rate, proportion, or mean with a target precision.": "Prevalentie, percentage, proportie of gemiddelde met een gewenste precisie.",
+  "Compare groups": "Groepen vergelijken",
+  "Treatment vs control, exposed vs unexposed, or before vs after.": "Behandeling versus controle, blootgesteld versus niet-blootgesteld, of voor versus na.",
+  "Study association": "Associatie onderzoeken",
+  "Correlation, risk ratio, odds ratio, or hazard ratio.": "Correlatie, risicoratio, oddsratio of hazardratio.",
+  "Diagnostic accuracy": "Diagnostische accuratesse",
+  "Sensitivity or specificity of a test against a reference standard.": "Sensitiviteit of specificiteit van een test ten opzichte van een referentiestandaard.",
+  "Prediction/modeling": "Predictie/modellering",
+  "Regression or prediction model sample size planning.": "Steekproefplanning voor regressie- of predictiemodellen.",
+  "What are you estimating?": "Wat wilt u schatten?",
+  "Proportion or prevalence": "Proportie of prevalentie",
+  "Mean value": "Gemiddelde waarde",
+  "What type of primary outcome are you comparing?": "Welk type primaire uitkomst vergelijkt u?",
+  "Binary": "Binair",
+  "Continuous": "Continu",
+  "Time-to-event": "Tijd-tot-event",
+  "How are the observations arranged?": "Hoe zijn de observaties georganiseerd?",
+  "Two independent groups": "Twee onafhankelijke groepen",
+  "Paired or before-after": "Gepaarde of voor-na metingen",
+  "Clustered groups": "Geclusterde groepen",
+  "One group vs benchmark": "Eén groep versus benchmark",
+  "What best describes the group comparison?": "Wat beschrijft de groepsvergelijking het best?",
+  "Trial or experiment": "Trial of experiment",
+  "Cohort/exposure groups": "Cohort-/blootstellingsgroepen",
+  "Case-control": "Case-control",
+  "What is the trial objective?": "Wat is het doel van de trial?",
+  "Superiority": "Superioriteit",
+  "Non-inferiority": "Non-inferioriteit",
+  "Equivalence": "Equivalentie",
+  "What association measure best matches your question?": "Welke associatiemaat past het best bij uw vraag?",
+  "Linear regression": "Lineaire regressie",
+  "Logistic regression": "Logistische regressie",
+  "Randomised trial": "Gerandomiseerde trial",
+  "Observational study": "Observationele studie",
+  "Systematic review": "Systematische review",
+  "Diagnostic/prognostic accuracy": "Diagnostische/prognostische accuratesse",
+  "Study protocol": "Studieprotocol",
+  "Case report": "Casusrapport",
+  "Qualitative research": "Kwalitatief onderzoek",
+  "Quality improvement": "Kwaliteitsverbetering",
+  "Economic evaluation": "Economische evaluatie",
+  "Prediction model": "Predictiemodel",
+  "Animal research / ARRIVE": "Dieronderzoek / ARRIVE",
+  "Search EQUATOR library": "EQUATOR-bibliotheek zoeken",
+};
 
 const pct = (value: number) => value / 100;
 const ceil = (value: number) => Math.max(1, Math.ceil(value));
@@ -672,6 +884,48 @@ function zAlpha(alphaPct: number, tails = 2) {
 
 function zPower(powerPct: number) {
   return zFromProbability(pct(powerPct));
+}
+
+const languageOptions: { code: Language; label: string; flag: string; aria: string }[] = [
+  { code: "en", label: "English", flag: "🇬🇧", aria: "Switch to English" },
+  { code: "id", label: "Bahasa Indonesia", flag: "🇮🇩", aria: "Ganti ke Bahasa Indonesia" },
+  { code: "nl", label: "Nederlands", flag: "🇳🇱", aria: "Schakel naar Nederlands" },
+];
+
+const decisionOptionIcons: Record<string, string> = {
+  estimate: "📏",
+  compare: "⚖️",
+  association: "🔗",
+  diagnostic: "🩺",
+  modeling: "📈",
+  proportion: "%",
+  mean: "x̄",
+  binary: "0/1",
+  continuous: "∑",
+  survival: "⏱",
+  independent: "⇄",
+  paired: "↔",
+  clustered: "▦",
+  benchmark: "🎯",
+  trial: "🧪",
+  cohort: "👥",
+  caseControl: "🔍",
+  superiority: "↑",
+  noninferiority: "≥",
+  equivalence: "≈",
+  rr: "RR",
+  or: "OR",
+  hr: "HR",
+  sensitivity: "Se",
+  specificity: "Sp",
+  linear: "ƒ",
+  logistic: "logit",
+  standard: "✓",
+  advanced: "⚠",
+};
+
+function decisionIcon(value: string) {
+  return decisionOptionIcons[value] ?? "•";
 }
 
 function commonPower(alphaDefault = 5, powerDefault = 80, dropoutDefault = 10) {
@@ -1808,7 +2062,11 @@ function tableLines(headers: string[], rows: string[][], widths: number[]) {
 }
 
 export function SampleSizeApp() {
-  const [language, setLanguage] = useState<Language>("en");
+  const [language, setLanguage] = useState<Language>(() => {
+    if (typeof window === "undefined") return "en";
+    const saved = window.localStorage.getItem("studysize-language");
+    return saved === "id" || saved === "nl" || saved === "en" ? saved : "en";
+  });
   const [mode, setMode] = useState<AppMode>("finder");
   const [activeCategory, setActiveCategory] = useState("All");
   const [activeId, setActiveId] = useState(calculators[0].id);
@@ -1834,7 +2092,8 @@ export function SampleSizeApp() {
   const [status, setStatus] = useState("");
 
   useEffect(() => {
-    document.documentElement.lang = language === "id" ? "id" : "en";
+    document.documentElement.lang = language;
+    window.localStorage.setItem("studysize-language", language);
   }, [language]);
 
   const calculator = calculators.find((item) => item.id === activeId) ?? calculators[0];
@@ -1911,6 +2170,14 @@ export function SampleSizeApp() {
           `Perhitungan menggunakan rumus/pendekatan berikut: ${calculator.formula}.`,
           `Asumsi utama: ${calculator.assumptions.map((item) => t(item, language)).join(" ")}`,
         ].join(" ")
+      : language === "nl"
+        ? [
+            `De steekproefgrootte werd geschat met StudySize Studio voor ${t(calculator.title, language).toLowerCase()}.`,
+            `De belangrijkste planningsaannames waren: ${calculator.variables.map((variable) => `${t(variable.label, language)} ${values[variable.key]}${variable.suffix ?? ""}`).join("; ")}.`,
+            `De benodigde steekproefgrootte was ${formatNumber(result.total ?? result.primary)} vóór correctie voor uitval of ontbrekende gegevens en ${formatNumber(result.adjustedTotal)} na correctie.`,
+            `De berekening gebruikte de volgende formule/benadering: ${calculator.formula}.`,
+            `Belangrijke aannames waren: ${calculator.assumptions.map((item) => t(item, language)).join(" ")}`,
+          ].join(" ")
       : [
           `Sample size was estimated using StudySize Studio for ${calculator.title.toLowerCase()}.`,
           `The primary planning assumptions were: ${calculator.variables.map((variable) => `${variable.label} ${values[variable.key]}${variable.suffix ?? ""}`).join("; ")}.`,
@@ -2136,7 +2403,9 @@ export function SampleSizeApp() {
     setChecklistTreeAnswers(nextAnswers);
     if (next && checklistGuides[next as ChecklistKey]) {
       setChecklistType(next as ChecklistKey);
-      setStatus(`${t(checklistGuides[next as ChecklistKey].title, language)} ${language === "id" ? "dipilih" : "checklist selected"}`);
+      setStatus(`${t(checklistGuides[next as ChecklistKey].title, language)} ${
+        language === "id" ? "dipilih" : language === "nl" ? "checklist geselecteerd" : "checklist selected"
+      }`);
     }
   }
 
@@ -2147,25 +2416,19 @@ export function SampleSizeApp() {
 
   return (
     <main className="app-shell">
-      <div className="language-switcher" aria-label="Language selector">
-        <button
-          aria-label="Switch to English"
-          className={language === "en" ? "active" : ""}
-          type="button"
-          onClick={() => setLanguage("en")}
-          title="English"
-        >
-          <span aria-hidden="true">🇬🇧</span>
-        </button>
-        <button
-          aria-label="Ganti ke Bahasa Indonesia"
-          className={language === "id" ? "active" : ""}
-          type="button"
-          onClick={() => setLanguage("id")}
-          title="Bahasa Indonesia"
-        >
-          <span aria-hidden="true">🇮🇩</span>
-        </button>
+      <div className="language-switcher" aria-label={t("Language selector", language)}>
+        {languageOptions.map((option) => (
+          <button
+            aria-label={option.aria}
+            className={language === option.code ? "active" : ""}
+            key={option.code}
+            type="button"
+            onClick={() => setLanguage(option.code)}
+            title={option.label}
+          >
+            <span aria-hidden="true">{option.flag}</span>
+          </button>
+        ))}
       </div>
       <section className="masthead" aria-labelledby="app-title">
         <div>
@@ -2267,6 +2530,7 @@ export function SampleSizeApp() {
                           type="button"
                           onClick={() => answerDecision(currentDecisionQuestion.id, option.value)}
                         >
+                          <span className="choice-icon" aria-hidden="true">{decisionIcon(option.value)}</span>
                           <strong>{t(option.label, language)}</strong>
                           <small>{t(option.description, language)}</small>
                         </button>
@@ -2784,7 +3048,7 @@ export function SampleSizeApp() {
         ) : null}
       </section>
 
-      <footer className="app-footer">Sample Size Studio version 1.1. © Ryalino, 2026.</footer>
+      <footer className="app-footer">{t("Sample Size Studio version 1.1. © Ryalino, 2026.", language)}</footer>
 
       {showCitationModal && (
         <div className="modal-backdrop" role="presentation" onClick={() => setShowCitationModal(false)}>

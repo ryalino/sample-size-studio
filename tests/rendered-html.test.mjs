@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFile, readdir } from "node:fs/promises";
+import { readFile, readdir, stat } from "node:fs/promises";
 import test from "node:test";
 
 const previewRoot = new URL("../app/_sites-preview/", import.meta.url);
@@ -64,7 +64,15 @@ test("removes disposable starter references", async () => {
   assert.match(app, /useState<RandomisationMethod>\("simple"\)/);
   assert.match(app, /makeTablePdf\("StudySize Studio Randomisation"/);
   assert.match(app, /makeTablePdf\("StudySize Studio Randomisation Log"/);
+  assert.match(app, /type Language = "en" \| "id" \| "nl"/);
+  assert.match(app, /Schakel naar Nederlands/);
+  assert.match(app, /className="choice-icon"/);
   assert.doesNotMatch(page, /SkeletonPreview|codex-preview/);
   assert.doesNotMatch(layout, /Starter Project|codex-preview/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
+});
+
+test("ships generated favicon asset", async () => {
+  const favicon = await stat(new URL("../public/favicon.png", import.meta.url));
+  assert.ok(favicon.size > 1000);
 });
