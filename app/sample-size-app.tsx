@@ -242,6 +242,7 @@ const indonesianText: Record<string, string> = {
   "Protocol wording copied": "Kalimat protokol disalin",
   "Checklist tree reset": "Alur daftar periksa diatur ulang",
   "All": "Semua",
+  "Most used": "Paling sering digunakan",
   "Descriptive": "Deskriptif",
   "Comparative": "Komparatif",
   "Association": "Asosiasi",
@@ -788,6 +789,7 @@ const dutchText: Record<string, string> = {
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Dit scenario is nu beschikbaar in de balk Scenariovergelijking, waar u het kunt vergelijken met andere opgeslagen planningsscenario's.",
   "Open Scenario Comparison": "Scenariovergelijking openen",
   "All": "Alle",
+  "Most used": "Meest gebruikt",
   "Descriptive": "Beschrijvend",
   "Comparative": "Vergelijkend",
   "Association": "Associatie",
@@ -1440,7 +1442,21 @@ const calculators: Calculator[] = [
   },
 ];
 
-const categories = ["All", ...Array.from(new Set(calculators.map((calculator) => calculator.category)))];
+const mostUsedCalculatorIds = new Set([
+  "two-proportions",
+  "prevalence",
+  "diagnostic-sensitivity",
+  "diagnostic-specificity",
+  "survival",
+  "two-means",
+  "case-control",
+  "one-proportion-test",
+  "paired-mean",
+  "cohort-rr",
+  "equivalence-means",
+]);
+
+const categories = ["All", "Most used", ...Array.from(new Set(calculators.map((calculator) => calculator.category)))];
 
 const decisionQuestions: Record<string, DecisionQuestion> = {
   goal: {
@@ -2264,7 +2280,9 @@ export function SampleSizeApp() {
   const calculator = calculators.find((item) => item.id === activeId) ?? calculators[0];
   const values = valuesByCalculator[calculator.id] ?? initialValues(calculator);
   const result = useMemo(() => calculator.compute(values), [calculator, values]);
-  const filtered = calculators.filter((item) => activeCategory === "All" || item.category === activeCategory);
+  const filtered = calculators.filter((item) =>
+    activeCategory === "All" || (activeCategory === "Most used" ? mostUsedCalculatorIds.has(item.id) : item.category === activeCategory),
+  );
   const currentDecisionQuestion = getCurrentDecisionQuestion(decisionAnswers);
   const recommendation = decisionResult(decisionAnswers);
   const randomisedGroups = useMemo(() => parseGroups(randomGroups), [randomGroups]);
