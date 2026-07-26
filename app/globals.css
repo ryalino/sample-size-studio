@@ -41,6 +41,11 @@ input {
   font: inherit;
 }
 
+textarea,
+select {
+  font: inherit;
+}
+
 button {
   cursor: pointer;
 }
@@ -77,10 +82,16 @@ p {
 }
 
 h1 {
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   max-width: 760px;
   font-size: clamp(2.3rem, 5vw, 5.8rem);
   line-height: 0.92;
+}
+
+.byline {
+  margin-bottom: 14px;
+  color: var(--foreground);
+  font-weight: 800;
 }
 
 h2 {
@@ -157,6 +168,7 @@ h3 {
 
 .catalog,
 .finder-panel,
+.randomiser-panel,
 .calculator-panel,
 .results {
   border: 1px solid var(--line);
@@ -254,7 +266,8 @@ h3 {
 }
 
 .calculator-panel,
-.finder-panel {
+.finder-panel,
+.randomiser-panel {
   padding: 22px;
 }
 
@@ -465,6 +478,26 @@ input[type="number"] {
   padding: 8px 28px 8px 10px;
 }
 
+textarea,
+select,
+input[type="text"] {
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  padding: 10px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+input:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
 .number-wrap em {
   position: absolute;
   top: 50%;
@@ -479,6 +512,130 @@ input[type="number"] {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
   margin-top: 18px;
+}
+
+.randomiser-grid {
+  display: grid;
+  grid-template-columns: minmax(260px, 420px) minmax(0, 1fr);
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.randomiser-controls {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+
+.allocation-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(15, 159, 154, 0.1), transparent 32%),
+    #fff;
+  padding: 16px;
+}
+
+.allocation-head {
+  display: flex;
+  gap: 14px;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 12px;
+}
+
+.allocation-head span,
+.allocation-counts span {
+  display: block;
+  color: var(--indigo);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.allocation-head strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 1.5rem;
+}
+
+.allocation-counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+.allocation-counts span {
+  border-radius: 999px;
+  background: var(--sky);
+  padding: 7px 9px;
+  color: var(--foreground);
+}
+
+.allocation-table {
+  max-height: 520px;
+  overflow: auto;
+  margin-top: 12px;
+}
+
+.allocation-row {
+  display: grid;
+  grid-template-columns: 90px minmax(0, 1fr) 80px;
+  gap: 10px;
+  align-items: center;
+  min-height: 38px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-muted);
+}
+
+.allocation-row.heading {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  color: var(--foreground);
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.allocation-row strong {
+  color: var(--foreground);
+}
+
+.table-note {
+  margin-top: 12px;
+  color: var(--ink-muted);
+  font-size: 0.88rem;
+}
+
+.best-practice {
+  display: grid;
+  grid-template-columns: minmax(240px, 320px) minmax(0, 1fr);
+  gap: 18px;
+  margin-top: 18px;
+  border-radius: 8px;
+  background: var(--mint);
+  padding: 18px;
+}
+
+.best-practice p,
+.best-practice li {
+  color: var(--ink-muted);
+  line-height: 1.45;
+}
+
+.best-practice ol {
+  columns: 2;
+  column-gap: 28px;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.best-practice li {
+  break-inside: avoid;
+  margin-bottom: 10px;
 }
 
 .evidence article {
@@ -613,8 +770,14 @@ input[type="number"] {
   .decision-body,
   .choice-grid,
   .recommendation-grid,
+  .randomiser-grid,
+  .best-practice,
   .design-list {
     grid-template-columns: 1fr;
+  }
+
+  .best-practice ol {
+    columns: 1;
   }
 
   .panel-heading {

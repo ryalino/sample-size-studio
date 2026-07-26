@@ -40,7 +40,7 @@ type Scenario = {
   result: Output;
   createdAt: string;
 };
-type AppMode = "finder" | "calculator";
+type AppMode = "finder" | "calculator" | "randomiser";
 type DecisionAnswers = Record<string, string>;
 type DecisionOption = {
   value: string;
@@ -59,6 +59,12 @@ type DecisionResult = {
   explanation: string;
   assumptions: string[];
   warnings: string[];
+};
+type RandomisationMethod = "simple" | "block";
+type RandomisationAssignment = {
+  subject: number;
+  group: string;
+  block?: number;
 };
 
 const pct = (value: number) => value / 100;
@@ -844,19 +850,125 @@ function formatNumber(value?: number) {
   return value.toLocaleString("en-US");
 }
 
+function hashSeed(seed: string) {
+  let hash = 1779033703 ^ seed.length;
+  for (let index = 0; index < seed.length; index += 1) {
+    hash = Math.imul(hash ^ seed.charCodeAt(index), 3432918353);
+    hash = (hash << 13) | (hash >>> 19);
+  }
+  return () => {
+    hash = Math.imul(hash ^ (hash >>> 16), 2246822507);
+    hash = Math.imul(hash ^ (hash >>> 13), 3266489909);
+    return (hash ^= hash >>> 16) >>> 0;
+  };
+}
+
+function seededRandom(seed: string) {
+  const nextSeed = hashSeed(seed);
+  let state = nextSeed();
+  return () => {
+    state += 0x6d2b79f5;
+    let value = state;
+    value = Math.imul(value ^ (value >>> 15), value | 1);
+    value ^= value + Math.imul(value ^ (value >>> 7), value | 61);
+    return ((value ^ (value >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function shuffle<T>(items: T[], random: () => number) {
+  const next = [...items];
+  for (let index = next.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(random() * (index + 1));
+    [next[index], next[swapIndex]] = [next[swapIndex], next[index]];
+  }
+  return next;
+}
+
+function parseGroups(rawGroups: string) {
+  const groups = rawGroups
+    .split(/[\n,]+/)
+    .map((group) => group.trim())
+    .filter(Boolean);
+  return groups.length >= 2 ? groups : ["Group A", "Group B"];
+}
+
+function makeBalancedPool(groups: string[], count: number) {
+  return Array.from({ length: count }, (_, index) => groups[index % groups.length]);
+}
+
+function generateRandomisation(
+  subjectCount: number,
+  groups: string[],
+  method: RandomisationMethod,
+  blockSize: number,
+  seed: string,
+): RandomisationAssignment[] {
+  const random = seededRandom(seed || "studysize-studio");
+
+  if (method === "block") {
+    const normalisedBlockSize = Math.max(groups.length, Math.round(blockSize));
+    const assignments: RandomisationAssignment[] = [];
+    let block = 1;
+
+    while (assignments.length < subjectCount) {
+      const remaining = subjectCount - assignments.length;
+      const currentSize = Math.min(normalisedBlockSize, remaining);
+      const blockPool = shuffle(makeBalancedPool(groups, currentSize), random);
+      blockPool.forEach((group) => {
+        assignments.push({ subject: assignments.length + 1, group, block });
+      });
+      block += 1;
+    }
+
+    return assignments;
+  }
+
+  return shuffle(makeBalancedPool(groups, subjectCount), random).map((group, index) => ({
+    subject: index + 1,
+    group,
+  }));
+}
+
+const randomisationBestPractice = [
+  "Define the randomisation unit before generating the sequence: individual participant, cluster, eye, lesion, or another unit.",
+  "Generate the allocation sequence before enrolment using a documented method, seed, date, study title, groups, and allocation ratio.",
+  "Keep the sequence concealed from recruiters and outcome assessors whenever possible. Use a central randomisation service, pharmacy, database, or sequentially numbered opaque sealed envelopes.",
+  "Randomise only after eligibility is confirmed and informed consent is complete.",
+  "Use blocked randomisation when balance over time matters; keep block sizes confidential and consider variable block sizes for open-label trials.",
+  "Use stratified randomisation when key prognostic variables must be balanced, but avoid too many strata for the sample size.",
+  "Do not replace, skip, or reassign allocations after the sequence is generated. Record withdrawals and protocol deviations separately.",
+  "Preserve an audit trail: who generated the list, who held it, who assigned participants, timestamps, and any emergency unblinding.",
+  "Report the sequence generation method, allocation concealment mechanism, and implementation roles in the protocol and manuscript.",
+];
+
 function makePdf(title: string, lines: string[]) {
-  const escaped = lines.map((line) => line.replace(/[()\\]/g, "\\$&"));
-  const text = [`BT /F1 18 Tf 54 770 Td (${title}) Tj`, "/F1 10 Tf 0 -28 Td"];
-  escaped.forEach((line) => text.push(`(${line}) Tj 0 -16 Td`));
-  text.push("ET");
-  const stream = text.join("\n");
-  const objects = [
-    "<< /Type /Catalog /Pages 2 0 R >>",
-    "<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
-    "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>",
-    "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>",
-    `<< /Length ${stream.length} >>\nstream\n${stream}\nendstream`,
-  ];
+  const escaped = lines.map((line) => line.replace(/[^\x20-\x7e]/g, "-").replace(/[()\\]/g, "\\$&"));
+  const perPage = 39;
+  const chunks = Array.from({ length: Math.ceil(escaped.length / perPage) }, (_, index) =>
+    escaped.slice(index * perPage, index * perPage + perPage),
+  );
+  const objects = ["<< /Type /Catalog /Pages 2 0 R >>", "", "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>"];
+  const pageObjectIds: number[] = [];
+
+  chunks.forEach((chunk, pageIndex) => {
+    const pageObjectId = objects.length + 1;
+    const contentObjectId = objects.length + 2;
+    pageObjectIds.push(pageObjectId);
+    const text = [
+      `BT /F1 18 Tf 54 770 Td (${title}) Tj`,
+      `/F1 9 Tf 0 -18 Td (Page ${pageIndex + 1} of ${chunks.length}) Tj`,
+      "/F1 10 Tf 0 -22 Td",
+    ];
+    chunk.forEach((line) => text.push(`(${line}) Tj 0 -15 Td`));
+    text.push("ET");
+    const stream = text.join("\n");
+    objects.push(
+      `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R >> >> /Contents ${contentObjectId} 0 R >>`,
+      `<< /Length ${stream.length} >>\nstream\n${stream}\nendstream`,
+    );
+  });
+
+  objects[1] = `<< /Type /Pages /Kids [${pageObjectIds.map((id) => `${id} 0 R`).join(" ")}] /Count ${pageObjectIds.length} >>`;
   let pdf = "%PDF-1.4\n";
   const offsets = [0];
   objects.forEach((object, index) => {
@@ -877,6 +989,11 @@ export function SampleSizeApp() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [activeId, setActiveId] = useState(calculators[0].id);
   const [decisionAnswers, setDecisionAnswers] = useState<DecisionAnswers>({});
+  const [randomSubjectCount, setRandomSubjectCount] = useState(60);
+  const [randomGroups, setRandomGroups] = useState("Intervention, Control");
+  const [randomMethod, setRandomMethod] = useState<RandomisationMethod>("block");
+  const [randomBlockSize, setRandomBlockSize] = useState(4);
+  const [randomSeed, setRandomSeed] = useState("STUDY-2026");
   const [valuesByCalculator, setValuesByCalculator] = useState<Record<string, Values>>(() =>
     Object.fromEntries(calculators.map((calculator) => [calculator.id, initialValues(calculator)])),
   );
@@ -894,6 +1011,22 @@ export function SampleSizeApp() {
   const filtered = calculators.filter((item) => activeCategory === "All" || item.category === activeCategory);
   const currentDecisionQuestion = getCurrentDecisionQuestion(decisionAnswers);
   const recommendation = decisionResult(decisionAnswers);
+  const randomisedGroups = useMemo(() => parseGroups(randomGroups), [randomGroups]);
+  const randomisationAssignments = useMemo(
+    () =>
+      generateRandomisation(
+        randomSubjectCount,
+        randomisedGroups,
+        randomMethod,
+        randomBlockSize,
+        randomSeed,
+      ),
+    [randomSubjectCount, randomisedGroups, randomMethod, randomBlockSize, randomSeed],
+  );
+  const randomisationCounts = randomisationAssignments.reduce<Record<string, number>>((counts, assignment) => {
+    counts[assignment.group] = (counts[assignment.group] ?? 0) + 1;
+    return counts;
+  }, {});
   const decisionPath = decisionOrder
     .filter((id) => decisionAnswers[id])
     .map((id) => {
@@ -955,6 +1088,32 @@ export function SampleSizeApp() {
     setStatus("PDF downloaded");
   }
 
+  function downloadRandomisationPdf() {
+    const visibleAssignments = randomisationAssignments.map((assignment) =>
+      `Subject ${assignment.subject}: ${assignment.group}${assignment.block ? ` (block ${assignment.block})` : ""}`,
+    );
+    const lines = [
+      `Randomisation method: ${randomMethod === "block" ? "Permuted block randomisation" : "Simple balanced randomisation"}`,
+      `Subjects: ${randomSubjectCount}`,
+      `Groups: ${randomisedGroups.join(", ")}`,
+      `Seed: ${randomSeed || "studysize-studio"}`,
+      randomMethod === "block" ? `Block size: ${Math.max(randomisedGroups.length, Math.round(randomBlockSize))}` : "Block size: Not used",
+      "Allocation counts:",
+      ...Object.entries(randomisationCounts).map(([group, count]) => `${group}: ${count}`),
+      "Assignments:",
+      ...visibleAssignments,
+      "Best-practice notes:",
+      ...randomisationBestPractice,
+    ];
+    const url = URL.createObjectURL(makePdf("StudySize Studio Randomisation", lines));
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = "studysize-randomisation.pdf";
+    anchor.click();
+    URL.revokeObjectURL(url);
+    setStatus("Randomisation PDF downloaded");
+  }
+
   function answerDecision(questionId: string, value: string) {
     const index = decisionOrder.indexOf(questionId);
     setDecisionAnswers((current) => {
@@ -993,6 +1152,7 @@ export function SampleSizeApp() {
         <div>
           <p className="eyebrow">Sample size calculators</p>
           <h1 id="app-title">StudySize Studio</h1>
+          <p className="byline">By: Christopher Ryalino (c) 2026.</p>
           <p>
             Live calculators for researchers and clinicians, with exact inputs beside slider controls,
             visible assumptions, citations, dropout adjustment, and saved planning scenarios.
@@ -1011,6 +1171,9 @@ export function SampleSizeApp() {
         </button>
         <button className={mode === "calculator" ? "active" : ""} type="button" onClick={() => setMode("calculator")}>
           Calculator catalog
+        </button>
+        <button className={mode === "randomiser" ? "active" : ""} type="button" onClick={() => setMode("randomiser")}>
+          Randomiser
         </button>
       </nav>
 
@@ -1134,6 +1297,172 @@ export function SampleSizeApp() {
               </aside>
             </div>
           </section>
+        ) : mode === "randomiser" ? (
+          <section className="randomiser-panel" aria-labelledby="randomiser-title">
+            <div className="panel-heading">
+              <div>
+                <p className="eyebrow">Allocation sequence</p>
+                <h2 id="randomiser-title">Subject randomiser</h2>
+                <p>
+                  Generate a documented allocation sequence for standard individual randomisation,
+                  then export the settings, sequence, and best-practice notes as a PDF.
+                </p>
+              </div>
+              <div className="actions">
+                <button type="button" onClick={downloadRandomisationPdf}>Download PDF</button>
+              </div>
+            </div>
+
+            <div className="randomiser-grid">
+              <section className="randomiser-controls" aria-label="Randomiser settings">
+                <label className="control">
+                  <span>
+                    <strong>Number of subjects</strong>
+                    <small>Total number of randomisation slots to generate.</small>
+                  </span>
+                  <div className="input-row">
+                    <input
+                      aria-label="Number of subjects slider"
+                      max={500}
+                      min={2}
+                      onChange={(event) => setRandomSubjectCount(Number(event.target.value))}
+                      step={1}
+                      type="range"
+                      value={randomSubjectCount}
+                    />
+                    <div className="number-wrap">
+                      <input
+                        aria-label="Number of subjects"
+                        max={500}
+                        min={2}
+                        onChange={(event) => setRandomSubjectCount(Number(event.target.value))}
+                        step={1}
+                        type="number"
+                        value={randomSubjectCount}
+                      />
+                    </div>
+                  </div>
+                </label>
+
+                <label className="control">
+                  <span>
+                    <strong>Groups</strong>
+                    <small>Separate treatment arms with commas or line breaks.</small>
+                  </span>
+                  <textarea
+                    aria-label="Randomisation groups"
+                    onChange={(event) => setRandomGroups(event.target.value)}
+                    rows={3}
+                    value={randomGroups}
+                  />
+                </label>
+
+                <label className="control">
+                  <span>
+                    <strong>Method</strong>
+                    <small>Blocked randomisation helps preserve balance during recruitment.</small>
+                  </span>
+                  <select
+                    aria-label="Randomisation method"
+                    onChange={(event) => setRandomMethod(event.target.value as RandomisationMethod)}
+                    value={randomMethod}
+                  >
+                    <option value="block">Permuted block</option>
+                    <option value="simple">Simple balanced</option>
+                  </select>
+                </label>
+
+                <label className="control">
+                  <span>
+                    <strong>Block size</strong>
+                    <small>Used only for permuted blocks; keep it concealed in open-label trials.</small>
+                  </span>
+                  <div className="input-row">
+                    <input
+                      aria-label="Block size slider"
+                      disabled={randomMethod !== "block"}
+                      max={24}
+                      min={randomisedGroups.length}
+                      onChange={(event) => setRandomBlockSize(Number(event.target.value))}
+                      step={1}
+                      type="range"
+                      value={Math.max(randomisedGroups.length, randomBlockSize)}
+                    />
+                    <div className="number-wrap">
+                      <input
+                        aria-label="Block size"
+                        disabled={randomMethod !== "block"}
+                        max={24}
+                        min={randomisedGroups.length}
+                        onChange={(event) => setRandomBlockSize(Number(event.target.value))}
+                        step={1}
+                        type="number"
+                        value={Math.max(randomisedGroups.length, randomBlockSize)}
+                      />
+                    </div>
+                  </div>
+                </label>
+
+                <label className="control">
+                  <span>
+                    <strong>Seed</strong>
+                    <small>Record this in the randomisation file to reproduce the sequence.</small>
+                  </span>
+                  <input
+                    aria-label="Randomisation seed"
+                    onChange={(event) => setRandomSeed(event.target.value)}
+                    type="text"
+                    value={randomSeed}
+                  />
+                </label>
+              </section>
+
+              <section className="allocation-card" aria-label="Generated allocation">
+                <div className="allocation-head">
+                  <div>
+                    <span>Generated sequence</span>
+                    <strong>{randomSubjectCount} subjects</strong>
+                  </div>
+                  <div className="allocation-counts">
+                    {Object.entries(randomisationCounts).map(([group, count]) => (
+                      <span key={group}>{group}: {count}</span>
+                    ))}
+                  </div>
+                </div>
+                <div className="allocation-table" role="table" aria-label="Randomisation allocation table">
+                  <div className="allocation-row heading" role="row">
+                    <span>Subject</span>
+                    <span>Assignment</span>
+                    <span>Block</span>
+                  </div>
+                  {randomisationAssignments.slice(0, 120).map((assignment) => (
+                    <div className="allocation-row" key={assignment.subject} role="row">
+                      <span>{assignment.subject}</span>
+                      <strong>{assignment.group}</strong>
+                      <span>{assignment.block ?? "—"}</span>
+                    </div>
+                  ))}
+                </div>
+                {randomisationAssignments.length > 120 && (
+                  <p className="table-note">Showing the first 120 assignments. The PDF includes the full sequence.</p>
+                )}
+              </section>
+            </div>
+
+            <section className="best-practice" aria-labelledby="best-practice-title">
+              <div>
+                <p className="eyebrow">Best practice</p>
+                <h3 id="best-practice-title">How to conduct randomisation properly</h3>
+                <p>
+                  Randomisation is not only the sequence. Good practice also requires allocation
+                  concealment, documented roles, and a clear audit trail from consent through assignment.
+                </p>
+              </div>
+              <ol>
+                {randomisationBestPractice.map((item) => <li key={item}>{item}</li>)}
+              </ol>
+            </section>
+          </section>
         ) : (
           <section className="calculator-panel" aria-labelledby="calculator-title">
             <div className="panel-heading">
@@ -1201,38 +1530,65 @@ export function SampleSizeApp() {
           </section>
         )}
 
-        <aside className="results" aria-label="Live result">
-          <div className="result-card primary">
-            <span>Required sample size</span>
-            <strong>{formatNumber(result.total ?? result.primary)}</strong>
-            <small>Total before dropout adjustment</small>
-          </div>
-          <div className="result-card">
-            <span>Adjusted total</span>
-            <strong>{formatNumber(result.adjustedTotal)}</strong>
-            <small>Includes expected dropout or missing data</small>
-          </div>
-          <div className="result-card">
-            <span>Planning notes</span>
-            <ul>{result.details.map((detail) => <li key={detail}>{detail}</li>)}</ul>
-          </div>
-          <div className="saved">
-            <div className="saved-head">
-              <span>Saved scenarios</span>
-              <small>{status}</small>
+        {mode === "randomiser" ? (
+          <aside className="results" aria-label="Randomiser summary">
+            <div className="result-card primary">
+              <span>Randomisation slots</span>
+              <strong>{formatNumber(randomSubjectCount)}</strong>
+              <small>{randomisedGroups.length} allocation groups</small>
             </div>
-            {scenarios.length === 0 ? (
-              <p>No saved scenarios yet.</p>
-            ) : (
-              scenarios.map((scenario) => (
-                <button key={scenario.id} type="button" onClick={() => loadScenario(scenario)}>
-                  <strong>{scenario.calculatorTitle}</strong>
-                  <span>{formatNumber(scenario.result.adjustedTotal)} adjusted</span>
-                </button>
-              ))
-            )}
-          </div>
-        </aside>
+            <div className="result-card">
+              <span>Method</span>
+              <strong>{randomMethod === "block" ? "Blocked" : "Simple"}</strong>
+              <small>{randomMethod === "block" ? `Block size ${Math.max(randomisedGroups.length, randomBlockSize)}` : "Balanced shuffled sequence"}</small>
+            </div>
+            <div className="result-card">
+              <span>Allocation counts</span>
+              <ul>{Object.entries(randomisationCounts).map(([group, count]) => <li key={group}>{group}: {count}</li>)}</ul>
+            </div>
+            <div className="result-card">
+              <span>Documentation</span>
+              <ul>
+                <li>Seed: {randomSeed || "studysize-studio"}</li>
+                <li>Export the PDF before enrolment.</li>
+                <li>Keep the sequence concealed from recruiters.</li>
+              </ul>
+            </div>
+          </aside>
+        ) : (
+          <aside className="results" aria-label="Live result">
+            <div className="result-card primary">
+              <span>Required sample size</span>
+              <strong>{formatNumber(result.total ?? result.primary)}</strong>
+              <small>Total before dropout adjustment</small>
+            </div>
+            <div className="result-card">
+              <span>Adjusted total</span>
+              <strong>{formatNumber(result.adjustedTotal)}</strong>
+              <small>Includes expected dropout or missing data</small>
+            </div>
+            <div className="result-card">
+              <span>Planning notes</span>
+              <ul>{result.details.map((detail) => <li key={detail}>{detail}</li>)}</ul>
+            </div>
+            <div className="saved">
+              <div className="saved-head">
+                <span>Saved scenarios</span>
+                <small>{status}</small>
+              </div>
+              {scenarios.length === 0 ? (
+                <p>No saved scenarios yet.</p>
+              ) : (
+                scenarios.map((scenario) => (
+                  <button key={scenario.id} type="button" onClick={() => loadScenario(scenario)}>
+                    <strong>{scenario.calculatorTitle}</strong>
+                    <span>{formatNumber(scenario.result.adjustedTotal)} adjusted</span>
+                  </button>
+                ))
+              )}
+            </div>
+          </aside>
+        )}
       </section>
     </main>
   );
