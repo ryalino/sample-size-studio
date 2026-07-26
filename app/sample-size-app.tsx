@@ -108,7 +108,7 @@ const indonesianText: Record<string, string> = {
   "Guided": "Terpandu",
   "tree": "alur",
   "Main app modes": "Mode utama aplikasi",
-  "Find my calculator": "Temukan kalkulator saya",
+  "Find my study size calculator": "Temukan kalkulator besar studi saya",
   "Calculator catalog": "Katalog kalkulator",
   "Randomiser": "Randomisasi",
   "Scenario Comparison": "Perbandingan skenario",
@@ -156,6 +156,8 @@ const indonesianText: Record<string, string> = {
   "Randomisation seed": "Seed randomisasi",
   "Generated allocation": "Alokasi yang dibuat",
   "Generated sequence": "Urutan yang dibuat",
+  "Randomise": "Randomisasi",
+  "New randomisation sequence generated": "Urutan randomisasi baru dibuat",
   "subjects": "subjek",
   "Subject": "Subjek",
   "Assignment": "Alokasi",
@@ -230,7 +232,7 @@ const indonesianText: Record<string, string> = {
   "Citation copied": "Sitasi disalin",
   "Clear scenarios": "Hapus skenario",
   "Scenarios cleared": "Skenario dihapus",
-  "StudySize Studio version 1.23 © Ryalino, 2026.": "StudySize Studio versi 1.23 © Ryalino, 2026.",
+  "StudySize Studio version 1.24 © Ryalino, 2026.": "StudySize Studio versi 1.24 © Ryalino, 2026.",
   "Scenario saved": "Skenario disimpan",
   "Scenario is ready": "Skenario siap",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Skenario ini sekarang tersedia di menu Perbandingan Skenario, tempat Anda dapat membandingkannya dengan skenario perencanaan tersimpan lainnya.",
@@ -680,7 +682,7 @@ const dutchText: Record<string, string> = {
   "Guided": "Begeleide",
   "tree": "beslisboom",
   "Main app modes": "Hoofdmodi van de app",
-  "Find my calculator": "Vind mijn calculator",
+  "Find my study size calculator": "Vind mijn steekproefgroottecalculator",
   "Calculator catalog": "Calculatorcatalogus",
   "Randomiser": "Randomisator",
   "Scenario Comparison": "Scenariovergelijking",
@@ -726,6 +728,8 @@ const dutchText: Record<string, string> = {
   "Record this in the randomisation file to reproduce the sequence.": "Leg dit vast in het randomisatiebestand om de reeks te reproduceren.",
   "Generated allocation": "Gegenereerde allocatie",
   "Generated sequence": "Gegenereerde reeks",
+  "Randomise": "Randomiseren",
+  "New randomisation sequence generated": "Nieuwe randomisatiereeks gegenereerd",
   "subjects": "deelnemers",
   "Subject": "Deelnemer",
   "Assignment": "Toewijzing",
@@ -785,7 +789,7 @@ const dutchText: Record<string, string> = {
   "Citation copied": "Citatie gekopieerd",
   "Clear scenarios": "Scenario's wissen",
   "Scenarios cleared": "Scenario's gewist",
-  "StudySize Studio version 1.23 © Ryalino, 2026.": "StudySize Studio versie 1.23 © Ryalino, 2026.",
+  "StudySize Studio version 1.24 © Ryalino, 2026.": "StudySize Studio versie 1.24 © Ryalino, 2026.",
   "Scenario is ready": "Scenario is klaar",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Dit scenario is nu beschikbaar in de balk Scenariovergelijking, waar u het kunt vergelijken met andere opgeslagen planningsscenario's.",
   "Open Scenario Comparison": "Scenariovergelijking openen",
@@ -2264,6 +2268,14 @@ function generateStratifiedRandomisation(
   });
 }
 
+function makeRandomSeed() {
+  const timestamp = new Date().toISOString().replace(/[-:.TZ]/g, "").slice(0, 14);
+  const bytes = new Uint32Array(1);
+  window.crypto?.getRandomValues(bytes);
+  const suffix = (bytes[0] || Math.floor(Math.random() * 0xffffffff)).toString(36).toUpperCase().padStart(7, "0");
+  return `STUDY-${timestamp}-${suffix}`;
+}
+
 const randomisationBestPractice = [
   "Define the randomisation unit before generating the sequence: individual participant, cluster, eye, lesion, or another unit.",
   "Generate the allocation sequence before enrolment using a documented method, seed, date, study title, groups, and allocation ratio.",
@@ -2971,6 +2983,11 @@ export function SampleSizeApp() {
     setStatus(t("Randomisation log PDF downloaded", language));
   }
 
+  function randomiseSequence() {
+    setRandomSeed(makeRandomSeed());
+    setStatus(t("New randomisation sequence generated", language));
+  }
+
   function answerDecision(questionId: string, value: string) {
     const index = decisionOrder.indexOf(questionId);
     setDecisionAnswers((current) => {
@@ -3081,7 +3098,7 @@ export function SampleSizeApp() {
           {t("Study Design", language)}
         </button>
         <button className={mode === "finder" ? "active" : ""} type="button" onClick={() => setMode("finder")}>
-          {t("Find my calculator", language)}
+          {t("Find my study size calculator", language)}
         </button>
         <button className={mode === "calculator" ? "active" : ""} type="button" onClick={() => setMode("calculator")}>
           {t("Calculator catalog", language)}
@@ -3134,7 +3151,7 @@ export function SampleSizeApp() {
             <div className="panel-heading">
               <div>
                 <p className="eyebrow">{t("Decision support", language)}</p>
-                <h2 id="finder-title">{t("Find my calculator", language)}</h2>
+                <h2 id="finder-title">{t("Find my study size calculator", language)}</h2>
                 <p>
                   {t("Answer a few study-design questions and the app will suggest the closest calculator, explain why, and flag when statistical review is important.", language)}
                 </p>
@@ -3230,6 +3247,7 @@ export function SampleSizeApp() {
                 </p>
               </div>
               <div className="actions">
+                <button type="button" onClick={randomiseSequence}>{t("Randomise", language)}</button>
                 <button type="button" onClick={downloadRandomisationPdf}>{t("Download PDF", language)}</button>
                 <button type="button" onClick={downloadRandomisationLogPdf}>{t("Log template PDF", language)}</button>
               </div>
@@ -3302,8 +3320,8 @@ export function SampleSizeApp() {
                     onChange={(event) => setRandomMethod(event.target.value as RandomisationMethod)}
                     value={randomMethod}
                   >
-                    <option value="block">{t("Permuted block", language)}</option>
                     <option value="simple">{t("Simple balanced", language)}</option>
+                    <option value="block">{t("Permuted block", language)}</option>
                   </select>
                 </label>
 
@@ -3831,7 +3849,7 @@ export function SampleSizeApp() {
         ) : null}
       </section>
 
-      <footer className="app-footer"><strong>{t("StudySize Studio version 1.23 © Ryalino, 2026.", language)}</strong></footer>
+      <footer className="app-footer"><strong>{t("StudySize Studio version 1.24 © Ryalino, 2026.", language)}</strong></footer>
 
       {copiedNotice && (
         <div className="copy-toast" role="status" aria-live="polite">

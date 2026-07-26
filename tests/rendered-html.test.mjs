@@ -34,11 +34,11 @@ test("server-renders the sample size calculator shell", async () => {
   assert.match(html, /<title>StudySize Studio<\/title>/i);
   assert.match(html, /Your one-stop solution for medical research/i);
   assert.match(html, /How to cite us/);
-  assert.match(html, /Find my calculator/);
+  assert.match(html, /Find my study size calculator/);
   assert.match(html, /Randomiser/);
   assert.match(html, /Scenario Comparison/);
   assert.match(html, /Study Design/);
-  assert.match(html, /StudySize Studio version 1\.23 © Ryalino, 2026\./);
+  assert.match(html, /StudySize Studio version 1\.24 © Ryalino, 2026\./);
   assert.match(html, /What is the main purpose of the study/);
   assert.match(html, /Calculator catalog/);
   assert.doesNotMatch(html, /Prevalence \/ Single Proportion|Two Independent Means|Saved scenarios/);
