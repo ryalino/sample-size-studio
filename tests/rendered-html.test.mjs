@@ -61,6 +61,8 @@ test("removes disposable starter references", async () => {
   assert.match(app, /bmjopen\.bmj\.com\/content\/bmjopen\/15\/10\/e104236\/DC2\/embed\/inline-supplementary-material-2\.pdf\?download=true/);
   assert.match(app, /Find your study design/);
   assert.match(app, /Reporting checklists improve transparency/);
+  assert.match(app, /https:\/\/sample-size-studio\.ryalino\.workers\.dev/);
+  assert.doesNotMatch(app, /studysize-studio\.ryalino651800\.chatgpt\.site/);
   assert.match(app, /useState<RandomisationMethod>\("simple"\)/);
   assert.match(app, /makeTablePdf\("StudySize Studio Randomisation"/);
   assert.match(app, /makeTablePdf\("StudySize Studio Randomisation Log"/);

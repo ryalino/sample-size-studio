@@ -2224,23 +2224,23 @@ export function SampleSizeApp() {
   const citationFormats = [
     {
       label: "Vancouver",
-      text: "Ryalino C. StudySize Studio [Internet]. 2026 [cited 2026 Jul 26]. Available from: https://studysize-studio.ryalino651800.chatgpt.site",
+      text: "Ryalino C. StudySize Studio [Internet]. 2026 [cited 2026 Jul 26]. Available from: https://sample-size-studio.ryalino.workers.dev",
     },
     {
       label: "PubMed/NLM",
-      text: "Ryalino C. StudySize Studio [Internet]. 2026 [cited 2026 Jul 26]. Available from: https://studysize-studio.ryalino651800.chatgpt.site",
+      text: "Ryalino C. StudySize Studio [Internet]. 2026 [cited 2026 Jul 26]. Available from: https://sample-size-studio.ryalino.workers.dev",
     },
     {
       label: "MLA",
-      text: "Ryalino, Christopher. StudySize Studio. 2026, https://studysize-studio.ryalino651800.chatgpt.site. Accessed 26 July 2026.",
+      text: "Ryalino, Christopher. StudySize Studio. 2026, https://sample-size-studio.ryalino.workers.dev. Accessed 26 July 2026.",
     },
     {
       label: "AMA",
-      text: "Ryalino C. StudySize Studio. Published 2026. Accessed July 26, 2026. https://studysize-studio.ryalino651800.chatgpt.site",
+      text: "Ryalino C. StudySize Studio. Published 2026. Accessed July 26, 2026. https://sample-size-studio.ryalino.workers.dev",
     },
     {
       label: "APA",
-      text: "Ryalino, C. (2026). StudySize Studio [Web application]. https://studysize-studio.ryalino651800.chatgpt.site",
+      text: "Ryalino, C. (2026). StudySize Studio [Web application]. https://sample-size-studio.ryalino.workers.dev",
     },
   ];
 

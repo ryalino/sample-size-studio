@@ -745,7 +745,20 @@ input:disabled {
 }
 
 .checklist-tree-card {
-  background: linear-gradient(180deg, #ffffff 0%, #f6fbff 100%);
+  border-color: rgba(15, 159, 154, 0.24);
+  background:
+    linear-gradient(135deg, rgba(223, 247, 239, 0.95) 0%, rgba(231, 240, 255, 0.86) 54%, rgba(255, 232, 228, 0.9) 100%),
+    #fff;
+}
+
+.checklist-tree-card .tree-question,
+.checklist-tree-card .tree-result,
+.checklist-tree-card .checklist-path li {
+  background: rgba(255, 255, 255, 0.88);
+}
+
+.checklist-tree-card .tree-question {
+  border-color: rgba(15, 159, 154, 0.24);
 }
 
 .checklist-path {
