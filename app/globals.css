@@ -175,41 +175,52 @@ h3 {
   gap: 10px;
   max-width: 1500px;
   margin: 0 auto 18px;
+  border-bottom: 2px solid rgba(81, 102, 214, 0.16);
+  padding-bottom: 10px;
 }
 
 .mode-tabs button {
   min-height: 44px;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(81, 102, 214, 0.28);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.86);
-  color: var(--foreground);
+  background: #eef1ff;
+  color: #24326f;
   padding: 10px 16px;
   font-weight: 800;
+  box-shadow: 0 8px 20px rgba(81, 102, 214, 0.08);
 }
 
 .mode-tabs button.active {
   border-color: transparent;
-  background: var(--teal);
+  background: linear-gradient(135deg, var(--indigo), var(--teal));
   color: #fff;
+  box-shadow: 0 12px 26px rgba(81, 102, 214, 0.24);
 }
 
 .sub-mode-tabs {
-  margin-top: -8px;
+  border-bottom: 0;
+  margin-top: -4px;
   margin-bottom: 20px;
+  padding: 8px 10px;
+  border-radius: 16px;
+  background: rgba(255, 244, 206, 0.72);
 }
 
 .sub-mode-tabs button {
   min-height: 38px;
-  border-color: rgba(15, 159, 154, 0.22);
-  background: rgba(255, 255, 255, 0.72);
+  border-color: rgba(232, 93, 79, 0.26);
+  background: rgba(255, 255, 255, 0.9);
+  color: #743226;
   padding: 8px 14px;
   font-size: 0.9rem;
+  box-shadow: none;
 }
 
 .sub-mode-tabs button.active {
-  background: var(--sky);
-  color: var(--foreground);
-  box-shadow: inset 0 0 0 2px rgba(75, 119, 217, 0.16);
+  border-color: transparent;
+  background: var(--coral);
+  color: #fff;
+  box-shadow: 0 10px 22px rgba(232, 93, 79, 0.2);
 }
 
 .workspace {
