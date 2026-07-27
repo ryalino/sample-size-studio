@@ -147,9 +147,14 @@ const indonesianText: Record<string, string> = {
   "tree": "alur",
   "Main app modes": "Mode utama aplikasi",
   "Find my study size calculator": "Temukan kalkulator besar studi saya",
+  "Find my calculator": "Temukan kalkulator saya",
   "Calculator catalog": "Katalog kalkulator",
+  "Sample Size": "Besar Sampel",
   "Randomiser": "Randomisasi",
+  "Randomisation": "Randomisasi",
   "Flow Charts": "Diagram Alur",
+  "Figure Generator": "Pembuat Gambar",
+  "Reporting flowcharts": "Diagram alur pelaporan",
   "Conceptual Framework": "Kerangka Konseptual",
   "Conceptual framework builder": "Pembuat kerangka konseptual",
   "Translate study variables into a publication-ready conceptual framework figure with directional relationships.": "Ubah variabel studi menjadi gambar kerangka konseptual siap publikasi dengan hubungan terarah.",
@@ -310,7 +315,7 @@ const indonesianText: Record<string, string> = {
   "Citation copied": "Sitasi disalin",
   "Clear scenarios": "Hapus skenario",
   "Scenarios cleared": "Skenario dihapus",
-  "StudySize Studio version 1.31 © Ryalino, 2026.": "StudySize Studio versi 1.31 © Ryalino, 2026.",
+  "StudySize Studio version 1.32 © Ryalino, 2026.": "StudySize Studio versi 1.32 © Ryalino, 2026.",
   "Scenario saved": "Skenario disimpan",
   "Scenario is ready": "Skenario siap",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Skenario ini sekarang tersedia di menu Perbandingan Skenario, tempat Anda dapat membandingkannya dengan skenario perencanaan tersimpan lainnya.",
@@ -771,9 +776,14 @@ const dutchText: Record<string, string> = {
   "tree": "beslisboom",
   "Main app modes": "Hoofdmodi van de app",
   "Find my study size calculator": "Vind mijn steekproefgroottecalculator",
+  "Find my calculator": "Kies mijn calculator",
   "Calculator catalog": "Calculatorcatalogus",
+  "Sample Size": "Steekproefgrootte",
   "Randomiser": "Randomisator",
+  "Randomisation": "Randomisatie",
   "Flow Charts": "Stroomdiagrammen",
+  "Figure Generator": "Figuurgenerator",
+  "Reporting flowcharts": "Rapportagestroomdiagrammen",
   "Conceptual Framework": "Conceptueel Kader",
   "Conceptual framework builder": "Bouwer voor conceptueel kader",
   "Translate study variables into a publication-ready conceptual framework figure with directional relationships.": "Zet studievariabelen om in een publicatieklare figuur van een conceptueel kader met richtinggevende relaties.",
@@ -917,7 +927,7 @@ const dutchText: Record<string, string> = {
   "Citation copied": "Citatie gekopieerd",
   "Clear scenarios": "Scenario's wissen",
   "Scenarios cleared": "Scenario's gewist",
-  "StudySize Studio version 1.31 © Ryalino, 2026.": "StudySize Studio versie 1.31 © Ryalino, 2026.",
+  "StudySize Studio version 1.32 © Ryalino, 2026.": "StudySize Studio versie 1.32 © Ryalino, 2026.",
   "Scenario is ready": "Scenario is klaar",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Dit scenario is nu beschikbaar in de balk Scenariovergelijking, waar u het kunt vergelijken met andere opgeslagen planningsscenario's.",
   "Open Scenario Comparison": "Scenariovergelijking openen",
@@ -1174,7 +1184,12 @@ Object.assign(dutchText, {
 Object.assign(indonesianText, {
   "Your one-stop solution for medical research": "Solusi terpadu untuk persiapan penelitian medis",
   "Find my study size calculator": "Cari kalkulator besar sampel",
+  "Find my calculator": "Cari kalkulator",
+  "Sample Size": "Besar Sampel",
+  "Randomisation": "Randomisasi",
   "Flow Charts": "Diagram Alur Penelitian",
+  "Figure Generator": "Pembuat Gambar",
+  "Reporting flowcharts": "Diagram alur pelaporan",
   "Conceptual Framework": "Kerangka Konseptual",
   "Conceptual framework builder": "Penyusun kerangka konseptual",
   "Translate study variables into a publication-ready conceptual framework figure with directional relationships.": "Susun variabel penelitian menjadi gambar kerangka konseptual siap publikasi dengan arah hubungan yang jelas.",
@@ -1241,7 +1256,7 @@ Object.assign(indonesianText, {
   "Reference SD group 1": "SD kelompok 1 dari studi referensi",
   "Reference SD group 2": "SD kelompok 2 dari studi referensi",
   "Expected R²": "R² yang diharapkan",
-  "StudySize Studio version 1.31 © Ryalino, 2026.": "StudySize Studio versi 1.31 © Ryalino, 2026.",
+  "StudySize Studio version 1.32 © Ryalino, 2026.": "StudySize Studio versi 1.32 © Ryalino, 2026.",
   "Randomised trial": "Uji klinis acak",
   "CONSORT for trial reports; SPIRIT for trial protocols.": "CONSORT untuk laporan uji klinis; SPIRIT untuk protokol uji klinis.",
   "Study protocol": "Protokol penelitian",
@@ -1364,8 +1379,13 @@ Object.assign(dutchText, {
   "Your one-stop solution for medical research": "Eén platform voor medisch-wetenschappelijk onderzoek",
   "Sample size calculators": "Steekproefgrootteberekeningen",
   "Find my study size calculator": "Kies mijn steekproefgroottecalculator",
+  "Find my calculator": "Kies calculator",
   "Calculator catalog": "Calculatorcatalogus",
+  "Sample Size": "Steekproefgrootte",
   "Randomiser": "Randomisatie",
+  "Randomisation": "Randomisatie",
+  "Figure Generator": "Figuurgenerator",
+  "Reporting flowcharts": "Rapportagestroomdiagrammen",
   "Conceptual Framework": "Conceptueel kader",
   "Conceptual framework builder": "Bouwer voor conceptueel kader",
   "Translate study variables into a publication-ready conceptual framework figure with directional relationships.": "Zet onderzoeksvariabelen om in een publicatieklare figuur van het conceptuele kader, met duidelijke richting van de relaties.",
@@ -1435,7 +1455,7 @@ Object.assign(dutchText, {
   "Expected variance explained by the model.": "Verwacht percentage verklaarde variantie door het model.",
   "Reference SD group 1": "SD van groep 1 uit referentiestudie",
   "Reference SD group 2": "SD van groep 2 uit referentiestudie",
-  "StudySize Studio version 1.31 © Ryalino, 2026.": "StudySize Studio versie 1.31 © Ryalino, 2026.",
+  "StudySize Studio version 1.32 © Ryalino, 2026.": "StudySize Studio versie 1.32 © Ryalino, 2026.",
   "Randomised trial": "Gerandomiseerde trial",
   "CONSORT for trial reports; SPIRIT for trial protocols.": "CONSORT voor trialrapportages; SPIRIT voor trialprotocollen.",
   "Study protocol": "Onderzoeksprotocol",
@@ -4315,6 +4335,25 @@ export function SampleSizeApp() {
   });
   const [status, setStatus] = useState("");
   const [copiedNotice, setCopiedNotice] = useState("");
+  const sampleSizeModes: AppMode[] = ["finder", "calculator", "scenario"];
+  const figureModes: AppMode[] = ["flowcharts", "framework"];
+  const activeMainMode = sampleSizeModes.includes(mode)
+    ? "sample-size"
+    : figureModes.includes(mode)
+      ? "figures"
+      : mode;
+
+  function openMainMode(nextMode: "checklist" | "sample-size" | "randomiser" | "blinding" | "figures") {
+    if (nextMode === "sample-size") {
+      setMode(sampleSizeModes.includes(mode) ? mode : "finder");
+      return;
+    }
+    if (nextMode === "figures") {
+      setMode(figureModes.includes(mode) ? mode : "flowcharts");
+      return;
+    }
+    setMode(nextMode);
+  }
 
   useEffect(() => {
     document.documentElement.lang = language;
@@ -4916,31 +4955,47 @@ export function SampleSizeApp() {
       </section>
 
       <nav className="mode-tabs" aria-label={t("Main app modes", language)}>
-        <button className={mode === "checklist" ? "active" : ""} type="button" onClick={() => setMode("checklist")}>
+        <button className={activeMainMode === "checklist" ? "active" : ""} type="button" onClick={() => openMainMode("checklist")}>
           {t("Study Design", language)}
         </button>
-        <button className={mode === "finder" ? "active" : ""} type="button" onClick={() => setMode("finder")}>
-          {t("Find my study size calculator", language)}
+        <button className={activeMainMode === "sample-size" ? "active" : ""} type="button" onClick={() => openMainMode("sample-size")}>
+          {t("Sample Size", language)}
         </button>
-        <button className={mode === "calculator" ? "active" : ""} type="button" onClick={() => setMode("calculator")}>
-          {t("Calculator catalog", language)}
+        <button className={activeMainMode === "randomiser" ? "active" : ""} type="button" onClick={() => openMainMode("randomiser")}>
+          {t("Randomisation", language)}
         </button>
-        <button className={mode === "randomiser" ? "active" : ""} type="button" onClick={() => setMode("randomiser")}>
-          {t("Randomiser", language)}
-        </button>
-        <button className={mode === "flowcharts" ? "active" : ""} type="button" onClick={() => setMode("flowcharts")}>
-          {t("Flow Charts", language)}
-        </button>
-        <button className={mode === "framework" ? "active" : ""} type="button" onClick={() => setMode("framework")}>
-          {t("Conceptual Framework", language)}
-        </button>
-        <button className={mode === "blinding" ? "active" : ""} type="button" onClick={() => setMode("blinding")}>
+        <button className={activeMainMode === "blinding" ? "active" : ""} type="button" onClick={() => openMainMode("blinding")}>
           {t("Blinding", language)}
         </button>
-        <button className={mode === "scenario" ? "active" : ""} type="button" onClick={() => setMode("scenario")}>
-          {t("Scenario Comparison", language)}
+        <button className={activeMainMode === "figures" ? "active" : ""} type="button" onClick={() => openMainMode("figures")}>
+          {t("Figure Generator", language)}
         </button>
       </nav>
+
+      {activeMainMode === "sample-size" && (
+        <nav className="mode-tabs sub-mode-tabs" aria-label={t("Sample Size", language)}>
+          <button className={mode === "finder" ? "active" : ""} type="button" onClick={() => setMode("finder")}>
+            {t("Find my calculator", language)}
+          </button>
+          <button className={mode === "calculator" ? "active" : ""} type="button" onClick={() => setMode("calculator")}>
+            {t("Calculator catalog", language)}
+          </button>
+          <button className={mode === "scenario" ? "active" : ""} type="button" onClick={() => setMode("scenario")}>
+            {t("Scenario Comparison", language)}
+          </button>
+        </nav>
+      )}
+
+      {activeMainMode === "figures" && (
+        <nav className="mode-tabs sub-mode-tabs" aria-label={t("Figure Generator", language)}>
+          <button className={mode === "flowcharts" ? "active" : ""} type="button" onClick={() => setMode("flowcharts")}>
+            {t("Reporting flowcharts", language)}
+          </button>
+          <button className={mode === "framework" ? "active" : ""} type="button" onClick={() => setMode("framework")}>
+            {t("Conceptual Framework", language)}
+          </button>
+        </nav>
+      )}
 
       <section className={`workspace ${mode}-workspace`}>
         {mode === "calculator" && (
@@ -5930,7 +5985,7 @@ export function SampleSizeApp() {
         ) : null}
       </section>
 
-      <footer className="app-footer"><strong>{t("StudySize Studio version 1.31 © Ryalino, 2026.", language)}</strong></footer>
+      <footer className="app-footer"><strong>{t("StudySize Studio version 1.32 © Ryalino, 2026.", language)}</strong></footer>
 
       {copiedNotice && (
         <div className="copy-toast" role="status" aria-live="polite">
