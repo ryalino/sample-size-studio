@@ -994,6 +994,20 @@ input:disabled {
   gap: 4px;
 }
 
+.flowchart-node-grid small {
+  color: var(--teal);
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.flowchart-node-grid input.auto-count {
+  border-color: rgba(15, 159, 154, 0.55);
+  background: #eefbf7;
+  color: var(--foreground);
+  font-weight: 800;
+}
+
 .flowchart-node-grid textarea {
   min-height: 78px;
 }

@@ -39,7 +39,7 @@ test("server-renders the sample size calculator shell", async () => {
   assert.match(html, /Flow Charts/);
   assert.match(html, /Scenario Comparison/);
   assert.match(html, /Study Design/);
-  assert.match(html, /StudySize Studio version 1\.26 © Ryalino, 2026\./);
+  assert.match(html, /StudySize Studio version 1\.27 © Ryalino, 2026\./);
   assert.match(html, /What is the main purpose of the study/);
   assert.match(html, /Calculator catalog/);
   assert.doesNotMatch(html, /Prevalence \/ Single Proportion|Two Independent Means|Saved scenarios/);

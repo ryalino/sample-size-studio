@@ -120,6 +120,10 @@ type FlowTemplate = {
 type PreparedFlowNode = FlowNode & {
   height: number;
 };
+type DerivedFlowCounts = {
+  counts: Record<string, string>;
+  derivedIds: Set<string>;
+};
 
 const indonesianText: Record<string, string> = {
   "Language selector": "Pemilih bahasa",
@@ -155,6 +159,7 @@ const indonesianText: Record<string, string> = {
   "Arm/group labels": "Label lengan/kelompok",
   "Enter one label per line. The app will use the first labels according to the selected number of arms.": "Masukkan satu label per baris. Aplikasi akan memakai label pertama sesuai jumlah lengan yang dipilih.",
   "Arm conversion is available for CONSORT, STROBE cohort, and generic participant flows. PRISMA, STARD, case-control, and cross-sectional diagrams keep their guideline-specific structure.": "Konversi lengan tersedia untuk CONSORT, kohort STROBE, dan alur peserta generik. Diagram PRISMA, STARD, kasus-kontrol, dan potong lintang mempertahankan struktur khusus pedomannya.",
+  "Auto-calculated from the previous box minus the red-box count.": "Dihitung otomatis dari kotak sebelumnya dikurangi jumlah pada kotak merah.",
   "Open relevant checklist": "Buka daftar periksa terkait",
   "Scenario Comparison": "Perbandingan skenario",
   "Study Design": "Desain Studi",
@@ -277,7 +282,7 @@ const indonesianText: Record<string, string> = {
   "Citation copied": "Sitasi disalin",
   "Clear scenarios": "Hapus skenario",
   "Scenarios cleared": "Skenario dihapus",
-  "StudySize Studio version 1.26 © Ryalino, 2026.": "StudySize Studio versi 1.26 © Ryalino, 2026.",
+  "StudySize Studio version 1.27 © Ryalino, 2026.": "StudySize Studio versi 1.27 © Ryalino, 2026.",
   "Scenario saved": "Skenario disimpan",
   "Scenario is ready": "Skenario siap",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Skenario ini sekarang tersedia di menu Perbandingan Skenario, tempat Anda dapat membandingkannya dengan skenario perencanaan tersimpan lainnya.",
@@ -749,6 +754,7 @@ const dutchText: Record<string, string> = {
   "Arm/group labels": "Labels voor armen/groepen",
   "Enter one label per line. The app will use the first labels according to the selected number of arms.": "Voer een label per regel in. De app gebruikt de eerste labels volgens het gekozen aantal armen.",
   "Arm conversion is available for CONSORT, STROBE cohort, and generic participant flows. PRISMA, STARD, case-control, and cross-sectional diagrams keep their guideline-specific structure.": "Armconversie is beschikbaar voor CONSORT, STROBE-cohort en algemene deelnemersstromen. PRISMA-, STARD-, case-control- en cross-sectionele diagrammen behouden hun richtlijnspecifieke structuur.",
+  "Auto-calculated from the previous box minus the red-box count.": "Automatisch berekend als het vorige vak minus het aantal in het rode vak.",
   "Open relevant checklist": "Relevante checklist openen",
   "Scenario Comparison": "Scenariovergelijking",
   "Study Design": "Studiedesign",
@@ -854,7 +860,7 @@ const dutchText: Record<string, string> = {
   "Citation copied": "Citatie gekopieerd",
   "Clear scenarios": "Scenario's wissen",
   "Scenarios cleared": "Scenario's gewist",
-  "StudySize Studio version 1.26 © Ryalino, 2026.": "StudySize Studio versie 1.26 © Ryalino, 2026.",
+  "StudySize Studio version 1.27 © Ryalino, 2026.": "StudySize Studio versie 1.27 © Ryalino, 2026.",
   "Scenario is ready": "Scenario is klaar",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Dit scenario is nu beschikbaar in de balk Scenariovergelijking, waar u het kunt vergelijken met andere opgeslagen planningsscenario's.",
   "Open Scenario Comparison": "Scenariovergelijking openen",
@@ -2540,6 +2546,57 @@ function flowTemplateByKey(key: FlowTemplateKey) {
   return flowTemplates.find((template) => template.key === key) ?? flowTemplates[0];
 }
 
+function parseFlowCount(value?: string) {
+  if (!value?.trim()) return undefined;
+  const normalised = value.replace(/,/g, "").trim();
+  if (!/^\d+(\.\d+)?$/.test(normalised)) return undefined;
+  return Number(normalised);
+}
+
+function formatFlowCount(value: number) {
+  return Number.isInteger(value) ? String(value) : value.toFixed(2).replace(/\.?0+$/, "");
+}
+
+function deriveFlowCounts(template: FlowTemplate, counts: Record<string, string>): DerivedFlowCounts {
+  const nodesById = Object.fromEntries(template.nodes.map((node) => [node.id, node]));
+  const nextCounts = { ...counts };
+  const derivedIds = new Set<string>();
+  const connectorsBySource = template.connectors.reduce<Record<string, FlowConnector[]>>((groups, connector) => {
+    groups[connector.from] = [...(groups[connector.from] ?? []), connector];
+    return groups;
+  }, {});
+
+  const applyDerivedCount = (targetId: string, sourceId: string, warningIds: string[]) => {
+    const sourceValue = parseFlowCount(nextCounts[sourceId]);
+    const warningValues = warningIds.map((warningId) => parseFlowCount(nextCounts[warningId]));
+    if (sourceValue === undefined || warningValues.some((value) => value === undefined)) return;
+    const derived = Math.max(0, sourceValue - warningValues.reduce((sum, value) => sum + (value ?? 0), 0));
+    nextCounts[targetId] = formatFlowCount(derived);
+    derivedIds.add(targetId);
+  };
+
+  Object.entries(connectorsBySource).forEach(([sourceId, connectors]) => {
+    const warningTargets = connectors.map((connector) => nodesById[connector.to]).filter((node) => node?.tone === "warning");
+    const continuedTargets = connectors.map((connector) => nodesById[connector.to]).filter((node) => node && node.tone !== "warning");
+    if (!warningTargets.length || !continuedTargets.length) return;
+    continuedTargets.forEach((target) => applyDerivedCount(target.id, sourceId, warningTargets.map((node) => node.id)));
+  });
+
+  template.nodes
+    .filter((node) => node.tone === "warning")
+    .forEach((warningNode) => {
+      const incoming = template.connectors.find((connector) => connector.to === warningNode.id);
+      const outgoing = template.connectors
+        .filter((connector) => connector.from === warningNode.id)
+        .map((connector) => nodesById[connector.to])
+        .filter((node) => node && node.tone !== "warning");
+      if (!incoming || outgoing.length === 0) return;
+      outgoing.forEach((target) => applyDerivedCount(target.id, incoming.from, [warningNode.id]));
+    });
+
+  return { counts: nextCounts, derivedIds };
+}
+
 function supportsFlowArms(key: FlowTemplateKey) {
   return key === "consort" || key === "strobe-cohort" || key === "generic";
 }
@@ -3314,7 +3371,9 @@ export function SampleSizeApp() {
     () => armFlowTemplate(baseFlowTemplate, flowArmCount, flowArmNames),
     [baseFlowTemplate, flowArmCount, flowArmNames],
   );
-  const effectiveFlowCounts = useMemo(() => ({ ...flowTemplate.defaultCounts, ...flowCounts }), [flowCounts, flowTemplate]);
+  const rawEffectiveFlowCounts = useMemo(() => ({ ...flowTemplate.defaultCounts, ...flowCounts }), [flowCounts, flowTemplate]);
+  const derivedFlowCounts = useMemo(() => deriveFlowCounts(flowTemplate, rawEffectiveFlowCounts), [flowTemplate, rawEffectiveFlowCounts]);
+  const effectiveFlowCounts = derivedFlowCounts.counts;
   const effectiveFlowNotes = useMemo(() => ({ ...flowTemplate.defaultNotes, ...flowNotes }), [flowNotes, flowTemplate]);
   const values = valuesByCalculator[calculator.id] ?? initialValues(calculator);
   const result = useMemo(() => calculator.compute(values), [calculator, values]);
@@ -4359,32 +4418,39 @@ export function SampleSizeApp() {
 
                 <div className="flowchart-fieldset">
                   <span>{t("Box counts and exclusion reasons", language)}</span>
-                  {flowTemplate.nodes.map((node) => (
-                    <div className="flowchart-node-input" key={node.id}>
-                      <strong>{node.label}</strong>
-                      <div className="flowchart-node-grid">
-                        <label>
-                          <span>n</span>
-                          <input
-                            aria-label={`${node.label} n`}
-                            inputMode="numeric"
-                            onChange={(event) => updateFlowCount(node.id, event.target.value)}
-                            type="text"
-                            value={flowCounts[node.id] ?? ""}
-                          />
-                        </label>
-                        <label>
-                          <span>{t("Reasons / notes", language)}</span>
-                          <textarea
-                            aria-label={`${node.label} ${t("Reasons / notes", language)}`}
-                            onChange={(event) => updateFlowNote(node.id, event.target.value)}
-                            rows={3}
-                            value={effectiveFlowNotes[node.id] ?? ""}
-                          />
-                        </label>
+                  {flowTemplate.nodes.map((node) => {
+                    const isDerivedCount = derivedFlowCounts.derivedIds.has(node.id);
+
+                    return (
+                      <div className="flowchart-node-input" key={node.id}>
+                        <strong>{node.label}</strong>
+                        <div className="flowchart-node-grid">
+                          <label>
+                            <span>n</span>
+                            <input
+                              aria-label={`${node.label} n`}
+                              className={isDerivedCount ? "auto-count" : undefined}
+                              inputMode="numeric"
+                              onChange={(event) => updateFlowCount(node.id, event.target.value)}
+                              readOnly={isDerivedCount}
+                              type="text"
+                              value={effectiveFlowCounts[node.id] ?? ""}
+                            />
+                            {isDerivedCount && <small>{t("Auto-calculated from the previous box minus the red-box count.", language)}</small>}
+                          </label>
+                          <label>
+                            <span>{t("Reasons / notes", language)}</span>
+                            <textarea
+                              aria-label={`${node.label} ${t("Reasons / notes", language)}`}
+                              onChange={(event) => updateFlowNote(node.id, event.target.value)}
+                              rows={3}
+                              value={effectiveFlowNotes[node.id] ?? ""}
+                            />
+                          </label>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </section>
 
@@ -4739,7 +4805,7 @@ export function SampleSizeApp() {
         ) : null}
       </section>
 
-      <footer className="app-footer"><strong>{t("StudySize Studio version 1.26 © Ryalino, 2026.", language)}</strong></footer>
+      <footer className="app-footer"><strong>{t("StudySize Studio version 1.27 © Ryalino, 2026.", language)}</strong></footer>
 
       {copiedNotice && (
         <div className="copy-toast" role="status" aria-live="polite">
