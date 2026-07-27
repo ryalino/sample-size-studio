@@ -310,7 +310,7 @@ const indonesianText: Record<string, string> = {
   "Citation copied": "Sitasi disalin",
   "Clear scenarios": "Hapus skenario",
   "Scenarios cleared": "Skenario dihapus",
-  "StudySize Studio version 1.28 © Ryalino, 2026.": "StudySize Studio versi 1.28 © Ryalino, 2026.",
+  "StudySize Studio version 1.29 © Ryalino, 2026.": "StudySize Studio versi 1.29 © Ryalino, 2026.",
   "Scenario saved": "Skenario disimpan",
   "Scenario is ready": "Skenario siap",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Skenario ini sekarang tersedia di menu Perbandingan Skenario, tempat Anda dapat membandingkannya dengan skenario perencanaan tersimpan lainnya.",
@@ -356,10 +356,14 @@ Object.assign(indonesianText, {
   "Normal approximation for the confidence interval.": "Aproksimasi normal untuk interval kepercayaan.",
   "Two Independent Means": "Dua Rerata Independen",
   "Compare two independent groups on a continuous outcome.": "Membandingkan dua kelompok independen pada luaran kontinu.",
-  "Mean difference": "Perbedaan rerata",
-  "Smallest difference worth detecting.": "Perbedaan terkecil yang layak dideteksi.",
-  "Common SD": "SD bersama",
-  "Expected within-group standard deviation.": "Simpangan baku dalam kelompok yang diharapkan.",
+  "Reference mean group 1": "Rerata referensi kelompok 1",
+  "Reference mean group 2": "Rerata referensi kelompok 2",
+  "Mean outcome in the first reference group.": "Rerata luaran pada kelompok referensi pertama.",
+  "Mean outcome in the second reference group.": "Rerata luaran pada kelompok referensi kedua.",
+  "SD group 1": "SD kelompok 1",
+  "SD group 2": "SD kelompok 2",
+  "Standard deviation in the first reference group.": "Simpangan baku pada kelompok referensi pertama.",
+  "Standard deviation in the second reference group.": "Simpangan baku pada kelompok referensi kedua.",
   "Allocation ratio": "Rasio alokasi",
   "Treatment participants per control participant.": "Peserta perlakuan per peserta kontrol.",
   "Alpha": "Alfa",
@@ -369,11 +373,14 @@ Object.assign(indonesianText, {
   "Dropout": "Dropout",
   "Expected unusable or lost participants.": "Peserta yang diperkirakan tidak dapat digunakan atau hilang.",
   "Two-sided test with equal variance approximation.": "Uji dua sisi dengan aproksimasi varians sama.",
+  "Pooled SD is estimated from the two reference-group SDs.": "SD gabungan diperkirakan dari dua SD kelompok referensi.",
   "Normal outcome or sufficiently large samples.": "Luaran normal atau sampel cukup besar.",
   "Paired / Before-After Mean": "Rerata Berpasangan / Sebelum-Sesudah",
   "Detect a mean change in paired measurements.": "Mendeteksi perubahan rerata pada pengukuran berpasangan.",
-  "Mean change": "Perubahan rerata",
-  "Smallest paired change worth detecting.": "Perubahan berpasangan terkecil yang layak dideteksi.",
+  "Reference mean before": "Rerata referensi sebelum",
+  "Reference mean after": "Rerata referensi sesudah",
+  "Mean before intervention or exposure.": "Rerata sebelum intervensi atau pajanan.",
+  "Mean after intervention or exposure.": "Rerata sesudah intervensi atau pajanan.",
   "SD of differences": "SD selisih",
   "Standard deviation of within-person differences.": "Simpangan baku selisih dalam individu.",
   "Continuous paired difference outcome.": "Luaran selisih berpasangan yang kontinu.",
@@ -422,18 +429,18 @@ Object.assign(indonesianText, {
   "Compare exposed and unexposed groups in a cohort study.": "Membandingkan kelompok terpajan dan tidak terpajan dalam studi kohort.",
   "Unexposed risk": "Risiko tidak terpajan",
   "Outcome risk among unexposed participants.": "Risiko luaran pada peserta tidak terpajan.",
-  "Risk ratio": "Rasio risiko",
-  "Target exposed/unexposed risk ratio.": "Rasio risiko terpajan/tidak terpajan target.",
+  "Exposed risk": "Risiko terpajan",
+  "Outcome risk among exposed participants.": "Risiko luaran pada peserta terpajan.",
   "Exposed:unexposed": "Terpajan:tidak terpajan",
   "Exposed participants per unexposed participant.": "Peserta terpajan per peserta tidak terpajan.",
   "Independent exposed and unexposed groups.": "Kelompok terpajan dan tidak terpajan independen.",
-  "Approximate two-sided test for risk difference implied by the target RR.": "Uji dua sisi aproksimasi untuk perbedaan risiko yang tersirat oleh RR target.",
+  "Approximate two-sided test for the risk difference implied by the two entered risks.": "Uji dua sisi aproksimasi untuk perbedaan risiko yang tersirat dari dua risiko yang dimasukkan.",
   "Case-Control / Odds Ratio": "Kasus-Kontrol / Odds Ratio",
   "Detect an odds ratio using expected control exposure prevalence.": "Mendeteksi odds ratio menggunakan prevalensi pajanan kontrol yang diharapkan.",
   "Control exposure": "Pajanan kontrol",
   "Exposure prevalence among controls.": "Prevalensi pajanan pada kontrol.",
-  "Odds ratio": "Odds ratio",
-  "Target odds ratio.": "Odds ratio target.",
+  "Case exposure": "Pajanan kasus",
+  "Exposure prevalence among cases.": "Prevalensi pajanan pada kasus.",
   "Controls per case": "Kontrol per kasus",
   "Number of controls for each case.": "Jumlah kontrol untuk setiap kasus.",
   "Unmatched case-control design.": "Desain kasus-kontrol tidak berpasangan.",
@@ -442,6 +449,8 @@ Object.assign(indonesianText, {
   "Compare a mean outcome against a non-inferiority margin.": "Membandingkan luaran rerata terhadap margin non-inferioritas.",
   "NI margin": "Margin NI",
   "Largest acceptable loss in original units.": "Kehilangan terbesar yang masih dapat diterima dalam satuan asli.",
+  "Reference SD group 1": "SD referensi kelompok 1",
+  "Reference SD group 2": "SD referensi kelompok 2",
   "Experimental participants per control participant.": "Peserta eksperimental per peserta kontrol.",
   "One-sided non-inferiority framework.": "Kerangka non-inferioritas satu sisi.",
   "True difference is planned as zero unless a stricter effect is specified externally.": "Perbedaan sebenarnya direncanakan nol kecuali efek yang lebih ketat ditentukan secara eksternal.",
@@ -470,12 +479,13 @@ Object.assign(indonesianText, {
   "Proportional hazards.": "Hazard proporsional.",
   "Log-rank test with approximately uniform information accrual.": "Uji log-rank dengan akrual informasi yang kira-kira seragam.",
   "Multiple Linear Regression": "Regresi Linear Berganda",
-  "Plan for detecting model R² using Cohen's f² effect size.": "Merencanakan deteksi R² model menggunakan ukuran efek f² Cohen.",
-  "Effect size f²": "Ukuran efek f²",
-  "Small=.02, medium=.15, large=.35.": "Kecil=.02, sedang=.15, besar=.35.",
+  "Plan for detecting the expected model R².": "Merencanakan deteksi R² model yang diharapkan.",
+  "Expected R²": "R² yang diharapkan",
+  "Expected variance explained by the model.": "Varians yang diharapkan dapat dijelaskan oleh model.",
   "Predictors": "Prediktor",
   "Number of tested predictors.": "Jumlah prediktor yang diuji.",
   "Planning approximation for omnibus regression signal.": "Aproksimasi perencanaan untuk sinyal regresi omnibus.",
+  "The app converts expected R² to Cohen's f² internally.": "Aplikasi mengonversi R² yang diharapkan menjadi f² Cohen secara internal.",
   "Use simulation for complex predictor distributions.": "Gunakan simulasi untuk distribusi prediktor yang kompleks.",
   "Logistic Regression Events": "Kejadian Regresi Logistik",
   "Plan minimum events for a multivariable logistic model.": "Merencanakan kejadian minimum untuk model logistik multivariabel.",
@@ -576,7 +586,7 @@ Object.assign(indonesianText, {
   "Sensitivity is estimated among people with the condition, then inflated by the expected prevalence.": "Sensitivitas diperkirakan pada orang dengan kondisi, lalu dinaikkan berdasarkan prevalensi yang diharapkan.",
   "Sensitivity is the primary accuracy target.": "Sensitivitas adalah target akurasi utama.",
   "Use Multiple Linear Regression": "Gunakan Regresi Linear Berganda",
-  "The planned outcome is continuous, so the regression calculator uses predictors and Cohen's f2 effect size.": "Luaran yang direncanakan kontinu, sehingga kalkulator regresi menggunakan prediktor dan ukuran efek f2 Cohen.",
+  "The planned outcome is continuous, so the regression calculator uses predictors and expected model R2, then converts R2 to Cohen's f2 internally.": "Luaran yang direncanakan kontinu, sehingga kalkulator regresi menggunakan prediktor dan R2 model yang diharapkan, lalu mengonversi R2 menjadi f2 Cohen secara internal.",
   "Approximate omnibus model planning.": "Perencanaan model omnibus aproksimasi.",
   "Use Logistic Regression Events": "Gunakan Kejadian Regresi Logistik",
   "The planned outcome is binary, so sample size is driven by expected events and model degrees of freedom.": "Luaran yang direncanakan biner, sehingga besar sampel ditentukan oleh kejadian yang diharapkan dan derajat kebebasan model.",
@@ -632,7 +642,7 @@ Object.assign(indonesianText, {
   "Use Two Independent Means": "Gunakan Dua Rerata Independen",
   "Two independent groups are being compared on a continuous outcome under a superiority objective.": "Dua kelompok independen dibandingkan pada luaran kontinu dengan objektif superiority.",
   "Independent groups.": "Kelompok independen.",
-  "Common SD can be estimated.": "SD bersama dapat diperkirakan.",
+  "Group means and SDs can be estimated from a reference study.": "Rerata dan SD kelompok dapat diperkirakan dari studi referensi.",
   "Advanced design features can make closed-form sample size formulas misleading. Use this calculator as orientation, then get statistical review.": "Fitur desain lanjutan dapat membuat rumus besar sampel bentuk tertutup menyesatkan. Gunakan kalkulator ini sebagai orientasi, lalu dapatkan tinjauan statistik.",
   "For clinical prediction model development, consider minimum sample size methods beyond simple rules.": "Untuk pengembangan model prediksi klinis, pertimbangkan metode besar sampel minimum di luar aturan sederhana.",
   "For final prediction model protocols, consider Riley-style minimum sample size methods.": "Untuk protokol model prediksi final, pertimbangkan metode besar sampel minimum gaya Riley.",
@@ -907,7 +917,7 @@ const dutchText: Record<string, string> = {
   "Citation copied": "Citatie gekopieerd",
   "Clear scenarios": "Scenario's wissen",
   "Scenarios cleared": "Scenario's gewist",
-  "StudySize Studio version 1.28 © Ryalino, 2026.": "StudySize Studio versie 1.28 © Ryalino, 2026.",
+  "StudySize Studio version 1.29 © Ryalino, 2026.": "StudySize Studio versie 1.29 © Ryalino, 2026.",
   "Scenario is ready": "Scenario is klaar",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Dit scenario is nu beschikbaar in de balk Scenariovergelijking, waar u het kunt vergelijken met andere opgeslagen planningsscenario's.",
   "Open Scenario Comparison": "Scenariovergelijking openen",
@@ -942,13 +952,22 @@ const dutchText: Record<string, string> = {
   "Confidence": "Betrouwbaarheid",
   "Non-response": "Non-respons",
   "Standard deviation": "Standaarddeviatie",
-  "Mean difference": "Gemiddeld verschil",
-  "Common SD": "Gemeenschappelijke SD",
+  "Reference mean group 1": "Referentiegemiddelde groep 1",
+  "Reference mean group 2": "Referentiegemiddelde groep 2",
+  "Mean outcome in the first reference group.": "Gemiddelde uitkomst in de eerste referentiegroep.",
+  "Mean outcome in the second reference group.": "Gemiddelde uitkomst in de tweede referentiegroep.",
+  "SD group 1": "SD groep 1",
+  "SD group 2": "SD groep 2",
+  "Standard deviation in the first reference group.": "Standaarddeviatie in de eerste referentiegroep.",
+  "Standard deviation in the second reference group.": "Standaarddeviatie in de tweede referentiegroep.",
   "Allocation ratio": "Allocatieratio",
   "Alpha": "Alfa",
   "Power": "Power",
   "Dropout": "Uitval",
-  "Mean change": "Gemiddelde verandering",
+  "Reference mean before": "Referentiegemiddelde voor",
+  "Reference mean after": "Referentiegemiddelde na",
+  "Mean before intervention or exposure.": "Gemiddelde voor interventie of blootstelling.",
+  "Mean after intervention or exposure.": "Gemiddelde na interventie of blootstelling.",
   "SD of differences": "SD van verschillen",
   "Control proportion": "Controleproportie",
   "Treatment proportion": "Behandelproportie",
@@ -959,8 +978,18 @@ const dutchText: Record<string, string> = {
   "Specificity": "Specificiteit",
   "Disease prevalence": "Ziekteprevalentie",
   "Non-evaluable": "Niet-evalueerbaar",
-  "Risk ratio": "Risicoratio",
-  "Odds ratio": "Oddsratio",
+  "Exposed risk": "Risico bij blootgestelden",
+  "Outcome risk among exposed participants.": "Uitkomstrisico bij blootgestelde deelnemers.",
+  "Case exposure": "Blootstelling bij cases",
+  "Exposure prevalence among cases.": "Blootstellingsprevalentie bij cases.",
+  "Reference SD group 1": "Referentie-SD groep 1",
+  "Reference SD group 2": "Referentie-SD groep 2",
+  "Pooled SD is estimated from the two reference-group SDs.": "De gepoolde SD wordt geschat uit de twee SD's van de referentiegroepen.",
+  "Approximate two-sided test for the risk difference implied by the two entered risks.": "Benaderende tweezijdige toets voor het risicoverschil dat uit de twee ingevoerde risico's volgt.",
+  "Plan for detecting the expected model R².": "Plannen voor het aantonen van de verwachte model-R².",
+  "Expected R²": "Verwachte R²",
+  "Expected variance explained by the model.": "Verwachte verklaarde variantie door het model.",
+  "The app converts expected R² to Cohen's f² internally.": "De app zet de verwachte R² intern om naar Cohens f².",
   "Predictors": "Predictoren",
   "Missing data": "Ontbrekende gegevens",
   "What is the main purpose of the study?": "Wat is het hoofddoel van de studie?",
@@ -1307,20 +1336,35 @@ const parameterGuidanceText: Record<string, Partial<Record<Language, string>>> =
     id: "Ini adalah galat yang dapat diterima di sekitar rerata dalam satuan pengukuran asli. Pilih selisih terkecil yang masih bermakna secara klinis atau ilmiah.",
     nl: "Dit is de aanvaardbare fout rond het geschatte gemiddelde in de oorspronkelijke meeteenheid. Kies het kleinste verschil dat klinisch of wetenschappelijk nog betekenisvol is.",
   },
-  "two-means.delta": {
-    en: "Mean difference is the smallest between-group difference the study should detect. It should be clinically important, not merely statistically convenient.",
-    id: "Selisih rerata adalah perbedaan antarkelompok terkecil yang ingin dideteksi studi. Nilai ini harus bermakna secara klinis, bukan hanya mudah secara statistik.",
-    nl: "Het gemiddelde verschil is het kleinste groepsverschil dat de studie moet aantonen. Het hoort klinisch relevant te zijn, niet alleen statistisch handig.",
+  "two-means.mean1": {
+    en: "Enter the mean reported for one group in a reference study, pilot study, or credible dataset. There is no standard value; use the same outcome scale as your planned study.",
+    id: "Masukkan rerata yang dilaporkan untuk salah satu kelompok pada studi referensi, studi pilot, atau dataset yang kredibel. Tidak ada nilai standar; gunakan skala luaran yang sama dengan studi yang direncanakan.",
+    nl: "Voer het gemiddelde in dat voor een groep is gerapporteerd in een referentiestudie, pilotstudie of betrouwbare dataset. Er is geen standaardwaarde; gebruik dezelfde uitkomstschaal als in uw geplande studie.",
   },
-  "two-means.sd": {
-    en: "Common SD is the expected within-group variability. Use prior data on the same scale; when groups differ, use a pooled or conservative larger SD.",
-    id: "SD bersama adalah variasi dalam kelompok yang diperkirakan. Gunakan data terdahulu pada skala yang sama; bila kelompok berbeda, gunakan SD gabungan atau SD lebih besar yang konservatif.",
-    nl: "De gezamenlijke SD is de verwachte variatie binnen groepen. Gebruik eerdere gegevens op dezelfde schaal; bij verschillende groepen gebruikt u een gepoolde of conservatief hogere SD.",
+  "two-means.mean2": {
+    en: "Enter the mean reported for the other group. The app calculates the absolute mean difference automatically, so users do not need to subtract the means manually.",
+    id: "Masukkan rerata yang dilaporkan untuk kelompok lain. Aplikasi menghitung selisih rerata absolut secara otomatis, sehingga pengguna tidak perlu mengurangkan rerata secara manual.",
+    nl: "Voer het gemiddelde in dat voor de andere groep is gerapporteerd. De app berekent automatisch het absolute gemiddelde verschil, zodat gebruikers dit niet handmatig hoeven af te trekken.",
   },
-  "paired-mean.delta": {
-    en: "Mean change is the smallest within-person or matched-pair change worth detecting. It should come from the minimally important change or a justified scientific target.",
-    id: "Perubahan rerata adalah perubahan dalam individu atau pasangan yang paling kecil tetapi layak dideteksi. Nilai ini sebaiknya berasal dari perubahan minimal penting atau target ilmiah yang beralasan.",
-    nl: "De gemiddelde verandering is de kleinste binnen-persoons- of gematchte verandering die detectie waard is. Baseer dit op de minimale belangrijke verandering of een onderbouwd wetenschappelijk doel.",
+  "two-means.sd1": {
+    en: "Enter the SD reported for group 1 in the reference source. The app uses group 1 and group 2 SDs to estimate a pooled SD; there is no universal standard SD.",
+    id: "Masukkan SD yang dilaporkan untuk kelompok 1 pada sumber referensi. Aplikasi menggunakan SD kelompok 1 dan 2 untuk memperkirakan SD gabungan; tidak ada SD standar universal.",
+    nl: "Voer de SD in die voor groep 1 in de referentiebron is gerapporteerd. De app gebruikt de SD's van groep 1 en 2 om een gepoolde SD te schatten; er is geen universele standaard-SD.",
+  },
+  "two-means.sd2": {
+    en: "Enter the SD reported for group 2. If only one SD is available, enter the same SD in both groups or use the larger SD as a conservative sensitivity scenario.",
+    id: "Masukkan SD yang dilaporkan untuk kelompok 2. Bila hanya satu SD tersedia, masukkan SD yang sama pada kedua kelompok atau gunakan SD yang lebih besar sebagai skenario sensitivitas konservatif.",
+    nl: "Voer de SD in die voor groep 2 is gerapporteerd. Als slechts een SD beschikbaar is, vul dezelfde SD voor beide groepen in of gebruik de hogere SD als conservatief gevoeligheidsscenario.",
+  },
+  "paired-mean.meanBefore": {
+    en: "Enter the baseline or pre-intervention mean from paired reference data. There is no standard value; use a population and measurement scale close to your study.",
+    id: "Masukkan rerata awal atau pra-intervensi dari data referensi berpasangan. Tidak ada nilai standar; gunakan populasi dan skala pengukuran yang dekat dengan studi Anda.",
+    nl: "Voer het baseline- of pre-interventiegemiddelde uit gepaarde referentiegegevens in. Er is geen standaardwaarde; gebruik een populatie en meetschaal die dicht bij uw studie liggen.",
+  },
+  "paired-mean.meanAfter": {
+    en: "Enter the follow-up or post-intervention mean from paired reference data. The app calculates the mean change automatically.",
+    id: "Masukkan rerata follow-up atau pasca-intervensi dari data referensi berpasangan. Aplikasi menghitung perubahan rerata secara otomatis.",
+    nl: "Voer het follow-up- of post-interventiegemiddelde uit gepaarde referentiegegevens in. De app berekent de gemiddelde verandering automatisch.",
   },
   "paired-mean.sdDiff": {
     en: "This is the SD of paired differences, not the baseline SD. It is often smaller than the raw outcome SD; use paired pilot data whenever possible.",
@@ -1387,10 +1431,10 @@ const parameterGuidanceText: Record<string, Partial<Record<Language, string>>> =
     id: "Risiko tidak terpajan adalah risiko luaran yang diperkirakan pada kelompok rujukan. Nilai ini sebaiknya berasal dari kohort serupa atau data surveilans.",
     nl: "Het risico bij niet-blootgestelden is het verwachte uitkomstrisico in de referentiegroep. Baseer dit op vergelijkbare cohorten of surveillancegegevens.",
   },
-  "cohort-rr.rr": {
-    en: "Risk ratio is the expected exposed/unexposed risk contrast. RR = 1 means no association; choose the smallest clinically meaningful departure from 1.",
-    id: "Rasio risiko adalah kontras risiko terpajan/tidak terpajan yang diharapkan. RR = 1 berarti tidak ada asosiasi; pilih penyimpangan terkecil dari 1 yang bermakna klinis.",
-    nl: "De risicoratio is het verwachte risico-contrast blootgesteld/niet-blootgesteld. RR = 1 betekent geen associatie; kies de kleinste klinisch relevante afwijking van 1.",
+  "cohort-rr.p1": {
+    en: "Exposed risk is the expected outcome risk among exposed participants. Use a reference cohort when possible; the app calculates the risk ratio and absolute risk difference.",
+    id: "Risiko terpajan adalah risiko luaran yang diperkirakan pada peserta terpajan. Gunakan kohort referensi bila memungkinkan; aplikasi menghitung rasio risiko dan perbedaan risiko absolut.",
+    nl: "Het risico bij blootgestelden is het verwachte uitkomstrisico bij blootgestelde deelnemers. Gebruik waar mogelijk een referentiecohort; de app berekent de risicoratio en het absolute risicoverschil.",
   },
   "cohort-rr.ratio": {
     en: "This is the number of exposed participants per unexposed participant. 1:1 is efficient, but observational cohorts often use the naturally available exposure distribution.",
@@ -1402,10 +1446,10 @@ const parameterGuidanceText: Record<string, Partial<Record<Language, string>>> =
     id: "Pajanan kontrol adalah prevalensi pajanan yang diperkirakan pada kontrol. Ini menjadi dasar untuk menerjemahkan odds ratio menjadi pajanan pada kasus.",
     nl: "Controleblootstelling is de verwachte blootstellingsprevalentie bij controles. Dit is het anker om de oddsratio naar casusblootstelling te vertalen.",
   },
-  "case-control.or": {
-    en: "Odds ratio is the planned exposure contrast between cases and controls. OR = 1 means no association; use the smallest important OR.",
-    id: "Odds ratio adalah kontras pajanan yang direncanakan antara kasus dan kontrol. OR = 1 berarti tidak ada asosiasi; gunakan OR terkecil yang penting.",
-    nl: "De oddsratio is het geplande blootstellingscontrast tussen cases en controles. OR = 1 betekent geen associatie; gebruik de kleinste belangrijke OR.",
+  "case-control.p1": {
+    en: "Case exposure is the expected exposure prevalence among cases. Use a previous case-control study or pilot data; the app calculates the odds ratio.",
+    id: "Pajanan kasus adalah prevalensi pajanan yang diperkirakan pada kasus. Gunakan studi kasus-kontrol sebelumnya atau data pilot; aplikasi menghitung odds ratio.",
+    nl: "Casusblootstelling is de verwachte blootstellingsprevalentie bij cases. Gebruik een eerdere case-controlstudie of pilotgegevens; de app berekent de oddsratio.",
   },
   "case-control.ratio": {
     en: "Controls per case can improve power when cases are limited. Gains become modest beyond about 4 controls per case, so 1:1 to 1:4 is typical.",
@@ -1417,20 +1461,30 @@ const parameterGuidanceText: Record<string, Partial<Record<Language, string>>> =
     id: "Margin non-inferioritas adalah kehilangan terbesar yang masih dapat diterima dibanding kontrol. Nilai ini harus dijustifikasi secara klinis sebelum perhitungan; tidak ada standar generik.",
     nl: "De non-inferioriteitsmarge is het grootste aanvaardbare verlies ten opzichte van controle. Deze moet klinisch onderbouwd zijn voor de berekening; er is geen algemene standaardwaarde.",
   },
-  "noninferiority-means.sd": {
-    en: "Common SD is the expected within-group variability of the continuous endpoint. Use previous trials on the same endpoint and population when possible.",
-    id: "SD bersama adalah variasi dalam kelompok yang diperkirakan pada endpoint kontinu. Gunakan uji sebelumnya dengan endpoint dan populasi yang sama bila memungkinkan.",
-    nl: "De gezamenlijke SD is de verwachte variatie binnen groepen voor het continue eindpunt. Gebruik waar mogelijk eerdere trials met hetzelfde eindpunt en dezelfde populatie.",
+  "noninferiority-means.sd1": {
+    en: "Enter the SD from one reference group for the continuous endpoint. The app estimates the pooled SD; use previous trials on the same endpoint and population when possible.",
+    id: "Masukkan SD dari salah satu kelompok referensi untuk endpoint kontinu. Aplikasi memperkirakan SD gabungan; gunakan uji sebelumnya dengan endpoint dan populasi yang sama bila memungkinkan.",
+    nl: "Voer de SD van een referentiegroep voor het continue eindpunt in. De app schat de gepoolde SD; gebruik waar mogelijk eerdere trials met hetzelfde eindpunt en dezelfde populatie.",
+  },
+  "noninferiority-means.sd2": {
+    en: "Enter the SD from the second reference group. If only one SD is published, repeat that SD in both fields and test a larger SD in sensitivity analysis.",
+    id: "Masukkan SD dari kelompok referensi kedua. Bila hanya satu SD yang dipublikasikan, ulangi SD tersebut pada kedua kolom dan uji SD yang lebih besar dalam analisis sensitivitas.",
+    nl: "Voer de SD van de tweede referentiegroep in. Als slechts een SD is gepubliceerd, herhaal die SD in beide velden en test een hogere SD in een gevoeligheidsanalyse.",
   },
   "equivalence-means.margin": {
     en: "The equivalence margin is the maximum difference considered practically the same in either direction. It must be prespecified and clinically justified.",
     id: "Margin ekuivalensi adalah perbedaan maksimum yang dianggap praktis sama pada kedua arah. Nilai ini harus ditetapkan sebelumnya dan dijustifikasi secara klinis.",
     nl: "De equivalentiemarge is het maximale verschil dat in beide richtingen praktisch gelijk wordt geacht. Deze moet vooraf zijn vastgelegd en klinisch onderbouwd.",
   },
-  "equivalence-means.sd": {
-    en: "Common SD is the expected variability in both groups. Use the same measurement scale and population as the planned equivalence endpoint.",
-    id: "SD bersama adalah variasi yang diperkirakan pada kedua kelompok. Gunakan skala pengukuran dan populasi yang sama dengan endpoint ekuivalensi yang direncanakan.",
-    nl: "De gezamenlijke SD is de verwachte variatie in beide groepen. Gebruik dezelfde meetschaal en populatie als het geplande equivalentie-eindpunt.",
+  "equivalence-means.sd1": {
+    en: "Enter the SD from one reference group on the same measurement scale. The app estimates a pooled SD for the equivalence calculation.",
+    id: "Masukkan SD dari salah satu kelompok referensi pada skala pengukuran yang sama. Aplikasi memperkirakan SD gabungan untuk perhitungan ekuivalensi.",
+    nl: "Voer de SD van een referentiegroep op dezelfde meetschaal in. De app schat een gepoolde SD voor de equivalentieberekening.",
+  },
+  "equivalence-means.sd2": {
+    en: "Enter the SD from the second reference group. There is no standard value; use comparable studies and run sensitivity checks if uncertainty is large.",
+    id: "Masukkan SD dari kelompok referensi kedua. Tidak ada nilai standar; gunakan studi yang sebanding dan lakukan uji sensitivitas bila ketidakpastian besar.",
+    nl: "Voer de SD van de tweede referentiegroep in. Er is geen standaardwaarde; gebruik vergelijkbare studies en voer gevoeligheidsanalyses uit bij grote onzekerheid.",
   },
   "cluster-crt.p1": {
     en: "Control proportion is the expected event or response rate in control clusters. Use cluster-level setting data when available.",
@@ -1462,10 +1516,10 @@ const parameterGuidanceText: Record<string, Partial<Record<Language, string>>> =
     id: "Angka kejadian keseluruhan adalah proporsi yang diperkirakan mengalami kejadian saat analisis. Nilai ini menghubungkan jumlah kejadian yang diperlukan dengan total sampel; gunakan perkiraan follow-up dan sensor.",
     nl: "Het totale eventpercentage is het verwachte aandeel met een event bij analyse. Dit koppelt benodigde events aan totale steekproefgrootte; gebruik verwachte follow-up en censuurpatronen.",
   },
-  "linear-regression.f2": {
-    en: "Cohen's f2 expresses explained variance relative to unexplained variance. Rough standards are 0.02 small, 0.15 medium, and 0.35 large.",
-    id: "Cohen f2 menyatakan varians yang dijelaskan relatif terhadap varians yang tidak dijelaskan. Patokan kasar: 0,02 kecil, 0,15 sedang, dan 0,35 besar.",
-    nl: "Cohens f2 drukt verklaarde variantie uit ten opzichte van onverklaarde variantie. Grove richtlijnen zijn 0,02 klein, 0,15 middelgroot en 0,35 groot.",
+  "linear-regression.r2": {
+    en: "Expected R2 is the percentage of outcome variance explained by the full model. Use prior studies when available; rough Cohen equivalents are about 2% small, 13% medium, and 26% large.",
+    id: "R2 yang diharapkan adalah persentase varians luaran yang dijelaskan oleh model penuh. Gunakan studi sebelumnya bila tersedia; padanan kasar Cohen sekitar 2% kecil, 13% sedang, dan 26% besar.",
+    nl: "Verwachte R2 is het percentage uitkomstvariantie dat door het volledige model wordt verklaard. Gebruik eerdere studies waar mogelijk; grove Cohen-equivalenten zijn ongeveer 2% klein, 13% middelgroot en 26% groot.",
   },
   "linear-regression.predictors": {
     en: "Predictors are the tested covariates or degrees of freedom in the model. Count dummy variables, nonlinear terms, and planned interaction terms when relevant.",
@@ -1492,6 +1546,10 @@ const parameterGuidanceText: Record<string, Partial<Record<Language, string>>> =
 function parameterGuidance(calculatorId: string, variableKey: string, language: Language) {
   const guidance = parameterGuidanceText[`${calculatorId}.${variableKey}`] ?? parameterGuidanceText[`common.${variableKey}`];
   return guidance?.[language] ?? guidance?.en ?? "";
+}
+
+function approximatePooledSd(sd1: number, sd2: number) {
+  return Math.sqrt((sd1 ** 2 + sd2 ** 2) / 2);
 }
 
 const calculators: Calculator[] = [
@@ -1541,20 +1599,32 @@ const calculators: Calculator[] = [
     title: "Two Independent Means",
     purpose: "Compare two independent groups on a continuous outcome.",
     variables: [
-      { key: "delta", label: "Mean difference", min: 1, max: 50, step: 0.5, default: 8, help: "Smallest difference worth detecting.", slider: true },
-      { key: "sd", label: "Common SD", min: 1, max: 100, step: 1, default: 20, help: "Expected within-group standard deviation.", slider: false },
+      { key: "mean1", label: "Reference mean group 1", min: -500, max: 500, step: 0.5, default: 50, help: "Mean outcome in the first reference group.", slider: false },
+      { key: "mean2", label: "Reference mean group 2", min: -500, max: 500, step: 0.5, default: 58, help: "Mean outcome in the second reference group.", slider: false },
+      { key: "sd1", label: "SD group 1", min: 1, max: 100, step: 1, default: 20, help: "Standard deviation in the first reference group.", slider: false },
+      { key: "sd2", label: "SD group 2", min: 1, max: 100, step: 1, default: 20, help: "Standard deviation in the second reference group.", slider: false },
       { key: "ratio", label: "Allocation ratio", min: 0.5, max: 3, step: 0.1, default: 1, help: "Treatment participants per control participant.", slider: true },
       ...commonPower(),
     ],
-    formula: "n_control = (1 + 1/r)(Zα/2 + Zβ)²σ² / Δ²",
-    assumptions: ["Two-sided test with equal variance approximation.", "Normal outcome or sufficiently large samples."],
+    formula: "Δ = |mean2 - mean1|; pooled SD ≈ √[(SD1² + SD2²) / 2]; n_control = (1 + 1/r)(Zα/2 + Zβ)²SDpooled² / Δ²",
+    assumptions: ["Two-sided test with equal variance approximation.", "Pooled SD is estimated from the two reference-group SDs.", "Normal outcome or sufficiently large samples."],
     references: ["Julious SA. Sample Sizes for Clinical Trials.", "Chow SC, Shao J, Wang H, Lokhnygina Y. Sample Size Calculations in Clinical Research."],
     compute: (v) => {
-      const base = ((1 + 1 / v.ratio) * (zAlpha(v.alpha) + zPower(v.power)) ** 2 * v.sd ** 2) / v.delta ** 2;
+      const delta = Math.abs(v.mean2 - v.mean1);
+      const pooledSd = approximatePooledSd(v.sd1, v.sd2);
+      if (delta < 1e-9) {
+        return {
+          primary: Number.POSITIVE_INFINITY,
+          total: Number.POSITIVE_INFINITY,
+          adjustedTotal: Number.POSITIVE_INFINITY,
+          details: ["The two reference means are equal; enter a clinically meaningful difference to estimate sample size."],
+        };
+      }
+      const base = ((1 + 1 / v.ratio) * (zAlpha(v.alpha) + zPower(v.power)) ** 2 * pooledSd ** 2) / delta ** 2;
       const control = ceil(base);
       const treatment = ceil(control * v.ratio);
       const total = control + treatment;
-      return { primary: total, perGroup: control, total, adjustedTotal: dropoutInflation(total, v.dropout), details: [`Control n = ${control}; treatment n = ${treatment}`, `Standardized effect = ${(v.delta / v.sd).toFixed(2)}`] };
+      return { primary: total, perGroup: control, total, adjustedTotal: dropoutInflation(total, v.dropout), details: [`Control n = ${control}; treatment n = ${treatment}`, `Calculated mean difference = ${delta.toFixed(2)}`, `Calculated pooled SD = ${pooledSd.toFixed(2)}`, `Standardized effect = ${(delta / pooledSd).toFixed(2)}`] };
     },
   },
   {
@@ -1563,16 +1633,26 @@ const calculators: Calculator[] = [
     title: "Paired / Before-After Mean",
     purpose: "Detect a mean change in paired measurements.",
     variables: [
-      { key: "delta", label: "Mean change", min: 1, max: 50, step: 0.5, default: 5, help: "Smallest paired change worth detecting.", slider: true },
+      { key: "meanBefore", label: "Reference mean before", min: -500, max: 500, step: 0.5, default: 50, help: "Mean before intervention or exposure.", slider: false },
+      { key: "meanAfter", label: "Reference mean after", min: -500, max: 500, step: 0.5, default: 55, help: "Mean after intervention or exposure.", slider: false },
       { key: "sdDiff", label: "SD of differences", min: 1, max: 100, step: 1, default: 15, help: "Standard deviation of within-person differences.", slider: false },
       ...commonPower(),
     ],
-    formula: "n = ((Zα/2 + Zβ)σd / Δ)²",
+    formula: "Δ = |mean after - mean before|; n = ((Zα/2 + Zβ)SDdifference / Δ)²",
     assumptions: ["Continuous paired difference outcome.", "Two-sided paired t-test planning approximation."],
     references: ["Julious SA. Sample Sizes for Clinical Trials.", "Machin D et al. Sample Size Tables for Clinical Studies."],
     compute: (v) => {
-      const n = ceil(((zAlpha(v.alpha) + zPower(v.power)) * v.sdDiff / v.delta) ** 2);
-      return { primary: n, total: n, adjustedTotal: dropoutInflation(n, v.dropout), details: [`Standardized paired effect = ${(v.delta / v.sdDiff).toFixed(2)}`, "Each participant contributes both measurements."] };
+      const delta = Math.abs(v.meanAfter - v.meanBefore);
+      if (delta < 1e-9) {
+        return {
+          primary: Number.POSITIVE_INFINITY,
+          total: Number.POSITIVE_INFINITY,
+          adjustedTotal: Number.POSITIVE_INFINITY,
+          details: ["The before and after means are equal; enter a clinically meaningful change to estimate sample size."],
+        };
+      }
+      const n = ceil(((zAlpha(v.alpha) + zPower(v.power)) * v.sdDiff / delta) ** 2);
+      return { primary: n, total: n, adjustedTotal: dropoutInflation(n, v.dropout), details: [`Calculated mean change = ${delta.toFixed(2)}`, `Standardized paired effect = ${(delta / v.sdDiff).toFixed(2)}`, "Each participant contributes both measurements."] };
     },
   },
   {
@@ -1701,22 +1781,22 @@ const calculators: Calculator[] = [
     purpose: "Compare exposed and unexposed groups in a cohort study.",
     variables: [
       { key: "p0", label: "Unexposed risk", min: 1, max: 80, step: 1, default: 15, suffix: "%", help: "Outcome risk among unexposed participants.", slider: true },
-      { key: "rr", label: "Risk ratio", min: 0.2, max: 4, step: 0.1, default: 1.8, help: "Target exposed/unexposed risk ratio.", slider: true },
+      { key: "p1", label: "Exposed risk", min: 1, max: 95, step: 1, default: 27, suffix: "%", help: "Outcome risk among exposed participants.", slider: true },
       { key: "ratio", label: "Exposed:unexposed", min: 0.5, max: 3, step: 0.1, default: 1, help: "Exposed participants per unexposed participant.", slider: true },
       ...commonPower(),
     ],
-    formula: "Converts RR to two proportions, then uses independent-proportions planning.",
-    assumptions: ["Independent exposed and unexposed groups.", "Approximate two-sided test for risk difference implied by the target RR."],
+    formula: "RR = exposed risk / unexposed risk; then uses independent-proportions planning.",
+    assumptions: ["Independent exposed and unexposed groups.", "Approximate two-sided test for the risk difference implied by the two entered risks."],
     references: ["Fleiss JL et al. Statistical Methods for Rates and Proportions.", "Kelsey JL et al. Methods in Observational Epidemiology."],
     compute: (v) => {
       const unexposedRisk = pct(v.p0);
-      const exposedRisk = Math.min(0.98, unexposedRisk * v.rr);
+      const exposedRisk = pct(v.p1);
       if (Math.abs(exposedRisk - unexposedRisk) < 1e-9) {
         return {
           primary: Number.POSITIVE_INFINITY,
           total: Number.POSITIVE_INFINITY,
           adjustedTotal: Number.POSITIVE_INFINITY,
-          details: ["Risk ratio is 1.0, so no risk difference is available for sample size planning."],
+          details: ["Exposed and unexposed risks are equal; enter a clinically meaningful risk difference to estimate sample size."],
         };
       }
       const { control, treatment, total } = twoProportionSampleSize(unexposedRisk, exposedRisk, v.ratio, v.alpha, v.power);
@@ -1725,7 +1805,7 @@ const calculators: Calculator[] = [
         perGroup: control,
         total,
         adjustedTotal: dropoutInflation(total, v.dropout),
-        details: [`Unexposed n = ${control}; exposed n = ${treatment}`, `Implied exposed risk = ${(exposedRisk * 100).toFixed(1)}%`],
+        details: [`Unexposed n = ${control}; exposed n = ${treatment}`, `Calculated risk ratio = ${(exposedRisk / unexposedRisk).toFixed(2)}`, `Absolute risk difference = ${Math.abs(v.p1 - v.p0).toFixed(1)} percentage points`],
       };
     },
   },
@@ -1736,22 +1816,22 @@ const calculators: Calculator[] = [
     purpose: "Detect an odds ratio using expected control exposure prevalence.",
     variables: [
       { key: "p0", label: "Control exposure", min: 1, max: 90, step: 1, default: 25, suffix: "%", help: "Exposure prevalence among controls.", slider: true },
-      { key: "or", label: "Odds ratio", min: 0.2, max: 5, step: 0.1, default: 2, help: "Target odds ratio.", slider: true },
+      { key: "p1", label: "Case exposure", min: 1, max: 95, step: 1, default: 40, suffix: "%", help: "Exposure prevalence among cases.", slider: true },
       { key: "ratio", label: "Controls per case", min: 1, max: 4, step: 0.25, default: 1, help: "Number of controls for each case.", slider: true },
       ...commonPower(),
     ],
-    formula: "p_case = OR*p_control / (1-p_control + OR*p_control), then two-proportions planning.",
+    formula: "OR = [p_case/(1-p_case)] / [p_control/(1-p_control)]; then two-proportions planning.",
     assumptions: ["Unmatched case-control design.", "Exposure is binary and measured independently."],
     references: ["Schlesselman JJ. Case-Control Studies.", "Kelsey JL et al. Methods in Observational Epidemiology."],
     compute: (v) => {
       const controlExposure = pct(v.p0);
-      const caseExposure = (v.or * controlExposure) / (1 - controlExposure + v.or * controlExposure);
+      const caseExposure = pct(v.p1);
       if (Math.abs(caseExposure - controlExposure) < 1e-9) {
         return {
           primary: Number.POSITIVE_INFINITY,
           total: Number.POSITIVE_INFINITY,
           adjustedTotal: Number.POSITIVE_INFINITY,
-          details: ["Odds ratio is 1.0, so no exposure difference is available for sample size planning."],
+          details: ["Case and control exposure prevalences are equal; enter a clinically meaningful exposure difference to estimate sample size."],
         };
       }
       const { control: cases, treatment: controls, total } = twoProportionSampleSize(caseExposure, controlExposure, v.ratio, v.alpha, v.power);
@@ -1760,7 +1840,7 @@ const calculators: Calculator[] = [
         perGroup: cases,
         total,
         adjustedTotal: dropoutInflation(total, v.dropout),
-        details: [`Cases n = ${cases}; controls n = ${controls}`, `Implied case exposure = ${(caseExposure * 100).toFixed(1)}%`],
+        details: [`Cases n = ${cases}; controls n = ${controls}`, `Calculated odds ratio = ${((caseExposure / (1 - caseExposure)) / (controlExposure / (1 - controlExposure))).toFixed(2)}`, `Absolute exposure difference = ${Math.abs(v.p1 - v.p0).toFixed(1)} percentage points`],
       };
     },
   },
@@ -1771,19 +1851,21 @@ const calculators: Calculator[] = [
     purpose: "Compare a mean outcome against a non-inferiority margin.",
     variables: [
       { key: "margin", label: "NI margin", min: 1, max: 30, step: 0.5, default: 5, help: "Largest acceptable loss in original units.", slider: true },
-      { key: "sd", label: "Common SD", min: 1, max: 100, step: 1, default: 15, help: "Expected within-group standard deviation.", slider: false },
+      { key: "sd1", label: "Reference SD group 1", min: 1, max: 100, step: 1, default: 15, help: "Standard deviation in the first reference group.", slider: false },
+      { key: "sd2", label: "Reference SD group 2", min: 1, max: 100, step: 1, default: 15, help: "Standard deviation in the second reference group.", slider: false },
       { key: "ratio", label: "Allocation ratio", min: 0.5, max: 3, step: 0.1, default: 1, help: "Experimental participants per control participant.", slider: true },
       ...commonPower(2.5, 80, 10),
     ],
-    formula: "n_control = (1 + 1/r)(Zα + Zβ)²σ² / margin²",
-    assumptions: ["One-sided non-inferiority framework.", "True difference is planned as zero unless a stricter effect is specified externally."],
+    formula: "pooled SD ≈ √[(SD1² + SD2²) / 2]; n_control = (1 + 1/r)(Zα + Zβ)²SDpooled² / margin²",
+    assumptions: ["One-sided non-inferiority framework.", "Pooled SD is estimated from the two reference-group SDs.", "True difference is planned as zero unless a stricter effect is specified externally."],
     references: ["Chow SC et al. Sample Size Calculations in Clinical Research.", "ICH E9 Statistical Principles for Clinical Trials."],
     compute: (v) => {
-      const base = ((1 + 1 / v.ratio) * (zAlpha(v.alpha, 1) + zPower(v.power)) ** 2 * v.sd ** 2) / v.margin ** 2;
+      const pooledSd = approximatePooledSd(v.sd1, v.sd2);
+      const base = ((1 + 1 / v.ratio) * (zAlpha(v.alpha, 1) + zPower(v.power)) ** 2 * pooledSd ** 2) / v.margin ** 2;
       const control = ceil(base);
       const experimental = ceil(control * v.ratio);
       const total = control + experimental;
-      return { primary: total, perGroup: control, total, adjustedTotal: dropoutInflation(total, v.dropout), details: [`Control n = ${control}; experimental n = ${experimental}`, `Margin/SD = ${(v.margin / v.sd).toFixed(2)}`] };
+      return { primary: total, perGroup: control, total, adjustedTotal: dropoutInflation(total, v.dropout), details: [`Control n = ${control}; experimental n = ${experimental}`, `Calculated pooled SD = ${pooledSd.toFixed(2)}`, `Margin/pooled SD = ${(v.margin / pooledSd).toFixed(2)}`] };
     },
   },
   {
@@ -1793,12 +1875,13 @@ const calculators: Calculator[] = [
     purpose: "Plan a two one-sided tests equivalence study for a mean outcome.",
     variables: [
       { key: "margin", label: "Equivalence margin", min: 1, max: 30, step: 0.5, default: 5, help: "Symmetric acceptable difference.", slider: true },
-      { key: "sd", label: "Common SD", min: 1, max: 100, step: 1, default: 15, help: "Expected within-group standard deviation.", slider: false },
+      { key: "sd1", label: "Reference SD group 1", min: 1, max: 100, step: 1, default: 15, help: "Standard deviation in the first reference group.", slider: false },
+      { key: "sd2", label: "Reference SD group 2", min: 1, max: 100, step: 1, default: 15, help: "Standard deviation in the second reference group.", slider: false },
       { key: "ratio", label: "Allocation ratio", min: 0.5, max: 3, step: 0.1, default: 1, help: "Group B participants per group A participant.", slider: true },
       ...commonPower(5, 80, 10),
     ],
-    formula: "Approximate TOST: n_control = (1 + 1/r)(Zα + Zβ)²σ² / margin²",
-    assumptions: ["Two one-sided tests approximation.", "True mean difference planned at zero."],
+    formula: "Approximate TOST: pooled SD ≈ √[(SD1² + SD2²) / 2]; n_control = (1 + 1/r)(Zα + Zβ)²SDpooled² / margin²",
+    assumptions: ["Two one-sided tests approximation.", "Pooled SD is estimated from the two reference-group SDs.", "True mean difference planned at zero."],
     references: ["Julious SA. Sample Sizes for Clinical Trials.", "Chow SC et al. Sample Size Calculations in Clinical Research."],
     compute: (v) => calculators.find((c) => c.id === "noninferiority-means")!.compute(v),
   },
@@ -1850,18 +1933,20 @@ const calculators: Calculator[] = [
     id: "linear-regression",
     category: "Modeling",
     title: "Multiple Linear Regression",
-    purpose: "Plan for detecting model R² using Cohen's f² effect size.",
+    purpose: "Plan for detecting the expected model R².",
     variables: [
-      { key: "f2", label: "Effect size f²", min: 0.02, max: 0.35, step: 0.01, default: 0.15, help: "Small=.02, medium=.15, large=.35.", slider: true },
+      { key: "r2", label: "Expected R²", min: 1, max: 50, step: 1, default: 13, suffix: "%", help: "Expected variance explained by the model.", slider: true },
       { key: "predictors", label: "Predictors", min: 1, max: 25, step: 1, default: 5, help: "Number of tested predictors.", slider: true },
       ...commonPower(),
     ],
-    formula: "Approximate n = (Zα/2 + Zβ)² / f² + predictors + 1",
-    assumptions: ["Planning approximation for omnibus regression signal.", "Use simulation for complex predictor distributions."],
+    formula: "f² = R² / (1 - R²); approximate n = (Zα/2 + Zβ)² / f² + predictors + 1",
+    assumptions: ["Planning approximation for omnibus regression signal.", "The app converts expected R² to Cohen's f² internally.", "Use simulation for complex predictor distributions."],
     references: ["Cohen J. Statistical Power Analysis for the Behavioral Sciences.", "Green SB. How many subjects does it take to do a regression analysis?"],
     compute: (v) => {
-      const n = ceil((zAlpha(v.alpha) + zPower(v.power)) ** 2 / v.f2 + v.predictors + 1);
-      return { primary: n, total: n, adjustedTotal: dropoutInflation(n, v.dropout), details: [`Predictors included = ${v.predictors}`, `Cohen f² = ${v.f2.toFixed(2)}`] };
+      const r2 = Math.min(0.95, pct(v.r2));
+      const f2 = r2 / (1 - r2);
+      const n = ceil((zAlpha(v.alpha) + zPower(v.power)) ** 2 / f2 + v.predictors + 1);
+      return { primary: n, total: n, adjustedTotal: dropoutInflation(n, v.dropout), details: [`Predictors included = ${v.predictors}`, `Expected R² = ${v.r2}%`, `Calculated Cohen f² = ${f2.toFixed(2)}`] };
     },
   },
   {
@@ -2099,7 +2184,7 @@ function decisionResult(answers: DecisionAnswers): DecisionResult | undefined {
       ? {
           calculatorId: "linear-regression",
           title: "Use Multiple Linear Regression",
-          explanation: "The planned outcome is continuous, so the regression calculator uses predictors and Cohen's f2 effect size.",
+          explanation: "The planned outcome is continuous, so the regression calculator uses predictors and expected model R2, then converts R2 to Cohen's f2 internally.",
           assumptions: ["Continuous outcome.", "Approximate omnibus model planning."],
           warnings: [...warnings, "For clinical prediction model development, consider minimum sample size methods beyond simple rules."],
         }
@@ -2253,7 +2338,7 @@ function decisionResult(answers: DecisionAnswers): DecisionResult | undefined {
       calculatorId: "two-means",
       title: "Use Two Independent Means",
       explanation: "Two independent groups are being compared on a continuous outcome under a superiority objective.",
-      assumptions: ["Independent groups.", "Common SD can be estimated."],
+      assumptions: ["Independent groups.", "Group means and SDs can be estimated from a reference study."],
       warnings,
     };
   }
@@ -5215,7 +5300,7 @@ export function SampleSizeApp() {
         ) : null}
       </section>
 
-      <footer className="app-footer"><strong>{t("StudySize Studio version 1.28 © Ryalino, 2026.", language)}</strong></footer>
+      <footer className="app-footer"><strong>{t("StudySize Studio version 1.29 © Ryalino, 2026.", language)}</strong></footer>
 
       {copiedNotice && (
         <div className="copy-toast" role="status" aria-live="polite">
