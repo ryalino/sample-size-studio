@@ -1171,6 +1171,374 @@ Object.assign(dutchText, {
   "Document who generated, stored, and released the sequence.": "Documenteer wie de reeks heeft gegenereerd, opgeslagen en vrijgegeven.",
 });
 
+Object.assign(indonesianText, {
+  "Your one-stop solution for medical research": "Solusi terpadu untuk persiapan penelitian medis",
+  "Find my study size calculator": "Cari kalkulator besar sampel",
+  "Flow Charts": "Diagram Alur Penelitian",
+  "Conceptual Framework": "Kerangka Konseptual",
+  "Conceptual framework builder": "Penyusun kerangka konseptual",
+  "Translate study variables into a publication-ready conceptual framework figure with directional relationships.": "Susun variabel penelitian menjadi gambar kerangka konseptual siap publikasi dengan arah hubungan yang jelas.",
+  "Framework settings": "Pengaturan kerangka konseptual",
+  "Framework title": "Judul kerangka konseptual",
+  "Confounding variables": "Variabel perancu",
+  "Covariates / adjustment variables": "Kovariat / variabel penyesuaian",
+  "Enter one variable per line.": "Tulis satu variabel per baris.",
+  "Optional. These are drawn as variables affecting both exposure and outcome.": "Opsional. Variabel ini ditampilkan sebagai faktor yang memengaruhi pajanan dan luaran.",
+  "Optional. These sit on the pathway between exposure and outcome.": "Opsional. Variabel ini berada pada jalur kausal antara pajanan dan luaran.",
+  "Optional. These modify the strength or direction of the main relationship.": "Opsional. Variabel ini mengubah kekuatan atau arah hubungan utama.",
+  "Optional. These are shown as variables controlled for in analysis.": "Opsional. Variabel ini ditampilkan sebagai faktor yang dikontrol dalam analisis.",
+  "Conceptual frameworks are planning figures. Review the direction of each relationship against theory, temporality, and domain evidence before using the figure in a protocol or manuscript.": "Kerangka konseptual adalah gambar perencanaan penelitian. Periksa kembali arah setiap hubungan berdasarkan teori, urutan waktu, dan bukti di bidang terkait sebelum digunakan dalam protokol atau manuskrip.",
+  "Create publication-ready participant and review flow charts from structured counts, exclusion reasons, and reporting-guideline templates.": "Buat diagram alur peserta atau tinjauan literatur yang siap publikasi dari jumlah kasus, alasan eksklusi, dan templat pedoman pelaporan.",
+  "Template": "Templat",
+  "Box counts and exclusion reasons": "Jumlah pada setiap kotak dan alasan eksklusi",
+  "Figure guidance": "Panduan penyusunan gambar",
+  "Enter the exact n for each box. Use the reason field for exclusions, losses, non-eligibility, missing records, or analysis omissions. Review the final figure against the relevant reporting guideline before submission.": "Masukkan nilai n yang tepat untuk setiap kotak. Gunakan kolom alasan untuk eksklusi, loss to follow-up, tidak memenuhi kriteria, rekam medis/data yang tidak tersedia, atau tidak disertakan dalam analisis. Periksa kembali gambar akhir dengan pedoman pelaporan yang sesuai sebelum naskah dikirim.",
+  "Use anonymised aggregate counts only; do not enter identifiable participant information.": "Gunakan data agregat yang sudah dianonimkan saja; jangan memasukkan informasi yang dapat mengidentifikasi peserta.",
+  "Number of arms/groups": "Jumlah lengan/kelompok",
+  "Arm/group labels": "Label lengan/kelompok",
+  "Enter one label per line. The app will use the first labels according to the selected number of arms.": "Tulis satu label per baris. Aplikasi akan menggunakan label sesuai jumlah lengan yang dipilih.",
+  "Answer a few study-design questions and the app will suggest the closest calculator, explain why, and flag when statistical review is important.": "Jawab beberapa pertanyaan tentang desain penelitian; aplikasi akan menyarankan kalkulator yang paling sesuai, menjelaskan alasannya, dan memberi tanda bila diperlukan telaah statistik.",
+  "Assumptions to check": "Asumsi yang perlu ditinjau",
+  "Warning flags": "Catatan kehati-hatian",
+  "No major warning flags based on these answers.": "Tidak ada catatan kehati-hatian utama berdasarkan jawaban ini.",
+  "Subject randomiser": "Randomisasi subjek penelitian",
+  "Generate a documented allocation sequence for standard individual randomisation, then export the settings, sequence, and best-practice notes as a PDF.": "Buat daftar alokasi untuk randomisasi individu standar, lengkap dengan dokumentasi metode, urutan, dan catatan praktik baik dalam PDF.",
+  "Randomiser settings": "Pengaturan randomisasi",
+  "Total number of randomisation slots to generate.": "Jumlah alokasi yang akan dibuat.",
+  "Separate treatment arms with commas or line breaks.": "Pisahkan lengan perlakuan dengan koma atau baris baru.",
+  "Blocked randomisation helps preserve balance during recruitment.": "Randomisasi blok membantu menjaga keseimbangan jumlah peserta selama perekrutan.",
+  "Permuted block": "Blok permutasi",
+  "Simple balanced": "Acak seimbang sederhana",
+  "Record this in the randomisation file to reproduce the sequence.": "Catat nilai ini dalam berkas randomisasi agar urutan dapat direproduksi.",
+  "Generated allocation": "Hasil alokasi",
+  "Generated sequence": "Daftar alokasi",
+  "Best practice": "Praktik terbaik",
+  "How to conduct randomisation properly": "Cara melakukan randomisasi yang baik",
+  "Randomisation is not only the sequence. Good practice also requires allocation concealment, documented roles, and a clear audit trail from consent through assignment.": "Randomisasi bukan sekadar membuat urutan alokasi. Praktik yang baik juga memerlukan penyembunyian alokasi, pembagian peran yang terdokumentasi, dan jejak audit yang jelas sejak informed consent sampai penetapan kelompok.",
+  "Blinding and allocation concealment guide": "Panduan pembutaan dan penyembunyian alokasi",
+  "The allocation sequence should be protected before assignment, and blinding should be planned around who can influence enrolment, treatment, assessment, or analysis.": "Urutan alokasi harus terlindungi sebelum penetapan kelompok, dan pembutaan perlu direncanakan dengan mempertimbangkan siapa yang dapat memengaruhi perekrutan, intervensi, penilaian luaran, atau analisis.",
+  "Saved assumption sets": "Set asumsi yang tersimpan",
+  "Save scenarios from the calculator catalog to compare assumptions and adjusted sample sizes here.": "Simpan skenario dari katalog kalkulator untuk membandingkan asumsi dan besar sampel setelah penyesuaian di halaman ini.",
+  "Reporting support": "Bantuan pelaporan",
+  "Select the study or report type and use the checklist prompts to prepare a more complete manuscript, protocol, or project report.": "Pilih jenis studi atau laporan, lalu gunakan butir daftar periksa untuk menyiapkan manuskrip, protokol, atau laporan proyek yang lebih lengkap.",
+  "Reporting checklists improve transparency, reduce avoidable omissions, and help readers, reviewers, and editors assess whether the study methods and results are complete enough to interpret and reproduce. They should be used from protocol planning through manuscript submission, not only at the final writing stage.": "Daftar periksa pelaporan membantu meningkatkan transparansi, mencegah informasi penting terlewat, dan memudahkan pembaca, reviewer, serta editor menilai apakah metode dan hasil penelitian sudah cukup lengkap untuk ditafsirkan dan direplikasi. Idealnya daftar periksa digunakan sejak penyusunan protokol, bukan baru pada tahap akhir penulisan manuskrip.",
+  "The Method section should at least describe the following:": "Bagian Metode sekurang-kurangnya perlu menjelaskan hal berikut:",
+  "Copy wording for your protocol": "Salin narasi untuk protokol",
+  "Protocol wording": "Narasi protokol",
+  "Copy wording": "Salin narasi",
+  "Reference mean group 1": "Rerata kelompok referensi 1",
+  "Reference mean group 2": "Rerata kelompok referensi 2",
+  "Reference mean before": "Rerata sebelum perlakuan",
+  "Reference mean after": "Rerata sesudah perlakuan",
+  "Expected R²": "R² yang diharapkan",
+  "StudySize Studio version 1.30 © Ryalino, 2026.": "StudySize Studio versi 1.30 © Ryalino, 2026.",
+  "Randomised trial": "Uji klinis acak",
+  "CONSORT for trial reports; SPIRIT for trial protocols.": "CONSORT untuk laporan uji klinis; SPIRIT untuk protokol uji klinis.",
+  "Study protocol": "Protokol penelitian",
+  "SPIRIT for clinical trial protocols; PRISMA-P for review protocols.": "SPIRIT untuk protokol uji klinis; PRISMA-P untuk protokol tinjauan sistematis.",
+  "Quality improvement": "Peningkatan mutu layanan",
+  "SQUIRE for healthcare improvement studies.": "SQUIRE untuk studi peningkatan mutu layanan kesehatan.",
+  "Trial design and allocation ratio": "Desain uji klinis dan rasio alokasi",
+  "Eligibility criteria and settings": "Kriteria kelayakan dan lokasi/setting penelitian",
+  "Harms and protocol deviations": "Kejadian merugikan dan penyimpangan protokol",
+  "Study size rationale": "Dasar penentuan besar sampel",
+  "Limitations and generalisability": "Keterbatasan dan generalisasi hasil",
+  "Ethics and dissemination": "Etik dan diseminasi",
+  "Define the randomisation unit before generating the sequence: individual participant, cluster, eye, lesion, or another unit.": "Tentukan unit randomisasi sebelum membuat daftar alokasi, misalnya peserta, klaster, mata, lesi, atau unit lain.",
+  "Generate the allocation sequence before enrolment using a documented method, seed, date, study title, groups, and allocation ratio.": "Buat daftar alokasi sebelum perekrutan menggunakan metode yang terdokumentasi, termasuk seed, tanggal, judul penelitian, kelompok, dan rasio alokasi.",
+  "Keep the sequence concealed from recruiters and outcome assessors whenever possible. Use a central randomisation service, pharmacy, database, or sequentially numbered opaque sealed envelopes.": "Sembunyikan daftar alokasi dari perekrut dan penilai luaran bila memungkinkan. Gunakan randomisasi terpusat, farmasi penelitian, basis data aman, atau amplop tertutup buram bernomor urut.",
+  "Randomise only after eligibility is confirmed and informed consent is complete.": "Lakukan randomisasi hanya setelah kelayakan dipastikan dan informed consent selesai.",
+  "Use blocked randomisation when balance over time matters; keep block sizes confidential and consider variable block sizes for open-label trials.": "Gunakan randomisasi blok bila keseimbangan jumlah peserta selama perekrutan penting; rahasiakan ukuran blok dan pertimbangkan ukuran blok bervariasi pada studi label terbuka.",
+  "Preserve an audit trail: who generated the list, who held it, who assigned participants, timestamps, and any emergency unblinding.": "Simpan jejak audit yang memuat siapa yang membuat daftar, siapa yang menyimpan, siapa yang menetapkan peserta, waktu penetapan, dan setiap pembukaan blinding darurat.",
+  "Decide who must be blinded: participants, clinicians, outcome assessors, data analysts, or adjudication committee.": "Tentukan pihak yang harus dibutakan: peserta, klinisi, penilai luaran, analis data, atau komite adjudikasi.",
+  "Use allocation concealment until assignment: central randomisation, pharmacy-controlled allocation, secure database release, or sequentially numbered opaque sealed envelopes.": "Pertahankan penyembunyian alokasi sampai penetapan kelompok, misalnya melalui randomisasi terpusat, alokasi oleh farmasi, basis data aman, atau amplop tertutup buram bernomor urut.",
+  "For sealed envelopes, use tamper-evident opaque envelopes, identical size and weight, sequential numbering, signatures across seals, and a log of opening date/time.": "Bila menggunakan amplop, gunakan amplop buram anti-buka paksa dengan ukuran dan berat seragam, bernomor urut, ditandatangani melintasi segel, dan disertai log tanggal/jam pembukaan.",
+  "Document emergency unblinding criteria before recruitment starts and keep every unblinding event in the audit file.": "Tetapkan kriteria pembukaan blinding darurat sebelum perekrutan dimulai dan simpan setiap kejadian tersebut dalam berkas audit penelitian.",
+  "For open-label studies, blind outcome assessment and data analysis when possible.": "Pada studi label terbuka, butakan penilai luaran dan analis data bila memungkinkan.",
+  "Blinding inputs": "Isian pembutaan",
+  "Mask participants to allocation.": "Peserta tidak mengetahui alokasi.",
+  "Mask care providers or interventionists to allocation.": "Pemberi layanan atau pelaksana intervensi tidak mengetahui alokasi.",
+  "Mask outcome assessors to allocation.": "Penilai luaran tidak mengetahui alokasi.",
+  "Mask data analysts to allocation.": "Analis data tidak mengetahui alokasi.",
+  "Open-label": "Label terbuka",
+  "Single-blinded": "Buta tunggal",
+  "Double-blinded": "Buta ganda",
+  "Triple-blinded": "Buta tripel",
+  "Allocation concealment": "Penyembunyian alokasi",
+  "Allocation concealment method": "Metode penyembunyian alokasi",
+  "Sequence holder": "Penyimpan daftar alokasi",
+  "Study pharmacy": "Farmasi penelitian",
+  "Classify blinding from the parties masked to allocation and generate manuscript wording that can be reviewed against CONSORT expectations.": "Klasifikasikan pembutaan berdasarkan pihak yang tidak mengetahui alokasi, lalu buat narasi manuskrip yang dapat ditinjau kembali sesuai prinsip CONSORT.",
+  "CONSORT randomised trial flow diagram": "Diagram alur uji klinis acak CONSORT",
+  "Participant progress through enrolment, allocation, follow-up, and analysis.": "Alur peserta melalui skrining, alokasi, follow-up, dan analisis.",
+  "Assessed for eligibility": "Dinilai kelayakannya",
+  "Excluded": "Dieksklusi",
+  "Randomised": "Dirandomisasi",
+  "Allocated to group A": "Dialokasikan ke kelompok A",
+  "Allocated to group B": "Dialokasikan ke kelompok B",
+  "Lost to follow-up / discontinued group A": "Loss to follow-up / menghentikan intervensi kelompok A",
+  "Lost to follow-up / discontinued group B": "Loss to follow-up / menghentikan intervensi kelompok B",
+  "Analysed group A": "Dianalisis kelompok A",
+  "Analysed group B": "Dianalisis kelompok B",
+  "STROBE cohort study flow diagram": "Diagram alur studi kohort STROBE",
+  "Cohort assembly, eligibility, exposure groups, follow-up, and analysis.": "Pembentukan kohort, kelayakan, kelompok pajanan, follow-up, dan analisis.",
+  "Source population / records screened": "Populasi sumber / rekam yang disaring",
+  "Not eligible / excluded": "Tidak memenuhi kriteria / dieksklusi",
+  "Eligible cohort": "Kohort yang memenuhi kriteria",
+  "Exposed group": "Kelompok terpajan",
+  "Unexposed group": "Kelompok tidak terpajan",
+  "Lost or missing outcome in exposed": "Loss to follow-up atau luaran hilang pada kelompok terpajan",
+  "Lost or missing outcome in unexposed": "Loss to follow-up atau luaran hilang pada kelompok tidak terpajan",
+  "Analysed exposed": "Dianalisis kelompok terpajan",
+  "Analysed unexposed": "Dianalisis kelompok tidak terpajan",
+  "STROBE case-control study flow diagram": "Diagram alur studi kasus-kontrol STROBE",
+  "Selection of cases and controls, exclusions, and final analysed samples.": "Pemilihan kasus dan kontrol, eksklusi, dan sampel akhir yang dianalisis.",
+  "Potential cases identified": "Calon kasus teridentifikasi",
+  "Potential controls identified": "Calon kontrol teridentifikasi",
+  "Cases excluded": "Kasus dieksklusi",
+  "Controls excluded": "Kontrol dieksklusi",
+  "Eligible cases": "Kasus memenuhi kriteria",
+  "Eligible controls": "Kontrol memenuhi kriteria",
+  "Cases analysed": "Kasus dianalisis",
+  "Controls analysed": "Kontrol dianalisis",
+  "STROBE cross-sectional study flow diagram": "Diagram alur studi potong lintang STROBE",
+  "Sampling frame, eligibility, response, complete data, and final analysis.": "Kerangka sampel, kelayakan, respons, kelengkapan data, dan analisis akhir.",
+  "Invited / sampled": "Diundang / masuk sampel",
+  "Not eligible": "Tidak memenuhi kriteria",
+  "Eligible": "Memenuhi kriteria",
+  "Non-response": "Non-respons",
+  "Responded / assessed": "Merespons / dinilai",
+  "Incomplete or missing key data": "Data utama tidak lengkap atau hilang",
+  "Included in analysis": "Disertakan dalam analisis",
+  "PRISMA study selection flow diagram": "Diagram alur seleksi studi PRISMA",
+  "Records identified, screened, excluded, assessed, and included in review.": "Rekam diidentifikasi, disaring, dieksklusi, dinilai, dan disertakan dalam tinjauan.",
+  "Records identified": "Rekam teridentifikasi",
+  "Duplicate records removed": "Duplikasi rekam dihapus",
+  "Records screened": "Rekam disaring",
+  "Records excluded": "Rekam dieksklusi",
+  "Reports sought / assessed for eligibility": "Laporan dicari / dinilai kelayakannya",
+  "Reports excluded with reasons": "Laporan dieksklusi dengan alasan",
+  "Studies included in review": "Studi disertakan dalam tinjauan",
+  "STARD diagnostic accuracy flow diagram": "Diagram alur akurasi diagnostik STARD",
+  "Participant flow through eligibility, index test, reference standard, and analysis.": "Alur peserta melalui kelayakan, tes indeks, standar referensi, dan analisis.",
+  "Potentially eligible participants": "Peserta yang berpotensi memenuhi kriteria",
+  "Excluded before testing": "Dieksklusi sebelum pemeriksaan",
+  "Received index test": "Menjalani tes indeks",
+  "Did not receive index test": "Tidak menjalani tes indeks",
+  "Received reference standard": "Menjalani standar referensi",
+  "No reference standard / uninterpretable": "Tanpa standar referensi / tidak dapat diinterpretasi",
+  "Included in diagnostic accuracy analysis": "Disertakan dalam analisis akurasi diagnostik",
+  "Generic participant flow diagram": "Diagram alur peserta umum",
+  "Flexible participant flow for pilot, feasibility, audit, service evaluation, or local reporting.": "Alur peserta fleksibel untuk studi pilot, studi kelayakan, audit, evaluasi layanan, atau laporan lokal.",
+  "Identified / approached": "Diidentifikasi / dihubungi",
+  "Excluded / declined": "Dieksklusi / menolak",
+  "Enrolled / included": "Direkrut / disertakan",
+  "Completed follow-up or data collection": "Menyelesaikan follow-up atau pengumpulan data",
+  "Missing data / withdrawn": "Data hilang / mengundurkan diri",
+  "Analysed": "Dianalisis",
+  "Reasons for exclusion": "Alasan eksklusi",
+  "Reasons": "Alasan",
+  "Eligibility exclusions": "Alasan tidak memenuhi kriteria",
+  "Missing-data reasons": "Alasan data hilang",
+  "Sources": "Sumber",
+  "Screening reasons": "Alasan pada tahap skrining",
+  "Full-text exclusion reasons": "Alasan eksklusi teks lengkap",
+  "Lost or missing outcome in ": "Luaran hilang atau tidak tersedia pada ",
+  "Missing data / withdrawn in ": "Data hilang / mengundurkan diri pada ",
+  "Allocated to ": "Dialokasikan ke ",
+  "Lost to follow-up / discontinued ": "Loss to follow-up / menghentikan intervensi ",
+  "Analysed ": "Dianalisis ",
+});
+
+Object.assign(dutchText, {
+  "Your one-stop solution for medical research": "Eén platform voor medisch-wetenschappelijk onderzoek",
+  "Sample size calculators": "Steekproefgrootteberekeningen",
+  "Find my study size calculator": "Kies mijn steekproefgroottecalculator",
+  "Calculator catalog": "Calculatorcatalogus",
+  "Randomiser": "Randomisatie",
+  "Conceptual Framework": "Conceptueel kader",
+  "Conceptual framework builder": "Bouwer voor conceptueel kader",
+  "Translate study variables into a publication-ready conceptual framework figure with directional relationships.": "Zet onderzoeksvariabelen om in een publicatieklare figuur van het conceptuele kader, met duidelijke richting van de relaties.",
+  "Framework settings": "Instellingen voor het conceptuele kader",
+  "Framework title": "Titel van het conceptuele kader",
+  "Confounding variables": "Confounders",
+  "Covariates / adjustment variables": "Covariaten / correctievariabelen",
+  "Enter one variable per line.": "Vul één variabele per regel in.",
+  "Optional. These are drawn as variables affecting both exposure and outcome.": "Optioneel. Deze variabelen worden weergegeven als factoren die zowel de blootstelling als de uitkomst beïnvloeden.",
+  "Optional. These sit on the pathway between exposure and outcome.": "Optioneel. Deze variabelen liggen op het causale pad tussen blootstelling en uitkomst.",
+  "Optional. These modify the strength or direction of the main relationship.": "Optioneel. Deze variabelen wijzigen de sterkte of richting van het hoofdverband.",
+  "Optional. These are shown as variables controlled for in analysis.": "Optioneel. Deze variabelen worden weergegeven als factoren waarvoor in de analyse wordt gecorrigeerd.",
+  "Conceptual frameworks are planning figures. Review the direction of each relationship against theory, temporality, and domain evidence before using the figure in a protocol or manuscript.": "Conceptuele kaders zijn planningsfiguren. Controleer de richting van elk verband aan de hand van theorie, temporele volgorde en vakinhoudelijke literatuur voordat u de figuur in een protocol of manuscript gebruikt.",
+  "Flow chart builder": "Stroomdiagramgenerator",
+  "Create publication-ready participant and review flow charts from structured counts, exclusion reasons, and reporting-guideline templates.": "Maak publicatieklare deelnemers- en reviewstroomdiagrammen op basis van aantallen, exclusieredenen en sjablonen voor rapportagerichtlijnen.",
+  "Template": "Sjabloon",
+  "Box counts and exclusion reasons": "Aantallen per vak en exclusieredenen",
+  "Figure guidance": "Toelichting bij de figuur",
+  "Enter the exact n for each box. Use the reason field for exclusions, losses, non-eligibility, missing records, or analysis omissions. Review the final figure against the relevant reporting guideline before submission.": "Vul voor elk vak de exacte n in. Gebruik het redenveld voor exclusies, uitval, niet-voldoen aan inclusiecriteria, ontbrekende dossiers of niet-meegenomen analyses. Controleer de uiteindelijke figuur vóór indiening aan de hand van de relevante rapportagerichtlijn.",
+  "Use anonymised aggregate counts only; do not enter identifiable participant information.": "Gebruik uitsluitend geanonimiseerde geaggregeerde aantallen; voer geen herleidbare deelnemergegevens in.",
+  "Arm conversion is available for CONSORT, STROBE cohort, and generic participant flows. PRISMA, STARD, case-control, and cross-sectional diagrams keep their guideline-specific structure.": "Omzetten naar meerdere armen is beschikbaar voor CONSORT, STROBE-cohort en algemene deelnemersstromen. PRISMA-, STARD-, case-control- en cross-sectionele diagrammen behouden hun richtlijnspecifieke structuur.",
+  "Study Design": "Studiedesign",
+  "Answer a few study-design questions and the app will suggest the closest calculator, explain why, and flag when statistical review is important.": "Beantwoord enkele vragen over het studiedesign. De app stelt de best passende calculator voor, licht de keuze toe en geeft aan wanneer statistische beoordeling verstandig is.",
+  "Assumptions to check": "Te controleren uitgangspunten",
+  "Warning flags": "Aandachtspunten",
+  "No major warning flags based on these answers.": "Op basis van deze antwoorden zijn er geen grote aandachtspunten.",
+  "Subject randomiser": "Randomisatie van deelnemers",
+  "Generate a documented allocation sequence for standard individual randomisation, then export the settings, sequence, and best-practice notes as a PDF.": "Genereer een gedocumenteerde allocatiereeks voor standaard individuele randomisatie en exporteer de instellingen, reeks en aandachtspunten voor goede onderzoekspraktijk als PDF.",
+  "Log template PDF": "PDF-logsjabloon",
+  "Randomiser settings": "Randomisatie-instellingen",
+  "Total number of randomisation slots to generate.": "Totaal aantal te genereren allocaties.",
+  "Separate treatment arms with commas or line breaks.": "Scheid behandelarmen met komma's of regeleinden.",
+  "Blocked randomisation helps preserve balance during recruitment.": "Blokrandomisatie helpt de balans tussen groepen tijdens inclusie te behouden.",
+  "Permuted block": "Gepermuteerde blokken",
+  "Simple balanced": "Eenvoudig gebalanceerd",
+  "Generated allocation": "Gegenereerde toewijzing",
+  "Generated sequence": "Gegenereerde allocatiereeks",
+  "Best practice": "Goede onderzoekspraktijk",
+  "How to conduct randomisation properly": "Randomisatie zorgvuldig uitvoeren",
+  "Randomisation is not only the sequence. Good practice also requires allocation concealment, documented roles, and a clear audit trail from consent through assignment.": "Randomisatie is meer dan alleen een reeks. Goede onderzoekspraktijk vraagt ook om afscherming van de toewijzing, duidelijk gedocumenteerde rollen en een controleerbaar spoor van informed consent tot toewijzing.",
+  "Blinding and allocation concealment guide": "Gids voor blindering en afscherming van toewijzing",
+  "The allocation sequence should be protected before assignment, and blinding should be planned around who can influence enrolment, treatment, assessment, or analysis.": "De allocatiereeks moet vóór toewijzing worden afgeschermd. Plan blindering op basis van wie inclusie, behandeling, uitkomstbeoordeling of analyse kan beïnvloeden.",
+  "Saved assumption sets": "Opgeslagen uitgangspunten",
+  "Save scenarios from the calculator catalog to compare assumptions and adjusted sample sizes here.": "Sla scenario's op vanuit de calculatorcatalogus om hier uitgangspunten en gecorrigeerde steekproefgroottes te vergelijken.",
+  "Base n": "Ongecorrigeerde n",
+  "Adjusted n": "Gecorrigeerde n",
+  "Reporting support": "Ondersteuning bij rapportage",
+  "Select the study or report type and use the checklist prompts to prepare a more complete manuscript, protocol, or project report.": "Selecteer het type studie of rapport en gebruik de checklistvragen om een vollediger manuscript, protocol of projectrapport voor te bereiden.",
+  "Reporting checklists improve transparency, reduce avoidable omissions, and help readers, reviewers, and editors assess whether the study methods and results are complete enough to interpret and reproduce. They should be used from protocol planning through manuscript submission, not only at the final writing stage.": "Rapportagechecklists vergroten de transparantie, voorkomen dat essentiële informatie ontbreekt en helpen lezers, reviewers en redacteuren beoordelen of methoden en resultaten volledig genoeg zijn voor interpretatie en reproduceerbaarheid. Gebruik ze bij voorkeur al bij het protocol, niet pas bij de laatste versie van het manuscript.",
+  "Open guideline resource": "Richtlijn openen",
+  "The Method section should at least describe the following:": "De methodesectie moet ten minste het volgende beschrijven:",
+  "Protocol wording": "Protocoltekst",
+  "Open wording popup": "Protocoltekst openen",
+  "Reference mean group 1": "Gemiddelde referentiegroep 1",
+  "Reference mean group 2": "Gemiddelde referentiegroep 2",
+  "Mean outcome in the first reference group.": "Gemiddelde uitkomst in de eerste referentiegroep.",
+  "Mean outcome in the second reference group.": "Gemiddelde uitkomst in de tweede referentiegroep.",
+  "Reference mean before": "Gemiddelde vóór interventie",
+  "Reference mean after": "Gemiddelde na interventie",
+  "Mean before intervention or exposure.": "Gemiddelde vóór interventie of blootstelling.",
+  "Mean after intervention or exposure.": "Gemiddelde na interventie of blootstelling.",
+  "Expected R²": "Verwachte R²",
+  "Expected variance explained by the model.": "Verwacht percentage verklaarde variantie door het model.",
+  "StudySize Studio version 1.30 © Ryalino, 2026.": "StudySize Studio versie 1.30 © Ryalino, 2026.",
+  "Randomised trial": "Gerandomiseerde trial",
+  "CONSORT for trial reports; SPIRIT for trial protocols.": "CONSORT voor trialrapportages; SPIRIT voor trialprotocollen.",
+  "Study protocol": "Onderzoeksprotocol",
+  "Quality improvement": "Kwaliteitsverbetering in de zorg",
+  "SQUIRE for healthcare improvement studies.": "SQUIRE voor studies naar kwaliteitsverbetering in de zorg.",
+  "Trial design and allocation ratio": "Trialdesign en allocatieratio",
+  "Eligibility criteria and settings": "In- en exclusiecriteria en setting",
+  "Sequence generation and allocation concealment": "Genereren van de allocatiereeks en afscherming van toewijzing",
+  "Primary/secondary outcomes": "Primaire/secundaire uitkomstmaten",
+  "Harms and protocol deviations": "Schade, ongewenste voorvallen en protocolafwijkingen",
+  "Study size rationale": "Onderbouwing van de steekproefgrootte",
+  "Limitations and generalisability": "Beperkingen en generaliseerbaarheid",
+  "Define the randomisation unit before generating the sequence: individual participant, cluster, eye, lesion, or another unit.": "Definieer de randomisatie-eenheid voordat de allocatiereeks wordt gemaakt, bijvoorbeeld deelnemer, cluster, oog, laesie of een andere eenheid.",
+  "Generate the allocation sequence before enrolment using a documented method, seed, date, study title, groups, and allocation ratio.": "Maak de allocatiereeks vóór inclusie met een gedocumenteerde methode, seed, datum, studietitel, groepen en allocatieratio.",
+  "Keep the sequence concealed from recruiters and outcome assessors whenever possible. Use a central randomisation service, pharmacy, database, or sequentially numbered opaque sealed envelopes.": "Scherm de reeks waar mogelijk af voor personen die includeren en voor uitkomstbeoordelaars. Gebruik centrale randomisatie, een studieapotheek, een beveiligde database of opeenvolgend genummerde, ondoorzichtige en verzegelde enveloppen.",
+  "Randomise only after eligibility is confirmed and informed consent is complete.": "Randomiseer pas nadat geschiktheid is bevestigd en informed consent is verkregen.",
+  "Use blocked randomisation when balance over time matters; keep block sizes confidential and consider variable block sizes for open-label trials.": "Gebruik blokrandomisatie wanneer balans gedurende de inclusie belangrijk is; houd blokgroottes vertrouwelijk en overweeg variabele blokgroottes bij open-label trials.",
+  "Use stratified randomisation when key prognostic variables must be balanced, but avoid too many strata for the sample size.": "Gebruik gestratificeerde randomisatie wanneer belangrijke prognostische variabelen in balans moeten zijn, maar vermijd te veel strata in verhouding tot de steekproefgrootte.",
+  "Do not replace, skip, or reassign allocations after the sequence is generated. Record withdrawals and protocol deviations separately.": "Vervang, sla of wijzig toewijzingen niet nadat de reeks is gegenereerd. Registreer terugtrekkingen en protocolafwijkingen apart.",
+  "Preserve an audit trail: who generated the list, who held it, who assigned participants, timestamps, and any emergency unblinding.": "Bewaar een audittrail met wie de lijst heeft gemaakt, wie deze beheerde, wie deelnemers heeft toegewezen, tijdstippen en eventuele noodontblindering.",
+  "Report the sequence generation method, allocation concealment mechanism, and implementation roles in the protocol and manuscript.": "Rapporteer de methode voor het genereren van de reeks, het mechanisme voor afscherming van de toewijzing en de uitvoerende rollen in protocol en manuscript.",
+  "Decide who must be blinded: participants, clinicians, outcome assessors, data analysts, or adjudication committee.": "Bepaal wie geblindeerd moet zijn: deelnemers, behandelaars, uitkomstbeoordelaars, data-analisten of adjudicatiecommissie.",
+  "Separate roles so the person generating the sequence is not the person recruiting participants.": "Scheid rollen zodat degene die de reeks genereert niet ook deelnemers includeert.",
+  "Use allocation concealment until assignment: central randomisation, pharmacy-controlled allocation, secure database release, or sequentially numbered opaque sealed envelopes.": "Houd de toewijzing afgeschermd tot het moment van allocatie, bijvoorbeeld via centrale randomisatie, allocatie door de studieapotheek, vrijgave uit een beveiligde database of opeenvolgend genummerde, ondoorzichtige en verzegelde enveloppen.",
+  "Document emergency unblinding criteria before recruitment starts and keep every unblinding event in the audit file.": "Leg criteria voor noodontblindering vast vóór de start van de inclusie en documenteer elke ontblindering in het studiedossier.",
+  "For open-label studies, blind outcome assessment and data analysis when possible.": "Blindeer bij open-label studies waar mogelijk de uitkomstbeoordeling en data-analyse.",
+  "Blinding inputs": "Invoer voor blindering",
+  "Mask participants to allocation.": "Deelnemers zijn geblindeerd voor de toewijzing.",
+  "Mask care providers or interventionists to allocation.": "Behandelaars of interventionisten zijn geblindeerd voor de toewijzing.",
+  "Mask outcome assessors to allocation.": "Uitkomstbeoordelaars zijn geblindeerd voor de toewijzing.",
+  "Mask data analysts to allocation.": "Data-analisten zijn geblindeerd voor de toewijzing.",
+  "Allocation concealment": "Afscherming van toewijzing",
+  "Allocation concealment method": "Methode voor afscherming van toewijzing",
+  "Open list or no allocation concealment": "Open lijst of geen afscherming van toewijzing",
+  "Blinding classification": "Classificatie van blindering",
+  "Classify blinding from the parties masked to allocation and generate manuscript wording that can be reviewed against CONSORT expectations.": "Classificeer de blindering op basis van de partijen die de toewijzing niet kennen en genereer manuscripttekst die aan CONSORT kan worden getoetst.",
+  "No party is blinded to allocation.": "Geen enkele partij is geblindeerd voor de toewijzing.",
+  "All participants": "Alle deelnemers",
+  "CONSORT randomised trial flow diagram": "CONSORT-stroomdiagram voor gerandomiseerde trials",
+  "Participant progress through enrolment, allocation, follow-up, and analysis.": "Deelnemersstroom door inclusie, allocatie, follow-up en analyse.",
+  "Assessed for eligibility": "Beoordeeld op geschiktheid",
+  "Excluded": "Geëxcludeerd",
+  "Randomised": "Gerandomiseerd",
+  "Allocated to group A": "Toegewezen aan groep A",
+  "Allocated to group B": "Toegewezen aan groep B",
+  "Lost to follow-up / discontinued group A": "Uitval tijdens follow-up / gestopt in groep A",
+  "Lost to follow-up / discontinued group B": "Uitval tijdens follow-up / gestopt in groep B",
+  "Analysed group A": "Geanalyseerd in groep A",
+  "Analysed group B": "Geanalyseerd in groep B",
+  "STROBE cohort study flow diagram": "STROBE-stroomdiagram voor cohortstudies",
+  "Cohort assembly, eligibility, exposure groups, follow-up, and analysis.": "Samenstelling van het cohort, geschiktheid, blootstellingsgroepen, follow-up en analyse.",
+  "Source population / records screened": "Bronpopulatie / gescreende dossiers",
+  "Not eligible / excluded": "Niet geschikt / geëxcludeerd",
+  "Eligible cohort": "Geschikt cohort",
+  "Exposed group": "Blootgestelde groep",
+  "Unexposed group": "Niet-blootgestelde groep",
+  "Lost or missing outcome in exposed": "Uitval of ontbrekende uitkomst bij blootgestelden",
+  "Lost or missing outcome in unexposed": "Uitval of ontbrekende uitkomst bij niet-blootgestelden",
+  "Analysed exposed": "Blootgestelden geanalyseerd",
+  "Analysed unexposed": "Niet-blootgestelden geanalyseerd",
+  "STROBE case-control study flow diagram": "STROBE-stroomdiagram voor case-controlstudies",
+  "Selection of cases and controls, exclusions, and final analysed samples.": "Selectie van cases en controles, exclusies en uiteindelijke geanalyseerde steekproeven.",
+  "Potential cases identified": "Mogelijke cases geïdentificeerd",
+  "Potential controls identified": "Mogelijke controles geïdentificeerd",
+  "Cases excluded": "Cases geëxcludeerd",
+  "Controls excluded": "Controles geëxcludeerd",
+  "Eligible cases": "Geschikte cases",
+  "Eligible controls": "Geschikte controles",
+  "Cases analysed": "Cases geanalyseerd",
+  "Controls analysed": "Controles geanalyseerd",
+  "STROBE cross-sectional study flow diagram": "STROBE-stroomdiagram voor cross-sectionele studies",
+  "Sampling frame, eligibility, response, complete data, and final analysis.": "Steekproefkader, geschiktheid, respons, volledige gegevens en uiteindelijke analyse.",
+  "Invited / sampled": "Uitgenodigd / geselecteerd",
+  "Not eligible": "Niet geschikt",
+  "Eligible": "Geschikt",
+  "Non-response": "Non-respons",
+  "Responded / assessed": "Gereageerd / beoordeeld",
+  "Incomplete or missing key data": "Onvolledige of ontbrekende kerngegevens",
+  "Included in analysis": "Opgenomen in de analyse",
+  "PRISMA study selection flow diagram": "PRISMA-stroomdiagram voor studieselectie",
+  "Records identified, screened, excluded, assessed, and included in review.": "Records geïdentificeerd, gescreend, geëxcludeerd, beoordeeld en opgenomen in de review.",
+  "Records identified": "Records geïdentificeerd",
+  "Duplicate records removed": "Duplicaten verwijderd",
+  "Records screened": "Records gescreend",
+  "Records excluded": "Records geëxcludeerd",
+  "Reports sought / assessed for eligibility": "Rapporten gezocht / beoordeeld op geschiktheid",
+  "Reports excluded with reasons": "Rapporten geëxcludeerd met reden",
+  "Studies included in review": "Studies opgenomen in de review",
+  "STARD diagnostic accuracy flow diagram": "STARD-stroomdiagram voor diagnostische accuratesse",
+  "Participant flow through eligibility, index test, reference standard, and analysis.": "Deelnemersstroom door geschiktheid, indextest, referentiestandaard en analyse.",
+  "Potentially eligible participants": "Mogelijk geschikte deelnemers",
+  "Excluded before testing": "Geëxcludeerd vóór testen",
+  "Received index test": "Indextest ondergaan",
+  "Did not receive index test": "Geen indextest ondergaan",
+  "Received reference standard": "Referentiestandaard ondergaan",
+  "No reference standard / uninterpretable": "Geen referentiestandaard / niet interpreteerbaar",
+  "Included in diagnostic accuracy analysis": "Opgenomen in analyse van diagnostische accuratesse",
+  "Generic participant flow diagram": "Algemeen deelnemersstroomdiagram",
+  "Flexible participant flow for pilot, feasibility, audit, service evaluation, or local reporting.": "Flexibele deelnemersstroom voor pilotstudies, haalbaarheidsstudies, audits, zorgevaluaties of lokale rapportages.",
+  "Identified / approached": "Geïdentificeerd / benaderd",
+  "Excluded / declined": "Geëxcludeerd / geweigerd",
+  "Enrolled / included": "Geïncludeerd / opgenomen",
+  "Completed follow-up or data collection": "Follow-up of dataverzameling voltooid",
+  "Missing data / withdrawn": "Ontbrekende gegevens / teruggetrokken",
+  "Analysed": "Geanalyseerd",
+  "Reasons for exclusion": "Redenen voor exclusie",
+  "Reasons": "Redenen",
+  "Eligibility exclusions": "Exclusies wegens ongeschiktheid",
+  "Missing-data reasons": "Redenen voor ontbrekende gegevens",
+  "Sources": "Bronnen",
+  "Screening reasons": "Redenen bij screening",
+  "Full-text exclusion reasons": "Redenen voor exclusie na volledige tekst",
+  "Lost or missing outcome in ": "Uitval of ontbrekende uitkomst bij ",
+  "Missing data / withdrawn in ": "Ontbrekende gegevens / teruggetrokken in ",
+  "Allocated to ": "Toegewezen aan ",
+  "Lost to follow-up / discontinued ": "Uitval tijdens follow-up / gestopt in ",
+  "Analysed ": "Geanalyseerd in ",
+});
+
 const pct = (value: number) => value / 100;
 const ceil = (value: number) => Math.max(1, Math.ceil(value));
 const dropoutInflation = (n: number, dropout: number) => ceil(n / (1 - pct(dropout)));
@@ -1542,6 +1910,149 @@ const parameterGuidanceText: Record<string, Partial<Record<Language, string>>> =
     nl: "Het uitkomst-eventpercentage zet het benodigde aantal events om naar totale steekproefgrootte. Gebruik de verwachte eventprevalentie in de beoogde studiepopulatie.",
   },
 };
+
+Object.assign(parameterGuidanceText, {
+  "common.alpha": {
+    ...parameterGuidanceText["common.alpha"],
+    id: "Alfa adalah peluang kesalahan tipe I yang direncanakan, umumnya untuk uji dua sisi. Nilai 5% lazim pada studi superioritas; studi non-inferioritas sering menggunakan alfa satu sisi 2,5%.",
+    nl: "Alfa is de vooraf gekozen kans op een type-I-fout, meestal tweezijdig. 5% is gebruikelijk bij superioriteitsstudies; non-inferioriteitsstudies gebruiken vaak een eenzijdige alfa van 2,5%.",
+  },
+  "common.power": {
+    ...parameterGuidanceText["common.power"],
+    id: "Power adalah peluang mendeteksi efek yang direncanakan bila efek tersebut memang ada. Nilai 80% lazim digunakan; 90% sering dipilih untuk studi konfirmatori atau studi dengan konsekuensi klinis besar.",
+    nl: "Power is de kans om het geplande effect aan te tonen als dat effect werkelijk bestaat. 80% is gebruikelijk; 90% wordt vaak gekozen voor confirmatoire studies of studies met grotere klinische consequenties.",
+  },
+  "common.dropout": {
+    ...parameterGuidanceText["common.dropout"],
+    id: "Nilai ini menambah besar sampel untuk mengantisipasi loss to follow-up, non-respons, data hilang, atau data yang tidak dapat dievaluasi. Gunakan angka dari studi pilot atau penelitian terdahulu; 10-20% sering dipakai bila belum ada kepastian.",
+    nl: "Deze waarde verhoogt de berekende steekproefgrootte om rekening te houden met uitval, non-respons, ontbrekende gegevens of niet-beoordeelbare metingen. Gebruik cijfers uit een pilot of eerdere studie; bij onzekerheid is 10-20% vaak redelijk.",
+  },
+  "common.confidence": {
+    ...parameterGuidanceText["common.confidence"],
+    id: "Tingkat kepercayaan menentukan cakupan jangka panjang dari estimasi interval. Nilai 95% merupakan standar umum dalam publikasi ilmiah; 90% atau 99% sebaiknya dijelaskan berdasarkan konteks penelitian.",
+    nl: "Het betrouwbaarheidsniveau bepaalt de langetermijndekking van de intervalschatting. 95% is de gebruikelijke wetenschappelijke standaard; 90% of 99% moet vanuit de onderzoekscontext worden onderbouwd.",
+  },
+  "common.ratio": {
+    ...parameterGuidanceText["common.ratio"],
+    id: "Rasio alokasi membandingkan jumlah peserta antarkelompok. Rasio 1:1 biasanya paling efisien secara statistik; rasio tidak seimbang dapat dipilih karena alasan kelayakan, biaya, keamanan, atau etik.",
+    nl: "De allocatieratio beschrijft de verhouding tussen groepsgroottes. Een 1:1-ratio is meestal statistisch het meest efficiënt; ongelijke ratio's kunnen nodig zijn vanwege haalbaarheid, kosten, veiligheid of ethische overwegingen.",
+  },
+  "prevalence.margin": {
+    ...parameterGuidanceText["prevalence.margin"],
+    id: "Margin of error adalah setengah lebar interval kepercayaan yang diinginkan di sekitar proporsi. Margin 5 poin persentase sering digunakan; margin yang lebih sempit membutuhkan sampel jauh lebih besar.",
+    nl: "De foutmarge is de gewenste halve breedte van het betrouwbaarheidsinterval rond de proportie. 5 procentpunten is vaak gebruikelijk; smallere marges vragen duidelijk grotere steekproeven.",
+  },
+  "single-mean.sd": {
+    ...parameterGuidanceText["single-mean.sd"],
+    id: "Simpangan baku menggambarkan variasi luaran kontinu. Tidak ada nilai standar universal; gunakan studi pilot, registri, atau publikasi dengan populasi dan skala ukur yang sebanding.",
+    nl: "De standaarddeviatie beschrijft de spreiding van de continue uitkomst. Er is geen universele standaardwaarde; gebruik een pilotstudie, register of publicatie met een vergelijkbare populatie en meetschaal.",
+  },
+  "single-mean.margin": {
+    ...parameterGuidanceText["single-mean.margin"],
+    id: "Ini adalah besar kesalahan yang masih dapat diterima di sekitar estimasi rerata, dalam satuan pengukuran asli. Pilih nilai yang masih bermakna secara klinis atau ilmiah.",
+    nl: "Dit is de aanvaardbare fout rond het geschatte gemiddelde, uitgedrukt in de oorspronkelijke meeteenheid. Kies een waarde die klinisch of wetenschappelijk nog relevant is.",
+  },
+  "two-means.mean1": {
+    ...parameterGuidanceText["two-means.mean1"],
+    id: "Masukkan rerata salah satu kelompok dari studi referensi, studi pilot, atau dataset yang kredibel. Tidak ada nilai standar; gunakan skala luaran yang sama dengan rencana penelitian.",
+    nl: "Vul het gemiddelde van één groep in uit een referentiestudie, pilotstudie of betrouwbare dataset. Er is geen standaardwaarde; gebruik dezelfde uitkomstschaal als in uw geplande studie.",
+  },
+  "two-means.mean2": {
+    ...parameterGuidanceText["two-means.mean2"],
+    id: "Masukkan rerata kelompok pembanding. Aplikasi akan menghitung selisih rerata absolut secara otomatis, sehingga pengguna tidak perlu menghitungnya sendiri.",
+    nl: "Vul het gemiddelde van de vergelijkingsgroep in. De app berekent automatisch het absolute gemiddelde verschil, zodat gebruikers dit niet zelf hoeven uit te rekenen.",
+  },
+  "two-means.sd1": {
+    ...parameterGuidanceText["two-means.sd1"],
+    id: "Masukkan SD kelompok 1 dari sumber referensi. Aplikasi menggunakan SD kelompok 1 dan kelompok 2 untuk menghitung perkiraan SD gabungan; tidak ada SD standar universal.",
+    nl: "Vul de SD van groep 1 uit de referentiebron in. De app gebruikt de SD's van groep 1 en 2 om de gepoolde SD te schatten; er is geen universele standaard-SD.",
+  },
+  "two-means.sd2": {
+    ...parameterGuidanceText["two-means.sd2"],
+    id: "Masukkan SD kelompok 2. Bila hanya satu SD yang tersedia, masukkan nilai yang sama pada kedua kolom, atau gunakan SD yang lebih besar sebagai skenario sensitivitas konservatif.",
+    nl: "Vul de SD van groep 2 in. Als slechts één SD beschikbaar is, vul dan dezelfde waarde in beide velden in, of gebruik een hogere SD als conservatief gevoeligheidsscenario.",
+  },
+  "paired-mean.meanBefore": {
+    ...parameterGuidanceText["paired-mean.meanBefore"],
+    id: "Masukkan rerata awal atau sebelum intervensi dari data berpasangan. Tidak ada nilai standar; pilih populasi dan skala pengukuran yang paling mendekati penelitian Anda.",
+    nl: "Vul het gemiddelde bij baseline of vóór de interventie in uit gepaarde gegevens. Er is geen standaardwaarde; kies een populatie en meetschaal die zo goed mogelijk aansluiten bij uw studie.",
+  },
+  "paired-mean.meanAfter": {
+    ...parameterGuidanceText["paired-mean.meanAfter"],
+    id: "Masukkan rerata setelah intervensi atau saat follow-up dari data berpasangan. Aplikasi akan menghitung perubahan rerata secara otomatis.",
+    nl: "Vul het gemiddelde na de interventie of tijdens follow-up in uit gepaarde gegevens. De app berekent de gemiddelde verandering automatisch.",
+  },
+  "paired-mean.sdDiff": {
+    ...parameterGuidanceText["paired-mean.sdDiff"],
+    id: "Ini adalah SD dari selisih nilai berpasangan, bukan SD awal. Nilainya sering lebih kecil daripada SD luaran mentah; gunakan data pilot berpasangan bila tersedia.",
+    nl: "Dit is de SD van de gepaarde verschillen, niet de baseline-SD. Deze is vaak kleiner dan de ruwe SD van de uitkomst; gebruik waar mogelijk gepaarde pilotgegevens.",
+  },
+  "two-proportions.p1": {
+    ...parameterGuidanceText["two-proportions.p1"],
+    id: "Proporsi kontrol adalah angka kejadian, respons, atau risiko yang diperkirakan pada kelompok pembanding. Gunakan estimasi lokal atau publikasi terbaru karena nilai ini sangat memengaruhi besar sampel.",
+    nl: "De controleproportie is het verwachte gebeurtenis-, respons- of risicopercentage in de vergelijkingsgroep. Gebruik bij voorkeur een lokale of recente schatting, omdat deze waarde de steekproefgrootte sterk beïnvloedt.",
+  },
+  "two-proportions.p2": {
+    ...parameterGuidanceText["two-proportions.p2"],
+    id: "Proporsi perlakuan adalah angka kejadian atau respons yang diharapkan pada kelompok intervensi. Selisih absolut yang bermakna secara klinis dari kelompok kontrol sebaiknya menjadi dasar pemilihan nilai.",
+    nl: "De behandelproportie is het verwachte percentage in de interventiegroep. Laat vooral het klinisch relevante absolute verschil met de controlegroep de keuze bepalen.",
+  },
+  "cohort-rr.p0": {
+    ...parameterGuidanceText["cohort-rr.p0"],
+    id: "Risiko pada kelompok tidak terpajan adalah risiko luaran yang diperkirakan pada kelompok referensi. Sebaiknya nilai ini berasal dari kohort serupa, surveilans, atau data lokal.",
+    nl: "Het risico bij niet-blootgestelden is het verwachte uitkomstrisico in de referentiegroep. Baseer dit bij voorkeur op vergelijkbare cohorten, surveillancegegevens of lokale data.",
+  },
+  "cohort-rr.p1": {
+    ...parameterGuidanceText["cohort-rr.p1"],
+    id: "Risiko pada kelompok terpajan adalah risiko luaran yang diperkirakan pada peserta terpajan. Aplikasi akan menghitung rasio risiko dan selisih risiko absolut dari dua risiko yang dimasukkan.",
+    nl: "Het risico bij blootgestelden is het verwachte uitkomstrisico bij blootgestelde deelnemers. De app berekent hieruit de risicoratio en het absolute risicoverschil.",
+  },
+  "case-control.p0": {
+    ...parameterGuidanceText["case-control.p0"],
+    id: "Pajanan pada kontrol adalah prevalensi pajanan yang diperkirakan pada kelompok kontrol. Nilai ini menjadi dasar untuk memperkirakan perbedaan pajanan antara kasus dan kontrol.",
+    nl: "Controleblootstelling is de verwachte blootstellingsprevalentie bij controles. Deze waarde vormt de basis voor het verschil in blootstelling tussen cases en controles.",
+  },
+  "case-control.p1": {
+    ...parameterGuidanceText["case-control.p1"],
+    id: "Pajanan pada kasus adalah prevalensi pajanan yang diperkirakan pada kelompok kasus. Gunakan studi kasus-kontrol terdahulu atau data pilot; aplikasi akan menghitung odds ratio.",
+    nl: "Casusblootstelling is de verwachte blootstellingsprevalentie bij cases. Gebruik een eerdere case-controlstudie of pilotgegevens; de app berekent de oddsratio.",
+  },
+  "noninferiority-means.margin": {
+    ...parameterGuidanceText["noninferiority-means.margin"],
+    id: "Margin non-inferioritas adalah penurunan efek terbesar yang masih dapat diterima dibanding kontrol. Nilai ini harus ditetapkan dan dibenarkan secara klinis sebelum perhitungan; tidak ada nilai standar umum.",
+    nl: "De non-inferioriteitsmarge is het grootste verlies ten opzichte van controle dat nog acceptabel wordt geacht. Deze marge moet vóór de berekening klinisch worden onderbouwd; er is geen algemene standaardwaarde.",
+  },
+  "equivalence-means.margin": {
+    ...parameterGuidanceText["equivalence-means.margin"],
+    id: "Margin ekivalensi adalah batas perbedaan maksimum yang masih dianggap setara secara klinis atau praktis pada kedua arah. Nilai ini harus ditetapkan sebelumnya dan dijustifikasi.",
+    nl: "De equivalentiemarge is het maximale verschil dat in beide richtingen nog als klinisch of praktisch gelijkwaardig wordt beschouwd. Deze moet vooraf worden vastgelegd en onderbouwd.",
+  },
+  "cluster-crt.p1": {
+    ...parameterGuidanceText["cluster-crt.p1"],
+    id: "Proporsi kontrol adalah angka kejadian atau respons yang diperkirakan pada klaster kontrol. Gunakan data dari setting klaster yang serupa bila tersedia.",
+    nl: "De controleproportie is het verwachte gebeurtenis- of responspercentage in controleclusters. Gebruik waar mogelijk gegevens uit een vergelijkbare clustercontext.",
+  },
+  "cluster-crt.clusterSize": {
+    ...parameterGuidanceText["cluster-crt.clusterSize"],
+    id: "Ukuran klaster adalah rata-rata jumlah peserta dalam setiap klaster. Ukuran klaster yang sangat tidak seimbang menurunkan efisiensi; lakukan analisis sensitivitas bila variasinya besar.",
+    nl: "Clustergrootte is het gemiddelde aantal deelnemers per cluster. Sterk ongelijke clusters verlagen de efficiëntie; voer gevoeligheidsanalyses uit wanneer de variatie groot is.",
+  },
+  "linear-regression.r2": {
+    ...parameterGuidanceText["linear-regression.r2"],
+    id: "R2 yang diharapkan adalah persentase variasi luaran yang dijelaskan oleh model penuh. Gunakan studi terdahulu bila tersedia; padanan kasar Cohen adalah sekitar 2% kecil, 13% sedang, dan 26% besar.",
+    nl: "De verwachte R2 is het percentage uitkomstvariatie dat door het volledige model wordt verklaard. Gebruik eerdere studies waar mogelijk; grove Cohen-equivalenten zijn ongeveer 2% klein, 13% middelgroot en 26% groot.",
+  },
+  "logistic-regression.predictors": {
+    ...parameterGuidanceText["logistic-regression.predictors"],
+    id: "Prediktor berarti kandidat prediktor atau derajat kebebasan model. Pada model prediksi, hitung semua parameter yang direncanakan, termasuk kategori, bentuk nonlinier, dan interaksi.",
+    nl: "Predictoren zijn kandidaat-predictoren of vrijheidsgraden in het model. Tel bij predictiemodellen alle geplande parameters mee, inclusief categorieën, niet-lineaire termen en interacties.",
+  },
+  "logistic-regression.eventsPerPredictor": {
+    ...parameterGuidanceText["logistic-regression.eventsPerPredictor"],
+    id: "Events per predictor adalah aturan praktis untuk stabilitas model. Nilai 10 sering digunakan secara tradisional; 15-20 lebih konservatif, dan metode formal Riley/van Smeden lebih dianjurkan untuk model prediksi final.",
+    nl: "Events per predictor is een vuistregel voor modelstabiliteit. 10 is traditioneel gebruikt; 15-20 is conservatiever, en formele Riley/van Smeden-methoden hebben de voorkeur voor definitieve predictiemodellen.",
+  },
+});
 
 function parameterGuidance(calculatorId: string, variableKey: string, language: Language) {
   const guidance = parameterGuidanceText[`${calculatorId}.${variableKey}`] ?? parameterGuidanceText[`common.${variableKey}`];
@@ -2390,20 +2901,66 @@ function shuffle<T>(items: T[], random: () => number) {
   return next;
 }
 
-function parseGroups(rawGroups: string) {
+function parseGroups(rawGroups: string, language: Language = "en") {
   const groups = rawGroups
     .split(/[\n,]+/)
     .map((group) => group.trim())
     .filter(Boolean);
-  return groups.length >= 2 ? groups : ["Group A", "Group B"];
+  if (groups.length >= 2) return groups;
+  if (language === "id") return ["Kelompok A", "Kelompok B"];
+  if (language === "nl") return ["Groep A", "Groep B"];
+  return ["Group A", "Group B"];
 }
 
-function parseStrata(rawStrata: string) {
+function parseStrata(rawStrata: string, language: Language = "en") {
   const strata = rawStrata
     .split(/[\n,]+/)
     .map((stratum) => stratum.trim())
     .filter(Boolean);
-  return strata.length ? strata : ["All participants"];
+  return strata.length ? strata : [defaultRandomStrata(language)];
+}
+
+function defaultRandomGroups(language: Language) {
+  if (language === "id") return "Intervensi, Kontrol";
+  if (language === "nl") return "Interventie, Controle";
+  return "Intervention, Control";
+}
+
+function defaultRandomStrata(language: Language) {
+  if (language === "id") return "Semua peserta";
+  if (language === "nl") return "Alle deelnemers";
+  return "All participants";
+}
+
+function defaultArmLabels(language: Language) {
+  if (language === "id") return "Kelompok A\nKelompok B\nKelompok C\nKelompok D";
+  if (language === "nl") return "Groep A\nGroep B\nGroep C\nGroep D";
+  return "Group A\nGroup B\nGroup C\nGroup D";
+}
+
+function defaultFrameworkText(language: Language) {
+  if (language === "id") {
+    return {
+      title: "Kerangka konseptual",
+      independent: "Pajanan / intervensi",
+      dependent: "Luaran utama",
+      confounders: "Usia\nJenis kelamin\nKomorbiditas",
+    };
+  }
+  if (language === "nl") {
+    return {
+      title: "Conceptueel kader",
+      independent: "Blootstelling / interventie",
+      dependent: "Primaire uitkomst",
+      confounders: "Leeftijd\nGeslacht\nComorbiditeit",
+    };
+  }
+  return {
+    title: "Conceptual framework",
+    independent: "Exposure / intervention",
+    dependent: "Primary outcome",
+    confounders: "Age\nSex\nComorbidity",
+  };
 }
 
 function makeBalancedPool(groups: string[], count: number) {
@@ -2678,6 +3235,31 @@ function flowTemplateByKey(key: FlowTemplateKey) {
   return flowTemplates.find((template) => template.key === key) ?? flowTemplates[0];
 }
 
+function translateFlowLabel(label: string, language: Language) {
+  const dynamicPrefixes = [
+    "Lost or missing outcome in ",
+    "Missing data / withdrawn in ",
+    "Allocated to ",
+    "Lost to follow-up / discontinued ",
+    "Analysed ",
+  ];
+  const prefix = dynamicPrefixes.find((item) => label.startsWith(item));
+  if (!prefix) return t(label, language);
+  return `${t(prefix, language)}${label.slice(prefix.length)}`;
+}
+
+function localiseFlowTemplate(template: FlowTemplate, language: Language): FlowTemplate {
+  return {
+    ...template,
+    title: t(template.title, language),
+    description: t(template.description, language),
+    nodes: template.nodes.map((node) => ({ ...node, label: translateFlowLabel(node.label, language) })),
+    defaultNotes: Object.fromEntries(
+      Object.entries(template.defaultNotes).map(([key, value]) => [key, t(value, language)]),
+    ),
+  };
+}
+
 function parseFlowCount(value?: string) {
   if (!value?.trim()) return undefined;
   const normalised = value.replace(/,/g, "").trim();
@@ -2733,12 +3315,17 @@ function supportsFlowArms(key: FlowTemplateKey) {
   return key === "consort" || key === "strobe-cohort" || key === "generic";
 }
 
-function parseFlowArmLabels(rawLabels: string, armCount: number) {
+function parseFlowArmLabels(rawLabels: string, armCount: number, language: Language = "en") {
   const labels = rawLabels
     .split(/\n+/)
     .map((label) => label.trim())
     .filter(Boolean);
-  return Array.from({ length: armCount }, (_, index) => labels[index] ?? `Arm ${index + 1}`);
+  return Array.from({ length: armCount }, (_, index) => {
+    if (labels[index]) return labels[index];
+    if (language === "id") return `Lengan ${index + 1}`;
+    if (language === "nl") return `Arm ${index + 1}`;
+    return `Arm ${index + 1}`;
+  });
 }
 
 function flowArmXPositions(armCount: number) {
@@ -3208,22 +3795,23 @@ function frameworkBoxes(
   mediatorVariables: string[],
   moderatorVariables: string[],
   covariateVariables: string[],
+  language: Language,
 ) {
   const boxes: FrameworkBox[] = [
-    { id: "independent", title: "Independent variables", variables: independentVariables, x: 70, y: 235, width: 250, tone: "primary" },
-    { id: "dependent", title: "Dependent variables", variables: dependentVariables, x: 690, y: 235, width: 250, tone: "secondary" },
+    { id: "independent", title: t("Independent variables", language), variables: independentVariables, x: 70, y: 235, width: 250, tone: "primary" },
+    { id: "dependent", title: t("Dependent variables", language), variables: dependentVariables, x: 690, y: 235, width: 250, tone: "secondary" },
   ];
   if (mediatorVariables.length) {
-    boxes.push({ id: "mediators", title: "Mediators", variables: mediatorVariables, x: 380, y: 235, width: 250, tone: "neutral" });
+    boxes.push({ id: "mediators", title: t("Mediators", language), variables: mediatorVariables, x: 380, y: 235, width: 250, tone: "neutral" });
   }
   if (confoundingVariables.length) {
-    boxes.push({ id: "confounders", title: "Confounding variables", variables: confoundingVariables, x: 380, y: 70, width: 250, tone: "warning" });
+    boxes.push({ id: "confounders", title: t("Confounding variables", language), variables: confoundingVariables, x: 380, y: 70, width: 250, tone: "warning" });
   }
   if (moderatorVariables.length) {
-    boxes.push({ id: "moderators", title: "Moderators / effect modifiers", variables: moderatorVariables, x: 380, y: 405, width: 250, tone: "neutral" });
+    boxes.push({ id: "moderators", title: t("Moderators / effect modifiers", language), variables: moderatorVariables, x: 380, y: 405, width: 250, tone: "neutral" });
   }
   if (covariateVariables.length) {
-    boxes.push({ id: "covariates", title: "Covariates / adjustment variables", variables: covariateVariables, x: 70, y: 405, width: 250, tone: "neutral" });
+    boxes.push({ id: "covariates", title: t("Covariates / adjustment variables", language), variables: covariateVariables, x: 70, y: 405, width: 250, tone: "neutral" });
   }
   return boxes;
 }
@@ -3240,6 +3828,7 @@ function FrameworkFigure({
   mediatorVariables,
   moderatorVariables,
   title,
+  language,
 }: {
   confoundingVariables: string[];
   covariateVariables: string[];
@@ -3248,8 +3837,9 @@ function FrameworkFigure({
   mediatorVariables: string[];
   moderatorVariables: string[];
   title: string;
+  language: Language;
 }) {
-  const boxes = frameworkBoxes(independentVariables, dependentVariables, confoundingVariables, mediatorVariables, moderatorVariables, covariateVariables);
+  const boxes = frameworkBoxes(independentVariables, dependentVariables, confoundingVariables, mediatorVariables, moderatorVariables, covariateVariables, language);
   const boxesById = Object.fromEntries(boxes.map((box) => [box.id, box]));
   const height = frameworkCanvasHeight(boxes);
   const connectors = [
@@ -3318,8 +3908,9 @@ function buildFrameworkSvg(
   mediatorVariables: string[],
   moderatorVariables: string[],
   covariateVariables: string[],
+  language: Language,
 ) {
-  const boxes = frameworkBoxes(independentVariables, dependentVariables, confoundingVariables, mediatorVariables, moderatorVariables, covariateVariables);
+  const boxes = frameworkBoxes(independentVariables, dependentVariables, confoundingVariables, mediatorVariables, moderatorVariables, covariateVariables, language);
   const boxesById = Object.fromEntries(boxes.map((box) => [box.id, box]));
   const height = frameworkCanvasHeight(boxes);
   const connectors = [
@@ -3669,21 +4260,21 @@ export function SampleSizeApp() {
   const [activeId, setActiveId] = useState(calculators[0].id);
   const [decisionAnswers, setDecisionAnswers] = useState<DecisionAnswers>({});
   const [randomSubjectCount, setRandomSubjectCount] = useState(60);
-  const [randomGroups, setRandomGroups] = useState("Intervention, Control");
-  const [randomStrata, setRandomStrata] = useState("All participants");
+  const [randomGroups, setRandomGroups] = useState(() => defaultRandomGroups(language));
+  const [randomStrata, setRandomStrata] = useState(() => defaultRandomStrata(language));
   const [randomMethod, setRandomMethod] = useState<RandomisationMethod>("simple");
   const [randomBlockSize, setRandomBlockSize] = useState(4);
   const [randomSeed, setRandomSeed] = useState("STUDY-2026");
   const [flowTemplateKey, setFlowTemplateKey] = useState<FlowTemplateKey>("consort");
   const [flowArmCount, setFlowArmCount] = useState(2);
-  const [flowArmLabels, setFlowArmLabels] = useState("Group A\nGroup B\nGroup C\nGroup D");
-  const [flowTitle, setFlowTitle] = useState(flowTemplates[0].title);
+  const [flowArmLabels, setFlowArmLabels] = useState(() => defaultArmLabels(language));
+  const [flowTitle, setFlowTitle] = useState("");
   const [flowCounts, setFlowCounts] = useState<Record<string, string>>(flowTemplates[0].defaultCounts);
-  const [flowNotes, setFlowNotes] = useState<Record<string, string>>(flowTemplates[0].defaultNotes);
-  const [frameworkTitle, setFrameworkTitle] = useState("Conceptual framework");
-  const [independentVariables, setIndependentVariables] = useState("Exposure / intervention");
-  const [dependentVariables, setDependentVariables] = useState("Primary outcome");
-  const [confoundingVariables, setConfoundingVariables] = useState("Age\nSex\nComorbidity");
+  const [flowNotes, setFlowNotes] = useState<Record<string, string>>({});
+  const [frameworkTitle, setFrameworkTitle] = useState(() => defaultFrameworkText(language).title);
+  const [independentVariables, setIndependentVariables] = useState(() => defaultFrameworkText(language).independent);
+  const [dependentVariables, setDependentVariables] = useState(() => defaultFrameworkText(language).dependent);
+  const [confoundingVariables, setConfoundingVariables] = useState(() => defaultFrameworkText(language).confounders);
   const [mediatorVariables, setMediatorVariables] = useState("");
   const [moderatorVariables, setModeratorVariables] = useState("");
   const [covariateVariables, setCovariateVariables] = useState("");
@@ -3714,19 +4305,37 @@ export function SampleSizeApp() {
     window.localStorage.setItem("studysize-language", language);
   }, [language]);
 
+  useEffect(() => {
+    const groupDefaults = languageOptions.map((option) => defaultRandomGroups(option.code));
+    const strataDefaults = languageOptions.map((option) => defaultRandomStrata(option.code));
+    const armDefaults = languageOptions.map((option) => defaultArmLabels(option.code));
+    const frameworkDefaults = languageOptions.map((option) => defaultFrameworkText(option.code));
+    const nextFrameworkDefaults = defaultFrameworkText(language);
+
+    setRandomGroups((current) => (groupDefaults.includes(current) ? defaultRandomGroups(language) : current));
+    setRandomStrata((current) => (strataDefaults.includes(current) ? defaultRandomStrata(language) : current));
+    setFlowArmLabels((current) => (armDefaults.includes(current) ? defaultArmLabels(language) : current));
+    setFrameworkTitle((current) => (frameworkDefaults.some((defaults) => defaults.title === current) ? nextFrameworkDefaults.title : current));
+    setIndependentVariables((current) => (frameworkDefaults.some((defaults) => defaults.independent === current) ? nextFrameworkDefaults.independent : current));
+    setDependentVariables((current) => (frameworkDefaults.some((defaults) => defaults.dependent === current) ? nextFrameworkDefaults.dependent : current));
+    setConfoundingVariables((current) => (frameworkDefaults.some((defaults) => defaults.confounders === current) ? nextFrameworkDefaults.confounders : current));
+  }, [language]);
+
   const calculator = calculators.find((item) => item.id === activeId) ?? calculators[0];
-  const flowArmNames = useMemo(() => parseFlowArmLabels(flowArmLabels, flowArmCount), [flowArmCount, flowArmLabels]);
+  const flowArmNames = useMemo(() => parseFlowArmLabels(flowArmLabels, flowArmCount, language), [flowArmCount, flowArmLabels, language]);
   const baseFlowTemplate = flowTemplateByKey(flowTemplateKey);
-  const flowTemplate = useMemo(
+  const rawFlowTemplate = useMemo(
     () => armFlowTemplate(baseFlowTemplate, flowArmCount, flowArmNames),
     [baseFlowTemplate, flowArmCount, flowArmNames],
   );
+  const flowTemplate = useMemo(() => localiseFlowTemplate(rawFlowTemplate, language), [rawFlowTemplate, language]);
+  const flowFigureTitle = flowTitle || flowTemplate.title;
   const rawEffectiveFlowCounts = useMemo(() => ({ ...flowTemplate.defaultCounts, ...flowCounts }), [flowCounts, flowTemplate]);
   const derivedFlowCounts = useMemo(() => deriveFlowCounts(flowTemplate, rawEffectiveFlowCounts), [flowTemplate, rawEffectiveFlowCounts]);
   const effectiveFlowCounts = derivedFlowCounts.counts;
   const effectiveFlowNotes = useMemo(() => ({ ...flowTemplate.defaultNotes, ...flowNotes }), [flowNotes, flowTemplate]);
-  const frameworkIndependent = useMemo(() => parseFrameworkVariables(independentVariables, ["Independent variable"]), [independentVariables]);
-  const frameworkDependent = useMemo(() => parseFrameworkVariables(dependentVariables, ["Dependent variable"]), [dependentVariables]);
+  const frameworkIndependent = useMemo(() => parseFrameworkVariables(independentVariables, [t("Independent variables", language)]), [independentVariables, language]);
+  const frameworkDependent = useMemo(() => parseFrameworkVariables(dependentVariables, [t("Dependent variables", language)]), [dependentVariables, language]);
   const frameworkConfounders = useMemo(() => parseFrameworkVariables(confoundingVariables, []), [confoundingVariables]);
   const frameworkMediators = useMemo(() => parseFrameworkVariables(mediatorVariables, []), [mediatorVariables]);
   const frameworkModerators = useMemo(() => parseFrameworkVariables(moderatorVariables, []), [moderatorVariables]);
@@ -3741,8 +4350,8 @@ export function SampleSizeApp() {
     .join("; ");
   const currentDecisionQuestion = getCurrentDecisionQuestion(decisionAnswers);
   const recommendation = decisionResult(decisionAnswers);
-  const randomisedGroups = useMemo(() => parseGroups(randomGroups), [randomGroups]);
-  const randomisationStrata = useMemo(() => parseStrata(randomStrata), [randomStrata]);
+  const randomisedGroups = useMemo(() => parseGroups(randomGroups, language), [randomGroups, language]);
+  const randomisationStrata = useMemo(() => parseStrata(randomStrata, language), [randomStrata, language]);
   const effectiveBlockSize = normaliseBlockSize(randomBlockSize, randomisedGroups.length);
   const randomisationAssignments = useMemo(
     () =>
@@ -3772,8 +4381,11 @@ export function SampleSizeApp() {
         : language === "nl"
           ? "eenvoudige gebalanceerde randomisatie"
           : "simple balanced randomisation";
+  const isUnstratifiedRandomisation =
+    randomisationStrata.length === 1 &&
+    languageOptions.some((option) => randomisationStrata[0] === defaultRandomStrata(option.code));
   const stratumDescription =
-    randomisationStrata.length === 1 && randomisationStrata[0] === "All participants"
+    isUnstratifiedRandomisation
       ? language === "id"
         ? "tanpa stratifikasi"
         : language === "nl"
@@ -3819,21 +4431,21 @@ export function SampleSizeApp() {
   const randomisationWording =
     language === "id"
       ? [
-          `Randomisasi akan dilakukan sebelum rekrutmen dimulai dengan menggunakan ${randomisationMethodName} ${stratumDescription}, dan peserta akan dialokasikan ke ${randomisedGroups.join(" atau ")} sesuai urutan yang telah dibuat.`,
+          `Randomisasi dilakukan sebelum perekrutan dimulai dengan metode ${randomisationMethodName} ${stratumDescription}. Peserta yang memenuhi kriteria dialokasikan ke ${randomisedGroups.join(" atau ")} mengikuti daftar alokasi yang telah dibuat.`,
           randomMethod === "block"
-            ? `Ukuran blok yang digunakan adalah ${effectiveBlockSize}; informasi ini sebaiknya tidak diketahui oleh personel yang terlibat dalam rekrutmen agar alokasi berikutnya tidak dapat diprediksi.`
-            : "Urutan dibuat sebagai urutan acak seimbang untuk mempertahankan distribusi alokasi yang sebanding antar kelompok.",
-          `Daftar randomisasi berisi ${randomSubjectCount} slot dan dibuat dengan seed terdokumentasi "${randomSeed || "studysize-studio"}", sehingga proses pembuatan urutan dapat diaudit bila diperlukan.`,
-          "Alokasi sebaiknya dibuka hanya setelah kriteria kelayakan terpenuhi dan persetujuan tindakan selesai, dengan penyembunyian alokasi dipertahankan sampai peserta ditetapkan ke kelompok studi.",
+            ? `Ukuran blok adalah ${effectiveBlockSize}; informasi ini sebaiknya tidak dibuka kepada personel yang melakukan perekrutan agar alokasi berikutnya tidak dapat diprediksi.`
+            : "Daftar dibuat sebagai urutan acak seimbang untuk menjaga distribusi alokasi yang sebanding antarkelompok.",
+          `Daftar randomisasi memuat ${randomSubjectCount} slot alokasi dan dibuat dengan seed terdokumentasi "${randomSeed || "studysize-studio"}", sehingga proses pembuatan daftar dapat diaudit bila diperlukan.`,
+          "Alokasi sebaiknya dibuka hanya setelah kelayakan peserta dipastikan dan informed consent selesai, dengan penyembunyian alokasi dipertahankan sampai saat penetapan kelompok.",
         ].join(" ")
       : language === "nl"
         ? [
-            `Randomisatie wordt vóór de start van de inclusie uitgevoerd met ${randomisationMethodName} ${stratumDescription}, waarna deelnemers volgens de gegenereerde reeks worden toegewezen aan ${randomisedGroups.join(" of ")}.`,
+            `Randomisatie wordt vóór de start van de inclusie uitgevoerd met ${randomisationMethodName} ${stratumDescription}. Deelnemers die aan de criteria voldoen, worden volgens de gegenereerde allocatiereeks toegewezen aan ${randomisedGroups.join(" of ")}.`,
             randomMethod === "block"
-              ? `De toegepaste blokgrootte is ${effectiveBlockSize}; deze informatie dient verborgen te blijven voor personen die deelnemers includeren, zodat toekomstige toewijzingen niet voorspelbaar worden.`
-              : "De reeks wordt gegenereerd als een gebalanceerde geschudde reeks om een vergelijkbare verdeling over de groepen te ondersteunen.",
-            `De randomisatielijst bevat ${randomSubjectCount} slots en wordt gegenereerd met de gedocumenteerde seed "${randomSeed || "studysize-studio"}", zodat het genereren van de reeks indien nodig kan worden gecontroleerd.`,
-            "Toewijzing dient pas te worden vrijgegeven nadat geschiktheid is bevestigd en geïnformeerde toestemming is afgerond, waarbij allocatieconcealment tot het moment van toewijzing behouden blijft.",
+              ? `De blokgrootte is ${effectiveBlockSize}; deze informatie blijft afgeschermd voor personen die deelnemers includeren, zodat toekomstige toewijzingen niet voorspelbaar zijn.`
+              : "De reeks wordt gegenereerd als een gebalanceerd gerandomiseerde lijst om een vergelijkbare verdeling over de groepen te ondersteunen.",
+            `De randomisatielijst bevat ${randomSubjectCount} allocaties en wordt gegenereerd met de gedocumenteerde seed "${randomSeed || "studysize-studio"}", zodat het genereren van de reeks indien nodig controleerbaar is.`,
+            "Toewijzing wordt pas vrijgegeven nadat geschiktheid is bevestigd en informed consent is verkregen; de toewijzing blijft tot dat moment afgeschermd.",
           ].join(" ")
         : [
             `Randomisation will be performed before recruitment using ${randomisationMethodName} ${stratumDescription}, with participants assigned to ${randomisedGroups.join(" or ")} according to the generated allocation sequence.`,
@@ -3846,12 +4458,12 @@ export function SampleSizeApp() {
   const blindingWording =
     language === "id"
       ? blindingClassification === "Open-label"
-        ? `Studi ini akan menggunakan desain label terbuka karena peserta tidak dibutakan terhadap alokasi intervensi.${blindedRoleSentence} Meskipun demikian, risiko bias seleksi tetap harus dikendalikan melalui penyembunyian alokasi menggunakan ${t(concealmentMethodLabels[concealmentMethod], language).toLowerCase()}. Urutan alokasi akan dipegang oleh ${t(sequenceHolderLabels[sequenceHolder], language).toLowerCase()} dan hanya dibuka setelah kelayakan serta persetujuan peserta dikonfirmasi.`
-        : `Studi ini direncanakan sebagai studi ${t(blindingClassification, language).toLowerCase()}, dengan pembutaan terhadap alokasi intervensi diterapkan pada ${translatedBlindedRoles.join(", ")}. Untuk mengurangi risiko bias seleksi, penyembunyian alokasi akan dipertahankan menggunakan ${t(concealmentMethodLabels[concealmentMethod], language).toLowerCase()}, dan urutan alokasi akan dipegang oleh ${t(sequenceHolderLabels[sequenceHolder], language).toLowerCase()} sampai kelayakan serta persetujuan peserta dikonfirmasi. Prosedur pembukaan pembutaan darurat, bila diperlukan, harus ditetapkan sebelumnya dan setiap kejadian pembukaan pembutaan harus dicatat dalam berkas studi.`
+        ? `Studi ini menggunakan desain label terbuka karena peserta tidak dibutakan terhadap alokasi intervensi.${blindedRoleSentence} Meskipun demikian, risiko bias seleksi tetap perlu dikendalikan melalui penyembunyian alokasi dengan ${t(concealmentMethodLabels[concealmentMethod], language).toLowerCase()}. Daftar alokasi dipegang oleh ${t(sequenceHolderLabels[sequenceHolder], language).toLowerCase()} dan baru dibuka setelah kelayakan serta informed consent peserta dikonfirmasi.`
+        : `Studi ini direncanakan sebagai studi ${t(blindingClassification, language).toLowerCase()}, dengan pembutaan terhadap alokasi intervensi diterapkan pada ${translatedBlindedRoles.join(", ")}. Untuk menurunkan risiko bias seleksi, penyembunyian alokasi dipertahankan menggunakan ${t(concealmentMethodLabels[concealmentMethod], language).toLowerCase()}, dan daftar alokasi dipegang oleh ${t(sequenceHolderLabels[sequenceHolder], language).toLowerCase()} sampai kelayakan serta informed consent peserta dikonfirmasi. Prosedur pembukaan blinding darurat, bila diperlukan, harus ditetapkan sebelumnya dan setiap kejadian harus dicatat dalam berkas penelitian.`
       : language === "nl"
         ? blindingClassification === "Open-label"
-          ? `Deze studie wordt uitgevoerd als een open-label studie, omdat deelnemers niet worden geblindeerd voor de interventietoewijzing.${blindedRoleSentence} Het risico op selectiebias dient desondanks te worden beperkt door allocatieconcealment met ${t(concealmentMethodLabels[concealmentMethod], language).toLowerCase()}. De allocatiereeks wordt beheerd door ${t(sequenceHolderLabels[sequenceHolder], language).toLowerCase()} en wordt pas vrijgegeven nadat geschiktheid en geïnformeerde toestemming zijn bevestigd.`
-          : `Deze studie wordt opgezet als een ${t(blindingClassification, language).toLowerCase()} studie, waarbij ${translatedBlindedRoles.join(", ")} geblindeerd blijven voor de interventietoewijzing. Om selectiebias te beperken, wordt allocatieconcealment behouden met ${t(concealmentMethodLabels[concealmentMethod], language).toLowerCase()}, en wordt de allocatiereeks beheerd door ${t(sequenceHolderLabels[sequenceHolder], language).toLowerCase()} totdat geschiktheid en geïnformeerde toestemming zijn bevestigd. Procedures voor noodontblindering moeten vooraf worden vastgelegd, en elke ontblindering dient in het studiedossier te worden gedocumenteerd.`
+          ? `Deze studie wordt uitgevoerd als open-label studie, omdat deelnemers niet worden geblindeerd voor de interventietoewijzing.${blindedRoleSentence} Het risico op selectiebias wordt desondanks beperkt door de toewijzing af te schermen via ${t(concealmentMethodLabels[concealmentMethod], language).toLowerCase()}. De allocatiereeks wordt beheerd door ${t(sequenceHolderLabels[sequenceHolder], language).toLowerCase()} en pas vrijgegeven nadat geschiktheid is bevestigd en informed consent is verkregen.`
+          : `Deze studie wordt opgezet als een ${t(blindingClassification, language).toLowerCase()} studie, waarbij ${translatedBlindedRoles.join(", ")} geblindeerd blijven voor de interventietoewijzing. Om selectiebias te beperken, blijft de toewijzing afgeschermd via ${t(concealmentMethodLabels[concealmentMethod], language).toLowerCase()}, en wordt de allocatiereeks beheerd door ${t(sequenceHolderLabels[sequenceHolder], language).toLowerCase()} totdat geschiktheid is bevestigd en informed consent is verkregen. Procedures voor noodontblindering worden vooraf vastgelegd; elke ontblindering wordt in het studiedossier gedocumenteerd.`
         : blindingClassification === "Open-label"
           ? `This study will be conducted as an open-label study because participants will not be blinded to intervention allocation.${blindedRoleSentence} Nevertheless, selection bias should be limited by maintaining allocation concealment through ${concealmentMethodLabels[concealmentMethod].toLowerCase()}. The allocation sequence will be held by ${sequenceHolderLabels[sequenceHolder].toLowerCase()} and released only after eligibility and informed consent have been confirmed.`
           : `This study is planned as a ${blindingClassification.toLowerCase()} study, with ${translatedBlindedRoles.join(", ")} blinded to intervention allocation. To reduce the risk of selection bias, allocation concealment will be maintained using ${t(concealmentMethodLabels[concealmentMethod], language).toLowerCase()}, and the allocation sequence will be held by ${t(sequenceHolderLabels[sequenceHolder], language).toLowerCase()} until eligibility and informed consent have been confirmed. Emergency unblinding procedures should be prespecified, and any unblinding events should be documented in the study file.`;
@@ -3899,19 +4511,19 @@ export function SampleSizeApp() {
   const protocolText =
     language === "id"
       ? [
-          `Perhitungan besar sampel dilakukan untuk desain ${t(calculator.title, language).toLowerCase()} dengan bantuan StudySize Studio.`,
+          `Besar sampel dihitung untuk desain ${t(calculator.title, language).toLowerCase()} dengan bantuan StudySize Studio.`,
           `Perencanaan didasarkan pada parameter berikut: ${planningAssumptionsText}.`,
-          `Dengan asumsi tersebut, jumlah sampel minimum yang dibutuhkan adalah ${formatNumber(result.total ?? result.primary)} sebelum memperhitungkan dropout, data hilang, atau data yang tidak dapat dievaluasi.`,
-          `Setelah penyesuaian terhadap kehilangan data yang diperkirakan, jumlah sampel yang direncanakan menjadi ${formatNumber(result.adjustedTotal)}.`,
-          `Estimasi ini menggunakan pendekatan ${calculator.formula}; asumsi interpretasi utama adalah: ${calculator.assumptions.map((item) => t(item, language)).join(" ")}`,
+          `Berdasarkan asumsi tersebut, diperlukan minimal ${formatNumber(result.total ?? result.primary)} peserta atau observasi sebelum penyesuaian untuk dropout, data hilang, atau data yang tidak dapat dievaluasi.`,
+          `Setelah memperhitungkan kehilangan data yang diperkirakan, besar sampel yang direncanakan menjadi ${formatNumber(result.adjustedTotal)}.`,
+          `Estimasi ini menggunakan pendekatan ${calculator.formula}. Asumsi utama yang perlu diperhatikan adalah: ${calculator.assumptions.map((item) => t(item, language)).join(" ")}`,
         ].join(" ")
       : language === "nl"
         ? [
-            `De steekproefgrootte werd berekend voor een ${t(calculator.title, language).toLowerCase()} ontwerp met behulp van StudySize Studio.`,
+            `De steekproefgrootte is berekend voor een ${t(calculator.title, language).toLowerCase()} design met StudySize Studio.`,
             `De berekening was gebaseerd op de volgende planningsparameters: ${planningAssumptionsText}.`,
             `Onder deze aannames zijn minimaal ${formatNumber(result.total ?? result.primary)} deelnemers of observaties nodig vóór correctie voor uitval, ontbrekende gegevens of niet-evalueerbare metingen.`,
             `Na correctie voor het verwachte verlies aan bruikbare gegevens bedraagt de geplande steekproefgrootte ${formatNumber(result.adjustedTotal)}.`,
-            `De schatting is gebaseerd op de benadering ${calculator.formula}; de belangrijkste interpretatieve aannames zijn: ${calculator.assumptions.map((item) => t(item, language)).join(" ")}`,
+            `De schatting is gebaseerd op de benadering ${calculator.formula}. De belangrijkste aannames voor interpretatie zijn: ${calculator.assumptions.map((item) => t(item, language)).join(" ")}`,
           ].join(" ")
       : [
           `Sample size was estimated for a ${calculator.title.toLowerCase()} design using StudySize Studio.`,
@@ -4104,9 +4716,9 @@ export function SampleSizeApp() {
     const nextTemplate = flowTemplateByKey(key);
     const nextFlowTemplate = armFlowTemplate(nextTemplate, flowArmCount, flowArmNames);
     setFlowTemplateKey(key);
-    setFlowTitle(nextTemplate.title);
+    setFlowTitle("");
     setFlowCounts(nextFlowTemplate.defaultCounts);
-    setFlowNotes(nextFlowTemplate.defaultNotes);
+    setFlowNotes({});
   }
 
   function updateFlowCount(nodeId: string, value: string) {
@@ -4118,7 +4730,7 @@ export function SampleSizeApp() {
   }
 
   function downloadFlowChartPng() {
-    const svg = buildFlowChartSvg(flowTemplate, flowTitle, effectiveFlowCounts, effectiveFlowNotes);
+    const svg = buildFlowChartSvg(flowTemplate, flowFigureTitle, effectiveFlowCounts, effectiveFlowNotes);
     const svgBlob = new Blob([svg], { type: "image/svg+xml;charset=utf-8" });
     const svgUrl = URL.createObjectURL(svgBlob);
     const image = new Image();
@@ -4154,6 +4766,7 @@ export function SampleSizeApp() {
       frameworkMediators,
       frameworkModerators,
       frameworkCovariates,
+      language,
     );
     const svgBlob = new Blob([svg], { type: "image/svg+xml;charset=utf-8" });
     const svgUrl = URL.createObjectURL(svgBlob);
@@ -4748,7 +5361,7 @@ export function SampleSizeApp() {
                     value={flowTemplateKey}
                   >
                     {flowTemplates.map((template) => (
-                      <option key={template.key} value={template.key}>{template.title}</option>
+                      <option key={template.key} value={template.key}>{t(template.title, language)}</option>
                     ))}
                   </select>
                 </label>
@@ -4762,7 +5375,7 @@ export function SampleSizeApp() {
                     aria-label={t("Figure title", language)}
                     onChange={(event) => setFlowTitle(event.target.value)}
                     type="text"
-                    value={flowTitle}
+                    value={flowFigureTitle}
                   />
                 </label>
 
@@ -4860,7 +5473,7 @@ export function SampleSizeApp() {
                   </div>
                 </div>
                 <div className="flowchart-preview">
-                  <FlowChartFigure counts={effectiveFlowCounts} notes={effectiveFlowNotes} template={flowTemplate} title={flowTitle} />
+                  <FlowChartFigure counts={effectiveFlowCounts} notes={effectiveFlowNotes} template={flowTemplate} title={flowFigureTitle} />
                 </div>
                 <div className="flowchart-guidance">
                   <p>{t("Enter the exact n for each box. Use the reason field for exclusions, losses, non-eligibility, missing records, or analysis omissions. Review the final figure against the relevant reporting guideline before submission.", language)}</p>
@@ -4961,6 +5574,7 @@ export function SampleSizeApp() {
                     mediatorVariables={frameworkMediators}
                     moderatorVariables={frameworkModerators}
                     title={frameworkTitle}
+                    language={language}
                   />
                 </div>
                 <div className="flowchart-guidance">
@@ -5300,7 +5914,7 @@ export function SampleSizeApp() {
         ) : null}
       </section>
 
-      <footer className="app-footer"><strong>{t("StudySize Studio version 1.29 © Ryalino, 2026.", language)}</strong></footer>
+      <footer className="app-footer"><strong>{t("StudySize Studio version 1.30 © Ryalino, 2026.", language)}</strong></footer>
 
       {copiedNotice && (
         <div className="copy-toast" role="status" aria-live="polite">
