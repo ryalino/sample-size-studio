@@ -117,6 +117,9 @@ type FlowTemplate = {
   defaultCounts: Record<string, string>;
   defaultNotes: Record<string, string>;
 };
+type PreparedFlowNode = FlowNode & {
+  height: number;
+};
 
 const indonesianText: Record<string, string> = {
   "Language selector": "Pemilih bahasa",
@@ -148,6 +151,10 @@ const indonesianText: Record<string, string> = {
   "Use anonymised aggregate counts only; do not enter identifiable participant information.": "Gunakan jumlah agregat anonim saja; jangan masukkan informasi peserta yang dapat diidentifikasi.",
   "Reasons / notes": "Alasan / catatan",
   "Flow chart type": "Jenis diagram alur",
+  "Number of arms/groups": "Jumlah lengan/kelompok",
+  "Arm/group labels": "Label lengan/kelompok",
+  "Enter one label per line. The app will use the first labels according to the selected number of arms.": "Masukkan satu label per baris. Aplikasi akan memakai label pertama sesuai jumlah lengan yang dipilih.",
+  "Arm conversion is available for CONSORT, STROBE cohort, and generic participant flows. PRISMA, STARD, case-control, and cross-sectional diagrams keep their guideline-specific structure.": "Konversi lengan tersedia untuk CONSORT, kohort STROBE, dan alur peserta generik. Diagram PRISMA, STARD, kasus-kontrol, dan potong lintang mempertahankan struktur khusus pedomannya.",
   "Open relevant checklist": "Buka daftar periksa terkait",
   "Scenario Comparison": "Perbandingan skenario",
   "Study Design": "Desain Studi",
@@ -270,7 +277,7 @@ const indonesianText: Record<string, string> = {
   "Citation copied": "Sitasi disalin",
   "Clear scenarios": "Hapus skenario",
   "Scenarios cleared": "Skenario dihapus",
-  "StudySize Studio version 1.25 © Ryalino, 2026.": "StudySize Studio versi 1.25 © Ryalino, 2026.",
+  "StudySize Studio version 1.26 © Ryalino, 2026.": "StudySize Studio versi 1.26 © Ryalino, 2026.",
   "Scenario saved": "Skenario disimpan",
   "Scenario is ready": "Skenario siap",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Skenario ini sekarang tersedia di menu Perbandingan Skenario, tempat Anda dapat membandingkannya dengan skenario perencanaan tersimpan lainnya.",
@@ -738,6 +745,10 @@ const dutchText: Record<string, string> = {
   "Use anonymised aggregate counts only; do not enter identifiable participant information.": "Gebruik alleen geanonimiseerde geaggregeerde aantallen; voer geen identificeerbare deelnemergegevens in.",
   "Reasons / notes": "Redenen / notities",
   "Flow chart type": "Type stroomdiagram",
+  "Number of arms/groups": "Aantal armen/groepen",
+  "Arm/group labels": "Labels voor armen/groepen",
+  "Enter one label per line. The app will use the first labels according to the selected number of arms.": "Voer een label per regel in. De app gebruikt de eerste labels volgens het gekozen aantal armen.",
+  "Arm conversion is available for CONSORT, STROBE cohort, and generic participant flows. PRISMA, STARD, case-control, and cross-sectional diagrams keep their guideline-specific structure.": "Armconversie is beschikbaar voor CONSORT, STROBE-cohort en algemene deelnemersstromen. PRISMA-, STARD-, case-control- en cross-sectionele diagrammen behouden hun richtlijnspecifieke structuur.",
   "Open relevant checklist": "Relevante checklist openen",
   "Scenario Comparison": "Scenariovergelijking",
   "Study Design": "Studiedesign",
@@ -843,7 +854,7 @@ const dutchText: Record<string, string> = {
   "Citation copied": "Citatie gekopieerd",
   "Clear scenarios": "Scenario's wissen",
   "Scenarios cleared": "Scenario's gewist",
-  "StudySize Studio version 1.25 © Ryalino, 2026.": "StudySize Studio versie 1.25 © Ryalino, 2026.",
+  "StudySize Studio version 1.26 © Ryalino, 2026.": "StudySize Studio versie 1.26 © Ryalino, 2026.",
   "Scenario is ready": "Scenario is klaar",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Dit scenario is nu beschikbaar in de balk Scenariovergelijking, waar u het kunt vergelijken met andere opgeslagen planningsscenario's.",
   "Open Scenario Comparison": "Scenariovergelijking openen",
@@ -2529,6 +2540,179 @@ function flowTemplateByKey(key: FlowTemplateKey) {
   return flowTemplates.find((template) => template.key === key) ?? flowTemplates[0];
 }
 
+function supportsFlowArms(key: FlowTemplateKey) {
+  return key === "consort" || key === "strobe-cohort" || key === "generic";
+}
+
+function parseFlowArmLabels(rawLabels: string, armCount: number) {
+  const labels = rawLabels
+    .split(/\n+/)
+    .map((label) => label.trim())
+    .filter(Boolean);
+  return Array.from({ length: armCount }, (_, index) => labels[index] ?? `Arm ${index + 1}`);
+}
+
+function flowArmXPositions(armCount: number) {
+  const gap = 35;
+  const totalWidth = armCount * flowBox.width + (armCount - 1) * gap;
+  const canvasWidth = Math.max(1000, totalWidth + 80);
+  const start = (canvasWidth - totalWidth) / 2;
+  return {
+    canvasWidth,
+    positions: Array.from({ length: armCount }, (_, index) => start + index * (flowBox.width + gap)),
+  };
+}
+
+function armFlowTemplate(template: FlowTemplate, armCount: number, armLabels: string[]) {
+  if (!supportsFlowArms(template.key)) return template;
+
+  const { canvasWidth, positions } = flowArmXPositions(armCount);
+  const centerX = canvasWidth / 2 - flowBox.width / 2;
+  const exclusionX = Math.min(canvasWidth - flowBox.width - 40, centerX + 330);
+  const armNodes = armLabels.flatMap((label, index) => {
+    const suffix = index + 1;
+    const x = positions[index];
+    if (template.key === "strobe-cohort") {
+      return [
+        { id: `arm${suffix}`, label, x, y: 330 },
+        { id: `lostArm${suffix}`, label: `Lost or missing outcome in ${label}`, x, y: 470, tone: "warning" as const },
+        { id: `analysedArm${suffix}`, label: `Analysed ${label}`, x, y: 610, tone: "secondary" as const },
+      ];
+    }
+    if (template.key === "generic") {
+      return [
+        { id: `arm${suffix}`, label, x, y: 350 },
+        { id: `missingArm${suffix}`, label: `Missing data / withdrawn in ${label}`, x, y: 490, tone: "warning" as const },
+        { id: `analysedArm${suffix}`, label: `Analysed ${label}`, x, y: 630, tone: "secondary" as const },
+      ];
+    }
+    return [
+      { id: `allocatedArm${suffix}`, label: `Allocated to ${label}`, x, y: 330 },
+      { id: `followArm${suffix}`, label: `Lost to follow-up / discontinued ${label}`, x, y: 470, tone: "warning" as const },
+      { id: `analysedArm${suffix}`, label: `Analysed ${label}`, x, y: 610, tone: "secondary" as const },
+    ];
+  });
+
+  if (template.key === "strobe-cohort") {
+    const connectors = [
+      { from: "source", to: "eligible" },
+      { from: "source", to: "ineligible" },
+      ...armLabels.flatMap((_, index) => {
+        const suffix = index + 1;
+        return [
+          { from: "eligible", to: `arm${suffix}` },
+          { from: `arm${suffix}`, to: `lostArm${suffix}` },
+          { from: `lostArm${suffix}`, to: `analysedArm${suffix}` },
+        ];
+      }),
+    ];
+    const defaultCounts = Object.fromEntries([
+      ["source", ""],
+      ["ineligible", ""],
+      ["eligible", ""],
+      ...armLabels.flatMap((_, index) => {
+        const suffix = index + 1;
+        return [[`arm${suffix}`, ""], [`lostArm${suffix}`, ""], [`analysedArm${suffix}`, ""]];
+      }),
+    ]);
+    const defaultNotes = Object.fromEntries([
+      ["ineligible", "Eligibility exclusions"],
+      ...armLabels.map((_, index) => [`lostArm${index + 1}`, "Reasons"]),
+    ]);
+    return {
+      ...template,
+      nodes: [
+        { id: "source", label: "Source population / records screened", x: centerX, y: 70, tone: "primary" as const },
+        { id: "ineligible", label: "Not eligible / excluded", x: exclusionX, y: 70, tone: "warning" as const },
+        { id: "eligible", label: "Eligible cohort", x: centerX, y: 190, tone: "primary" as const },
+        ...armNodes,
+      ],
+      connectors,
+      defaultCounts,
+      defaultNotes,
+    };
+  }
+
+  if (template.key === "generic") {
+    const connectors = [
+      { from: "identified", to: "enrolled" },
+      { from: "identified", to: "excluded" },
+      ...armLabels.flatMap((_, index) => {
+        const suffix = index + 1;
+        return [
+          { from: "enrolled", to: `arm${suffix}` },
+          { from: `arm${suffix}`, to: `missingArm${suffix}` },
+          { from: `missingArm${suffix}`, to: `analysedArm${suffix}` },
+        ];
+      }),
+    ];
+    const defaultCounts = Object.fromEntries([
+      ["identified", ""],
+      ["excluded", ""],
+      ["enrolled", ""],
+      ...armLabels.flatMap((_, index) => {
+        const suffix = index + 1;
+        return [[`arm${suffix}`, ""], [`missingArm${suffix}`, ""], [`analysedArm${suffix}`, ""]];
+      }),
+    ]);
+    const defaultNotes = Object.fromEntries([
+      ["excluded", "Reasons"],
+      ...armLabels.map((_, index) => [`missingArm${index + 1}`, "Reasons"]),
+    ]);
+    return {
+      ...template,
+      nodes: [
+        { id: "identified", label: "Identified / approached", x: centerX, y: 70, tone: "primary" as const },
+        { id: "excluded", label: "Excluded / declined", x: exclusionX, y: 70, tone: "warning" as const },
+        { id: "enrolled", label: "Enrolled / included", x: centerX, y: 210 },
+        ...armNodes,
+      ],
+      connectors,
+      defaultCounts,
+      defaultNotes,
+    };
+  }
+
+  const connectors = [
+    { from: "assessed", to: "randomised" },
+    { from: "assessed", to: "excluded" },
+    ...armLabels.flatMap((_, index) => {
+      const suffix = index + 1;
+      return [
+        { from: "randomised", to: `allocatedArm${suffix}` },
+        { from: `allocatedArm${suffix}`, to: `followArm${suffix}` },
+        { from: `followArm${suffix}`, to: `analysedArm${suffix}` },
+      ];
+    }),
+  ];
+  const defaultCounts = Object.fromEntries([
+    ["assessed", ""],
+    ["excluded", ""],
+    ["randomised", ""],
+    ...armLabels.flatMap((_, index) => {
+      const suffix = index + 1;
+      return [[`allocatedArm${suffix}`, ""], [`followArm${suffix}`, ""], [`analysedArm${suffix}`, ""]];
+    }),
+  ]);
+  const defaultNotes = Object.fromEntries([
+    ["excluded", "Reasons for exclusion"],
+    ...armLabels.map((_, index) => [`followArm${index + 1}`, "Reasons"]),
+  ]);
+
+  return {
+    ...template,
+    nodes: [
+      { id: "assessed", label: "Assessed for eligibility", x: centerX, y: 70, tone: "primary" as const },
+      { id: "excluded", label: "Excluded", x: exclusionX, y: 70, tone: "warning" as const },
+      { id: "randomised", label: "Randomised", x: centerX, y: 190, tone: "primary" as const },
+      ...armNodes,
+    ],
+    connectors,
+    defaultCounts,
+    defaultNotes,
+  };
+}
+
 function wrapSvgLines(text: string, maxLength: number) {
   const words = text.trim().split(/\s+/).filter(Boolean);
   const lines: string[] = [];
@@ -2560,12 +2744,40 @@ function flowNodeText(node: FlowNode, counts: Record<string, string>, notes: Rec
   return [node.label, count ? `n = ${count}` : "", note ?? ""].filter(Boolean).join("\n");
 }
 
-const flowBox = { width: 280, height: 92 };
+const flowBox = { width: 250, minHeight: 92, lineHeight: 15, textTop: 25 };
 
-function flowNodeCenter(node: FlowNode) {
+function flowNodeLines(node: FlowNode, counts: Record<string, string>, notes: Record<string, string>) {
+  return flowNodeText(node, counts, notes)
+    .split("\n")
+    .flatMap((line) => wrapSvgLines(line, 28));
+}
+
+function flowNodeHeight(node: FlowNode, counts: Record<string, string>, notes: Record<string, string>) {
+  const lines = flowNodeLines(node, counts, notes);
+  return Math.max(flowBox.minHeight, flowBox.textTop + lines.length * flowBox.lineHeight + 16);
+}
+
+function prepareFlowNodes(template: FlowTemplate, counts: Record<string, string>, notes: Record<string, string>) {
+  const rows = [...new Set(template.nodes.map((node) => node.y))].sort((a, b) => a - b);
+  let currentY = Math.min(...rows, 70);
+  const prepared: PreparedFlowNode[] = [];
+
+  rows.forEach((rowY) => {
+    const rowNodes = template.nodes.filter((node) => node.y === rowY);
+    const rowHeight = Math.max(...rowNodes.map((node) => flowNodeHeight(node, counts, notes)));
+    rowNodes.forEach((node) => {
+      prepared.push({ ...node, y: currentY, height: rowHeight });
+    });
+    currentY += rowHeight + 48;
+  });
+
+  return prepared;
+}
+
+function flowNodeCenter(node: PreparedFlowNode) {
   return {
     x: node.x + flowBox.width / 2,
-    y: node.y + flowBox.height / 2,
+    y: node.y + node.height / 2,
   };
 }
 
@@ -2583,8 +2795,45 @@ function flowNodeStroke(tone?: FlowNode["tone"]) {
   return "#d7deea";
 }
 
-function flowCanvasHeight(template: FlowTemplate) {
-  return Math.max(660, Math.max(...template.nodes.map((node) => node.y)) + flowBox.height + 90);
+function flowCanvasWidth(nodes: PreparedFlowNode[]) {
+  return Math.max(1000, Math.max(...nodes.map((node) => node.x + flowBox.width)) + 40);
+}
+
+function flowCanvasHeight(nodes: PreparedFlowNode[]) {
+  return Math.max(660, Math.max(...nodes.map((node) => node.y + node.height)) + 90);
+}
+
+function flowConnectorPoints(from: PreparedFlowNode, to: PreparedFlowNode) {
+  const startCenter = flowNodeCenter(from);
+  const endCenter = flowNodeCenter(to);
+  const dx = endCenter.x - startCenter.x;
+  const dy = endCenter.y - startCenter.y;
+  const distance = Math.hypot(dx, dy) || 1;
+  const unitX = dx / distance;
+  const unitY = dy / distance;
+  const sourceScale = Math.min(
+    Math.abs(dx) < 0.001 ? Number.POSITIVE_INFINITY : flowBox.width / 2 / Math.abs(dx),
+    Math.abs(dy) < 0.001 ? Number.POSITIVE_INFINITY : from.height / 2 / Math.abs(dy),
+  );
+  const targetScale = Math.min(
+    Math.abs(dx) < 0.001 ? Number.POSITIVE_INFINITY : flowBox.width / 2 / Math.abs(dx),
+    Math.abs(dy) < 0.001 ? Number.POSITIVE_INFINITY : to.height / 2 / Math.abs(dy),
+  );
+  const sourceEdge = {
+    x: startCenter.x + dx * sourceScale,
+    y: startCenter.y + dy * sourceScale,
+  };
+  const targetEdge = {
+    x: endCenter.x - dx * targetScale,
+    y: endCenter.y - dy * targetScale,
+  };
+
+  return {
+    x1: sourceEdge.x + unitX * 10,
+    y1: sourceEdge.y + unitY * 10,
+    x2: targetEdge.x - unitX * 13,
+    y2: targetEdge.y - unitY * 13,
+  };
 }
 
 function FlowChartFigure({
@@ -2598,31 +2847,27 @@ function FlowChartFigure({
   template: FlowTemplate;
   title: string;
 }) {
-  const height = flowCanvasHeight(template);
-  const nodesById = Object.fromEntries(template.nodes.map((node) => [node.id, node]));
+  const preparedNodes = prepareFlowNodes(template, counts, notes);
+  const width = flowCanvasWidth(preparedNodes);
+  const height = flowCanvasHeight(preparedNodes);
+  const nodesById = Object.fromEntries(preparedNodes.map((node) => [node.id, node]));
 
   return (
-    <svg className="flowchart-svg" role="img" aria-label={title} viewBox={`0 0 1000 ${height}`}>
+    <svg className="flowchart-svg" role="img" aria-label={title} viewBox={`0 0 ${width} ${height}`}>
       <defs>
         <marker id="flow-arrow" markerHeight="10" markerWidth="10" orient="auto" refX="9" refY="3">
           <path d="M0,0 L0,6 L9,3 z" fill="#32415f" />
         </marker>
       </defs>
-      <rect width="1000" height={height} fill="#fbfcff" rx="18" />
-      <text x="500" y="34" textAnchor="middle" fill="#172033" fontSize="22" fontWeight="800">
+      <rect width={width} height={height} fill="#fbfcff" rx="18" />
+      <text x={width / 2} y="34" textAnchor="middle" fill="#172033" fontSize="22" fontWeight="800">
         {title}
       </text>
       {template.connectors.map((connector) => {
         const from = nodesById[connector.from];
         const to = nodesById[connector.to];
         if (!from || !to) return null;
-        const start = flowNodeCenter(from);
-        const end = flowNodeCenter(to);
-        const isSide = Math.abs(start.y - end.y) < 60;
-        const x1 = isSide ? start.x + flowBox.width / 2 - 14 : start.x;
-        const y1 = isSide ? start.y : start.y + flowBox.height / 2 - 10;
-        const x2 = isSide ? end.x - flowBox.width / 2 + 14 : end.x;
-        const y2 = isSide ? end.y : end.y - flowBox.height / 2 + 10;
+        const { x1, x2, y1, y2 } = flowConnectorPoints(from, to);
 
         return (
           <line
@@ -2637,15 +2882,15 @@ function FlowChartFigure({
           />
         );
       })}
-      {template.nodes.map((node) => {
-        const lines = flowNodeText(node, counts, notes).split("\n").flatMap((line) => wrapSvgLines(line, 30));
-        const startY = node.y + 24;
+      {preparedNodes.map((node) => {
+        const lines = flowNodeLines(node, counts, notes);
+        const startY = node.y + flowBox.textTop;
 
         return (
           <g key={node.id}>
             <rect
               fill={flowNodeFill(node.tone)}
-              height={flowBox.height}
+              height={node.height}
               rx="8"
               stroke={flowNodeStroke(node.tone)}
               strokeWidth="2"
@@ -2653,7 +2898,7 @@ function FlowChartFigure({
               x={node.x}
               y={node.y}
             />
-            {lines.slice(0, 5).map((line, index) => (
+            {lines.map((line, index) => (
               <text
                 fill={index === 0 ? "#172033" : "#43516f"}
                 fontSize={index === 0 ? 14 : 13}
@@ -2669,7 +2914,7 @@ function FlowChartFigure({
           </g>
         );
       })}
-      <text x="500" y={height - 24} textAnchor="middle" fill="#6b7690" fontSize="12">
+      <text x={width / 2} y={height - 24} textAnchor="middle" fill="#6b7690" fontSize="12">
         StudySize Studio flow chart generator
       </text>
     </svg>
@@ -2677,45 +2922,40 @@ function FlowChartFigure({
 }
 
 function buildFlowChartSvg(template: FlowTemplate, title: string, counts: Record<string, string>, notes: Record<string, string>) {
-  const height = flowCanvasHeight(template);
-  const nodesById = Object.fromEntries(template.nodes.map((node) => [node.id, node]));
+  const preparedNodes = prepareFlowNodes(template, counts, notes);
+  const width = flowCanvasWidth(preparedNodes);
+  const height = flowCanvasHeight(preparedNodes);
+  const nodesById = Object.fromEntries(preparedNodes.map((node) => [node.id, node]));
   const connectors = template.connectors
     .map((connector) => {
       const from = nodesById[connector.from];
       const to = nodesById[connector.to];
       if (!from || !to) return "";
-      const start = flowNodeCenter(from);
-      const end = flowNodeCenter(to);
-      const isSide = Math.abs(start.y - end.y) < 60;
-      const x1 = isSide ? start.x + flowBox.width / 2 - 14 : start.x;
-      const y1 = isSide ? start.y : start.y + flowBox.height / 2 - 10;
-      const x2 = isSide ? end.x - flowBox.width / 2 + 14 : end.x;
-      const y2 = isSide ? end.y : end.y - flowBox.height / 2 + 10;
+      const { x1, x2, y1, y2 } = flowConnectorPoints(from, to);
       return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#32415f" stroke-width="2.5" marker-end="url(#flow-arrow)" />`;
     })
     .join("");
-  const nodes = template.nodes
+  const nodes = preparedNodes
     .map((node) => {
-      const lines = flowNodeText(node, counts, notes).split("\n").flatMap((line) => wrapSvgLines(line, 30));
+      const lines = flowNodeLines(node, counts, notes);
       const text = lines
-        .slice(0, 5)
         .map((line, index) => {
           const fill = index === 0 ? "#172033" : "#43516f";
           const fontSize = index === 0 ? 14 : 13;
           const fontWeight = index === 0 ? 800 : 600;
-          return `<text x="${node.x + flowBox.width / 2}" y="${node.y + 24 + index * 15}" text-anchor="middle" fill="${fill}" font-size="${fontSize}" font-weight="${fontWeight}">${escapeXml(line)}</text>`;
+          return `<text x="${node.x + flowBox.width / 2}" y="${node.y + flowBox.textTop + index * flowBox.lineHeight}" text-anchor="middle" fill="${fill}" font-size="${fontSize}" font-weight="${fontWeight}">${escapeXml(line)}</text>`;
         })
         .join("");
-      return `<g><rect x="${node.x}" y="${node.y}" width="${flowBox.width}" height="${flowBox.height}" rx="8" fill="${flowNodeFill(node.tone)}" stroke="${flowNodeStroke(node.tone)}" stroke-width="2" />${text}</g>`;
+      return `<g><rect x="${node.x}" y="${node.y}" width="${flowBox.width}" height="${node.height}" rx="8" fill="${flowNodeFill(node.tone)}" stroke="${flowNodeStroke(node.tone)}" stroke-width="2" />${text}</g>`;
     })
     .join("");
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="${height}" viewBox="0 0 1000 ${height}">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
     <defs><marker id="flow-arrow" markerHeight="10" markerWidth="10" orient="auto" refX="9" refY="3"><path d="M0,0 L0,6 L9,3 z" fill="#32415f" /></marker></defs>
-    <rect width="1000" height="${height}" fill="#fbfcff" rx="18" />
-    <text x="500" y="34" text-anchor="middle" fill="#172033" font-family="Arial, sans-serif" font-size="22" font-weight="800">${escapeXml(title)}</text>
+    <rect width="${width}" height="${height}" fill="#fbfcff" rx="18" />
+    <text x="${width / 2}" y="34" text-anchor="middle" fill="#172033" font-family="Arial, sans-serif" font-size="22" font-weight="800">${escapeXml(title)}</text>
     <g font-family="Arial, sans-serif">${connectors}${nodes}</g>
-    <text x="500" y="${height - 24}" text-anchor="middle" fill="#6b7690" font-family="Arial, sans-serif" font-size="12">StudySize Studio flow chart generator</text>
+    <text x="${width / 2}" y="${height - 24}" text-anchor="middle" fill="#6b7690" font-family="Arial, sans-serif" font-size="12">StudySize Studio flow chart generator</text>
   </svg>`;
 }
 
@@ -3035,6 +3275,8 @@ export function SampleSizeApp() {
   const [randomBlockSize, setRandomBlockSize] = useState(4);
   const [randomSeed, setRandomSeed] = useState("STUDY-2026");
   const [flowTemplateKey, setFlowTemplateKey] = useState<FlowTemplateKey>("consort");
+  const [flowArmCount, setFlowArmCount] = useState(2);
+  const [flowArmLabels, setFlowArmLabels] = useState("Group A\nGroup B\nGroup C\nGroup D");
   const [flowTitle, setFlowTitle] = useState(flowTemplates[0].title);
   const [flowCounts, setFlowCounts] = useState<Record<string, string>>(flowTemplates[0].defaultCounts);
   const [flowNotes, setFlowNotes] = useState<Record<string, string>>(flowTemplates[0].defaultNotes);
@@ -3066,7 +3308,14 @@ export function SampleSizeApp() {
   }, [language]);
 
   const calculator = calculators.find((item) => item.id === activeId) ?? calculators[0];
-  const flowTemplate = flowTemplateByKey(flowTemplateKey);
+  const flowArmNames = useMemo(() => parseFlowArmLabels(flowArmLabels, flowArmCount), [flowArmCount, flowArmLabels]);
+  const baseFlowTemplate = flowTemplateByKey(flowTemplateKey);
+  const flowTemplate = useMemo(
+    () => armFlowTemplate(baseFlowTemplate, flowArmCount, flowArmNames),
+    [baseFlowTemplate, flowArmCount, flowArmNames],
+  );
+  const effectiveFlowCounts = useMemo(() => ({ ...flowTemplate.defaultCounts, ...flowCounts }), [flowCounts, flowTemplate]);
+  const effectiveFlowNotes = useMemo(() => ({ ...flowTemplate.defaultNotes, ...flowNotes }), [flowNotes, flowTemplate]);
   const values = valuesByCalculator[calculator.id] ?? initialValues(calculator);
   const result = useMemo(() => calculator.compute(values), [calculator, values]);
   const filtered = calculators.filter((item) =>
@@ -3438,10 +3687,11 @@ export function SampleSizeApp() {
 
   function selectFlowTemplate(key: FlowTemplateKey) {
     const nextTemplate = flowTemplateByKey(key);
+    const nextFlowTemplate = armFlowTemplate(nextTemplate, flowArmCount, flowArmNames);
     setFlowTemplateKey(key);
     setFlowTitle(nextTemplate.title);
-    setFlowCounts(nextTemplate.defaultCounts);
-    setFlowNotes(nextTemplate.defaultNotes);
+    setFlowCounts(nextFlowTemplate.defaultCounts);
+    setFlowNotes(nextFlowTemplate.defaultNotes);
   }
 
   function updateFlowCount(nodeId: string, value: string) {
@@ -3453,7 +3703,7 @@ export function SampleSizeApp() {
   }
 
   function downloadFlowChartPng() {
-    const svg = buildFlowChartSvg(flowTemplate, flowTitle, flowCounts, flowNotes);
+    const svg = buildFlowChartSvg(flowTemplate, flowTitle, effectiveFlowCounts, effectiveFlowNotes);
     const svgBlob = new Blob([svg], { type: "image/svg+xml;charset=utf-8" });
     const svgUrl = URL.createObjectURL(svgBlob);
     const image = new Image();
@@ -4062,6 +4312,51 @@ export function SampleSizeApp() {
                   />
                 </label>
 
+                <label className="control">
+                  <span>
+                    <strong>{t("Number of arms/groups", language)}</strong>
+                    <small>{t("Arm conversion is available for CONSORT, STROBE cohort, and generic participant flows. PRISMA, STARD, case-control, and cross-sectional diagrams keep their guideline-specific structure.", language)}</small>
+                  </span>
+                  <div className="input-row">
+                    <input
+                      aria-label={t("Number of arms/groups", language)}
+                      disabled={!supportsFlowArms(flowTemplateKey)}
+                      max={4}
+                      min={1}
+                      onChange={(event) => setFlowArmCount(Number(event.target.value))}
+                      step={1}
+                      type="range"
+                      value={flowArmCount}
+                    />
+                    <div className="number-wrap">
+                      <input
+                        aria-label={t("Number of arms/groups", language)}
+                        disabled={!supportsFlowArms(flowTemplateKey)}
+                        max={4}
+                        min={1}
+                        onChange={(event) => setFlowArmCount(Number(event.target.value))}
+                        step={1}
+                        type="number"
+                        value={flowArmCount}
+                      />
+                    </div>
+                  </div>
+                </label>
+
+                <label className="control">
+                  <span>
+                    <strong>{t("Arm/group labels", language)}</strong>
+                    <small>{t("Enter one label per line. The app will use the first labels according to the selected number of arms.", language)}</small>
+                  </span>
+                  <textarea
+                    aria-label={t("Arm/group labels", language)}
+                    disabled={!supportsFlowArms(flowTemplateKey)}
+                    onChange={(event) => setFlowArmLabels(event.target.value)}
+                    rows={4}
+                    value={flowArmLabels}
+                  />
+                </label>
+
                 <div className="flowchart-fieldset">
                   <span>{t("Box counts and exclusion reasons", language)}</span>
                   {flowTemplate.nodes.map((node) => (
@@ -4080,11 +4375,11 @@ export function SampleSizeApp() {
                         </label>
                         <label>
                           <span>{t("Reasons / notes", language)}</span>
-                          <input
+                          <textarea
                             aria-label={`${node.label} ${t("Reasons / notes", language)}`}
                             onChange={(event) => updateFlowNote(node.id, event.target.value)}
-                            type="text"
-                            value={flowNotes[node.id] ?? ""}
+                            rows={3}
+                            value={effectiveFlowNotes[node.id] ?? ""}
                           />
                         </label>
                       </div>
@@ -4104,7 +4399,7 @@ export function SampleSizeApp() {
                   </div>
                 </div>
                 <div className="flowchart-preview">
-                  <FlowChartFigure counts={flowCounts} notes={flowNotes} template={flowTemplate} title={flowTitle} />
+                  <FlowChartFigure counts={effectiveFlowCounts} notes={effectiveFlowNotes} template={flowTemplate} title={flowTitle} />
                 </div>
                 <div className="flowchart-guidance">
                   <p>{t("Enter the exact n for each box. Use the reason field for exclusions, losses, non-eligibility, missing records, or analysis omissions. Review the final figure against the relevant reporting guideline before submission.", language)}</p>
@@ -4444,7 +4739,7 @@ export function SampleSizeApp() {
         ) : null}
       </section>
 
-      <footer className="app-footer"><strong>{t("StudySize Studio version 1.25 © Ryalino, 2026.", language)}</strong></footer>
+      <footer className="app-footer"><strong>{t("StudySize Studio version 1.26 © Ryalino, 2026.", language)}</strong></footer>
 
       {copiedNotice && (
         <div className="copy-toast" role="status" aria-live="polite">

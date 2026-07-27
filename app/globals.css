@@ -934,6 +934,18 @@ input:disabled {
   margin-top: 20px;
 }
 
+.flowcharts-panel {
+  padding: 30px;
+}
+
+.flowcharts-panel .panel-heading {
+  padding-inline: 6px;
+}
+
+.flowcharts-panel .actions {
+  padding-right: 4px;
+}
+
 .flowchart-controls {
   display: grid;
   gap: 12px;
@@ -982,6 +994,10 @@ input:disabled {
   gap: 4px;
 }
 
+.flowchart-node-grid textarea {
+  min-height: 78px;
+}
+
 .flowchart-node-grid span {
   color: var(--ink-muted);
   font-size: 0.72rem;
@@ -1008,7 +1024,7 @@ input:disabled {
 
 .flowchart-svg {
   display: block;
-  min-width: 760px;
+  min-width: 860px;
   width: 100%;
   height: auto;
 }
@@ -1417,6 +1433,15 @@ input:disabled {
 
   .actions button {
     flex: 1;
+  }
+
+  .actions .subtle-link-button {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .flowcharts-panel {
+    padding: 20px;
   }
 
   .input-row,
