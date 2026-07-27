@@ -216,6 +216,7 @@ h3 {
 .randomiser-panel,
 .blinding-panel,
 .flowcharts-panel,
+.framework-panel,
 .scenario-panel,
 .checklist-panel,
 .calculator-panel,
@@ -938,12 +939,18 @@ input:disabled {
   padding: 30px;
 }
 
-.flowcharts-panel .panel-heading {
+.flowcharts-panel .panel-heading,
+.framework-panel .panel-heading {
   padding-inline: 6px;
 }
 
-.flowcharts-panel .actions {
+.flowcharts-panel .actions,
+.framework-panel .actions {
   padding-right: 4px;
+}
+
+.framework-panel {
+  padding: 30px;
 }
 
 .flowchart-controls {
@@ -1053,6 +1060,53 @@ input:disabled {
   color: var(--ink-muted);
   line-height: 1.45;
   margin: 0;
+}
+
+.framework-workbench {
+  display: grid;
+  grid-template-columns: minmax(320px, 520px) minmax(0, 1fr);
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.framework-controls {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+
+.framework-input-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.framework-input-grid .control {
+  min-height: 190px;
+}
+
+.framework-preview-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(223, 247, 239, 0.78), rgba(231, 240, 255, 0.7) 55%, rgba(255, 232, 228, 0.65)),
+    #fff;
+  padding: 16px;
+}
+
+.framework-preview {
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  margin-top: 12px;
+}
+
+.framework-svg {
+  display: block;
+  min-width: 860px;
+  width: 100%;
+  height: auto;
 }
 
 .scenario-table {
@@ -1427,6 +1481,8 @@ input:disabled {
   .randomiser-grid,
   .blinding-grid,
   .flowchart-workbench,
+  .framework-workbench,
+  .framework-input-grid,
   .best-practice,
   .research-grid,
   .design-list {
@@ -1455,6 +1511,10 @@ input:disabled {
   }
 
   .flowcharts-panel {
+    padding: 20px;
+  }
+
+  .framework-panel {
     padding: 20px;
   }
 

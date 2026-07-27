@@ -41,7 +41,7 @@ type Scenario = {
   result: Output;
   createdAt: string;
 };
-type AppMode = "finder" | "calculator" | "randomiser" | "blinding" | "scenario" | "checklist" | "flowcharts";
+type AppMode = "finder" | "calculator" | "randomiser" | "blinding" | "scenario" | "checklist" | "flowcharts" | "framework";
 type DecisionAnswers = Record<string, string>;
 type DecisionOption = {
   value: string;
@@ -124,6 +124,15 @@ type DerivedFlowCounts = {
   counts: Record<string, string>;
   derivedIds: Set<string>;
 };
+type FrameworkBox = {
+  id: string;
+  title: string;
+  variables: string[];
+  x: number;
+  y: number;
+  width: number;
+  tone: "primary" | "secondary" | "warning" | "neutral";
+};
 
 const indonesianText: Record<string, string> = {
   "Language selector": "Pemilih bahasa",
@@ -141,6 +150,25 @@ const indonesianText: Record<string, string> = {
   "Calculator catalog": "Katalog kalkulator",
   "Randomiser": "Randomisasi",
   "Flow Charts": "Diagram Alur",
+  "Conceptual Framework": "Kerangka Konseptual",
+  "Conceptual framework builder": "Pembuat kerangka konseptual",
+  "Translate study variables into a publication-ready conceptual framework figure with directional relationships.": "Ubah variabel studi menjadi gambar kerangka konseptual siap publikasi dengan hubungan terarah.",
+  "Framework settings": "Pengaturan kerangka",
+  "Framework title": "Judul kerangka",
+  "Independent variables": "Variabel independen",
+  "Dependent variables": "Variabel dependen",
+  "Confounding variables": "Variabel perancu",
+  "Mediators": "Mediator",
+  "Moderators / effect modifiers": "Moderator / pengubah efek",
+  "Covariates / adjustment variables": "Kovariat / variabel penyesuaian",
+  "Enter one variable per line.": "Masukkan satu variabel per baris.",
+  "Optional. These are drawn as variables affecting both exposure and outcome.": "Opsional. Ini digambar sebagai variabel yang memengaruhi pajanan dan luaran.",
+  "Optional. These sit on the pathway between exposure and outcome.": "Opsional. Ini ditempatkan pada jalur antara pajanan dan luaran.",
+  "Optional. These modify the strength or direction of the main relationship.": "Opsional. Ini mengubah kekuatan atau arah hubungan utama.",
+  "Optional. These are shown as variables controlled for in analysis.": "Opsional. Ini ditampilkan sebagai variabel yang dikendalikan dalam analisis.",
+  "Framework PNG downloaded": "PNG kerangka diunduh",
+  "Framework preview": "Pratinjau kerangka",
+  "Conceptual frameworks are planning figures. Review the direction of each relationship against theory, temporality, and domain evidence before using the figure in a protocol or manuscript.": "Kerangka konseptual adalah gambar perencanaan. Tinjau arah setiap hubungan berdasarkan teori, temporalitas, dan bukti bidang terkait sebelum memakai gambar dalam protokol atau manuskrip.",
   "Flow chart builder": "Pembuat diagram alur",
   "Create publication-ready participant and review flow charts from structured counts, exclusion reasons, and reporting-guideline templates.": "Buat diagram alur peserta dan tinjauan yang siap publikasi dari jumlah terstruktur, alasan eksklusi, dan templat pedoman pelaporan.",
   "Flow chart settings": "Pengaturan diagram alur",
@@ -282,7 +310,7 @@ const indonesianText: Record<string, string> = {
   "Citation copied": "Sitasi disalin",
   "Clear scenarios": "Hapus skenario",
   "Scenarios cleared": "Skenario dihapus",
-  "StudySize Studio version 1.27 © Ryalino, 2026.": "StudySize Studio versi 1.27 © Ryalino, 2026.",
+  "StudySize Studio version 1.28 © Ryalino, 2026.": "StudySize Studio versi 1.28 © Ryalino, 2026.",
   "Scenario saved": "Skenario disimpan",
   "Scenario is ready": "Skenario siap",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Skenario ini sekarang tersedia di menu Perbandingan Skenario, tempat Anda dapat membandingkannya dengan skenario perencanaan tersimpan lainnya.",
@@ -736,6 +764,25 @@ const dutchText: Record<string, string> = {
   "Calculator catalog": "Calculatorcatalogus",
   "Randomiser": "Randomisator",
   "Flow Charts": "Stroomdiagrammen",
+  "Conceptual Framework": "Conceptueel Kader",
+  "Conceptual framework builder": "Bouwer voor conceptueel kader",
+  "Translate study variables into a publication-ready conceptual framework figure with directional relationships.": "Zet studievariabelen om in een publicatieklare figuur van een conceptueel kader met richtinggevende relaties.",
+  "Framework settings": "Instellingen voor kader",
+  "Framework title": "Kadertitel",
+  "Independent variables": "Onafhankelijke variabelen",
+  "Dependent variables": "Afhankelijke variabelen",
+  "Confounding variables": "Confounders",
+  "Mediators": "Mediatoren",
+  "Moderators / effect modifiers": "Moderatoren / effectmodificatoren",
+  "Covariates / adjustment variables": "Covariaten / correctievariabelen",
+  "Enter one variable per line.": "Voer een variabele per regel in.",
+  "Optional. These are drawn as variables affecting both exposure and outcome.": "Optioneel. Deze worden getekend als variabelen die zowel blootstelling als uitkomst beinvloeden.",
+  "Optional. These sit on the pathway between exposure and outcome.": "Optioneel. Deze liggen op het pad tussen blootstelling en uitkomst.",
+  "Optional. These modify the strength or direction of the main relationship.": "Optioneel. Deze veranderen de sterkte of richting van de hoofdrelatie.",
+  "Optional. These are shown as variables controlled for in analysis.": "Optioneel. Deze worden weergegeven als variabelen waarvoor in de analyse wordt gecorrigeerd.",
+  "Framework PNG downloaded": "PNG van kader gedownload",
+  "Framework preview": "Voorbeeld van kader",
+  "Conceptual frameworks are planning figures. Review the direction of each relationship against theory, temporality, and domain evidence before using the figure in a protocol or manuscript.": "Conceptuele kaders zijn planningsfiguren. Controleer de richting van elke relatie aan theorie, tijdsvolgorde en domeinbewijs voordat u de figuur in een protocol of manuscript gebruikt.",
   "Flow chart builder": "Stroomdiagrambouwer",
   "Create publication-ready participant and review flow charts from structured counts, exclusion reasons, and reporting-guideline templates.": "Maak publicatieklare deelnemers- en reviewstroomdiagrammen met gestructureerde aantallen, exclusieredenen en templates van rapportagerichtlijnen.",
   "Flow chart settings": "Instellingen voor stroomdiagram",
@@ -860,7 +907,7 @@ const dutchText: Record<string, string> = {
   "Citation copied": "Citatie gekopieerd",
   "Clear scenarios": "Scenario's wissen",
   "Scenarios cleared": "Scenario's gewist",
-  "StudySize Studio version 1.27 © Ryalino, 2026.": "StudySize Studio versie 1.27 © Ryalino, 2026.",
+  "StudySize Studio version 1.28 © Ryalino, 2026.": "StudySize Studio versie 1.28 © Ryalino, 2026.",
   "Scenario is ready": "Scenario is klaar",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Dit scenario is nu beschikbaar in de balk Scenariovergelijking, waar u het kunt vergelijken met andere opgeslagen planningsscenario's.",
   "Open Scenario Comparison": "Scenariovergelijking openen",
@@ -3016,6 +3063,217 @@ function buildFlowChartSvg(template: FlowTemplate, title: string, counts: Record
   </svg>`;
 }
 
+function parseFrameworkVariables(value: string, fallback: string[]) {
+  const variables = value
+    .split(/\n+/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+  return variables.length ? variables : fallback;
+}
+
+function frameworkBoxHeight(box: FrameworkBox) {
+  const variableLines = box.variables.flatMap((variable) => wrapSvgLines(variable, 28));
+  return Math.max(100, 48 + variableLines.length * 17 + 18);
+}
+
+function frameworkFill(tone: FrameworkBox["tone"]) {
+  if (tone === "primary") return "#dff7ef";
+  if (tone === "secondary") return "#e7f0ff";
+  if (tone === "warning") return "#ffe8e4";
+  return "#ffffff";
+}
+
+function frameworkStroke(tone: FrameworkBox["tone"]) {
+  if (tone === "primary") return "#0f9f9a";
+  if (tone === "secondary") return "#4b77d9";
+  if (tone === "warning") return "#f47b65";
+  return "#d7deea";
+}
+
+function frameworkConnector(from: FrameworkBox, to: FrameworkBox) {
+  const fromHeight = frameworkBoxHeight(from);
+  const toHeight = frameworkBoxHeight(to);
+  const start = { x: from.x + from.width / 2, y: from.y + fromHeight / 2 };
+  const end = { x: to.x + to.width / 2, y: to.y + toHeight / 2 };
+  const dx = end.x - start.x;
+  const dy = end.y - start.y;
+  const distance = Math.hypot(dx, dy) || 1;
+  const unitX = dx / distance;
+  const unitY = dy / distance;
+  const sourceScale = Math.min(
+    Math.abs(dx) < 0.001 ? Number.POSITIVE_INFINITY : from.width / 2 / Math.abs(dx),
+    Math.abs(dy) < 0.001 ? Number.POSITIVE_INFINITY : fromHeight / 2 / Math.abs(dy),
+  );
+  const targetScale = Math.min(
+    Math.abs(dx) < 0.001 ? Number.POSITIVE_INFINITY : to.width / 2 / Math.abs(dx),
+    Math.abs(dy) < 0.001 ? Number.POSITIVE_INFINITY : toHeight / 2 / Math.abs(dy),
+  );
+  return {
+    x1: start.x + dx * sourceScale + unitX * 9,
+    y1: start.y + dy * sourceScale + unitY * 9,
+    x2: end.x - dx * targetScale - unitX * 14,
+    y2: end.y - dy * targetScale - unitY * 14,
+  };
+}
+
+function frameworkBoxes(
+  independentVariables: string[],
+  dependentVariables: string[],
+  confoundingVariables: string[],
+  mediatorVariables: string[],
+  moderatorVariables: string[],
+  covariateVariables: string[],
+) {
+  const boxes: FrameworkBox[] = [
+    { id: "independent", title: "Independent variables", variables: independentVariables, x: 70, y: 235, width: 250, tone: "primary" },
+    { id: "dependent", title: "Dependent variables", variables: dependentVariables, x: 690, y: 235, width: 250, tone: "secondary" },
+  ];
+  if (mediatorVariables.length) {
+    boxes.push({ id: "mediators", title: "Mediators", variables: mediatorVariables, x: 380, y: 235, width: 250, tone: "neutral" });
+  }
+  if (confoundingVariables.length) {
+    boxes.push({ id: "confounders", title: "Confounding variables", variables: confoundingVariables, x: 380, y: 70, width: 250, tone: "warning" });
+  }
+  if (moderatorVariables.length) {
+    boxes.push({ id: "moderators", title: "Moderators / effect modifiers", variables: moderatorVariables, x: 380, y: 405, width: 250, tone: "neutral" });
+  }
+  if (covariateVariables.length) {
+    boxes.push({ id: "covariates", title: "Covariates / adjustment variables", variables: covariateVariables, x: 70, y: 405, width: 250, tone: "neutral" });
+  }
+  return boxes;
+}
+
+function frameworkCanvasHeight(boxes: FrameworkBox[]) {
+  return Math.max(610, Math.max(...boxes.map((box) => box.y + frameworkBoxHeight(box))) + 80);
+}
+
+function FrameworkFigure({
+  confoundingVariables,
+  covariateVariables,
+  dependentVariables,
+  independentVariables,
+  mediatorVariables,
+  moderatorVariables,
+  title,
+}: {
+  confoundingVariables: string[];
+  covariateVariables: string[];
+  dependentVariables: string[];
+  independentVariables: string[];
+  mediatorVariables: string[];
+  moderatorVariables: string[];
+  title: string;
+}) {
+  const boxes = frameworkBoxes(independentVariables, dependentVariables, confoundingVariables, mediatorVariables, moderatorVariables, covariateVariables);
+  const boxesById = Object.fromEntries(boxes.map((box) => [box.id, box]));
+  const height = frameworkCanvasHeight(boxes);
+  const connectors = [
+    boxesById.mediators
+      ? ["independent", "mediators", false]
+      : ["independent", "dependent", false],
+    boxesById.mediators ? ["mediators", "dependent", false] : undefined,
+    boxesById.confounders ? ["confounders", "independent", false] : undefined,
+    boxesById.confounders ? ["confounders", "dependent", false] : undefined,
+    boxesById.moderators ? ["moderators", boxesById.mediators ? "mediators" : "dependent", true] : undefined,
+    boxesById.covariates ? ["covariates", "dependent", true] : undefined,
+  ].filter(Boolean) as [string, string, boolean][];
+
+  return (
+    <svg className="framework-svg" role="img" aria-label={title} viewBox={`0 0 1010 ${height}`}>
+      <defs>
+        <marker id="framework-arrow" markerHeight="10" markerWidth="10" orient="auto" refX="9" refY="3">
+          <path d="M0,0 L0,6 L9,3 z" fill="#32415f" />
+        </marker>
+      </defs>
+      <rect width="1010" height={height} fill="#fbfcff" rx="18" />
+      <text x="505" y="36" textAnchor="middle" fill="#172033" fontSize="22" fontWeight="800">{title}</text>
+      {connectors.map(([fromId, toId, dashed]) => {
+        const from = boxesById[fromId];
+        const to = boxesById[toId];
+        if (!from || !to) return null;
+        const line = frameworkConnector(from, to);
+        return (
+          <line
+            key={`${fromId}-${toId}`}
+            markerEnd="url(#framework-arrow)"
+            stroke="#32415f"
+            strokeDasharray={dashed ? "8 7" : undefined}
+            strokeWidth="2.5"
+            {...line}
+          />
+        );
+      })}
+      {boxes.map((box) => {
+        const height = frameworkBoxHeight(box);
+        const lines = box.variables.flatMap((variable) => wrapSvgLines(variable, 28));
+        return (
+          <g key={box.id}>
+            <rect fill={frameworkFill(box.tone)} height={height} rx="8" stroke={frameworkStroke(box.tone)} strokeWidth="2" width={box.width} x={box.x} y={box.y} />
+            <text x={box.x + box.width / 2} y={box.y + 25} textAnchor="middle" fill="#172033" fontSize="14" fontWeight="800">
+              {box.title}
+            </text>
+            {lines.map((line, index) => (
+              <text key={`${box.id}-${line}-${index}`} x={box.x + box.width / 2} y={box.y + 52 + index * 17} textAnchor="middle" fill="#43516f" fontSize="13" fontWeight="600">
+                {line}
+              </text>
+            ))}
+          </g>
+        );
+      })}
+      <text x="505" y={height - 24} textAnchor="middle" fill="#6b7690" fontSize="12">StudySize Studio conceptual framework generator</text>
+    </svg>
+  );
+}
+
+function buildFrameworkSvg(
+  title: string,
+  independentVariables: string[],
+  dependentVariables: string[],
+  confoundingVariables: string[],
+  mediatorVariables: string[],
+  moderatorVariables: string[],
+  covariateVariables: string[],
+) {
+  const boxes = frameworkBoxes(independentVariables, dependentVariables, confoundingVariables, mediatorVariables, moderatorVariables, covariateVariables);
+  const boxesById = Object.fromEntries(boxes.map((box) => [box.id, box]));
+  const height = frameworkCanvasHeight(boxes);
+  const connectors = [
+    boxesById.mediators ? ["independent", "mediators", false] : ["independent", "dependent", false],
+    boxesById.mediators ? ["mediators", "dependent", false] : undefined,
+    boxesById.confounders ? ["confounders", "independent", false] : undefined,
+    boxesById.confounders ? ["confounders", "dependent", false] : undefined,
+    boxesById.moderators ? ["moderators", boxesById.mediators ? "mediators" : "dependent", true] : undefined,
+    boxesById.covariates ? ["covariates", "dependent", true] : undefined,
+  ].filter(Boolean) as [string, string, boolean][];
+  const connectorMarkup = connectors
+    .map(([fromId, toId, dashed]) => {
+      const from = boxesById[fromId];
+      const to = boxesById[toId];
+      if (!from || !to) return "";
+      const line = frameworkConnector(from, to);
+      return `<line x1="${line.x1}" y1="${line.y1}" x2="${line.x2}" y2="${line.y2}" stroke="#32415f" stroke-width="2.5" ${dashed ? 'stroke-dasharray="8 7"' : ""} marker-end="url(#framework-arrow)" />`;
+    })
+    .join("");
+  const boxMarkup = boxes
+    .map((box) => {
+      const boxHeight = frameworkBoxHeight(box);
+      const lines = box.variables.flatMap((variable) => wrapSvgLines(variable, 28));
+      const text = [
+        `<text x="${box.x + box.width / 2}" y="${box.y + 25}" text-anchor="middle" fill="#172033" font-size="14" font-weight="800">${escapeXml(box.title)}</text>`,
+        ...lines.map((line, index) => `<text x="${box.x + box.width / 2}" y="${box.y + 52 + index * 17}" text-anchor="middle" fill="#43516f" font-size="13" font-weight="600">${escapeXml(line)}</text>`),
+      ].join("");
+      return `<g><rect x="${box.x}" y="${box.y}" width="${box.width}" height="${boxHeight}" rx="8" fill="${frameworkFill(box.tone)}" stroke="${frameworkStroke(box.tone)}" stroke-width="2" />${text}</g>`;
+    })
+    .join("");
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="1010" height="${height}" viewBox="0 0 1010 ${height}">
+    <defs><marker id="framework-arrow" markerHeight="10" markerWidth="10" orient="auto" refX="9" refY="3"><path d="M0,0 L0,6 L9,3 z" fill="#32415f" /></marker></defs>
+    <rect width="1010" height="${height}" fill="#fbfcff" rx="18" />
+    <text x="505" y="36" text-anchor="middle" fill="#172033" font-family="Arial, sans-serif" font-size="22" font-weight="800">${escapeXml(title)}</text>
+    <g font-family="Arial, sans-serif">${connectorMarkup}${boxMarkup}</g>
+    <text x="505" y="${height - 24}" text-anchor="middle" fill="#6b7690" font-family="Arial, sans-serif" font-size="12">StudySize Studio conceptual framework generator</text>
+  </svg>`;
+}
+
 const randomisationBestPractice = [
   "Define the randomisation unit before generating the sequence: individual participant, cluster, eye, lesion, or another unit.",
   "Generate the allocation sequence before enrolment using a documented method, seed, date, study title, groups, and allocation ratio.",
@@ -3337,6 +3595,13 @@ export function SampleSizeApp() {
   const [flowTitle, setFlowTitle] = useState(flowTemplates[0].title);
   const [flowCounts, setFlowCounts] = useState<Record<string, string>>(flowTemplates[0].defaultCounts);
   const [flowNotes, setFlowNotes] = useState<Record<string, string>>(flowTemplates[0].defaultNotes);
+  const [frameworkTitle, setFrameworkTitle] = useState("Conceptual framework");
+  const [independentVariables, setIndependentVariables] = useState("Exposure / intervention");
+  const [dependentVariables, setDependentVariables] = useState("Primary outcome");
+  const [confoundingVariables, setConfoundingVariables] = useState("Age\nSex\nComorbidity");
+  const [mediatorVariables, setMediatorVariables] = useState("");
+  const [moderatorVariables, setModeratorVariables] = useState("");
+  const [covariateVariables, setCovariateVariables] = useState("");
   const [blindParticipants, setBlindParticipants] = useState(false);
   const [blindCareProviders, setBlindCareProviders] = useState(false);
   const [blindOutcomeAssessors, setBlindOutcomeAssessors] = useState(true);
@@ -3375,6 +3640,12 @@ export function SampleSizeApp() {
   const derivedFlowCounts = useMemo(() => deriveFlowCounts(flowTemplate, rawEffectiveFlowCounts), [flowTemplate, rawEffectiveFlowCounts]);
   const effectiveFlowCounts = derivedFlowCounts.counts;
   const effectiveFlowNotes = useMemo(() => ({ ...flowTemplate.defaultNotes, ...flowNotes }), [flowNotes, flowTemplate]);
+  const frameworkIndependent = useMemo(() => parseFrameworkVariables(independentVariables, ["Independent variable"]), [independentVariables]);
+  const frameworkDependent = useMemo(() => parseFrameworkVariables(dependentVariables, ["Dependent variable"]), [dependentVariables]);
+  const frameworkConfounders = useMemo(() => parseFrameworkVariables(confoundingVariables, []), [confoundingVariables]);
+  const frameworkMediators = useMemo(() => parseFrameworkVariables(mediatorVariables, []), [mediatorVariables]);
+  const frameworkModerators = useMemo(() => parseFrameworkVariables(moderatorVariables, []), [moderatorVariables]);
+  const frameworkCovariates = useMemo(() => parseFrameworkVariables(covariateVariables, []), [covariateVariables]);
   const values = valuesByCalculator[calculator.id] ?? initialValues(calculator);
   const result = useMemo(() => calculator.compute(values), [calculator, values]);
   const filtered = calculators.filter((item) =>
@@ -3789,6 +4060,42 @@ export function SampleSizeApp() {
     image.src = svgUrl;
   }
 
+  function downloadFrameworkPng() {
+    const svg = buildFrameworkSvg(
+      frameworkTitle,
+      frameworkIndependent,
+      frameworkDependent,
+      frameworkConfounders,
+      frameworkMediators,
+      frameworkModerators,
+      frameworkCovariates,
+    );
+    const svgBlob = new Blob([svg], { type: "image/svg+xml;charset=utf-8" });
+    const svgUrl = URL.createObjectURL(svgBlob);
+    const image = new Image();
+
+    image.onload = () => {
+      const scale = 2;
+      const canvas = document.createElement("canvas");
+      canvas.width = image.width * scale;
+      canvas.height = image.height * scale;
+      const context = canvas.getContext("2d");
+      if (!context) return;
+      context.fillStyle = "#ffffff";
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      context.drawImage(image, 0, 0, canvas.width, canvas.height);
+      URL.revokeObjectURL(svgUrl);
+      const pngUrl = canvas.toDataURL("image/png");
+      const anchor = document.createElement("a");
+      anchor.href = pngUrl;
+      anchor.download = "conceptual-framework.png";
+      anchor.click();
+      setStatus(t("Framework PNG downloaded", language));
+    };
+
+    image.src = svgUrl;
+  }
+
   function answerDecision(questionId: string, value: string) {
     const index = decisionOrder.indexOf(questionId);
     setDecisionAnswers((current) => {
@@ -3909,6 +4216,9 @@ export function SampleSizeApp() {
         </button>
         <button className={mode === "flowcharts" ? "active" : ""} type="button" onClick={() => setMode("flowcharts")}>
           {t("Flow Charts", language)}
+        </button>
+        <button className={mode === "framework" ? "active" : ""} type="button" onClick={() => setMode("framework")}>
+          {t("Conceptual Framework", language)}
         </button>
         <button className={mode === "blinding" ? "active" : ""} type="button" onClick={() => setMode("blinding")}>
           {t("Blinding", language)}
@@ -4474,6 +4784,106 @@ export function SampleSizeApp() {
               </section>
             </div>
           </section>
+        ) : mode === "framework" ? (
+          <section className="framework-panel" aria-labelledby="framework-title">
+            <div className="panel-heading">
+              <div>
+                <p className="eyebrow">{t("Figure guidance", language)}</p>
+                <h2 id="framework-title">{t("Conceptual framework builder", language)}</h2>
+                <p>
+                  {t("Translate study variables into a publication-ready conceptual framework figure with directional relationships.", language)}
+                </p>
+              </div>
+              <div className="actions">
+                <button type="button" onClick={downloadFrameworkPng}>{t("Download PNG", language)}</button>
+              </div>
+            </div>
+
+            <div className="framework-workbench">
+              <section className="framework-controls" aria-label={t("Framework settings", language)}>
+                <label className="control">
+                  <span>
+                    <strong>{t("Framework title", language)}</strong>
+                    <small>{t("Conceptual frameworks are planning figures. Review the direction of each relationship against theory, temporality, and domain evidence before using the figure in a protocol or manuscript.", language)}</small>
+                  </span>
+                  <input
+                    aria-label={t("Framework title", language)}
+                    onChange={(event) => setFrameworkTitle(event.target.value)}
+                    type="text"
+                    value={frameworkTitle}
+                  />
+                </label>
+
+                <div className="framework-input-grid">
+                  <label className="control">
+                    <span>
+                      <strong>{t("Independent variables", language)}</strong>
+                      <small>{t("Enter one variable per line.", language)}</small>
+                    </span>
+                    <textarea aria-label={t("Independent variables", language)} onChange={(event) => setIndependentVariables(event.target.value)} rows={4} value={independentVariables} />
+                  </label>
+                  <label className="control">
+                    <span>
+                      <strong>{t("Dependent variables", language)}</strong>
+                      <small>{t("Enter one variable per line.", language)}</small>
+                    </span>
+                    <textarea aria-label={t("Dependent variables", language)} onChange={(event) => setDependentVariables(event.target.value)} rows={4} value={dependentVariables} />
+                  </label>
+                  <label className="control">
+                    <span>
+                      <strong>{t("Confounding variables", language)}</strong>
+                      <small>{t("Optional. These are drawn as variables affecting both exposure and outcome.", language)}</small>
+                    </span>
+                    <textarea aria-label={t("Confounding variables", language)} onChange={(event) => setConfoundingVariables(event.target.value)} rows={4} value={confoundingVariables} />
+                  </label>
+                  <label className="control">
+                    <span>
+                      <strong>{t("Mediators", language)}</strong>
+                      <small>{t("Optional. These sit on the pathway between exposure and outcome.", language)}</small>
+                    </span>
+                    <textarea aria-label={t("Mediators", language)} onChange={(event) => setMediatorVariables(event.target.value)} rows={4} value={mediatorVariables} />
+                  </label>
+                  <label className="control">
+                    <span>
+                      <strong>{t("Moderators / effect modifiers", language)}</strong>
+                      <small>{t("Optional. These modify the strength or direction of the main relationship.", language)}</small>
+                    </span>
+                    <textarea aria-label={t("Moderators / effect modifiers", language)} onChange={(event) => setModeratorVariables(event.target.value)} rows={4} value={moderatorVariables} />
+                  </label>
+                  <label className="control">
+                    <span>
+                      <strong>{t("Covariates / adjustment variables", language)}</strong>
+                      <small>{t("Optional. These are shown as variables controlled for in analysis.", language)}</small>
+                    </span>
+                    <textarea aria-label={t("Covariates / adjustment variables", language)} onChange={(event) => setCovariateVariables(event.target.value)} rows={4} value={covariateVariables} />
+                  </label>
+                </div>
+              </section>
+
+              <section className="framework-preview-card" aria-label={t("Framework preview", language)}>
+                <div className="allocation-head">
+                  <div>
+                    <span>{t("Framework preview", language)}</span>
+                    <strong>{t("Conceptual Framework", language)}</strong>
+                  </div>
+                </div>
+                <div className="framework-preview">
+                  <FrameworkFigure
+                    confoundingVariables={frameworkConfounders}
+                    covariateVariables={frameworkCovariates}
+                    dependentVariables={frameworkDependent}
+                    independentVariables={frameworkIndependent}
+                    mediatorVariables={frameworkMediators}
+                    moderatorVariables={frameworkModerators}
+                    title={frameworkTitle}
+                  />
+                </div>
+                <div className="flowchart-guidance">
+                  <p>{t("Conceptual frameworks are planning figures. Review the direction of each relationship against theory, temporality, and domain evidence before using the figure in a protocol or manuscript.", language)}</p>
+                </div>
+              </section>
+            </div>
+          </section>
         ) : mode === "scenario" ? (
           <section className="scenario-panel" aria-labelledby="scenario-title">
             <div className="panel-heading">
@@ -4805,7 +5215,7 @@ export function SampleSizeApp() {
         ) : null}
       </section>
 
-      <footer className="app-footer"><strong>{t("StudySize Studio version 1.27 © Ryalino, 2026.", language)}</strong></footer>
+      <footer className="app-footer"><strong>{t("StudySize Studio version 1.28 © Ryalino, 2026.", language)}</strong></footer>
 
       {copiedNotice && (
         <div className="copy-toast" role="status" aria-live="polite">
