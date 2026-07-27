@@ -41,7 +41,7 @@ type Scenario = {
   result: Output;
   createdAt: string;
 };
-type AppMode = "finder" | "calculator" | "randomiser" | "blinding" | "scenario" | "checklist";
+type AppMode = "finder" | "calculator" | "randomiser" | "blinding" | "scenario" | "checklist" | "flowcharts";
 type DecisionAnswers = Record<string, string>;
 type DecisionOption = {
   value: string;
@@ -95,6 +95,28 @@ type ChecklistTreeQuestion = {
   yes?: string | ChecklistKey;
   no?: string | ChecklistKey;
 };
+type FlowTemplateKey = "consort" | "strobe-cohort" | "strobe-case-control" | "strobe-cross-sectional" | "prisma" | "stard" | "generic";
+type FlowNode = {
+  id: string;
+  label: string;
+  x: number;
+  y: number;
+  tone?: "primary" | "secondary" | "warning";
+};
+type FlowConnector = {
+  from: string;
+  to: string;
+};
+type FlowTemplate = {
+  key: FlowTemplateKey;
+  title: string;
+  guideline: string;
+  description: string;
+  nodes: FlowNode[];
+  connectors: FlowConnector[];
+  defaultCounts: Record<string, string>;
+  defaultNotes: Record<string, string>;
+};
 
 const indonesianText: Record<string, string> = {
   "Language selector": "Pemilih bahasa",
@@ -111,6 +133,22 @@ const indonesianText: Record<string, string> = {
   "Find my study size calculator": "Temukan kalkulator besar studi saya",
   "Calculator catalog": "Katalog kalkulator",
   "Randomiser": "Randomisasi",
+  "Flow Charts": "Diagram Alur",
+  "Flow chart builder": "Pembuat diagram alur",
+  "Create publication-ready participant and review flow charts from structured counts, exclusion reasons, and reporting-guideline templates.": "Buat diagram alur peserta dan tinjauan yang siap publikasi dari jumlah terstruktur, alasan eksklusi, dan templat pedoman pelaporan.",
+  "Flow chart settings": "Pengaturan diagram alur",
+  "Template": "Templat",
+  "Figure title": "Judul gambar",
+  "Box counts and exclusion reasons": "Jumlah kotak dan alasan eksklusi",
+  "Download PNG": "Unduh PNG",
+  "Flow chart PNG downloaded": "PNG diagram alur diunduh",
+  "Preview": "Pratinjau",
+  "Figure guidance": "Panduan gambar",
+  "Enter the exact n for each box. Use the reason field for exclusions, losses, non-eligibility, missing records, or analysis omissions. Review the final figure against the relevant reporting guideline before submission.": "Masukkan n yang tepat untuk setiap kotak. Gunakan kolom alasan untuk eksklusi, kehilangan tindak lanjut, ketidaklayakan, rekam yang hilang, atau pengeluaran dari analisis. Tinjau gambar akhir terhadap pedoman pelaporan yang relevan sebelum pengiriman.",
+  "Use anonymised aggregate counts only; do not enter identifiable participant information.": "Gunakan jumlah agregat anonim saja; jangan masukkan informasi peserta yang dapat diidentifikasi.",
+  "Reasons / notes": "Alasan / catatan",
+  "Flow chart type": "Jenis diagram alur",
+  "Open relevant checklist": "Buka daftar periksa terkait",
   "Scenario Comparison": "Perbandingan skenario",
   "Study Design": "Desain Studi",
   "Reporting Checklist Helper": "Bantuan daftar periksa pelaporan",
@@ -232,7 +270,7 @@ const indonesianText: Record<string, string> = {
   "Citation copied": "Sitasi disalin",
   "Clear scenarios": "Hapus skenario",
   "Scenarios cleared": "Skenario dihapus",
-  "StudySize Studio version 1.24 © Ryalino, 2026.": "StudySize Studio versi 1.24 © Ryalino, 2026.",
+  "StudySize Studio version 1.25 © Ryalino, 2026.": "StudySize Studio versi 1.25 © Ryalino, 2026.",
   "Scenario saved": "Skenario disimpan",
   "Scenario is ready": "Skenario siap",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Skenario ini sekarang tersedia di menu Perbandingan Skenario, tempat Anda dapat membandingkannya dengan skenario perencanaan tersimpan lainnya.",
@@ -685,6 +723,22 @@ const dutchText: Record<string, string> = {
   "Find my study size calculator": "Vind mijn steekproefgroottecalculator",
   "Calculator catalog": "Calculatorcatalogus",
   "Randomiser": "Randomisator",
+  "Flow Charts": "Stroomdiagrammen",
+  "Flow chart builder": "Stroomdiagrambouwer",
+  "Create publication-ready participant and review flow charts from structured counts, exclusion reasons, and reporting-guideline templates.": "Maak publicatieklare deelnemers- en reviewstroomdiagrammen met gestructureerde aantallen, exclusieredenen en templates van rapportagerichtlijnen.",
+  "Flow chart settings": "Instellingen voor stroomdiagram",
+  "Template": "Template",
+  "Figure title": "Figuurtitel",
+  "Box counts and exclusion reasons": "Aantallen per vak en exclusieredenen",
+  "Download PNG": "PNG downloaden",
+  "Flow chart PNG downloaded": "PNG van stroomdiagram gedownload",
+  "Preview": "Voorbeeld",
+  "Figure guidance": "Figuuradvies",
+  "Enter the exact n for each box. Use the reason field for exclusions, losses, non-eligibility, missing records, or analysis omissions. Review the final figure against the relevant reporting guideline before submission.": "Voer de exacte n in voor elk vak. Gebruik het redenveld voor exclusies, uitval, niet-geschiktheid, ontbrekende dossiers of weglatingen uit de analyse. Controleer de figuur voor indiening aan de hand van de relevante rapportagerichtlijn.",
+  "Use anonymised aggregate counts only; do not enter identifiable participant information.": "Gebruik alleen geanonimiseerde geaggregeerde aantallen; voer geen identificeerbare deelnemergegevens in.",
+  "Reasons / notes": "Redenen / notities",
+  "Flow chart type": "Type stroomdiagram",
+  "Open relevant checklist": "Relevante checklist openen",
   "Scenario Comparison": "Scenariovergelijking",
   "Study Design": "Studiedesign",
   "Reporting Checklist Helper": "Hulp bij rapportagechecklists",
@@ -789,7 +843,7 @@ const dutchText: Record<string, string> = {
   "Citation copied": "Citatie gekopieerd",
   "Clear scenarios": "Scenario's wissen",
   "Scenarios cleared": "Scenario's gewist",
-  "StudySize Studio version 1.24 © Ryalino, 2026.": "StudySize Studio versie 1.24 © Ryalino, 2026.",
+  "StudySize Studio version 1.25 © Ryalino, 2026.": "StudySize Studio versie 1.25 © Ryalino, 2026.",
   "Scenario is ready": "Scenario is klaar",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Dit scenario is nu beschikbaar in de balk Scenariovergelijking, waar u het kunt vergelijken met andere opgeslagen planningsscenario's.",
   "Open Scenario Comparison": "Scenariovergelijking openen",
@@ -2276,6 +2330,395 @@ function makeRandomSeed() {
   return `STUDY-${timestamp}-${suffix}`;
 }
 
+const flowTemplates: FlowTemplate[] = [
+  {
+    key: "consort",
+    title: "CONSORT randomised trial flow diagram",
+    guideline: "CONSORT",
+    description: "Participant progress through enrolment, allocation, follow-up, and analysis.",
+    nodes: [
+      { id: "assessed", label: "Assessed for eligibility", x: 360, y: 70, tone: "primary" },
+      { id: "excluded", label: "Excluded", x: 665, y: 70, tone: "warning" },
+      { id: "randomised", label: "Randomised", x: 360, y: 190, tone: "primary" },
+      { id: "allocatedA", label: "Allocated to group A", x: 155, y: 330 },
+      { id: "allocatedB", label: "Allocated to group B", x: 565, y: 330 },
+      { id: "followA", label: "Lost to follow-up / discontinued group A", x: 155, y: 470, tone: "warning" },
+      { id: "followB", label: "Lost to follow-up / discontinued group B", x: 565, y: 470, tone: "warning" },
+      { id: "analysedA", label: "Analysed group A", x: 155, y: 610, tone: "secondary" },
+      { id: "analysedB", label: "Analysed group B", x: 565, y: 610, tone: "secondary" },
+    ],
+    connectors: [
+      { from: "assessed", to: "randomised" },
+      { from: "assessed", to: "excluded" },
+      { from: "randomised", to: "allocatedA" },
+      { from: "randomised", to: "allocatedB" },
+      { from: "allocatedA", to: "followA" },
+      { from: "allocatedB", to: "followB" },
+      { from: "followA", to: "analysedA" },
+      { from: "followB", to: "analysedB" },
+    ],
+    defaultCounts: { assessed: "", excluded: "", randomised: "", allocatedA: "", allocatedB: "", followA: "", followB: "", analysedA: "", analysedB: "" },
+    defaultNotes: { excluded: "Reasons for exclusion", followA: "Reasons", followB: "Reasons" },
+  },
+  {
+    key: "strobe-cohort",
+    title: "STROBE cohort study flow diagram",
+    guideline: "STROBE",
+    description: "Cohort assembly, eligibility, exposure groups, follow-up, and analysis.",
+    nodes: [
+      { id: "source", label: "Source population / records screened", x: 360, y: 70, tone: "primary" },
+      { id: "ineligible", label: "Not eligible / excluded", x: 665, y: 70, tone: "warning" },
+      { id: "eligible", label: "Eligible cohort", x: 360, y: 190, tone: "primary" },
+      { id: "exposed", label: "Exposed group", x: 155, y: 330 },
+      { id: "unexposed", label: "Unexposed group", x: 565, y: 330 },
+      { id: "lostExposed", label: "Lost or missing outcome in exposed", x: 155, y: 470, tone: "warning" },
+      { id: "lostUnexposed", label: "Lost or missing outcome in unexposed", x: 565, y: 470, tone: "warning" },
+      { id: "analysedExposed", label: "Analysed exposed", x: 155, y: 610, tone: "secondary" },
+      { id: "analysedUnexposed", label: "Analysed unexposed", x: 565, y: 610, tone: "secondary" },
+    ],
+    connectors: [
+      { from: "source", to: "eligible" },
+      { from: "source", to: "ineligible" },
+      { from: "eligible", to: "exposed" },
+      { from: "eligible", to: "unexposed" },
+      { from: "exposed", to: "lostExposed" },
+      { from: "unexposed", to: "lostUnexposed" },
+      { from: "lostExposed", to: "analysedExposed" },
+      { from: "lostUnexposed", to: "analysedUnexposed" },
+    ],
+    defaultCounts: { source: "", ineligible: "", eligible: "", exposed: "", unexposed: "", lostExposed: "", lostUnexposed: "", analysedExposed: "", analysedUnexposed: "" },
+    defaultNotes: { ineligible: "Eligibility exclusions", lostExposed: "Reasons", lostUnexposed: "Reasons" },
+  },
+  {
+    key: "strobe-case-control",
+    title: "STROBE case-control study flow diagram",
+    guideline: "STROBE",
+    description: "Selection of cases and controls, exclusions, and final analysed samples.",
+    nodes: [
+      { id: "caseSource", label: "Potential cases identified", x: 155, y: 90, tone: "primary" },
+      { id: "controlSource", label: "Potential controls identified", x: 565, y: 90, tone: "primary" },
+      { id: "caseExcluded", label: "Cases excluded", x: 155, y: 230, tone: "warning" },
+      { id: "controlExcluded", label: "Controls excluded", x: 565, y: 230, tone: "warning" },
+      { id: "cases", label: "Eligible cases", x: 155, y: 370 },
+      { id: "controls", label: "Eligible controls", x: 565, y: 370 },
+      { id: "analysedCases", label: "Cases analysed", x: 155, y: 520, tone: "secondary" },
+      { id: "analysedControls", label: "Controls analysed", x: 565, y: 520, tone: "secondary" },
+    ],
+    connectors: [
+      { from: "caseSource", to: "caseExcluded" },
+      { from: "controlSource", to: "controlExcluded" },
+      { from: "caseExcluded", to: "cases" },
+      { from: "controlExcluded", to: "controls" },
+      { from: "cases", to: "analysedCases" },
+      { from: "controls", to: "analysedControls" },
+    ],
+    defaultCounts: { caseSource: "", controlSource: "", caseExcluded: "", controlExcluded: "", cases: "", controls: "", analysedCases: "", analysedControls: "" },
+    defaultNotes: { caseExcluded: "Reasons", controlExcluded: "Reasons" },
+  },
+  {
+    key: "strobe-cross-sectional",
+    title: "STROBE cross-sectional study flow diagram",
+    guideline: "STROBE",
+    description: "Sampling frame, eligibility, response, complete data, and final analysis.",
+    nodes: [
+      { id: "invited", label: "Invited / sampled", x: 360, y: 70, tone: "primary" },
+      { id: "notEligible", label: "Not eligible", x: 665, y: 70, tone: "warning" },
+      { id: "eligible", label: "Eligible", x: 360, y: 190 },
+      { id: "nonResponse", label: "Non-response", x: 665, y: 190, tone: "warning" },
+      { id: "responded", label: "Responded / assessed", x: 360, y: 330 },
+      { id: "incomplete", label: "Incomplete or missing key data", x: 665, y: 330, tone: "warning" },
+      { id: "analysed", label: "Included in analysis", x: 360, y: 470, tone: "secondary" },
+    ],
+    connectors: [
+      { from: "invited", to: "eligible" },
+      { from: "invited", to: "notEligible" },
+      { from: "eligible", to: "responded" },
+      { from: "eligible", to: "nonResponse" },
+      { from: "responded", to: "analysed" },
+      { from: "responded", to: "incomplete" },
+    ],
+    defaultCounts: { invited: "", notEligible: "", eligible: "", nonResponse: "", responded: "", incomplete: "", analysed: "" },
+    defaultNotes: { notEligible: "Reasons", nonResponse: "Reasons", incomplete: "Missing-data reasons" },
+  },
+  {
+    key: "prisma",
+    title: "PRISMA study selection flow diagram",
+    guideline: "PRISMA",
+    description: "Records identified, screened, excluded, assessed, and included in review.",
+    nodes: [
+      { id: "identified", label: "Records identified", x: 360, y: 60, tone: "primary" },
+      { id: "duplicates", label: "Duplicate records removed", x: 665, y: 60, tone: "warning" },
+      { id: "screened", label: "Records screened", x: 360, y: 180 },
+      { id: "excluded", label: "Records excluded", x: 665, y: 180, tone: "warning" },
+      { id: "fullText", label: "Reports sought / assessed for eligibility", x: 360, y: 320 },
+      { id: "fullTextExcluded", label: "Reports excluded with reasons", x: 665, y: 320, tone: "warning" },
+      { id: "included", label: "Studies included in review", x: 360, y: 470, tone: "secondary" },
+    ],
+    connectors: [
+      { from: "identified", to: "screened" },
+      { from: "identified", to: "duplicates" },
+      { from: "screened", to: "fullText" },
+      { from: "screened", to: "excluded" },
+      { from: "fullText", to: "included" },
+      { from: "fullText", to: "fullTextExcluded" },
+    ],
+    defaultCounts: { identified: "", duplicates: "", screened: "", excluded: "", fullText: "", fullTextExcluded: "", included: "" },
+    defaultNotes: { duplicates: "Sources", excluded: "Screening reasons", fullTextExcluded: "Full-text exclusion reasons" },
+  },
+  {
+    key: "stard",
+    title: "STARD diagnostic accuracy flow diagram",
+    guideline: "STARD",
+    description: "Participant flow through eligibility, index test, reference standard, and analysis.",
+    nodes: [
+      { id: "eligible", label: "Potentially eligible participants", x: 360, y: 70, tone: "primary" },
+      { id: "excluded", label: "Excluded before testing", x: 665, y: 70, tone: "warning" },
+      { id: "indexTest", label: "Received index test", x: 360, y: 200 },
+      { id: "noIndex", label: "Did not receive index test", x: 665, y: 200, tone: "warning" },
+      { id: "reference", label: "Received reference standard", x: 360, y: 340 },
+      { id: "noReference", label: "No reference standard / uninterpretable", x: 665, y: 340, tone: "warning" },
+      { id: "analysis", label: "Included in diagnostic accuracy analysis", x: 360, y: 490, tone: "secondary" },
+    ],
+    connectors: [
+      { from: "eligible", to: "indexTest" },
+      { from: "eligible", to: "excluded" },
+      { from: "indexTest", to: "reference" },
+      { from: "indexTest", to: "noIndex" },
+      { from: "reference", to: "analysis" },
+      { from: "reference", to: "noReference" },
+    ],
+    defaultCounts: { eligible: "", excluded: "", indexTest: "", noIndex: "", reference: "", noReference: "", analysis: "" },
+    defaultNotes: { excluded: "Reasons", noIndex: "Reasons", noReference: "Reasons" },
+  },
+  {
+    key: "generic",
+    title: "Generic participant flow diagram",
+    guideline: "General reporting",
+    description: "Flexible participant flow for pilot, feasibility, audit, service evaluation, or local reporting.",
+    nodes: [
+      { id: "identified", label: "Identified / approached", x: 360, y: 70, tone: "primary" },
+      { id: "excluded", label: "Excluded / declined", x: 665, y: 70, tone: "warning" },
+      { id: "enrolled", label: "Enrolled / included", x: 360, y: 210 },
+      { id: "completed", label: "Completed follow-up or data collection", x: 360, y: 360 },
+      { id: "missing", label: "Missing data / withdrawn", x: 665, y: 360, tone: "warning" },
+      { id: "analysed", label: "Analysed", x: 360, y: 510, tone: "secondary" },
+    ],
+    connectors: [
+      { from: "identified", to: "enrolled" },
+      { from: "identified", to: "excluded" },
+      { from: "enrolled", to: "completed" },
+      { from: "completed", to: "analysed" },
+      { from: "completed", to: "missing" },
+    ],
+    defaultCounts: { identified: "", excluded: "", enrolled: "", completed: "", missing: "", analysed: "" },
+    defaultNotes: { excluded: "Reasons", missing: "Reasons" },
+  },
+];
+
+const flowChecklistLinks: Record<FlowTemplateKey, string> = {
+  consort: "https://www.equator-network.org/reporting-guidelines/consort/",
+  "strobe-cohort": "https://www.equator-network.org/reporting-guidelines/strobe/",
+  "strobe-case-control": "https://www.equator-network.org/reporting-guidelines/strobe/",
+  "strobe-cross-sectional": "https://www.equator-network.org/reporting-guidelines/strobe/",
+  prisma: "https://www.equator-network.org/reporting-guidelines/prisma/",
+  stard: "https://www.equator-network.org/reporting-guidelines/stard/",
+  generic: "https://www.equator-network.org/",
+};
+
+function flowTemplateByKey(key: FlowTemplateKey) {
+  return flowTemplates.find((template) => template.key === key) ?? flowTemplates[0];
+}
+
+function wrapSvgLines(text: string, maxLength: number) {
+  const words = text.trim().split(/\s+/).filter(Boolean);
+  const lines: string[] = [];
+  let line = "";
+  words.forEach((word) => {
+    const next = line ? `${line} ${word}` : word;
+    if (next.length > maxLength && line) {
+      lines.push(line);
+      line = word;
+    } else {
+      line = next;
+    }
+  });
+  if (line) lines.push(line);
+  return lines.length ? lines : [""];
+}
+
+function escapeXml(text: string) {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function flowNodeText(node: FlowNode, counts: Record<string, string>, notes: Record<string, string>) {
+  const count = counts[node.id]?.trim();
+  const note = notes[node.id]?.trim();
+  return [node.label, count ? `n = ${count}` : "", note ?? ""].filter(Boolean).join("\n");
+}
+
+const flowBox = { width: 280, height: 92 };
+
+function flowNodeCenter(node: FlowNode) {
+  return {
+    x: node.x + flowBox.width / 2,
+    y: node.y + flowBox.height / 2,
+  };
+}
+
+function flowNodeFill(tone?: FlowNode["tone"]) {
+  if (tone === "primary") return "#dff7ef";
+  if (tone === "warning") return "#ffe8e4";
+  if (tone === "secondary") return "#e7f0ff";
+  return "#ffffff";
+}
+
+function flowNodeStroke(tone?: FlowNode["tone"]) {
+  if (tone === "primary") return "#0f9f9a";
+  if (tone === "warning") return "#f47b65";
+  if (tone === "secondary") return "#4b77d9";
+  return "#d7deea";
+}
+
+function flowCanvasHeight(template: FlowTemplate) {
+  return Math.max(660, Math.max(...template.nodes.map((node) => node.y)) + flowBox.height + 90);
+}
+
+function FlowChartFigure({
+  counts,
+  notes,
+  template,
+  title,
+}: {
+  counts: Record<string, string>;
+  notes: Record<string, string>;
+  template: FlowTemplate;
+  title: string;
+}) {
+  const height = flowCanvasHeight(template);
+  const nodesById = Object.fromEntries(template.nodes.map((node) => [node.id, node]));
+
+  return (
+    <svg className="flowchart-svg" role="img" aria-label={title} viewBox={`0 0 1000 ${height}`}>
+      <defs>
+        <marker id="flow-arrow" markerHeight="10" markerWidth="10" orient="auto" refX="9" refY="3">
+          <path d="M0,0 L0,6 L9,3 z" fill="#32415f" />
+        </marker>
+      </defs>
+      <rect width="1000" height={height} fill="#fbfcff" rx="18" />
+      <text x="500" y="34" textAnchor="middle" fill="#172033" fontSize="22" fontWeight="800">
+        {title}
+      </text>
+      {template.connectors.map((connector) => {
+        const from = nodesById[connector.from];
+        const to = nodesById[connector.to];
+        if (!from || !to) return null;
+        const start = flowNodeCenter(from);
+        const end = flowNodeCenter(to);
+        const isSide = Math.abs(start.y - end.y) < 60;
+        const x1 = isSide ? start.x + flowBox.width / 2 - 14 : start.x;
+        const y1 = isSide ? start.y : start.y + flowBox.height / 2 - 10;
+        const x2 = isSide ? end.x - flowBox.width / 2 + 14 : end.x;
+        const y2 = isSide ? end.y : end.y - flowBox.height / 2 + 10;
+
+        return (
+          <line
+            key={`${connector.from}-${connector.to}`}
+            markerEnd="url(#flow-arrow)"
+            stroke="#32415f"
+            strokeWidth="2.5"
+            x1={x1}
+            x2={x2}
+            y1={y1}
+            y2={y2}
+          />
+        );
+      })}
+      {template.nodes.map((node) => {
+        const lines = flowNodeText(node, counts, notes).split("\n").flatMap((line) => wrapSvgLines(line, 30));
+        const startY = node.y + 24;
+
+        return (
+          <g key={node.id}>
+            <rect
+              fill={flowNodeFill(node.tone)}
+              height={flowBox.height}
+              rx="8"
+              stroke={flowNodeStroke(node.tone)}
+              strokeWidth="2"
+              width={flowBox.width}
+              x={node.x}
+              y={node.y}
+            />
+            {lines.slice(0, 5).map((line, index) => (
+              <text
+                fill={index === 0 ? "#172033" : "#43516f"}
+                fontSize={index === 0 ? 14 : 13}
+                fontWeight={index === 0 ? 800 : 600}
+                key={`${node.id}-${line}-${index}`}
+                textAnchor="middle"
+                x={node.x + flowBox.width / 2}
+                y={startY + index * 15}
+              >
+                {line}
+              </text>
+            ))}
+          </g>
+        );
+      })}
+      <text x="500" y={height - 24} textAnchor="middle" fill="#6b7690" fontSize="12">
+        StudySize Studio flow chart generator
+      </text>
+    </svg>
+  );
+}
+
+function buildFlowChartSvg(template: FlowTemplate, title: string, counts: Record<string, string>, notes: Record<string, string>) {
+  const height = flowCanvasHeight(template);
+  const nodesById = Object.fromEntries(template.nodes.map((node) => [node.id, node]));
+  const connectors = template.connectors
+    .map((connector) => {
+      const from = nodesById[connector.from];
+      const to = nodesById[connector.to];
+      if (!from || !to) return "";
+      const start = flowNodeCenter(from);
+      const end = flowNodeCenter(to);
+      const isSide = Math.abs(start.y - end.y) < 60;
+      const x1 = isSide ? start.x + flowBox.width / 2 - 14 : start.x;
+      const y1 = isSide ? start.y : start.y + flowBox.height / 2 - 10;
+      const x2 = isSide ? end.x - flowBox.width / 2 + 14 : end.x;
+      const y2 = isSide ? end.y : end.y - flowBox.height / 2 + 10;
+      return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#32415f" stroke-width="2.5" marker-end="url(#flow-arrow)" />`;
+    })
+    .join("");
+  const nodes = template.nodes
+    .map((node) => {
+      const lines = flowNodeText(node, counts, notes).split("\n").flatMap((line) => wrapSvgLines(line, 30));
+      const text = lines
+        .slice(0, 5)
+        .map((line, index) => {
+          const fill = index === 0 ? "#172033" : "#43516f";
+          const fontSize = index === 0 ? 14 : 13;
+          const fontWeight = index === 0 ? 800 : 600;
+          return `<text x="${node.x + flowBox.width / 2}" y="${node.y + 24 + index * 15}" text-anchor="middle" fill="${fill}" font-size="${fontSize}" font-weight="${fontWeight}">${escapeXml(line)}</text>`;
+        })
+        .join("");
+      return `<g><rect x="${node.x}" y="${node.y}" width="${flowBox.width}" height="${flowBox.height}" rx="8" fill="${flowNodeFill(node.tone)}" stroke="${flowNodeStroke(node.tone)}" stroke-width="2" />${text}</g>`;
+    })
+    .join("");
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="${height}" viewBox="0 0 1000 ${height}">
+    <defs><marker id="flow-arrow" markerHeight="10" markerWidth="10" orient="auto" refX="9" refY="3"><path d="M0,0 L0,6 L9,3 z" fill="#32415f" /></marker></defs>
+    <rect width="1000" height="${height}" fill="#fbfcff" rx="18" />
+    <text x="500" y="34" text-anchor="middle" fill="#172033" font-family="Arial, sans-serif" font-size="22" font-weight="800">${escapeXml(title)}</text>
+    <g font-family="Arial, sans-serif">${connectors}${nodes}</g>
+    <text x="500" y="${height - 24}" text-anchor="middle" fill="#6b7690" font-family="Arial, sans-serif" font-size="12">StudySize Studio flow chart generator</text>
+  </svg>`;
+}
+
 const randomisationBestPractice = [
   "Define the randomisation unit before generating the sequence: individual participant, cluster, eye, lesion, or another unit.",
   "Generate the allocation sequence before enrolment using a documented method, seed, date, study title, groups, and allocation ratio.",
@@ -2591,6 +3034,10 @@ export function SampleSizeApp() {
   const [randomMethod, setRandomMethod] = useState<RandomisationMethod>("simple");
   const [randomBlockSize, setRandomBlockSize] = useState(4);
   const [randomSeed, setRandomSeed] = useState("STUDY-2026");
+  const [flowTemplateKey, setFlowTemplateKey] = useState<FlowTemplateKey>("consort");
+  const [flowTitle, setFlowTitle] = useState(flowTemplates[0].title);
+  const [flowCounts, setFlowCounts] = useState<Record<string, string>>(flowTemplates[0].defaultCounts);
+  const [flowNotes, setFlowNotes] = useState<Record<string, string>>(flowTemplates[0].defaultNotes);
   const [blindParticipants, setBlindParticipants] = useState(false);
   const [blindCareProviders, setBlindCareProviders] = useState(false);
   const [blindOutcomeAssessors, setBlindOutcomeAssessors] = useState(true);
@@ -2619,6 +3066,7 @@ export function SampleSizeApp() {
   }, [language]);
 
   const calculator = calculators.find((item) => item.id === activeId) ?? calculators[0];
+  const flowTemplate = flowTemplateByKey(flowTemplateKey);
   const values = valuesByCalculator[calculator.id] ?? initialValues(calculator);
   const result = useMemo(() => calculator.compute(values), [calculator, values]);
   const filtered = calculators.filter((item) =>
@@ -2988,6 +3436,50 @@ export function SampleSizeApp() {
     setStatus(t("New randomisation sequence generated", language));
   }
 
+  function selectFlowTemplate(key: FlowTemplateKey) {
+    const nextTemplate = flowTemplateByKey(key);
+    setFlowTemplateKey(key);
+    setFlowTitle(nextTemplate.title);
+    setFlowCounts(nextTemplate.defaultCounts);
+    setFlowNotes(nextTemplate.defaultNotes);
+  }
+
+  function updateFlowCount(nodeId: string, value: string) {
+    setFlowCounts((current) => ({ ...current, [nodeId]: value }));
+  }
+
+  function updateFlowNote(nodeId: string, value: string) {
+    setFlowNotes((current) => ({ ...current, [nodeId]: value }));
+  }
+
+  function downloadFlowChartPng() {
+    const svg = buildFlowChartSvg(flowTemplate, flowTitle, flowCounts, flowNotes);
+    const svgBlob = new Blob([svg], { type: "image/svg+xml;charset=utf-8" });
+    const svgUrl = URL.createObjectURL(svgBlob);
+    const image = new Image();
+
+    image.onload = () => {
+      const scale = 2;
+      const canvas = document.createElement("canvas");
+      canvas.width = image.width * scale;
+      canvas.height = image.height * scale;
+      const context = canvas.getContext("2d");
+      if (!context) return;
+      context.fillStyle = "#ffffff";
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      context.drawImage(image, 0, 0, canvas.width, canvas.height);
+      URL.revokeObjectURL(svgUrl);
+      const pngUrl = canvas.toDataURL("image/png");
+      const anchor = document.createElement("a");
+      anchor.href = pngUrl;
+      anchor.download = `${flowTemplate.key}-flow-chart.png`;
+      anchor.click();
+      setStatus(t("Flow chart PNG downloaded", language));
+    };
+
+    image.src = svgUrl;
+  }
+
   function answerDecision(questionId: string, value: string) {
     const index = decisionOrder.indexOf(questionId);
     setDecisionAnswers((current) => {
@@ -3105,6 +3597,9 @@ export function SampleSizeApp() {
         </button>
         <button className={mode === "randomiser" ? "active" : ""} type="button" onClick={() => setMode("randomiser")}>
           {t("Randomiser", language)}
+        </button>
+        <button className={mode === "flowcharts" ? "active" : ""} type="button" onClick={() => setMode("flowcharts")}>
+          {t("Flow Charts", language)}
         </button>
         <button className={mode === "blinding" ? "active" : ""} type="button" onClick={() => setMode("blinding")}>
           {t("Blinding", language)}
@@ -3518,6 +4013,106 @@ export function SampleSizeApp() {
               </section>
             </div>
           </section>
+        ) : mode === "flowcharts" ? (
+          <section className="flowcharts-panel" aria-labelledby="flowcharts-title">
+            <div className="panel-heading">
+              <div>
+                <p className="eyebrow">{t("Figure guidance", language)}</p>
+                <h2 id="flowcharts-title">{t("Flow chart builder", language)}</h2>
+                <p>
+                  {t("Create publication-ready participant and review flow charts from structured counts, exclusion reasons, and reporting-guideline templates.", language)}
+                </p>
+              </div>
+              <div className="actions">
+                <a className="subtle-link-button" href={flowChecklistLinks[flowTemplate.key]} target="_blank" rel="noreferrer">
+                  {t("Open relevant checklist", language)}
+                </a>
+                <button type="button" onClick={downloadFlowChartPng}>{t("Download PNG", language)}</button>
+              </div>
+            </div>
+
+            <div className="flowchart-workbench">
+              <section className="flowchart-controls" aria-label={t("Flow chart settings", language)}>
+                <label className="control">
+                  <span>
+                    <strong>{t("Flow chart type", language)}</strong>
+                    <small>{t("Template", language)}</small>
+                  </span>
+                  <select
+                    aria-label={t("Template", language)}
+                    onChange={(event) => selectFlowTemplate(event.target.value as FlowTemplateKey)}
+                    value={flowTemplateKey}
+                  >
+                    {flowTemplates.map((template) => (
+                      <option key={template.key} value={template.key}>{template.title}</option>
+                    ))}
+                  </select>
+                </label>
+
+                <label className="control">
+                  <span>
+                    <strong>{t("Figure title", language)}</strong>
+                    <small>{flowTemplate.description}</small>
+                  </span>
+                  <input
+                    aria-label={t("Figure title", language)}
+                    onChange={(event) => setFlowTitle(event.target.value)}
+                    type="text"
+                    value={flowTitle}
+                  />
+                </label>
+
+                <div className="flowchart-fieldset">
+                  <span>{t("Box counts and exclusion reasons", language)}</span>
+                  {flowTemplate.nodes.map((node) => (
+                    <div className="flowchart-node-input" key={node.id}>
+                      <strong>{node.label}</strong>
+                      <div className="flowchart-node-grid">
+                        <label>
+                          <span>n</span>
+                          <input
+                            aria-label={`${node.label} n`}
+                            inputMode="numeric"
+                            onChange={(event) => updateFlowCount(node.id, event.target.value)}
+                            type="text"
+                            value={flowCounts[node.id] ?? ""}
+                          />
+                        </label>
+                        <label>
+                          <span>{t("Reasons / notes", language)}</span>
+                          <input
+                            aria-label={`${node.label} ${t("Reasons / notes", language)}`}
+                            onChange={(event) => updateFlowNote(node.id, event.target.value)}
+                            type="text"
+                            value={flowNotes[node.id] ?? ""}
+                          />
+                        </label>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              <section className="flowchart-preview-card" aria-label={t("Preview", language)}>
+                <div className="allocation-head">
+                  <div>
+                    <span>{t("Preview", language)}</span>
+                    <strong>{flowTemplate.guideline}</strong>
+                  </div>
+                  <div className="allocation-counts">
+                    <span>{flowTemplate.nodes.length} boxes</span>
+                  </div>
+                </div>
+                <div className="flowchart-preview">
+                  <FlowChartFigure counts={flowCounts} notes={flowNotes} template={flowTemplate} title={flowTitle} />
+                </div>
+                <div className="flowchart-guidance">
+                  <p>{t("Enter the exact n for each box. Use the reason field for exclusions, losses, non-eligibility, missing records, or analysis omissions. Review the final figure against the relevant reporting guideline before submission.", language)}</p>
+                  <p>{t("Use anonymised aggregate counts only; do not enter identifiable participant information.", language)}</p>
+                </div>
+              </section>
+            </div>
+          </section>
         ) : mode === "scenario" ? (
           <section className="scenario-panel" aria-labelledby="scenario-title">
             <div className="panel-heading">
@@ -3849,7 +4444,7 @@ export function SampleSizeApp() {
         ) : null}
       </section>
 
-      <footer className="app-footer"><strong>{t("StudySize Studio version 1.24 © Ryalino, 2026.", language)}</strong></footer>
+      <footer className="app-footer"><strong>{t("StudySize Studio version 1.25 © Ryalino, 2026.", language)}</strong></footer>
 
       {copiedNotice && (
         <div className="copy-toast" role="status" aria-live="polite">

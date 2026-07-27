@@ -215,6 +215,7 @@ h3 {
 .finder-panel,
 .randomiser-panel,
 .blinding-panel,
+.flowcharts-panel,
 .scenario-panel,
 .checklist-panel,
 .calculator-panel,
@@ -888,7 +889,8 @@ input:disabled {
 }
 
 .tree-actions button,
-.subtle-button {
+.subtle-button,
+.subtle-link-button {
   min-height: 40px;
   border: 1px solid var(--line);
   border-radius: 999px;
@@ -896,6 +898,12 @@ input:disabled {
   color: var(--foreground);
   padding: 9px 14px;
   font-weight: 800;
+}
+
+.subtle-link-button {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
 }
 
 .tree-actions button:first-child {
@@ -917,6 +925,104 @@ input:disabled {
 
 .subtle-button {
   margin-top: 12px;
+}
+
+.flowchart-workbench {
+  display: grid;
+  grid-template-columns: minmax(280px, 430px) minmax(0, 1fr);
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.flowchart-controls {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+
+.flowchart-fieldset {
+  display: grid;
+  gap: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: linear-gradient(180deg, #fff, #fbfcff);
+  padding: 15px;
+}
+
+.flowchart-fieldset > span {
+  color: var(--indigo);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.flowchart-node-input {
+  display: grid;
+  gap: 8px;
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+}
+
+.flowchart-node-input:first-of-type {
+  border-top: 0;
+}
+
+.flowchart-node-input strong {
+  font-size: 0.9rem;
+}
+
+.flowchart-node-grid {
+  display: grid;
+  grid-template-columns: minmax(86px, 0.35fr) minmax(0, 1fr);
+  gap: 8px;
+}
+
+.flowchart-node-grid label {
+  display: grid;
+  gap: 4px;
+}
+
+.flowchart-node-grid span {
+  color: var(--ink-muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.flowchart-preview-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(223, 247, 239, 0.8), rgba(231, 240, 255, 0.62) 55%, rgba(255, 232, 228, 0.7)),
+    #fff;
+  padding: 16px;
+}
+
+.flowchart-preview {
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  margin-top: 12px;
+}
+
+.flowchart-svg {
+  display: block;
+  min-width: 760px;
+  width: 100%;
+  height: auto;
+}
+
+.flowchart-guidance {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.flowchart-guidance p {
+  color: var(--ink-muted);
+  line-height: 1.45;
+  margin: 0;
 }
 
 .scenario-table {
@@ -1290,6 +1396,7 @@ input:disabled {
   .recommendation-grid,
   .randomiser-grid,
   .blinding-grid,
+  .flowchart-workbench,
   .best-practice,
   .research-grid,
   .design-list {
@@ -1318,7 +1425,8 @@ input:disabled {
   }
 
   .allocation-row,
-  .scenario-row {
+  .scenario-row,
+  .flowchart-node-grid {
     grid-template-columns: 1fr;
   }
 
