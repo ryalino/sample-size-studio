@@ -41,7 +41,25 @@ type Scenario = {
   result: Output;
   createdAt: string;
 };
-type AppMode = "finder" | "calculator" | "randomiser" | "blinding" | "scenario" | "checklist" | "flowcharts" | "framework";
+type AppMode =
+  | "finder"
+  | "calculator"
+  | "randomiser"
+  | "blinding"
+  | "scenario"
+  | "checklist"
+  | "flowcharts"
+  | "framework"
+  | "question"
+  | "outcomes"
+  | "variables"
+  | "eligibility"
+  | "bias"
+  | "analysis-plan"
+  | "ethics"
+  | "timeline"
+  | "data-plan"
+  | "protocol-check";
 type DecisionAnswers = Record<string, string>;
 type DecisionOption = {
   value: string;
@@ -315,7 +333,7 @@ const indonesianText: Record<string, string> = {
   "Citation copied": "Sitasi disalin",
   "Clear scenarios": "Hapus skenario",
   "Scenarios cleared": "Skenario dihapus",
-  "StudySize Studio version 1.33 © Ryalino, 2026.": "StudySize Studio versi 1.33 © Ryalino, 2026.",
+  "StudySize Studio version 1.34 © Ryalino, 2026.": "StudySize Studio versi 1.34 © Ryalino, 2026.",
   "Scenario saved": "Skenario disimpan",
   "Scenario is ready": "Skenario siap",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Skenario ini sekarang tersedia di menu Perbandingan Skenario, tempat Anda dapat membandingkannya dengan skenario perencanaan tersimpan lainnya.",
@@ -927,7 +945,7 @@ const dutchText: Record<string, string> = {
   "Citation copied": "Citatie gekopieerd",
   "Clear scenarios": "Scenario's wissen",
   "Scenarios cleared": "Scenario's gewist",
-  "StudySize Studio version 1.33 © Ryalino, 2026.": "StudySize Studio versie 1.33 © Ryalino, 2026.",
+  "StudySize Studio version 1.34 © Ryalino, 2026.": "StudySize Studio versie 1.34 © Ryalino, 2026.",
   "Scenario is ready": "Scenario is klaar",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Dit scenario is nu beschikbaar in de balk Scenariovergelijking, waar u het kunt vergelijken met andere opgeslagen planningsscenario's.",
   "Open Scenario Comparison": "Scenariovergelijking openen",
@@ -1256,7 +1274,7 @@ Object.assign(indonesianText, {
   "Reference SD group 1": "SD kelompok 1 dari studi referensi",
   "Reference SD group 2": "SD kelompok 2 dari studi referensi",
   "Expected R²": "R² yang diharapkan",
-  "StudySize Studio version 1.33 © Ryalino, 2026.": "StudySize Studio versi 1.33 © Ryalino, 2026.",
+  "StudySize Studio version 1.34 © Ryalino, 2026.": "StudySize Studio versi 1.34 © Ryalino, 2026.",
   "Randomised trial": "Uji klinis acak",
   "CONSORT for trial reports; SPIRIT for trial protocols.": "CONSORT untuk laporan uji klinis; SPIRIT untuk protokol uji klinis.",
   "Study protocol": "Protokol penelitian",
@@ -1455,7 +1473,7 @@ Object.assign(dutchText, {
   "Expected variance explained by the model.": "Verwacht percentage verklaarde variantie door het model.",
   "Reference SD group 1": "SD van groep 1 uit referentiestudie",
   "Reference SD group 2": "SD van groep 2 uit referentiestudie",
-  "StudySize Studio version 1.33 © Ryalino, 2026.": "StudySize Studio versie 1.33 © Ryalino, 2026.",
+  "StudySize Studio version 1.34 © Ryalino, 2026.": "StudySize Studio versie 1.34 © Ryalino, 2026.",
   "Randomised trial": "Gerandomiseerde trial",
   "CONSORT for trial reports; SPIRIT for trial protocols.": "CONSORT voor trialrapportages; SPIRIT voor trialprotocollen.",
   "Study protocol": "Onderzoeksprotocol",
@@ -1573,6 +1591,200 @@ Object.assign(dutchText, {
   "Allocated to ": "Toegewezen aan ",
   "Lost to follow-up / discontinued ": "Uitval tijdens follow-up / gestopt in ",
   "Analysed ": "Geanalyseerd in ",
+});
+
+Object.assign(indonesianText, {
+  "Protocol Builder": "Penyusun Protokol",
+  "Study Question": "Pertanyaan Studi",
+  "Outcomes": "Luaran",
+  "Variables": "Variabel",
+  "Eligibility": "Kriteria Subjek",
+  "Bias Planner": "Rencana Kendali Bias",
+  "Analysis Plan": "Rencana Analisis",
+  "Ethics": "Etik",
+  "Timeline": "Linimasa",
+  "Data Plan": "Rencana Data",
+  "Protocol Check": "Cek Protokol",
+  "Protocol preparation": "Persiapan protokol",
+  "Build the core protocol elements before sample-size calculation, randomisation, reporting, and figures.": "Susun elemen inti protokol sebelum menghitung besar sampel, randomisasi, pelaporan, dan pembuatan gambar.",
+  "Copy section": "Salin bagian",
+  "Download template": "Unduh templat",
+  "Research question builder": "Penyusun pertanyaan penelitian",
+  "Use a structured PICO/PECO frame so the objective, population, comparison, and outcome stay aligned.": "Gunakan kerangka PICO/PECO agar tujuan, populasi, pembanding, dan luaran tetap selaras.",
+  "Population": "Populasi",
+  "Exposure / intervention": "Pajanan / intervensi",
+  "Comparator": "Pembanding",
+  "Primary outcome": "Luaran primer",
+  "Study setting": "Setting penelitian",
+  "Draft question": "Draf pertanyaan",
+  "Primary outcome planner": "Perencana luaran primer",
+  "Define the endpoint in operational terms before choosing a calculator or statistical test.": "Definisikan endpoint secara operasional sebelum memilih kalkulator atau uji statistik.",
+  "Outcome name": "Nama luaran",
+  "Outcome type": "Jenis luaran",
+  "Measurement time point": "Waktu pengukuran",
+  "Measurement instrument": "Instrumen pengukuran",
+  "Clinically meaningful difference": "Perbedaan bermakna klinis",
+  "Outcome statement": "Pernyataan luaran",
+  "Variable dictionary": "Kamus variabel",
+  "Create a clean data-collection map with variable names, types, sources, and coding notes.": "Buat peta pengumpulan data yang rapi berisi nama variabel, tipe, sumber, dan catatan pengkodean.",
+  "Variable names": "Nama variabel",
+  "Variable type": "Tipe variabel",
+  "Data source": "Sumber data",
+  "Coding notes": "Catatan pengkodean",
+  "Data dictionary": "Kamus data",
+  "Eligibility criteria builder": "Penyusun kriteria kelayakan",
+  "Separate inclusion and exclusion criteria so screening decisions are reproducible.": "Pisahkan kriteria inklusi dan eksklusi agar keputusan skrining dapat direproduksi.",
+  "Inclusion criteria": "Kriteria inklusi",
+  "Exclusion criteria": "Kriteria eksklusi",
+  "Recruitment setting": "Tempat rekrutmen",
+  "Screening statement": "Pernyataan skrining",
+  "Bias risk planner": "Perencana risiko bias",
+  "Plan practical safeguards for selection, measurement, confounding, attrition, and reporting bias.": "Rencanakan perlindungan praktis terhadap bias seleksi, pengukuran, perancu, attrition, dan pelaporan.",
+  "Main bias concerns": "Kekhawatiran bias utama",
+  "Planned safeguards": "Langkah pengendalian",
+  "Bias mitigation statement": "Pernyataan pengendalian bias",
+  "Statistical analysis plan builder": "Penyusun rencana analisis statistik",
+  "Draft a concise SAP paragraph linked to the primary outcome and adjustment set.": "Susun paragraf SAP yang ringkas dan selaras dengan luaran primer serta variabel penyesuaian.",
+  "Primary analysis": "Analisis primer",
+  "Effect measure": "Ukuran efek",
+  "Adjustment variables": "Variabel penyesuaian",
+  "Missing-data approach": "Pendekatan data hilang",
+  "SAP wording": "Narasi SAP",
+  "Ethics and consent helper": "Bantuan etik dan persetujuan",
+  "Prepare ethics-facing language for consent, confidentiality, risks, and dissemination.": "Siapkan bahasa untuk komite etik tentang persetujuan, kerahasiaan, risiko, dan diseminasi.",
+  "Consent approach": "Pendekatan persetujuan",
+  "Confidentiality plan": "Rencana kerahasiaan",
+  "Participant risks": "Risiko bagi peserta",
+  "Dissemination plan": "Rencana diseminasi",
+  "Ethics wording": "Narasi etik",
+  "Study timeline planner": "Perencana linimasa studi",
+  "Turn target dates into a simple milestone plan for protocol, approval, recruitment, analysis, and reporting.": "Ubah target tanggal menjadi rencana tonggak untuk protokol, persetujuan, rekrutmen, analisis, dan pelaporan.",
+  "Start date": "Tanggal mulai",
+  "Months for ethics approval": "Bulan untuk persetujuan etik",
+  "Months for recruitment": "Bulan untuk rekrutmen",
+  "Months for analysis and writing": "Bulan untuk analisis dan penulisan",
+  "Milestone plan": "Rencana tonggak",
+  "Data management plan helper": "Bantuan rencana manajemen data",
+  "Define storage, access, quality checks, backup, and retention before data collection starts.": "Definisikan penyimpanan, akses, pemeriksaan mutu, cadangan, dan retensi sebelum pengumpulan data dimulai.",
+  "Storage location": "Lokasi penyimpanan",
+  "Access control": "Kontrol akses",
+  "Quality checks": "Pemeriksaan mutu",
+  "Retention period": "Masa retensi",
+  "Data management wording": "Narasi manajemen data",
+  "Protocol completeness checker": "Pemeriksa kelengkapan protokol",
+  "Tick completed sections to identify gaps before supervisor, ethics, or grant review.": "Centang bagian yang sudah selesai untuk menemukan kekurangan sebelum telaah pembimbing, etik, atau hibah.",
+  "Completeness": "Kelengkapan",
+  "Recommended next step": "Langkah berikutnya",
+  "Study question and objective": "Pertanyaan dan tujuan penelitian",
+  "Primary and secondary outcomes": "Luaran primer dan sekunder",
+  "Eligibility criteria and recruitment setting": "Kriteria kelayakan dan tempat rekrutmen",
+  "Sample-size rationale": "Dasar perhitungan besar sampel",
+  "Statistical analysis plan": "Rencana analisis statistik",
+  "Ethics, consent, and confidentiality": "Etik, persetujuan, dan kerahasiaan",
+  "Data management plan": "Rencana manajemen data",
+  "Reporting checklist selected": "Daftar periksa pelaporan sudah dipilih",
+  "Protocol finalisation": "Finalisasi protokol",
+  "Ethics approval target": "Target persetujuan etik",
+  "Recruitment completion target": "Target selesai rekrutmen",
+  "Analysis and writing target": "Target analisis dan penulisan",
+  "StudySize Studio version 1.34 © Ryalino, 2026.": "StudySize Studio versi 1.34 © Ryalino, 2026.",
+});
+
+Object.assign(dutchText, {
+  "Protocol Builder": "Protocolbouwer",
+  "Study Question": "Onderzoeksvraag",
+  "Outcomes": "Uitkomsten",
+  "Variables": "Variabelen",
+  "Eligibility": "Geschiktheid",
+  "Bias Planner": "Biasplan",
+  "Analysis Plan": "Analyseplan",
+  "Ethics": "Ethiek",
+  "Timeline": "Tijdlijn",
+  "Data Plan": "Dataplan",
+  "Protocol Check": "Protocolcheck",
+  "Protocol preparation": "Protocolvoorbereiding",
+  "Build the core protocol elements before sample-size calculation, randomisation, reporting, and figures.": "Werk de kernelementen van het protocol uit vóór steekproefgrootteberekening, randomisatie, rapportage en figuren.",
+  "Copy section": "Sectie kopiëren",
+  "Download template": "Template downloaden",
+  "Research question builder": "Onderzoeksvraag opstellen",
+  "Use a structured PICO/PECO frame so the objective, population, comparison, and outcome stay aligned.": "Gebruik een PICO/PECO-structuur zodat doel, populatie, vergelijking en uitkomst op elkaar aansluiten.",
+  "Population": "Populatie",
+  "Exposure / intervention": "Blootstelling / interventie",
+  "Comparator": "Vergelijking",
+  "Primary outcome": "Primaire uitkomst",
+  "Study setting": "Onderzoekssetting",
+  "Draft question": "Conceptvraag",
+  "Primary outcome planner": "Planner voor primaire uitkomst",
+  "Define the endpoint in operational terms before choosing a calculator or statistical test.": "Definieer het eindpunt operationeel voordat u een calculator of statistische toets kiest.",
+  "Outcome name": "Naam van de uitkomst",
+  "Outcome type": "Type uitkomst",
+  "Measurement time point": "Meetmoment",
+  "Measurement instrument": "Meetinstrument",
+  "Clinically meaningful difference": "Klinisch relevant verschil",
+  "Outcome statement": "Uitkomstformulering",
+  "Variable dictionary": "Variabelenwoordenboek",
+  "Create a clean data-collection map with variable names, types, sources, and coding notes.": "Maak een overzichtelijke dataverzamelingskaart met variabelen, typen, bronnen en coderingsafspraken.",
+  "Variable names": "Variabelennamen",
+  "Variable type": "Variabeletype",
+  "Data source": "Databron",
+  "Coding notes": "Coderingsnotities",
+  "Data dictionary": "Data dictionary",
+  "Eligibility criteria builder": "Criteria voor geschiktheid",
+  "Separate inclusion and exclusion criteria so screening decisions are reproducible.": "Scheid inclusie- en exclusiecriteria zodat screeningsbeslissingen reproduceerbaar zijn.",
+  "Inclusion criteria": "Inclusiecriteria",
+  "Exclusion criteria": "Exclusiecriteria",
+  "Recruitment setting": "Recruitmentsetting",
+  "Screening statement": "Screeningtekst",
+  "Bias risk planner": "Planner voor risico op bias",
+  "Plan practical safeguards for selection, measurement, confounding, attrition, and reporting bias.": "Plan praktische maatregelen tegen selectiebias, meetbias, confounding, uitvalbias en rapportagebias.",
+  "Main bias concerns": "Belangrijkste biasrisico's",
+  "Planned safeguards": "Geplande beheersmaatregelen",
+  "Bias mitigation statement": "Tekst over biasbeperking",
+  "Statistical analysis plan builder": "Bouwer voor statistisch analyseplan",
+  "Draft a concise SAP paragraph linked to the primary outcome and adjustment set.": "Schrijf een compacte SAP-paragraaf die aansluit bij de primaire uitkomst en correctievariabelen.",
+  "Primary analysis": "Primaire analyse",
+  "Effect measure": "Effectmaat",
+  "Adjustment variables": "Correctievariabelen",
+  "Missing-data approach": "Aanpak ontbrekende data",
+  "SAP wording": "SAP-tekst",
+  "Ethics and consent helper": "Hulp voor ethiek en toestemming",
+  "Prepare ethics-facing language for consent, confidentiality, risks, and dissemination.": "Bereid tekst voor de ethische commissie voor over toestemming, vertrouwelijkheid, risico's en verspreiding.",
+  "Consent approach": "Toestemmingsprocedure",
+  "Confidentiality plan": "Plan voor vertrouwelijkheid",
+  "Participant risks": "Risico's voor deelnemers",
+  "Dissemination plan": "Disseminatieplan",
+  "Ethics wording": "Ethiektekst",
+  "Study timeline planner": "Planner voor studietijdlijn",
+  "Turn target dates into a simple milestone plan for protocol, approval, recruitment, analysis, and reporting.": "Zet streefdata om in een mijlpalenplan voor protocol, goedkeuring, inclusie, analyse en rapportage.",
+  "Start date": "Startdatum",
+  "Months for ethics approval": "Maanden voor ethische goedkeuring",
+  "Months for recruitment": "Maanden voor inclusie",
+  "Months for analysis and writing": "Maanden voor analyse en schrijven",
+  "Milestone plan": "Mijlpalenplan",
+  "Data management plan helper": "Hulp voor datamanagementplan",
+  "Define storage, access, quality checks, backup, and retention before data collection starts.": "Leg opslag, toegang, kwaliteitscontroles, back-up en bewaartermijn vast vóór dataverzameling.",
+  "Storage location": "Opslaglocatie",
+  "Access control": "Toegangsbeheer",
+  "Quality checks": "Kwaliteitscontroles",
+  "Retention period": "Bewaartermijn",
+  "Data management wording": "Datamanagementtekst",
+  "Protocol completeness checker": "Controle op protocolvolledigheid",
+  "Tick completed sections to identify gaps before supervisor, ethics, or grant review.": "Vink afgeronde onderdelen aan om lacunes te vinden vóór beoordeling door supervisor, ethische commissie of subsidieverstrekker.",
+  "Completeness": "Volledigheid",
+  "Recommended next step": "Aanbevolen vervolgstap",
+  "Study question and objective": "Onderzoeksvraag en doelstelling",
+  "Primary and secondary outcomes": "Primaire en secundaire uitkomsten",
+  "Eligibility criteria and recruitment setting": "Geschiktheidscriteria en inclusiesetting",
+  "Sample-size rationale": "Onderbouwing van de steekproefgrootte",
+  "Statistical analysis plan": "Statistisch analyseplan",
+  "Ethics, consent, and confidentiality": "Ethiek, toestemming en vertrouwelijkheid",
+  "Data management plan": "Datamanagementplan",
+  "Reporting checklist selected": "Rapportagechecklist geselecteerd",
+  "Protocol finalisation": "Protocol afronden",
+  "Ethics approval target": "Streefdatum ethische goedkeuring",
+  "Recruitment completion target": "Streefdatum einde inclusie",
+  "Analysis and writing target": "Streefdatum analyse en schrijven",
+  "StudySize Studio version 1.34 © Ryalino, 2026.": "StudySize Studio versie 1.34 © Ryalino, 2026.",
 });
 
 const pct = (value: number) => value / 100;
@@ -4292,6 +4504,51 @@ export function SampleSizeApp() {
     return saved === "id" || saved === "nl" || saved === "en" ? saved : "en";
   });
   const [mode, setMode] = useState<AppMode>("finder");
+  const [studyPopulation, setStudyPopulation] = useState("adult surgical patients");
+  const [studyExposure, setStudyExposure] = useState("perioperative intervention");
+  const [studyComparator, setStudyComparator] = useState("standard care");
+  const [studyPrimaryOutcome, setStudyPrimaryOutcome] = useState("postoperative complication within 30 days");
+  const [studySetting, setStudySetting] = useState("tertiary hospital");
+  const [outcomeName, setOutcomeName] = useState("postoperative complication");
+  const [outcomeType, setOutcomeType] = useState("binary");
+  const [outcomeTimepoint, setOutcomeTimepoint] = useState("30 days after surgery");
+  const [outcomeInstrument, setOutcomeInstrument] = useState("standardised case report form and medical record review");
+  const [outcomeDifference, setOutcomeDifference] = useState("a clinically meaningful absolute difference of 10 percentage points");
+  const [variableNames, setVariableNames] = useState("age\nsex\nASA physical status\nintervention group\nprimary outcome");
+  const [variableType, setVariableType] = useState("mixed continuous, categorical, and binary variables");
+  const [dataSource, setDataSource] = useState("case report forms and hospital electronic medical records");
+  const [codingNotes, setCodingNotes] = useState("Use prespecified numeric codes for categorical variables and retain raw continuous values where possible.");
+  const [inclusionCriteria, setInclusionCriteria] = useState("Adults aged 18 years or older\nScheduled for eligible procedure\nAble to provide informed consent");
+  const [exclusionCriteria, setExclusionCriteria] = useState("Emergency surgery\nPregnancy\nPrevious enrolment in this study");
+  const [recruitmentSetting, setRecruitmentSetting] = useState("preoperative clinic and inpatient surgical wards");
+  const [biasConcerns, setBiasConcerns] = useState("selection bias\nmeasurement bias\nconfounding\nmissing outcome data");
+  const [biasSafeguards, setBiasSafeguards] = useState("consecutive screening\nstandardised outcome definitions\nprespecified adjustment variables\ncomplete follow-up procedures");
+  const [primaryAnalysis, setPrimaryAnalysis] = useState("compare the primary outcome between study groups using an appropriate regression model");
+  const [effectMeasure, setEffectMeasure] = useState("risk ratio or adjusted odds ratio with 95% confidence interval");
+  const [adjustmentVariables, setAdjustmentVariables] = useState("age\nsex\nbaseline severity\nimportant prognostic factors");
+  const [missingDataApproach, setMissingDataApproach] = useState("describe missingness, compare complete and incomplete cases, and use multiple imputation if missing data are substantial");
+  const [consentApproach, setConsentApproach] = useState("written informed consent before enrolment");
+  const [confidentialityPlan, setConfidentialityPlan] = useState("coded study identifiers, password-protected files, and access limited to authorised study personnel");
+  const [participantRisks, setParticipantRisks] = useState("minimal additional risk beyond routine care");
+  const [disseminationPlan, setDisseminationPlan] = useState("publication in a peer-reviewed journal and presentation at scientific meetings");
+  const [timelineStart, setTimelineStart] = useState("2026-08-01");
+  const [ethicsMonths, setEthicsMonths] = useState(2);
+  const [recruitmentMonths, setRecruitmentMonths] = useState(8);
+  const [analysisMonths, setAnalysisMonths] = useState(3);
+  const [storageLocation, setStorageLocation] = useState("institutional secure drive or approved research database");
+  const [accessControl, setAccessControl] = useState("role-based access for named study team members");
+  const [qualityChecks, setQualityChecks] = useState("range checks, duplicate checks, source-data verification for key variables, and query resolution log");
+  const [retentionPeriod, setRetentionPeriod] = useState("at least 5 years after publication or according to institutional policy");
+  const [protocolChecks, setProtocolChecks] = useState<Record<string, boolean>>({
+    question: true,
+    outcomes: false,
+    eligibility: false,
+    sampleSize: false,
+    analysis: false,
+    ethics: false,
+    data: false,
+    reporting: false,
+  });
   const [activeCategory, setActiveCategory] = useState("All");
   const [activeId, setActiveId] = useState(calculators[0].id);
   const [decisionAnswers, setDecisionAnswers] = useState<DecisionAnswers>({});
@@ -4337,19 +4594,26 @@ export function SampleSizeApp() {
   const [copiedNotice, setCopiedNotice] = useState("");
   const sampleSizeModes: AppMode[] = ["finder", "calculator", "scenario"];
   const figureModes: AppMode[] = ["flowcharts", "framework"];
+  const protocolModes: AppMode[] = ["question", "outcomes", "variables", "eligibility", "bias", "analysis-plan", "ethics", "timeline", "data-plan", "protocol-check"];
   const activeMainMode = sampleSizeModes.includes(mode)
     ? "sample-size"
     : figureModes.includes(mode)
       ? "figures"
-      : mode;
+      : protocolModes.includes(mode)
+        ? "protocol"
+        : mode;
 
-  function openMainMode(nextMode: "checklist" | "sample-size" | "randomiser" | "blinding" | "figures") {
+  function openMainMode(nextMode: "checklist" | "sample-size" | "randomiser" | "blinding" | "figures" | "protocol") {
     if (nextMode === "sample-size") {
       setMode(sampleSizeModes.includes(mode) ? mode : "finder");
       return;
     }
     if (nextMode === "figures") {
       setMode(figureModes.includes(mode) ? mode : "flowcharts");
+      return;
+    }
+    if (nextMode === "protocol") {
+      setMode(protocolModes.includes(mode) ? mode : "question");
       return;
     }
     setMode(nextMode);
@@ -4587,6 +4851,96 @@ export function SampleSizeApp() {
           `After adjustment for the anticipated loss of usable data, the planned sample size is ${formatNumber(result.adjustedTotal)}.`,
           `This estimate uses the ${calculator.formula} approach; the main interpretive assumptions are: ${calculator.assumptions.join(" ")}`,
         ].join(" ");
+  const listFromText = (text: string) => text.split(/\n|,/).map((item) => item.trim()).filter(Boolean);
+  const formatList = (items: string[]) => {
+    if (items.length <= 1) return items[0] ?? "";
+    return `${items.slice(0, -1).join(", ")}${language === "id" ? ", dan " : language === "nl" ? " en " : ", and "}${items.at(-1)}`;
+  };
+  const addMonths = (dateText: string, months: number) => {
+    const date = new Date(`${dateText}T00:00:00`);
+    if (Number.isNaN(date.getTime())) return dateText;
+    date.setMonth(date.getMonth() + months);
+    return date.toISOString().slice(0, 10);
+  };
+  const questionWording =
+    language === "id"
+      ? `Pada ${studyPopulation} di ${studySetting}, penelitian ini akan mengevaluasi apakah ${studyExposure} dibandingkan dengan ${studyComparator} berhubungan dengan perubahan ${studyPrimaryOutcome}. Pertanyaan ini disusun untuk menjaga keselarasan antara populasi, pajanan atau intervensi, pembanding, dan luaran utama.`
+      : language === "nl"
+        ? `Bij ${studyPopulation} in ${studySetting} onderzoekt deze studie of ${studyExposure}, vergeleken met ${studyComparator}, samenhangt met een verandering in ${studyPrimaryOutcome}. Deze formulering houdt populatie, blootstelling of interventie, vergelijking en primaire uitkomst consistent.`
+        : `Among ${studyPopulation} in ${studySetting}, this study will evaluate whether ${studyExposure}, compared with ${studyComparator}, is associated with a change in ${studyPrimaryOutcome}. This question keeps the population, exposure or intervention, comparator, and primary outcome aligned before the design and analysis are finalised.`;
+  const outcomeWording =
+    language === "id"
+      ? `Luaran primer penelitian adalah ${outcomeName}, yang didefinisikan sebagai luaran ${outcomeType} dan dinilai pada ${outcomeTimepoint} menggunakan ${outcomeInstrument}. Perbedaan yang dianggap bermakna secara klinis adalah ${outcomeDifference}; definisi ini sebaiknya digunakan secara konsisten dalam protokol, perhitungan besar sampel, dan rencana analisis.`
+      : language === "nl"
+        ? `De primaire uitkomst is ${outcomeName}, gedefinieerd als een ${outcomeType} uitkomst en gemeten op ${outcomeTimepoint} met ${outcomeInstrument}. Het klinisch relevante verschil is ${outcomeDifference}; deze definitie moet consequent terugkomen in protocol, steekproefgrootteberekening en analyseplan.`
+        : `The primary outcome is ${outcomeName}, defined as a ${outcomeType} outcome assessed at ${outcomeTimepoint} using ${outcomeInstrument}. The clinically meaningful difference is ${outcomeDifference}; this definition should be used consistently in the protocol, sample-size calculation, and statistical analysis plan.`;
+  const variableRows = listFromText(variableNames).map((name) => [name, variableType, dataSource, codingNotes]);
+  const variableDictionaryText = [
+    `${t("Data dictionary", language)}:`,
+    ...variableRows.map((row) => `${row[0]} | ${row[1]} | ${row[2]} | ${row[3]}`),
+  ].join("\n");
+  const eligibilityWording =
+    language === "id"
+      ? `Peserta akan direkrut dari ${recruitmentSetting}. Kriteria inklusi meliputi ${formatList(listFromText(inclusionCriteria))}. Peserta dikeluarkan bila memenuhi kriteria berikut: ${formatList(listFromText(exclusionCriteria))}. Kriteria ini perlu diterapkan secara berurutan dan dicatat dalam log skrining.`
+      : language === "nl"
+        ? `Deelnemers worden geworven in ${recruitmentSetting}. Inclusiecriteria zijn ${formatList(listFromText(inclusionCriteria))}. Deelnemers worden uitgesloten bij ${formatList(listFromText(exclusionCriteria))}. Deze criteria moeten consequent worden toegepast en vastgelegd in een screeningslog.`
+        : `Participants will be recruited from ${recruitmentSetting}. Inclusion criteria are ${formatList(listFromText(inclusionCriteria))}. Participants will be excluded when any of the following criteria are present: ${formatList(listFromText(exclusionCriteria))}. These criteria should be applied consistently and recorded in a screening log.`;
+  const biasWording =
+    language === "id"
+      ? `Risiko bias utama yang diantisipasi adalah ${formatList(listFromText(biasConcerns))}. Untuk mengurangi risiko tersebut, penelitian akan menggunakan ${formatList(listFromText(biasSafeguards))}. Setiap deviasi dari prosedur ini perlu dicatat dan dipertimbangkan saat interpretasi hasil.`
+      : language === "nl"
+        ? `De belangrijkste verwachte bronnen van bias zijn ${formatList(listFromText(biasConcerns))}. Om deze risico's te beperken gebruikt de studie ${formatList(listFromText(biasSafeguards))}. Afwijkingen van deze procedures moeten worden vastgelegd en meegewogen bij de interpretatie.`
+        : `The main anticipated risks of bias are ${formatList(listFromText(biasConcerns))}. To mitigate these risks, the study will use ${formatList(listFromText(biasSafeguards))}. Deviations from these procedures should be documented and considered when interpreting the results.`;
+  const sapWording =
+    language === "id"
+      ? `Analisis primer akan ${primaryAnalysis}. Efek akan dilaporkan sebagai ${effectMeasure}. Bila relevan, model akan disesuaikan untuk ${formatList(listFromText(adjustmentVariables))}. Data hilang akan ditangani dengan pendekatan berikut: ${missingDataApproach}.`
+      : language === "nl"
+        ? `De primaire analyse zal ${primaryAnalysis}. Het effect wordt gerapporteerd als ${effectMeasure}. Indien relevant wordt gecorrigeerd voor ${formatList(listFromText(adjustmentVariables))}. Ontbrekende data worden behandeld volgens deze aanpak: ${missingDataApproach}.`
+        : `The primary analysis will ${primaryAnalysis}. Effects will be reported as ${effectMeasure}. Where appropriate, the model will adjust for ${formatList(listFromText(adjustmentVariables))}. Missing data will be handled as follows: ${missingDataApproach}.`;
+  const ethicsWording =
+    language === "id"
+      ? `Penelitian akan dilakukan setelah persetujuan etik diperoleh. Persetujuan peserta menggunakan ${consentApproach}. Kerahasiaan data dijaga melalui ${confidentialityPlan}. Risiko bagi peserta diperkirakan ${participantRisks}, dan hasil penelitian akan didiseminasikan melalui ${disseminationPlan}.`
+      : language === "nl"
+        ? `De studie wordt uitgevoerd na goedkeuring door de ethische commissie. Toestemming wordt verkregen via ${consentApproach}. Vertrouwelijkheid wordt gewaarborgd door ${confidentialityPlan}. De risico's voor deelnemers worden ingeschat als ${participantRisks}, en de resultaten worden verspreid via ${disseminationPlan}.`
+        : `The study will be conducted after ethics approval has been obtained. Participant consent will use ${consentApproach}. Confidentiality will be protected through ${confidentialityPlan}. Participant risks are expected to be ${participantRisks}, and findings will be disseminated through ${disseminationPlan}.`;
+  const timelineRows = [
+    [t("Protocol finalisation", language), timelineStart],
+    [t("Ethics approval target", language), addMonths(timelineStart, ethicsMonths)],
+    [t("Recruitment completion target", language), addMonths(timelineStart, ethicsMonths + recruitmentMonths)],
+    [t("Analysis and writing target", language), addMonths(timelineStart, ethicsMonths + recruitmentMonths + analysisMonths)],
+  ];
+  const timelineText = timelineRows.map(([label, value]) => `${label}: ${value}`).join("\n");
+  const dataPlanWording =
+    language === "id"
+      ? `Data penelitian akan disimpan di ${storageLocation}. Akses dibatasi melalui ${accessControl}. Mutu data dipantau dengan ${qualityChecks}. Data akan disimpan selama ${retentionPeriod}, sesuai kebijakan institusi dan persetujuan etik.`
+      : language === "nl"
+        ? `Studiedata worden opgeslagen in ${storageLocation}. Toegang wordt beperkt via ${accessControl}. Datakwaliteit wordt bewaakt met ${qualityChecks}. Data worden bewaard gedurende ${retentionPeriod}, conform institutioneel beleid en ethische goedkeuring.`
+        : `Study data will be stored in ${storageLocation}. Access will be restricted through ${accessControl}. Data quality will be monitored using ${qualityChecks}. Data will be retained for ${retentionPeriod}, consistent with institutional policy and ethics approval.`;
+  const protocolCheckItems = [
+    ["question", "Study question and objective"],
+    ["outcomes", "Primary and secondary outcomes"],
+    ["eligibility", "Eligibility criteria and recruitment setting"],
+    ["sampleSize", "Sample-size rationale"],
+    ["analysis", "Statistical analysis plan"],
+    ["ethics", "Ethics, consent, and confidentiality"],
+    ["data", "Data management plan"],
+    ["reporting", "Reporting checklist selected"],
+  ];
+  const protocolCompletion = Math.round(
+    (protocolCheckItems.filter(([key]) => protocolChecks[key]).length / protocolCheckItems.length) * 100,
+  );
+  const protocolNextStep =
+    protocolCompletion === 100
+      ? language === "id"
+        ? "Protokol tampak siap untuk telaah pembimbing, komite etik, atau peer review; lakukan satu pemeriksaan akhir untuk memastikan desain, besar sampel, luaran, dan analisis saling konsisten."
+        : language === "nl"
+          ? "Het protocol lijkt klaar voor beoordeling door supervisor, ethische commissie of peer review; voer nog één consistentiecontrole uit tussen design, steekproefgrootte, uitkomsten en analyse."
+          : "The protocol appears ready for supervisor, ethics, or peer review; perform one final consistency check across design, sample size, outcomes, and analysis."
+      : language === "id"
+        ? `Prioritaskan bagian yang belum lengkap: ${protocolCheckItems.filter(([key]) => !protocolChecks[key]).map(([, label]) => t(label, language)).join(", ")}.`
+        : language === "nl"
+          ? `Geef prioriteit aan de onvolledige onderdelen: ${protocolCheckItems.filter(([key]) => !protocolChecks[key]).map(([, label]) => t(label, language)).join(", ")}.`
+          : `Prioritise the incomplete sections: ${protocolCheckItems.filter(([key]) => !protocolChecks[key]).map(([, label]) => label).join(", ")}.`;
   const citationFormats = [
     {
       label: "Vancouver",
@@ -4899,6 +5253,44 @@ export function SampleSizeApp() {
     showCopiedToast();
   }
 
+  function downloadProtocolTemplate() {
+    const lines = [
+      "Study question:",
+      questionWording,
+      "",
+      "Primary outcome:",
+      outcomeWording,
+      "",
+      "Eligibility:",
+      eligibilityWording,
+      "",
+      "Bias mitigation:",
+      biasWording,
+      "",
+      "Statistical analysis plan:",
+      sapWording,
+      "",
+      "Ethics:",
+      ethicsWording,
+      "",
+      "Timeline:",
+      timelineText,
+      "",
+      "Data management:",
+      dataPlanWording,
+      "",
+      "Variable dictionary:",
+      ...tableLines(["Variable", "Type", "Source", "Coding"], variableRows, [20, 22, 28, 30]),
+    ];
+    const url = URL.createObjectURL(makeTablePdf("StudySize Studio Protocol Builder", lines));
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = "studysize-protocol-builder-template.pdf";
+    anchor.click();
+    URL.revokeObjectURL(url);
+    setStatus(t("PDF downloaded", language));
+  }
+
   function showCopiedToast() {
     setCopiedNotice(t("Copied", language));
     window.setTimeout(() => setCopiedNotice(""), 1500);
@@ -4958,6 +5350,9 @@ export function SampleSizeApp() {
         <button className={activeMainMode === "checklist" ? "active" : ""} type="button" onClick={() => openMainMode("checklist")}>
           {t("Study Design", language)}
         </button>
+        <button className={activeMainMode === "protocol" ? "active" : ""} type="button" onClick={() => openMainMode("protocol")}>
+          {t("Protocol Builder", language)}
+        </button>
         <button className={activeMainMode === "sample-size" ? "active" : ""} type="button" onClick={() => openMainMode("sample-size")}>
           {t("Sample Size", language)}
         </button>
@@ -4983,6 +5378,27 @@ export function SampleSizeApp() {
           <button className={mode === "scenario" ? "active" : ""} type="button" onClick={() => setMode("scenario")}>
             {t("Scenario Comparison", language)}
           </button>
+        </nav>
+      )}
+
+      {activeMainMode === "protocol" && (
+        <nav className="mode-tabs sub-mode-tabs protocol-sub-tabs" aria-label={t("Protocol Builder", language)}>
+          {[
+            ["question", "Study Question"],
+            ["outcomes", "Outcomes"],
+            ["variables", "Variables"],
+            ["eligibility", "Eligibility"],
+            ["bias", "Bias Planner"],
+            ["analysis-plan", "Analysis Plan"],
+            ["ethics", "Ethics"],
+            ["timeline", "Timeline"],
+            ["data-plan", "Data Plan"],
+            ["protocol-check", "Protocol Check"],
+          ].map(([nextMode, label]) => (
+            <button className={mode === nextMode ? "active" : ""} key={nextMode} type="button" onClick={() => setMode(nextMode as AppMode)}>
+              {t(label, language)}
+            </button>
+          ))}
         </nav>
       )}
 
@@ -5118,6 +5534,332 @@ export function SampleSizeApp() {
                 )}
               </aside>
             </div>
+          </section>
+        ) : protocolModes.includes(mode) ? (
+          <section className="protocol-panel" aria-labelledby="protocol-builder-title">
+            <div className="panel-heading">
+              <div>
+                <p className="eyebrow">{t("Protocol preparation", language)}</p>
+                <h2 id="protocol-builder-title">{t("Protocol Builder", language)}</h2>
+                <p>{t("Build the core protocol elements before sample-size calculation, randomisation, reporting, and figures.", language)}</p>
+              </div>
+              <div className="actions">
+                <button type="button" onClick={downloadProtocolTemplate}>{t("Download template", language)}</button>
+              </div>
+            </div>
+
+            {mode === "question" && (
+              <div className="protocol-grid">
+                <section className="protocol-controls" aria-label={t("Research question builder", language)}>
+                  <div className="protocol-intro">
+                    <span>{t("Study Question", language)}</span>
+                    <h3>{t("Research question builder", language)}</h3>
+                    <p>{t("Use a structured PICO/PECO frame so the objective, population, comparison, and outcome stay aligned.", language)}</p>
+                  </div>
+                  {[
+                    ["Population", studyPopulation, setStudyPopulation],
+                    ["Exposure / intervention", studyExposure, setStudyExposure],
+                    ["Comparator", studyComparator, setStudyComparator],
+                    ["Primary outcome", studyPrimaryOutcome, setStudyPrimaryOutcome],
+                    ["Study setting", studySetting, setStudySetting],
+                  ].map(([label, value, setter]) => (
+                    <label className="control compact-control" key={label as string}>
+                      <strong>{t(label as string, language)}</strong>
+                      <input type="text" value={value as string} onChange={(event) => (setter as (next: string) => void)(event.target.value)} />
+                    </label>
+                  ))}
+                </section>
+                <aside className="protocol-output">
+                  <span>{t("Draft question", language)}</span>
+                  <p>{questionWording}</p>
+                  <button type="button" onClick={() => copyGeneratedWording(questionWording, "Protocol wording copied")}>{t("Copy section", language)}</button>
+                </aside>
+              </div>
+            )}
+
+            {mode === "outcomes" && (
+              <div className="protocol-grid">
+                <section className="protocol-controls">
+                  <div className="protocol-intro">
+                    <span>{t("Outcomes", language)}</span>
+                    <h3>{t("Primary outcome planner", language)}</h3>
+                    <p>{t("Define the endpoint in operational terms before choosing a calculator or statistical test.", language)}</p>
+                  </div>
+                  {[
+                    ["Outcome name", outcomeName, setOutcomeName],
+                    ["Outcome type", outcomeType, setOutcomeType],
+                    ["Measurement time point", outcomeTimepoint, setOutcomeTimepoint],
+                    ["Measurement instrument", outcomeInstrument, setOutcomeInstrument],
+                    ["Clinically meaningful difference", outcomeDifference, setOutcomeDifference],
+                  ].map(([label, value, setter]) => (
+                    <label className="control compact-control" key={label as string}>
+                      <strong>{t(label as string, language)}</strong>
+                      <input type="text" value={value as string} onChange={(event) => (setter as (next: string) => void)(event.target.value)} />
+                    </label>
+                  ))}
+                </section>
+                <aside className="protocol-output">
+                  <span>{t("Outcome statement", language)}</span>
+                  <p>{outcomeWording}</p>
+                  <button type="button" onClick={() => copyGeneratedWording(outcomeWording, "Protocol wording copied")}>{t("Copy section", language)}</button>
+                </aside>
+              </div>
+            )}
+
+            {mode === "variables" && (
+              <div className="protocol-grid">
+                <section className="protocol-controls">
+                  <div className="protocol-intro">
+                    <span>{t("Variables", language)}</span>
+                    <h3>{t("Variable dictionary", language)}</h3>
+                    <p>{t("Create a clean data-collection map with variable names, types, sources, and coding notes.", language)}</p>
+                  </div>
+                  <label className="control compact-control">
+                    <strong>{t("Variable names", language)}</strong>
+                    <textarea rows={6} value={variableNames} onChange={(event) => setVariableNames(event.target.value)} />
+                  </label>
+                  {[
+                    ["Variable type", variableType, setVariableType],
+                    ["Data source", dataSource, setDataSource],
+                    ["Coding notes", codingNotes, setCodingNotes],
+                  ].map(([label, value, setter]) => (
+                    <label className="control compact-control" key={label as string}>
+                      <strong>{t(label as string, language)}</strong>
+                      <input type="text" value={value as string} onChange={(event) => (setter as (next: string) => void)(event.target.value)} />
+                    </label>
+                  ))}
+                </section>
+                <aside className="protocol-output">
+                  <span>{t("Data dictionary", language)}</span>
+                  <div className="mini-table" role="table">
+                    {variableRows.map(([name, type, source]) => (
+                      <div key={name} role="row">
+                        <strong>{name}</strong>
+                        <span>{type}</span>
+                        <small>{source}</small>
+                      </div>
+                    ))}
+                  </div>
+                  <button type="button" onClick={() => copyGeneratedWording(variableDictionaryText, "Protocol wording copied")}>{t("Copy section", language)}</button>
+                </aside>
+              </div>
+            )}
+
+            {mode === "eligibility" && (
+              <div className="protocol-grid">
+                <section className="protocol-controls">
+                  <div className="protocol-intro">
+                    <span>{t("Eligibility", language)}</span>
+                    <h3>{t("Eligibility criteria builder", language)}</h3>
+                    <p>{t("Separate inclusion and exclusion criteria so screening decisions are reproducible.", language)}</p>
+                  </div>
+                  <label className="control compact-control">
+                    <strong>{t("Inclusion criteria", language)}</strong>
+                    <textarea rows={5} value={inclusionCriteria} onChange={(event) => setInclusionCriteria(event.target.value)} />
+                  </label>
+                  <label className="control compact-control">
+                    <strong>{t("Exclusion criteria", language)}</strong>
+                    <textarea rows={5} value={exclusionCriteria} onChange={(event) => setExclusionCriteria(event.target.value)} />
+                  </label>
+                  <label className="control compact-control">
+                    <strong>{t("Recruitment setting", language)}</strong>
+                    <input type="text" value={recruitmentSetting} onChange={(event) => setRecruitmentSetting(event.target.value)} />
+                  </label>
+                </section>
+                <aside className="protocol-output">
+                  <span>{t("Screening statement", language)}</span>
+                  <p>{eligibilityWording}</p>
+                  <button type="button" onClick={() => copyGeneratedWording(eligibilityWording, "Protocol wording copied")}>{t("Copy section", language)}</button>
+                </aside>
+              </div>
+            )}
+
+            {mode === "bias" && (
+              <div className="protocol-grid">
+                <section className="protocol-controls">
+                  <div className="protocol-intro">
+                    <span>{t("Bias Planner", language)}</span>
+                    <h3>{t("Bias risk planner", language)}</h3>
+                    <p>{t("Plan practical safeguards for selection, measurement, confounding, attrition, and reporting bias.", language)}</p>
+                  </div>
+                  <label className="control compact-control">
+                    <strong>{t("Main bias concerns", language)}</strong>
+                    <textarea rows={6} value={biasConcerns} onChange={(event) => setBiasConcerns(event.target.value)} />
+                  </label>
+                  <label className="control compact-control">
+                    <strong>{t("Planned safeguards", language)}</strong>
+                    <textarea rows={6} value={biasSafeguards} onChange={(event) => setBiasSafeguards(event.target.value)} />
+                  </label>
+                </section>
+                <aside className="protocol-output">
+                  <span>{t("Bias mitigation statement", language)}</span>
+                  <p>{biasWording}</p>
+                  <button type="button" onClick={() => copyGeneratedWording(biasWording, "Protocol wording copied")}>{t("Copy section", language)}</button>
+                </aside>
+              </div>
+            )}
+
+            {mode === "analysis-plan" && (
+              <div className="protocol-grid">
+                <section className="protocol-controls">
+                  <div className="protocol-intro">
+                    <span>{t("Analysis Plan", language)}</span>
+                    <h3>{t("Statistical analysis plan builder", language)}</h3>
+                    <p>{t("Draft a concise SAP paragraph linked to the primary outcome and adjustment set.", language)}</p>
+                  </div>
+                  {[
+                    ["Primary analysis", primaryAnalysis, setPrimaryAnalysis],
+                    ["Effect measure", effectMeasure, setEffectMeasure],
+                    ["Adjustment variables", adjustmentVariables, setAdjustmentVariables],
+                    ["Missing-data approach", missingDataApproach, setMissingDataApproach],
+                  ].map(([label, value, setter]) => (
+                    <label className="control compact-control" key={label as string}>
+                      <strong>{t(label as string, language)}</strong>
+                      {label === "Adjustment variables" ? (
+                        <textarea rows={5} value={value as string} onChange={(event) => (setter as (next: string) => void)(event.target.value)} />
+                      ) : (
+                        <input type="text" value={value as string} onChange={(event) => (setter as (next: string) => void)(event.target.value)} />
+                      )}
+                    </label>
+                  ))}
+                </section>
+                <aside className="protocol-output">
+                  <span>{t("SAP wording", language)}</span>
+                  <p>{sapWording}</p>
+                  <button type="button" onClick={() => copyGeneratedWording(sapWording, "Protocol wording copied")}>{t("Copy section", language)}</button>
+                </aside>
+              </div>
+            )}
+
+            {mode === "ethics" && (
+              <div className="protocol-grid">
+                <section className="protocol-controls">
+                  <div className="protocol-intro">
+                    <span>{t("Ethics", language)}</span>
+                    <h3>{t("Ethics and consent helper", language)}</h3>
+                    <p>{t("Prepare ethics-facing language for consent, confidentiality, risks, and dissemination.", language)}</p>
+                  </div>
+                  {[
+                    ["Consent approach", consentApproach, setConsentApproach],
+                    ["Confidentiality plan", confidentialityPlan, setConfidentialityPlan],
+                    ["Participant risks", participantRisks, setParticipantRisks],
+                    ["Dissemination plan", disseminationPlan, setDisseminationPlan],
+                  ].map(([label, value, setter]) => (
+                    <label className="control compact-control" key={label as string}>
+                      <strong>{t(label as string, language)}</strong>
+                      <input type="text" value={value as string} onChange={(event) => (setter as (next: string) => void)(event.target.value)} />
+                    </label>
+                  ))}
+                </section>
+                <aside className="protocol-output">
+                  <span>{t("Ethics wording", language)}</span>
+                  <p>{ethicsWording}</p>
+                  <button type="button" onClick={() => copyGeneratedWording(ethicsWording, "Protocol wording copied")}>{t("Copy section", language)}</button>
+                </aside>
+              </div>
+            )}
+
+            {mode === "timeline" && (
+              <div className="protocol-grid">
+                <section className="protocol-controls">
+                  <div className="protocol-intro">
+                    <span>{t("Timeline", language)}</span>
+                    <h3>{t("Study timeline planner", language)}</h3>
+                    <p>{t("Turn target dates into a simple milestone plan for protocol, approval, recruitment, analysis, and reporting.", language)}</p>
+                  </div>
+                  <label className="control compact-control">
+                    <strong>{t("Start date", language)}</strong>
+                    <input type="date" value={timelineStart} onChange={(event) => setTimelineStart(event.target.value)} />
+                  </label>
+                  {[
+                    ["Months for ethics approval", ethicsMonths, setEthicsMonths],
+                    ["Months for recruitment", recruitmentMonths, setRecruitmentMonths],
+                    ["Months for analysis and writing", analysisMonths, setAnalysisMonths],
+                  ].map(([label, value, setter]) => (
+                    <label className="control compact-control" key={label as string}>
+                      <strong>{t(label as string, language)}</strong>
+                      <div className="input-row">
+                        <input type="range" min={1} max={36} step={1} value={value as number} onChange={(event) => (setter as (next: number) => void)(Number(event.target.value))} />
+                        <div className="number-wrap">
+                          <input type="number" min={1} max={36} step={1} value={value as number} onChange={(event) => (setter as (next: number) => void)(Number(event.target.value))} />
+                        </div>
+                      </div>
+                    </label>
+                  ))}
+                </section>
+                <aside className="protocol-output">
+                  <span>{t("Milestone plan", language)}</span>
+                  <div className="mini-table" role="table">
+                    {timelineRows.map(([label, value]) => (
+                      <div key={label} role="row">
+                        <strong>{label}</strong>
+                        <span>{value}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <button type="button" onClick={() => copyGeneratedWording(timelineText, "Protocol wording copied")}>{t("Copy section", language)}</button>
+                </aside>
+              </div>
+            )}
+
+            {mode === "data-plan" && (
+              <div className="protocol-grid">
+                <section className="protocol-controls">
+                  <div className="protocol-intro">
+                    <span>{t("Data Plan", language)}</span>
+                    <h3>{t("Data management plan helper", language)}</h3>
+                    <p>{t("Define storage, access, quality checks, backup, and retention before data collection starts.", language)}</p>
+                  </div>
+                  {[
+                    ["Storage location", storageLocation, setStorageLocation],
+                    ["Access control", accessControl, setAccessControl],
+                    ["Quality checks", qualityChecks, setQualityChecks],
+                    ["Retention period", retentionPeriod, setRetentionPeriod],
+                  ].map(([label, value, setter]) => (
+                    <label className="control compact-control" key={label as string}>
+                      <strong>{t(label as string, language)}</strong>
+                      <input type="text" value={value as string} onChange={(event) => (setter as (next: string) => void)(event.target.value)} />
+                    </label>
+                  ))}
+                </section>
+                <aside className="protocol-output">
+                  <span>{t("Data management wording", language)}</span>
+                  <p>{dataPlanWording}</p>
+                  <button type="button" onClick={() => copyGeneratedWording(dataPlanWording, "Protocol wording copied")}>{t("Copy section", language)}</button>
+                </aside>
+              </div>
+            )}
+
+            {mode === "protocol-check" && (
+              <div className="protocol-grid">
+                <section className="protocol-controls">
+                  <div className="protocol-intro">
+                    <span>{t("Protocol Check", language)}</span>
+                    <h3>{t("Protocol completeness checker", language)}</h3>
+                    <p>{t("Tick completed sections to identify gaps before supervisor, ethics, or grant review.", language)}</p>
+                  </div>
+                  <div className="checklist-controls">
+                    {protocolCheckItems.map(([key, label]) => (
+                      <label key={key}>
+                        <input
+                          type="checkbox"
+                          checked={Boolean(protocolChecks[key])}
+                          onChange={(event) => setProtocolChecks((current) => ({ ...current, [key]: event.target.checked }))}
+                        />
+                        <span>{t(label, language)}</span>
+                      </label>
+                    ))}
+                  </div>
+                </section>
+                <aside className="protocol-output">
+                  <span>{t("Completeness", language)}</span>
+                  <strong className="completion-score">{protocolCompletion}%</strong>
+                  <small>{t("Recommended next step", language)}</small>
+                  <p>{protocolNextStep}</p>
+                  <button type="button" onClick={() => copyGeneratedWording(`${protocolCompletion}%\n${protocolNextStep}`, "Protocol wording copied")}>{t("Copy section", language)}</button>
+                </aside>
+              </div>
+            )}
           </section>
         ) : mode === "randomiser" ? (
           <section className="randomiser-panel" aria-labelledby="randomiser-title">
@@ -5985,7 +6727,7 @@ export function SampleSizeApp() {
         ) : null}
       </section>
 
-      <footer className="app-footer"><strong>{t("StudySize Studio version 1.33 © Ryalino, 2026.", language)}</strong></footer>
+      <footer className="app-footer"><strong>{t("StudySize Studio version 1.34 © Ryalino, 2026.", language)}</strong></footer>
 
       {copiedNotice && (
         <div className="copy-toast" role="status" aria-live="polite">

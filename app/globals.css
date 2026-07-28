@@ -247,6 +247,7 @@ h3 {
 .blinding-panel,
 .flowcharts-panel,
 .framework-panel,
+.protocol-panel,
 .scenario-panel,
 .checklist-panel,
 .calculator-panel,
@@ -349,6 +350,7 @@ h3 {
 .finder-panel,
 .randomiser-panel,
 .blinding-panel,
+.protocol-panel,
 .scenario-panel,
 .checklist-panel {
   padding: 22px;
@@ -582,7 +584,8 @@ input[type="number"] {
 
 textarea,
 select,
-input[type="text"] {
+input[type="text"],
+input[type="date"] {
   width: 100%;
   min-height: 42px;
   border: 1px solid var(--line);
@@ -745,6 +748,126 @@ input:disabled {
 .best-practice li {
   break-inside: avoid;
   margin-bottom: 10px;
+}
+
+.protocol-sub-tabs button {
+  min-width: max-content;
+}
+
+.protocol-grid {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.9fr) minmax(300px, 1.1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.protocol-controls {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+
+.protocol-intro,
+.protocol-output {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(242, 184, 75, 0.18), transparent 36%),
+    #fff;
+  padding: 16px;
+}
+
+.protocol-intro span,
+.protocol-output > span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--indigo);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.protocol-intro p,
+.protocol-output p,
+.protocol-output small {
+  color: var(--ink-muted);
+  line-height: 1.5;
+}
+
+.compact-control {
+  min-height: 0;
+}
+
+.protocol-output {
+  position: sticky;
+  top: 18px;
+  align-self: start;
+  background:
+    linear-gradient(135deg, rgba(15, 159, 154, 0.13), transparent 34%),
+    linear-gradient(225deg, rgba(81, 102, 214, 0.11), transparent 36%),
+    #fff;
+}
+
+.protocol-output button {
+  min-height: 44px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--foreground);
+  color: #fff;
+  margin-top: 14px;
+  padding: 10px 16px;
+  font-weight: 800;
+}
+
+.mini-table {
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.mini-table > div {
+  display: grid;
+  gap: 4px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.78);
+  padding: 10px;
+}
+
+.mini-table span,
+.mini-table small {
+  color: var(--ink-muted);
+  line-height: 1.35;
+}
+
+.checklist-controls {
+  display: grid;
+  gap: 10px;
+}
+
+.checklist-controls label {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  padding: 12px;
+}
+
+.checklist-controls input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--teal);
+}
+
+.completion-score {
+  display: block;
+  margin: 4px 0 10px;
+  color: var(--foreground);
+  font-size: 3rem;
+  line-height: 1;
 }
 
 .blinding-guide {
@@ -1511,6 +1634,7 @@ input:disabled {
   .randomiser-grid,
   .blinding-grid,
   .flowchart-workbench,
+  .protocol-grid,
   .framework-workbench,
   .framework-input-grid,
   .best-practice,
@@ -1594,9 +1718,14 @@ input:disabled {
   .finder-panel,
   .randomiser-panel,
   .blinding-panel,
+  .protocol-panel,
   .scenario-panel,
   .checklist-panel,
   .results {
     padding: 16px;
+  }
+
+  .protocol-output {
+    position: static;
   }
 }
