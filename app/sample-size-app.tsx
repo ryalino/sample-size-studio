@@ -152,6 +152,14 @@ type FrameworkBox = {
   tone: "primary" | "secondary" | "warning" | "neutral";
 };
 
+type PresetFieldProps = {
+  label: string;
+  value: string;
+  options: string[];
+  language: Language;
+  onChange: (value: string) => void;
+};
+
 const indonesianText: Record<string, string> = {
   "Language selector": "Pemilih bahasa",
   "Sample size calculators": "Kalkulator besar sampel",
@@ -333,7 +341,7 @@ const indonesianText: Record<string, string> = {
   "Citation copied": "Sitasi disalin",
   "Clear scenarios": "Hapus skenario",
   "Scenarios cleared": "Skenario dihapus",
-  "StudySize Studio version 1.34 © Ryalino, 2026.": "StudySize Studio versi 1.34 © Ryalino, 2026.",
+  "StudySize Studio version 1.35 © Ryalino, 2026.": "StudySize Studio versi 1.35 © Ryalino, 2026.",
   "Scenario saved": "Skenario disimpan",
   "Scenario is ready": "Skenario siap",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Skenario ini sekarang tersedia di menu Perbandingan Skenario, tempat Anda dapat membandingkannya dengan skenario perencanaan tersimpan lainnya.",
@@ -945,7 +953,7 @@ const dutchText: Record<string, string> = {
   "Citation copied": "Citatie gekopieerd",
   "Clear scenarios": "Scenario's wissen",
   "Scenarios cleared": "Scenario's gewist",
-  "StudySize Studio version 1.34 © Ryalino, 2026.": "StudySize Studio versie 1.34 © Ryalino, 2026.",
+  "StudySize Studio version 1.35 © Ryalino, 2026.": "StudySize Studio versie 1.35 © Ryalino, 2026.",
   "Scenario is ready": "Scenario is klaar",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Dit scenario is nu beschikbaar in de balk Scenariovergelijking, waar u het kunt vergelijken met andere opgeslagen planningsscenario's.",
   "Open Scenario Comparison": "Scenariovergelijking openen",
@@ -1274,7 +1282,7 @@ Object.assign(indonesianText, {
   "Reference SD group 1": "SD kelompok 1 dari studi referensi",
   "Reference SD group 2": "SD kelompok 2 dari studi referensi",
   "Expected R²": "R² yang diharapkan",
-  "StudySize Studio version 1.34 © Ryalino, 2026.": "StudySize Studio versi 1.34 © Ryalino, 2026.",
+  "StudySize Studio version 1.35 © Ryalino, 2026.": "StudySize Studio versi 1.35 © Ryalino, 2026.",
   "Randomised trial": "Uji klinis acak",
   "CONSORT for trial reports; SPIRIT for trial protocols.": "CONSORT untuk laporan uji klinis; SPIRIT untuk protokol uji klinis.",
   "Study protocol": "Protokol penelitian",
@@ -1473,7 +1481,7 @@ Object.assign(dutchText, {
   "Expected variance explained by the model.": "Verwacht percentage verklaarde variantie door het model.",
   "Reference SD group 1": "SD van groep 1 uit referentiestudie",
   "Reference SD group 2": "SD van groep 2 uit referentiestudie",
-  "StudySize Studio version 1.34 © Ryalino, 2026.": "StudySize Studio versie 1.34 © Ryalino, 2026.",
+  "StudySize Studio version 1.35 © Ryalino, 2026.": "StudySize Studio versie 1.35 © Ryalino, 2026.",
   "Randomised trial": "Gerandomiseerde trial",
   "CONSORT for trial reports; SPIRIT for trial protocols.": "CONSORT voor trialrapportages; SPIRIT voor trialprotocollen.",
   "Study protocol": "Onderzoeksprotocol",
@@ -1617,6 +1625,7 @@ Object.assign(indonesianText, {
   "Primary outcome": "Luaran primer",
   "Study setting": "Setting penelitian",
   "Draft question": "Draf pertanyaan",
+  "This generated question is only a recommendation; the concept, scope, and wording may still need revision with supervisors, statisticians, or content experts.": "Pertanyaan yang dibuat aplikasi hanya berupa rekomendasi; konsep, ruang lingkup, dan redaksinya mungkin masih perlu disesuaikan bersama pembimbing, statistikawan, atau pakar bidang terkait.",
   "Primary outcome planner": "Perencana luaran primer",
   "Define the endpoint in operational terms before choosing a calculator or statistical test.": "Definisikan endpoint secara operasional sebelum memilih kalkulator atau uji statistik.",
   "Outcome name": "Nama luaran",
@@ -1657,6 +1666,18 @@ Object.assign(indonesianText, {
   "Participant risks": "Risiko bagi peserta",
   "Dissemination plan": "Rencana diseminasi",
   "Ethics wording": "Narasi etik",
+  "Ethics and registration workflow": "Alur etik dan registrasi",
+  "Prepare the complete protocol, participant-facing documents, data plan, and analysis plan before submission.": "Siapkan protokol lengkap, dokumen untuk peserta, rencana data, dan rencana analisis sebelum pengajuan.",
+  "Submit to the relevant IRB or ethics committee and wait for approval before recruitment or data collection.": "Ajukan ke IRB atau komite etik yang relevan dan tunggu persetujuan sebelum rekrutmen atau pengumpulan data.",
+  "Register interventional clinical trials in an appropriate public registry before the first participant is enrolled.": "Daftarkan uji klinis intervensi pada registri publik yang sesuai sebelum peserta pertama direkrut.",
+  "Register systematic reviews in PROSPERO when eligible, ideally before screening starts.": "Daftarkan tinjauan sistematis di PROSPERO bila memenuhi syarat, idealnya sebelum penyaringan dimulai.",
+  "Store or publish the complete protocol in a durable repository to improve transparency and reduce selective reporting.": "Simpan atau publikasikan protokol lengkap di repositori yang tahan lama untuk meningkatkan transparansi dan mengurangi pelaporan selektif.",
+  "Registry resources": "Sumber registri",
+  "ClinicalTrials.gov PRS": "ClinicalTrials.gov PRS",
+  "Indonesia Clinical Research Registry (INA-CRR)": "Indonesia Clinical Research Registry (INA-CRR)",
+  "PROSPERO systematic review register": "Registri tinjauan sistematis PROSPERO",
+  "WHO ICTRP trial registry search portal": "Portal pencarian registri uji klinis WHO ICTRP",
+  "Open Science Framework": "Open Science Framework",
   "Study timeline planner": "Perencana linimasa studi",
   "Turn target dates into a simple milestone plan for protocol, approval, recruitment, analysis, and reporting.": "Ubah target tanggal menjadi rencana tonggak untuk protokol, persetujuan, rekrutmen, analisis, dan pelaporan.",
   "Start date": "Tanggal mulai",
@@ -1666,10 +1687,31 @@ Object.assign(indonesianText, {
   "Milestone plan": "Rencana tonggak",
   "Data management plan helper": "Bantuan rencana manajemen data",
   "Define storage, access, quality checks, backup, and retention before data collection starts.": "Definisikan penyimpanan, akses, pemeriksaan mutu, cadangan, dan retensi sebelum pengumpulan data dimulai.",
+  "Choose a common option or select Others to type a local plan.": "Pilih opsi yang umum digunakan atau pilih Lainnya untuk menulis rencana lokal.",
   "Storage location": "Lokasi penyimpanan",
   "Access control": "Kontrol akses",
   "Quality checks": "Pemeriksaan mutu",
   "Retention period": "Masa retensi",
+  "Others": "Lainnya",
+  "Type your plan": "Tulis rencana Anda",
+  "Institutional secure drive or approved research database": "Drive institusi yang aman atau basis data penelitian yang disetujui",
+  "REDCap or equivalent electronic data capture platform": "REDCap atau platform pengumpulan data elektronik sejenis",
+  "Encrypted institutional cloud storage": "Penyimpanan cloud institusi yang terenkripsi",
+  "Locked cabinet for paper forms plus encrypted digital archive": "Lemari terkunci untuk formulir kertas dan arsip digital terenkripsi",
+  "Role-based access for named study team members": "Akses berbasis peran untuk anggota tim studi yang tercantum",
+  "Principal investigator and data manager only": "Hanya peneliti utama dan manajer data",
+  "Password-protected files with access log": "Berkas terlindung kata sandi dengan log akses",
+  "De-identified analysis dataset for statisticians": "Dataset analisis tanpa identitas untuk statistikawan",
+  "Range checks, duplicate checks, source-data verification, and query log": "Pemeriksaan rentang, duplikasi, verifikasi data sumber, dan log query",
+  "Double data entry for key variables": "Entri data ganda untuk variabel kunci",
+  "Weekly missing-data and outlier review": "Tinjauan mingguan untuk data hilang dan pencilan",
+  "Pilot testing of case report forms before recruitment": "Uji coba formulir laporan kasus sebelum rekrutmen",
+  "At least 5 years after publication or according to institutional policy": "Sekurang-kurangnya 5 tahun setelah publikasi atau sesuai kebijakan institusi",
+  "At least 10 years after study completion": "Sekurang-kurangnya 10 tahun setelah studi selesai",
+  "As required by IRB, sponsor, or national regulation": "Sesuai ketentuan komite etik, sponsor, atau regulasi nasional",
+  "Permanent repository for de-identified protocol and analysis materials": "Repositori permanen untuk protokol dan bahan analisis tanpa identitas",
+  "Protocol transparency note": "Catatan transparansi protokol",
+  "For transparency, consider publishing the full protocol or storing it in a durable repository before data collection begins.": "Untuk transparansi, pertimbangkan mempublikasikan protokol lengkap atau menyimpannya di repositori yang tahan lama sebelum pengumpulan data dimulai.",
   "Data management wording": "Narasi manajemen data",
   "Protocol completeness checker": "Pemeriksa kelengkapan protokol",
   "Tick completed sections to identify gaps before supervisor, ethics, or grant review.": "Centang bagian yang sudah selesai untuk menemukan kekurangan sebelum telaah pembimbing, etik, atau hibah.",
@@ -1687,7 +1729,7 @@ Object.assign(indonesianText, {
   "Ethics approval target": "Target persetujuan etik",
   "Recruitment completion target": "Target selesai rekrutmen",
   "Analysis and writing target": "Target analisis dan penulisan",
-  "StudySize Studio version 1.34 © Ryalino, 2026.": "StudySize Studio versi 1.34 © Ryalino, 2026.",
+  "StudySize Studio version 1.35 © Ryalino, 2026.": "StudySize Studio versi 1.35 © Ryalino, 2026.",
 });
 
 Object.assign(dutchText, {
@@ -1714,6 +1756,7 @@ Object.assign(dutchText, {
   "Primary outcome": "Primaire uitkomst",
   "Study setting": "Onderzoekssetting",
   "Draft question": "Conceptvraag",
+  "This generated question is only a recommendation; the concept, scope, and wording may still need revision with supervisors, statisticians, or content experts.": "Deze gegenereerde vraag is alleen een aanbeveling; concept, afbakening en formulering kunnen nog aanpassing vragen met begeleiders, statistici of inhoudelijke experts.",
   "Primary outcome planner": "Planner voor primaire uitkomst",
   "Define the endpoint in operational terms before choosing a calculator or statistical test.": "Definieer het eindpunt operationeel voordat u een calculator of statistische toets kiest.",
   "Outcome name": "Naam van de uitkomst",
@@ -1754,6 +1797,18 @@ Object.assign(dutchText, {
   "Participant risks": "Risico's voor deelnemers",
   "Dissemination plan": "Disseminatieplan",
   "Ethics wording": "Ethiektekst",
+  "Ethics and registration workflow": "Workflow voor ethiek en registratie",
+  "Prepare the complete protocol, participant-facing documents, data plan, and analysis plan before submission.": "Bereid het volledige protocol, deelnemersinformatie, datamanagementplan en analyseplan voor voordat u indient.",
+  "Submit to the relevant IRB or ethics committee and wait for approval before recruitment or data collection.": "Dien in bij de relevante METC/IRB of ethische commissie en wacht op goedkeuring vóór inclusie of dataverzameling.",
+  "Register interventional clinical trials in an appropriate public registry before the first participant is enrolled.": "Registreer interventionele klinische trials in een passend openbaar register vóór inclusie van de eerste deelnemer.",
+  "Register systematic reviews in PROSPERO when eligible, ideally before screening starts.": "Registreer systematische reviews in PROSPERO wanneer ze daarvoor in aanmerking komen, bij voorkeur vóór de start van screening.",
+  "Store or publish the complete protocol in a durable repository to improve transparency and reduce selective reporting.": "Bewaar of publiceer het volledige protocol in een duurzame repository om transparantie te vergroten en selectieve rapportage te beperken.",
+  "Registry resources": "Registratiebronnen",
+  "ClinicalTrials.gov PRS": "ClinicalTrials.gov PRS",
+  "Indonesia Clinical Research Registry (INA-CRR)": "Indonesia Clinical Research Registry (INA-CRR)",
+  "PROSPERO systematic review register": "PROSPERO-register voor systematische reviews",
+  "WHO ICTRP trial registry search portal": "WHO ICTRP-zoekportaal voor trialregistraties",
+  "Open Science Framework": "Open Science Framework",
   "Study timeline planner": "Planner voor studietijdlijn",
   "Turn target dates into a simple milestone plan for protocol, approval, recruitment, analysis, and reporting.": "Zet streefdata om in een mijlpalenplan voor protocol, goedkeuring, inclusie, analyse en rapportage.",
   "Start date": "Startdatum",
@@ -1763,10 +1818,31 @@ Object.assign(dutchText, {
   "Milestone plan": "Mijlpalenplan",
   "Data management plan helper": "Hulp voor datamanagementplan",
   "Define storage, access, quality checks, backup, and retention before data collection starts.": "Leg opslag, toegang, kwaliteitscontroles, back-up en bewaartermijn vast vóór dataverzameling.",
+  "Choose a common option or select Others to type a local plan.": "Kies een veelgebruikte optie of selecteer Anders om een lokaal plan te typen.",
   "Storage location": "Opslaglocatie",
   "Access control": "Toegangsbeheer",
   "Quality checks": "Kwaliteitscontroles",
   "Retention period": "Bewaartermijn",
+  "Others": "Anders",
+  "Type your plan": "Typ uw plan",
+  "Institutional secure drive or approved research database": "Beveiligde institutionele schijf of goedgekeurde onderzoeksdatabase",
+  "REDCap or equivalent electronic data capture platform": "REDCap of vergelijkbaar elektronisch dataverzamelingsplatform",
+  "Encrypted institutional cloud storage": "Versleutelde institutionele cloudopslag",
+  "Locked cabinet for paper forms plus encrypted digital archive": "Afsluitbare kast voor papieren formulieren plus versleuteld digitaal archief",
+  "Role-based access for named study team members": "Rolgebaseerde toegang voor benoemde leden van het studieteam",
+  "Principal investigator and data manager only": "Alleen hoofdonderzoeker en datamanager",
+  "Password-protected files with access log": "Met wachtwoord beveiligde bestanden met toegangslog",
+  "De-identified analysis dataset for statisticians": "Gede-identificeerde analysedataset voor statistici",
+  "Range checks, duplicate checks, source-data verification, and query log": "Bereikcontroles, duplicaatcontroles, brongegevensverificatie en querylog",
+  "Double data entry for key variables": "Dubbele data-invoer voor kernvariabelen",
+  "Weekly missing-data and outlier review": "Wekelijkse controle van ontbrekende data en uitschieters",
+  "Pilot testing of case report forms before recruitment": "Pilottesten van case report forms vóór inclusie",
+  "At least 5 years after publication or according to institutional policy": "Minimaal 5 jaar na publicatie of volgens institutioneel beleid",
+  "At least 10 years after study completion": "Minimaal 10 jaar na afronding van de studie",
+  "As required by IRB, sponsor, or national regulation": "Zoals vereist door METC/IRB, sponsor of nationale regelgeving",
+  "Permanent repository for de-identified protocol and analysis materials": "Permanente repository voor gede-identificeerde protocol- en analysematerialen",
+  "Protocol transparency note": "Notitie over protocoltransparantie",
+  "For transparency, consider publishing the full protocol or storing it in a durable repository before data collection begins.": "Overweeg voor transparantie om het volledige protocol te publiceren of in een duurzame repository op te slaan voordat dataverzameling begint.",
   "Data management wording": "Datamanagementtekst",
   "Protocol completeness checker": "Controle op protocolvolledigheid",
   "Tick completed sections to identify gaps before supervisor, ethics, or grant review.": "Vink afgeronde onderdelen aan om lacunes te vinden vóór beoordeling door supervisor, ethische commissie of subsidieverstrekker.",
@@ -1784,12 +1860,86 @@ Object.assign(dutchText, {
   "Ethics approval target": "Streefdatum ethische goedkeuring",
   "Recruitment completion target": "Streefdatum einde inclusie",
   "Analysis and writing target": "Streefdatum analyse en schrijven",
-  "StudySize Studio version 1.34 © Ryalino, 2026.": "StudySize Studio versie 1.34 © Ryalino, 2026.",
+  "StudySize Studio version 1.35 © Ryalino, 2026.": "StudySize Studio versie 1.35 © Ryalino, 2026.",
 });
 
 const pct = (value: number) => value / 100;
 const ceil = (value: number) => Math.max(1, Math.ceil(value));
 const dropoutInflation = (n: number, dropout: number) => ceil(n / (1 - pct(dropout)));
+
+const dataPlanPresets = {
+  storageLocation: [
+    "Institutional secure drive or approved research database",
+    "REDCap or equivalent electronic data capture platform",
+    "Encrypted institutional cloud storage",
+    "Locked cabinet for paper forms plus encrypted digital archive",
+  ],
+  accessControl: [
+    "Role-based access for named study team members",
+    "Principal investigator and data manager only",
+    "Password-protected files with access log",
+    "De-identified analysis dataset for statisticians",
+  ],
+  qualityChecks: [
+    "Range checks, duplicate checks, source-data verification, and query log",
+    "Double data entry for key variables",
+    "Weekly missing-data and outlier review",
+    "Pilot testing of case report forms before recruitment",
+  ],
+  retentionPeriod: [
+    "At least 5 years after publication or according to institutional policy",
+    "At least 10 years after study completion",
+    "As required by IRB, sponsor, or national regulation",
+    "Permanent repository for de-identified protocol and analysis materials",
+  ],
+};
+
+const ethicsWorkflowLinks = [
+  ["ClinicalTrials.gov PRS", "https://register.clinicaltrials.gov/"],
+  ["Indonesia Clinical Research Registry (INA-CRR)", "https://ina-registry.org/"],
+  ["PROSPERO systematic review register", "https://www.crd.york.ac.uk/prospero/"],
+  ["WHO ICTRP trial registry search portal", "https://trialsearch.who.int/"],
+  ["Open Science Framework", "https://osf.io/"],
+];
+
+const ethicsWorkflowSteps = [
+  "Prepare the complete protocol, participant-facing documents, data plan, and analysis plan before submission.",
+  "Submit to the relevant IRB or ethics committee and wait for approval before recruitment or data collection.",
+  "Register interventional clinical trials in an appropriate public registry before the first participant is enrolled.",
+  "Register systematic reviews in PROSPERO when eligible, ideally before screening starts.",
+  "Store or publish the complete protocol in a durable repository to improve transparency and reduce selective reporting.",
+];
+
+function PresetField({ label, value, options, language, onChange }: PresetFieldProps) {
+  const isPreset = options.includes(value);
+  return (
+    <label className="control compact-control">
+      <span>
+        <strong>{t(label, language)}</strong>
+        <small>{t("Choose a common option or select Others to type a local plan.", language)}</small>
+      </span>
+      <select
+        aria-label={t(label, language)}
+        value={isPreset ? value : "Others"}
+        onChange={(event) => onChange(event.target.value === "Others" ? "" : event.target.value)}
+      >
+        {options.map((option) => (
+          <option key={option} value={option}>{t(option, language)}</option>
+        ))}
+        <option value="Others">{t("Others", language)}</option>
+      </select>
+      {!isPreset && (
+        <input
+          aria-label={`${t(label, language)} ${t("Others", language)}`}
+          placeholder={t("Type your plan", language)}
+          type="text"
+          value={value}
+          onChange={(event) => onChange(event.target.value)}
+        />
+      )}
+    </label>
+  );
+}
 
 function erfInv(x: number) {
   const a = 0.147;
@@ -4535,10 +4685,10 @@ export function SampleSizeApp() {
   const [ethicsMonths, setEthicsMonths] = useState(2);
   const [recruitmentMonths, setRecruitmentMonths] = useState(8);
   const [analysisMonths, setAnalysisMonths] = useState(3);
-  const [storageLocation, setStorageLocation] = useState("institutional secure drive or approved research database");
-  const [accessControl, setAccessControl] = useState("role-based access for named study team members");
-  const [qualityChecks, setQualityChecks] = useState("range checks, duplicate checks, source-data verification for key variables, and query resolution log");
-  const [retentionPeriod, setRetentionPeriod] = useState("at least 5 years after publication or according to institutional policy");
+  const [storageLocation, setStorageLocation] = useState("Institutional secure drive or approved research database");
+  const [accessControl, setAccessControl] = useState("Role-based access for named study team members");
+  const [qualityChecks, setQualityChecks] = useState("Range checks, duplicate checks, source-data verification, and query log");
+  const [retentionPeriod, setRetentionPeriod] = useState("At least 5 years after publication or according to institutional policy");
   const [protocolChecks, setProtocolChecks] = useState<Record<string, boolean>>({
     question: true,
     outcomes: false,
@@ -4864,10 +5014,10 @@ export function SampleSizeApp() {
   };
   const questionWording =
     language === "id"
-      ? `Pada ${studyPopulation} di ${studySetting}, penelitian ini akan mengevaluasi apakah ${studyExposure} dibandingkan dengan ${studyComparator} berhubungan dengan perubahan ${studyPrimaryOutcome}. Pertanyaan ini disusun untuk menjaga keselarasan antara populasi, pajanan atau intervensi, pembanding, dan luaran utama.`
+      ? `Pada ${studyPopulation} di ${studySetting}, apakah ${studyExposure} dibandingkan dengan ${studyComparator} berhubungan dengan perubahan ${studyPrimaryOutcome}?`
       : language === "nl"
-        ? `Bij ${studyPopulation} in ${studySetting} onderzoekt deze studie of ${studyExposure}, vergeleken met ${studyComparator}, samenhangt met een verandering in ${studyPrimaryOutcome}. Deze formulering houdt populatie, blootstelling of interventie, vergelijking en primaire uitkomst consistent.`
-        : `Among ${studyPopulation} in ${studySetting}, this study will evaluate whether ${studyExposure}, compared with ${studyComparator}, is associated with a change in ${studyPrimaryOutcome}. This question keeps the population, exposure or intervention, comparator, and primary outcome aligned before the design and analysis are finalised.`;
+        ? `Is ${studyExposure}, vergeleken met ${studyComparator}, bij ${studyPopulation} in ${studySetting} geassocieerd met een verandering in ${studyPrimaryOutcome}?`
+        : `Among ${studyPopulation} in ${studySetting}, is ${studyExposure}, compared with ${studyComparator}, associated with a change in ${studyPrimaryOutcome}?`;
   const outcomeWording =
     language === "id"
       ? `Luaran primer penelitian adalah ${outcomeName}, yang didefinisikan sebagai luaran ${outcomeType} dan dinilai pada ${outcomeTimepoint} menggunakan ${outcomeInstrument}. Perbedaan yang dianggap bermakna secara klinis adalah ${outcomeDifference}; definisi ini sebaiknya digunakan secara konsisten dalam protokol, perhitungan besar sampel, dan rencana analisis.`
@@ -5273,11 +5423,20 @@ export function SampleSizeApp() {
       "Ethics:",
       ethicsWording,
       "",
+      "Ethics and registration workflow:",
+      ...ethicsWorkflowSteps.map((step, index) => `${index + 1}. ${step}`),
+      "",
+      "Registry resources:",
+      ...ethicsWorkflowLinks.map(([label, href]) => `${label}: ${href}`),
+      "",
       "Timeline:",
       timelineText,
       "",
       "Data management:",
       dataPlanWording,
+      "",
+      "Protocol transparency:",
+      "For transparency, consider publishing the full protocol or storing it in a durable repository before data collection begins.",
       "",
       "Variable dictionary:",
       ...tableLines(["Variable", "Type", "Source", "Coding"], variableRows, [20, 22, 28, 30]),
@@ -5572,6 +5731,9 @@ export function SampleSizeApp() {
                 <aside className="protocol-output">
                   <span>{t("Draft question", language)}</span>
                   <p>{questionWording}</p>
+                  <small className="protocol-disclaimer">
+                    {t("This generated question is only a recommendation; the concept, scope, and wording may still need revision with supervisors, statisticians, or content experts.", language)}
+                  </small>
                   <button type="button" onClick={() => copyGeneratedWording(questionWording, "Protocol wording copied")}>{t("Copy section", language)}</button>
                 </aside>
               </div>
@@ -5756,6 +5918,22 @@ export function SampleSizeApp() {
                   <p>{ethicsWording}</p>
                   <button type="button" onClick={() => copyGeneratedWording(ethicsWording, "Protocol wording copied")}>{t("Copy section", language)}</button>
                 </aside>
+                <section className="protocol-wide-card" aria-label={t("Ethics and registration workflow", language)}>
+                  <div>
+                    <span>{t("Ethics and registration workflow", language)}</span>
+                    <h3>{t("Registry resources", language)}</h3>
+                  </div>
+                  <ol>
+                    {ethicsWorkflowSteps.map((step) => <li key={step}>{t(step, language)}</li>)}
+                  </ol>
+                  <div className="registry-links">
+                    {ethicsWorkflowLinks.map(([label, href]) => (
+                      <a className="resource-button" href={href} key={label} target="_blank" rel="noreferrer">
+                        {t(label, language)}
+                      </a>
+                    ))}
+                  </div>
+                </section>
               </div>
             )}
 
@@ -5810,21 +5988,18 @@ export function SampleSizeApp() {
                     <h3>{t("Data management plan helper", language)}</h3>
                     <p>{t("Define storage, access, quality checks, backup, and retention before data collection starts.", language)}</p>
                   </div>
-                  {[
-                    ["Storage location", storageLocation, setStorageLocation],
-                    ["Access control", accessControl, setAccessControl],
-                    ["Quality checks", qualityChecks, setQualityChecks],
-                    ["Retention period", retentionPeriod, setRetentionPeriod],
-                  ].map(([label, value, setter]) => (
-                    <label className="control compact-control" key={label as string}>
-                      <strong>{t(label as string, language)}</strong>
-                      <input type="text" value={value as string} onChange={(event) => (setter as (next: string) => void)(event.target.value)} />
-                    </label>
-                  ))}
+                  <PresetField label="Storage location" value={storageLocation} options={dataPlanPresets.storageLocation} language={language} onChange={setStorageLocation} />
+                  <PresetField label="Access control" value={accessControl} options={dataPlanPresets.accessControl} language={language} onChange={setAccessControl} />
+                  <PresetField label="Quality checks" value={qualityChecks} options={dataPlanPresets.qualityChecks} language={language} onChange={setQualityChecks} />
+                  <PresetField label="Retention period" value={retentionPeriod} options={dataPlanPresets.retentionPeriod} language={language} onChange={setRetentionPeriod} />
                 </section>
                 <aside className="protocol-output">
                   <span>{t("Data management wording", language)}</span>
                   <p>{dataPlanWording}</p>
+                  <div className="protocol-note">
+                    <strong>{t("Protocol transparency note", language)}</strong>
+                    <small>{t("For transparency, consider publishing the full protocol or storing it in a durable repository before data collection begins.", language)}</small>
+                  </div>
                   <button type="button" onClick={() => copyGeneratedWording(dataPlanWording, "Protocol wording copied")}>{t("Copy section", language)}</button>
                 </aside>
               </div>
@@ -6727,7 +6902,7 @@ export function SampleSizeApp() {
         ) : null}
       </section>
 
-      <footer className="app-footer"><strong>{t("StudySize Studio version 1.34 © Ryalino, 2026.", language)}</strong></footer>
+      <footer className="app-footer"><strong>{t("StudySize Studio version 1.35 © Ryalino, 2026.", language)}</strong></footer>
 
       {copiedNotice && (
         <div className="copy-toast" role="status" aria-live="polite">

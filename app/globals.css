@@ -820,6 +820,72 @@ input:disabled {
   font-weight: 800;
 }
 
+.protocol-disclaimer,
+.protocol-note {
+  display: block;
+  border: 1px solid rgba(242, 184, 75, 0.38);
+  border-radius: 8px;
+  background: rgba(255, 244, 206, 0.58);
+  margin-top: 12px;
+  padding: 10px;
+}
+
+.protocol-note strong,
+.protocol-note small {
+  display: block;
+}
+
+.protocol-wide-card {
+  grid-column: 1 / -1;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(81, 102, 214, 0.11), transparent 34%),
+    #fff;
+  padding: 16px;
+}
+
+.protocol-wide-card > div > span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--indigo);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.protocol-wide-card ol {
+  margin: 12px 0 0;
+  padding-left: 20px;
+}
+
+.protocol-wide-card li {
+  color: var(--ink-muted);
+  line-height: 1.45;
+  margin-bottom: 8px;
+}
+
+.registry-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 14px;
+}
+
+.registry-links .resource-button {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--teal);
+  color: #fff;
+  margin: 0;
+  padding: 10px 16px;
+  text-decoration: none;
+  font-weight: 800;
+}
+
 .mini-table {
   display: grid;
   gap: 8px;
