@@ -23,6 +23,11 @@ type Variable = {
   slider?: boolean;
 };
 type ReferenceFormat = "vancouver" | "harvard";
+type ZTableRow = {
+  context: string;
+  probability: string;
+  z: string;
+};
 type Calculator = {
   id: string;
   category: string;
@@ -308,6 +313,14 @@ const indonesianText: Record<string, string> = {
   "The Method section should at least describe the following:": "Bagian Metode setidaknya harus menjelaskan hal berikut:",
   "Save scenario": "Simpan skenario",
   "Formula": "Rumus",
+  "Formula symbols": "Simbol dalam rumus",
+  "Open Z value table": "Buka tabel nilai Z",
+  "Z value table": "Tabel nilai Z",
+  "Common Z values": "Nilai Z yang sering digunakan",
+  "Close Z value table": "Tutup tabel nilai Z",
+  "Planning context": "Konteks perencanaan",
+  "Probability": "Probabilitas",
+  "Z value": "Nilai Z",
   "Assumptions": "Asumsi",
   "References": "Referensi",
   "Reference style": "Gaya referensi",
@@ -348,7 +361,7 @@ const indonesianText: Record<string, string> = {
   "Citation copied": "Sitasi disalin",
   "Clear scenarios": "Hapus skenario",
   "Scenarios cleared": "Skenario dihapus",
-  "StudySize Studio version 1.38 © Ryalino, 2026.": "StudySize Studio versi 1.38 © Ryalino, 2026.",
+  "StudySize Studio version 1.39 © Ryalino, 2026.": "StudySize Studio versi 1.39 © Ryalino, 2026.",
   "Scenario saved": "Skenario disimpan",
   "Scenario is ready": "Skenario siap",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Skenario ini sekarang tersedia di menu Perbandingan Skenario, tempat Anda dapat membandingkannya dengan skenario perencanaan tersimpan lainnya.",
@@ -931,6 +944,14 @@ const dutchText: Record<string, string> = {
   "The Method section should at least describe the following:": "De methodesectie moet ten minste het volgende beschrijven:",
   "Save scenario": "Scenario opslaan",
   "Formula": "Formule",
+  "Formula symbols": "Symbolen in de formule",
+  "Open Z value table": "Z-waardetabel openen",
+  "Z value table": "Z-waardetabel",
+  "Common Z values": "Veelgebruikte Z-waarden",
+  "Close Z value table": "Z-waardetabel sluiten",
+  "Planning context": "Planningscontext",
+  "Probability": "Kans",
+  "Z value": "Z-waarde",
   "Assumptions": "Aannames",
   "References": "Referenties",
   "Reference style": "Referentiestijl",
@@ -966,7 +987,7 @@ const dutchText: Record<string, string> = {
   "Citation copied": "Citatie gekopieerd",
   "Clear scenarios": "Scenario's wissen",
   "Scenarios cleared": "Scenario's gewist",
-  "StudySize Studio version 1.38 © Ryalino, 2026.": "StudySize Studio versie 1.38 © Ryalino, 2026.",
+  "StudySize Studio version 1.39 © Ryalino, 2026.": "StudySize Studio versie 1.39 © Ryalino, 2026.",
   "Scenario is ready": "Scenario is klaar",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Dit scenario is nu beschikbaar in de balk Scenariovergelijking, waar u het kunt vergelijken met andere opgeslagen planningsscenario's.",
   "Open Scenario Comparison": "Scenariovergelijking openen",
@@ -1295,7 +1316,7 @@ Object.assign(indonesianText, {
   "Reference SD group 1": "SD kelompok 1 dari studi referensi",
   "Reference SD group 2": "SD kelompok 2 dari studi referensi",
   "Expected R²": "R² yang diharapkan",
-  "StudySize Studio version 1.38 © Ryalino, 2026.": "StudySize Studio versi 1.38 © Ryalino, 2026.",
+  "StudySize Studio version 1.39 © Ryalino, 2026.": "StudySize Studio versi 1.39 © Ryalino, 2026.",
   "Randomised trial": "Uji klinis acak",
   "CONSORT for trial reports; SPIRIT for trial protocols.": "CONSORT untuk laporan uji klinis; SPIRIT untuk protokol uji klinis.",
   "Study protocol": "Protokol penelitian",
@@ -1494,7 +1515,7 @@ Object.assign(dutchText, {
   "Expected variance explained by the model.": "Verwacht percentage verklaarde variantie door het model.",
   "Reference SD group 1": "SD van groep 1 uit referentiestudie",
   "Reference SD group 2": "SD van groep 2 uit referentiestudie",
-  "StudySize Studio version 1.38 © Ryalino, 2026.": "StudySize Studio versie 1.38 © Ryalino, 2026.",
+  "StudySize Studio version 1.39 © Ryalino, 2026.": "StudySize Studio versie 1.39 © Ryalino, 2026.",
   "Randomised trial": "Gerandomiseerde trial",
   "CONSORT for trial reports; SPIRIT for trial protocols.": "CONSORT voor trialrapportages; SPIRIT voor trialprotocollen.",
   "Study protocol": "Onderzoeksprotocol",
@@ -1744,7 +1765,7 @@ Object.assign(indonesianText, {
   "Ethics approval target": "Target persetujuan etik",
   "Recruitment completion target": "Target selesai rekrutmen",
   "Analysis and writing target": "Target analisis dan penulisan",
-  "StudySize Studio version 1.38 © Ryalino, 2026.": "StudySize Studio versi 1.38 © Ryalino, 2026.",
+  "StudySize Studio version 1.39 © Ryalino, 2026.": "StudySize Studio versi 1.39 © Ryalino, 2026.",
 });
 
 Object.assign(dutchText, {
@@ -1877,7 +1898,7 @@ Object.assign(dutchText, {
   "Ethics approval target": "Streefdatum ethische goedkeuring",
   "Recruitment completion target": "Streefdatum einde inclusie",
   "Analysis and writing target": "Streefdatum analyse en schrijven",
-  "StudySize Studio version 1.38 © Ryalino, 2026.": "StudySize Studio versie 1.38 © Ryalino, 2026.",
+  "StudySize Studio version 1.39 © Ryalino, 2026.": "StudySize Studio versie 1.39 © Ryalino, 2026.",
 });
 
 const pct = (value: number) => value / 100;
@@ -2096,6 +2117,17 @@ const languageOptions: { code: Language; label: string; flag: string; aria: stri
   { code: "nl", label: "Nederlands", flag: "🇳🇱", aria: "Schakel naar Nederlands" },
 ];
 
+const zTableRows: ZTableRow[] = [
+  { context: "Two-sided alpha 10% / 90% confidence", probability: "0.950", z: "1.645" },
+  { context: "Two-sided alpha 5% / 95% confidence", probability: "0.975", z: "1.960" },
+  { context: "Two-sided alpha 1% / 99% confidence", probability: "0.995", z: "2.576" },
+  { context: "One-sided alpha 5%", probability: "0.950", z: "1.645" },
+  { context: "One-sided alpha 2.5%", probability: "0.975", z: "1.960" },
+  { context: "Power 80% / beta 20%", probability: "0.800", z: "0.842" },
+  { context: "Power 90% / beta 10%", probability: "0.900", z: "1.282" },
+  { context: "Power 95% / beta 5%", probability: "0.950", z: "1.645" },
+];
+
 const decisionOptionIcons: Record<string, string> = {
   estimate: "📏",
   compare: "⚖️",
@@ -2142,7 +2174,7 @@ function commonPower(alphaDefault = 5, powerDefault = 80, dropoutDefault = 10) {
       step: 0.5,
       default: alphaDefault,
       suffix: "%",
-      help: "Type I error rate.",
+      help: "Alpha (α), the Type I error rate used to obtain Zα or Zα/2.",
       slider: true,
     },
     {
@@ -2153,7 +2185,7 @@ function commonPower(alphaDefault = 5, powerDefault = 80, dropoutDefault = 10) {
       step: 1,
       default: powerDefault,
       suffix: "%",
-      help: "Chance of detecting the target effect.",
+      help: "Power (1-β), the chance of detecting the target effect; it determines Zβ.",
       slider: true,
     },
     {
@@ -2569,6 +2601,168 @@ Object.assign(parameterGuidanceText, {
 function parameterGuidance(calculatorId: string, variableKey: string, language: Language) {
   const guidance = parameterGuidanceText[`${calculatorId}.${variableKey}`] ?? parameterGuidanceText[`common.${variableKey}`];
   return guidance?.[language] ?? guidance?.en ?? "";
+}
+
+function formulaLines(formula: string) {
+  return formula.split(";").map((line) => line.trim()).filter(Boolean);
+}
+
+function formulaUsesZ(formula: string) {
+  return /\bZ|Z[αβ]/.test(formula);
+}
+
+function localNote(language: Language, en: string, id: string, nl: string) {
+  if (language === "id") return id;
+  if (language === "nl") return nl;
+  return en;
+}
+
+function formulaSymbolNotes(calculatorId: string, language: Language) {
+  const commonZ = [
+    localNote(language, "Z or Zα/2 is the standard normal critical value for the selected confidence level or alpha.", "Z atau Zα/2 adalah nilai kritis normal baku untuk tingkat kepercayaan atau alfa yang dipilih.", "Z of Zα/2 is de standaardnormale kritieke waarde voor het gekozen betrouwbaarheidsniveau of alfa."),
+  ];
+  const commonPowerNotes = [
+    localNote(language, "Zβ is determined by power; β is the Type II error rate, so power = 1 - β.", "Zβ ditentukan oleh power; β adalah tingkat kesalahan tipe II, sehingga power = 1 - β.", "Zβ wordt bepaald door power; β is de type-II-foutkans, dus power = 1 - β."),
+  ];
+  const notes: Record<string, string[]> = {
+    prevalence: [
+      ...commonZ,
+      localNote(language, "p is the expected proportion and d is the margin of error.", "p adalah proporsi yang diharapkan dan d adalah margin of error.", "p is de verwachte proportie en d is de foutmarge."),
+    ],
+    "single-mean": [
+      ...commonZ,
+      localNote(language, "σ is the expected standard deviation and d is the margin of error in the original measurement unit.", "σ adalah simpangan baku yang diharapkan dan d adalah margin of error dalam satuan pengukuran asli.", "σ is de verwachte standaarddeviatie en d is de foutmarge in de oorspronkelijke meeteenheid."),
+    ],
+    "two-means": [
+      ...commonZ,
+      ...commonPowerNotes,
+      localNote(language, "Δ is the absolute mean difference calculated from the two entered reference means.", "Δ adalah selisih rerata absolut yang dihitung dari dua rerata referensi yang dimasukkan.", "Δ is het absolute gemiddelde verschil, berekend uit de twee ingevulde referentiegemiddelden."),
+      localNote(language, "SDpooled is estimated from SD1 and SD2; r is the allocation ratio, meaning treatment participants per control participant.", "SDpooled dihitung dari SD1 dan SD2; r adalah rasio alokasi, yaitu jumlah peserta perlakuan per peserta kontrol.", "SDpooled wordt geschat uit SD1 en SD2; r is de allocatieratio, het aantal behandelgroepdeelnemers per controlegroepdeelnemer."),
+    ],
+    "paired-mean": [
+      ...commonZ,
+      ...commonPowerNotes,
+      localNote(language, "Δ is the absolute within-person mean change; SDdifference is the standard deviation of paired differences.", "Δ adalah perubahan rerata absolut dalam orang yang sama; SDdifference adalah simpangan baku dari selisih berpasangan.", "Δ is de absolute gemiddelde verandering binnen dezelfde persoon; SDdifference is de standaarddeviatie van de gepaarde verschillen."),
+    ],
+    "two-proportions": [
+      ...commonZ,
+      ...commonPowerNotes,
+      localNote(language, "p1 and p2 are the two entered proportions; q1 = 1 - p1 and q2 = 1 - p2.", "p1 dan p2 adalah dua proporsi yang dimasukkan; q1 = 1 - p1 dan q2 = 1 - p2.", "p1 en p2 zijn de twee ingevulde proporties; q1 = 1 - p1 en q2 = 1 - p2."),
+      localNote(language, "p̄ and q̄ are the pooled event and non-event proportions; r is the treatment-to-control allocation ratio.", "p̄ dan q̄ adalah proporsi kejadian dan non-kejadian gabungan; r adalah rasio alokasi perlakuan terhadap kontrol.", "p̄ en q̄ zijn de gepoolde event- en non-eventproporties; r is de behandel-controle-allocatieratio."),
+    ],
+    "one-proportion-test": [
+      ...commonZ,
+      ...commonPowerNotes,
+      localNote(language, "p0 is the benchmark proportion and p1 is the target proportion; q0 = 1 - p0 and q1 = 1 - p1.", "p0 adalah proporsi pembanding dan p1 adalah proporsi target; q0 = 1 - p0 dan q1 = 1 - p1.", "p0 is de benchmarkproportie en p1 is de doelproportie; q0 = 1 - p0 en q1 = 1 - p1."),
+    ],
+    correlation: [
+      ...commonZ,
+      ...commonPowerNotes,
+      localNote(language, "r is the expected Pearson correlation entered by the user; atanh(r) is Fisher's z transformation.", "r adalah korelasi Pearson yang diharapkan dan dimasukkan oleh pengguna; atanh(r) adalah transformasi z Fisher.", "r is de verwachte Pearson-correlatie die de gebruiker invult; atanh(r) is Fisher's z-transformatie."),
+    ],
+    "diagnostic-sensitivity": [
+      ...commonZ,
+      localNote(language, "Se is expected sensitivity, d is the precision margin, and prevalence converts diseased participants into total recruited participants.", "Se adalah sensitivitas yang diharapkan, d adalah margin presisi, dan prevalensi mengubah jumlah peserta sakit menjadi total peserta yang perlu direkrut.", "Se is de verwachte sensitiviteit, d is de precisiemarge, en prevalentie zet benodigde zieken om naar totaal te rekruteren deelnemers."),
+    ],
+    "diagnostic-specificity": [
+      ...commonZ,
+      localNote(language, "Sp is expected specificity, d is the precision margin, and 1 - prevalence is the expected non-disease fraction.", "Sp adalah spesifisitas yang diharapkan, d adalah margin presisi, dan 1 - prevalensi adalah fraksi tanpa penyakit yang diharapkan.", "Sp is de verwachte specificiteit, d is de precisiemarge, en 1 - prevalentie is de verwachte fractie zonder ziekte."),
+    ],
+    "cohort-rr": [
+      ...commonZ,
+      ...commonPowerNotes,
+      localNote(language, "RR is calculated as exposed risk divided by unexposed risk; the sample size then uses the two independent proportions approach.", "RR dihitung sebagai risiko terpajan dibagi risiko tidak terpajan; besar sampel kemudian memakai pendekatan dua proporsi independen.", "RR wordt berekend als risico bij blootgestelden gedeeld door risico bij niet-blootgestelden; de steekproefgrootte gebruikt daarna de methode voor twee onafhankelijke proporties."),
+    ],
+    "case-control": [
+      ...commonZ,
+      ...commonPowerNotes,
+      localNote(language, "OR is calculated from the exposure odds in cases and controls; the sample size then uses the two independent proportions approach.", "OR dihitung dari odds pajanan pada kasus dan kontrol; besar sampel kemudian memakai pendekatan dua proporsi independen.", "OR wordt berekend uit de blootstellingsodds bij cases en controles; de steekproefgrootte gebruikt daarna de methode voor twee onafhankelijke proporties."),
+    ],
+    "noninferiority-means": [
+      ...commonZ,
+      ...commonPowerNotes,
+      localNote(language, "SDpooled is estimated from SD1 and SD2; r is the experimental-to-control allocation ratio; margin is the largest clinically acceptable loss.", "SDpooled dihitung dari SD1 dan SD2; r adalah rasio alokasi eksperimental terhadap kontrol; margin adalah penurunan terbesar yang masih dapat diterima secara klinis.", "SDpooled wordt geschat uit SD1 en SD2; r is de experimenteel-controle-allocatieratio; margin is het grootste klinisch aanvaardbare verlies."),
+    ],
+    "equivalence-means": [
+      ...commonZ,
+      ...commonPowerNotes,
+      localNote(language, "TOST means two one-sided tests; SDpooled is estimated from SD1 and SD2; margin is the symmetric equivalence boundary.", "TOST berarti two one-sided tests; SDpooled dihitung dari SD1 dan SD2; margin adalah batas ekivalensi simetris.", "TOST betekent two one-sided tests; SDpooled wordt geschat uit SD1 en SD2; margin is de symmetrische equivalentiegrens."),
+    ],
+    "cluster-crt": [
+      localNote(language, "m is average cluster size, ICC is the intracluster correlation coefficient, and the design effect inflates the individual-level sample size.", "m adalah rerata ukuran klaster, ICC adalah koefisien korelasi intraklaster, dan design effect meningkatkan besar sampel tingkat individu.", "m is de gemiddelde clustergrootte, ICC is de intracluster-correlatiecoëfficiënt, en het design effect verhoogt de individuele steekproefgrootte."),
+      ...commonZ,
+      ...commonPowerNotes,
+    ],
+    survival: [
+      ...commonZ,
+      ...commonPowerNotes,
+      localNote(language, "HR is the hazard ratio, ln(HR) is its natural logarithm, and the allocation fraction product reflects the event split between groups.", "HR adalah hazard ratio, ln(HR) adalah logaritma naturalnya, dan allocation fraction product mencerminkan pembagian kejadian antar kelompok.", "HR is de hazardratio, ln(HR) is de natuurlijke logaritme daarvan, en het allocatiefract product weerspiegelt de eventverdeling tussen groepen."),
+    ],
+    "linear-regression": [
+      ...commonZ,
+      ...commonPowerNotes,
+      localNote(language, "R² is the expected explained variance; f² = R² / (1 - R²); predictors are the planned model terms or degrees of freedom.", "R² adalah variasi yang diharapkan dapat dijelaskan; f² = R² / (1 - R²); prediktor adalah istilah model atau derajat kebebasan yang direncanakan.", "R² is de verwachte verklaarde variantie; f² = R² / (1 - R²); predictoren zijn de geplande modeltermen of vrijheidsgraden."),
+    ],
+    "logistic-regression": [
+      localNote(language, "Events are participants with the outcome; events-per-predictor is the planned stability rule; total n is obtained by dividing required events by the expected event rate.", "Events adalah peserta yang mengalami luaran; events-per-predictor adalah aturan stabilitas yang direncanakan; total n diperoleh dengan membagi jumlah events yang dibutuhkan dengan angka kejadian yang diharapkan.", "Events zijn deelnemers met de uitkomst; events-per-predictor is de gekozen stabiliteitsregel; totaal n ontstaat door benodigde events te delen door het verwachte eventpercentage."),
+    ],
+  };
+  return notes[calculatorId] ?? [];
+}
+
+function formulaVariableNote(calculatorId: string, variableKey: string, language: Language) {
+  const notes: Record<string, [string, string, string]> = {
+    "prevalence.p": ["Formula symbol: p, the expected proportion.", "Simbol rumus: p, proporsi yang diharapkan.", "Formulesymbool: p, de verwachte proportie."],
+    "prevalence.margin": ["Formula symbol: d, the desired precision or margin of error.", "Simbol rumus: d, presisi atau margin of error yang diinginkan.", "Formulesymbool: d, de gewenste precisie of foutmarge."],
+    "prevalence.confidence": ["This determines the Z value used in the formula.", "Nilai ini menentukan nilai Z yang digunakan dalam rumus.", "Deze waarde bepaalt de Z-waarde in de formule."],
+    "single-mean.sd": ["Formula symbol: σ, the expected standard deviation.", "Simbol rumus: σ, simpangan baku yang diharapkan.", "Formulesymbool: σ, de verwachte standaarddeviatie."],
+    "single-mean.margin": ["Formula symbol: d, the target half-width of the confidence interval.", "Simbol rumus: d, setengah lebar interval kepercayaan yang ditargetkan.", "Formulesymbool: d, de beoogde halve breedte van het betrouwbaarheidsinterval."],
+    "single-mean.confidence": ["This determines the Z value used in the formula.", "Nilai ini menentukan nilai Z yang digunakan dalam rumus.", "Deze waarde bepaalt de Z-waarde in de formule."],
+    "two-means.mean1": ["Used with group 2 mean to calculate Δ.", "Digunakan bersama rerata kelompok 2 untuk menghitung Δ.", "Wordt samen met gemiddelde groep 2 gebruikt om Δ te berekenen."],
+    "two-means.mean2": ["Used with group 1 mean to calculate Δ.", "Digunakan bersama rerata kelompok 1 untuk menghitung Δ.", "Wordt samen met gemiddelde groep 1 gebruikt om Δ te berekenen."],
+    "two-means.sd1": ["Used with SD2 to estimate SDpooled.", "Digunakan bersama SD2 untuk memperkirakan SDpooled.", "Wordt samen met SD2 gebruikt om SDpooled te schatten."],
+    "two-means.sd2": ["Used with SD1 to estimate SDpooled.", "Digunakan bersama SD1 untuk memperkirakan SDpooled.", "Wordt samen met SD1 gebruikt om SDpooled te schatten."],
+    "two-means.ratio": ["Formula symbol: r, treatment participants per control participant.", "Simbol rumus: r, jumlah peserta perlakuan per peserta kontrol.", "Formulesymbool: r, behandelgroepdeelnemers per controlegroepdeelnemer."],
+    "paired-mean.meanBefore": ["Used with the after mean to calculate Δ.", "Digunakan bersama rerata sesudah untuk menghitung Δ.", "Wordt samen met het nametinggemiddelde gebruikt om Δ te berekenen."],
+    "paired-mean.meanAfter": ["Used with the before mean to calculate Δ.", "Digunakan bersama rerata sebelum untuk menghitung Δ.", "Wordt samen met het voormetinggemiddelde gebruikt om Δ te berekenen."],
+    "paired-mean.sdDiff": ["Formula symbol: SDdifference, the SD of paired changes.", "Simbol rumus: SDdifference, simpangan baku perubahan berpasangan.", "Formulesymbool: SDdifference, de SD van gepaarde veranderingen."],
+    "two-proportions.p1": ["Formula symbol: p1; q1 is calculated as 1 - p1.", "Simbol rumus: p1; q1 dihitung sebagai 1 - p1.", "Formulesymbool: p1; q1 wordt berekend als 1 - p1."],
+    "two-proportions.p2": ["Formula symbol: p2; q2 is calculated as 1 - p2.", "Simbol rumus: p2; q2 dihitung sebagai 1 - p2.", "Formulesymbool: p2; q2 wordt berekend als 1 - p2."],
+    "two-proportions.ratio": ["Formula symbol: r, treatment participants per control participant.", "Simbol rumus: r, jumlah peserta perlakuan per peserta kontrol.", "Formulesymbool: r, behandelgroepdeelnemers per controlegroepdeelnemer."],
+    "one-proportion-test.p0": ["Formula symbol: p0; q0 is calculated as 1 - p0.", "Simbol rumus: p0; q0 dihitung sebagai 1 - p0.", "Formulesymbool: p0; q0 wordt berekend als 1 - p0."],
+    "one-proportion-test.p1": ["Formula symbol: p1; q1 is calculated as 1 - p1.", "Simbol rumus: p1; q1 dihitung sebagai 1 - p1.", "Formulesymbool: p1; q1 wordt berekend als 1 - p1."],
+    "correlation.rho": ["Formula symbol: r, the expected Pearson correlation.", "Simbol rumus: r, korelasi Pearson yang diharapkan.", "Formulesymbool: r, de verwachte Pearson-correlatie."],
+    "diagnostic-sensitivity.sensitivity": ["Formula symbol: Se, expected sensitivity.", "Simbol rumus: Se, sensitivitas yang diharapkan.", "Formulesymbool: Se, de verwachte sensitiviteit."],
+    "diagnostic-sensitivity.margin": ["Formula symbol: d, the precision margin around sensitivity.", "Simbol rumus: d, margin presisi di sekitar sensitivitas.", "Formulesymbool: d, de precisiemarge rond sensitiviteit."],
+    "diagnostic-sensitivity.prevalence": ["Used to convert diseased n into total recruited n.", "Digunakan untuk mengubah n peserta sakit menjadi total n yang perlu direkrut.", "Wordt gebruikt om benodigde zieken om te zetten naar totaal te rekruteren n."],
+    "diagnostic-specificity.specificity": ["Formula symbol: Sp, expected specificity.", "Simbol rumus: Sp, spesifisitas yang diharapkan.", "Formulesymbool: Sp, de verwachte specificiteit."],
+    "diagnostic-specificity.margin": ["Formula symbol: d, the precision margin around specificity.", "Simbol rumus: d, margin presisi di sekitar spesifisitas.", "Formulesymbool: d, de precisiemarge rond specificiteit."],
+    "diagnostic-specificity.prevalence": ["Used as 1 - prevalence to convert non-diseased n into total recruited n.", "Digunakan sebagai 1 - prevalensi untuk mengubah n tanpa penyakit menjadi total n yang perlu direkrut.", "Wordt gebruikt als 1 - prevalentie om benodigde niet-zieken om te zetten naar totaal te rekruteren n."],
+    "cohort-rr.p0": ["Formula term: unexposed risk, used as the denominator for RR.", "Istilah rumus: risiko tidak terpajan, digunakan sebagai penyebut RR.", "Formuleterm: risico bij niet-blootgestelden, gebruikt als noemer voor RR."],
+    "cohort-rr.p1": ["Formula term: exposed risk, used as the numerator for RR.", "Istilah rumus: risiko terpajan, digunakan sebagai pembilang RR.", "Formuleterm: risico bij blootgestelden, gebruikt als teller voor RR."],
+    "case-control.p0": ["Formula term: p_control, exposure prevalence among controls.", "Istilah rumus: p_control, prevalensi pajanan pada kontrol.", "Formuleterm: p_control, blootstellingsprevalentie bij controles."],
+    "case-control.p1": ["Formula term: p_case, exposure prevalence among cases.", "Istilah rumus: p_case, prevalensi pajanan pada kasus.", "Formuleterm: p_case, blootstellingsprevalentie bij cases."],
+    "noninferiority-means.margin": ["Formula term: margin, the largest clinically acceptable loss.", "Istilah rumus: margin, penurunan terbesar yang masih dapat diterima secara klinis.", "Formuleterm: margin, het grootste klinisch aanvaardbare verlies."],
+    "equivalence-means.margin": ["Formula term: margin, the symmetric equivalence boundary.", "Istilah rumus: margin, batas ekivalensi simetris.", "Formuleterm: margin, de symmetrische equivalentiegrens."],
+    "cluster-crt.clusterSize": ["Formula symbol: m, average cluster size.", "Simbol rumus: m, rerata ukuran klaster.", "Formulesymbool: m, de gemiddelde clustergrootte."],
+    "cluster-crt.icc": ["Formula symbol: ICC, the intracluster correlation coefficient.", "Simbol rumus: ICC, koefisien korelasi intraklaster.", "Formulesymbool: ICC, de intracluster-correlatiecoëfficiënt."],
+    "survival.hr": ["Formula symbol: HR; ln(HR) is used in the event calculation.", "Simbol rumus: HR; ln(HR) digunakan dalam perhitungan jumlah kejadian.", "Formulesymbool: HR; ln(HR) wordt gebruikt in de eventberekening."],
+    "survival.eventRate": ["Used to convert required events into total participants.", "Digunakan untuk mengubah jumlah kejadian yang dibutuhkan menjadi total peserta.", "Wordt gebruikt om benodigde events om te zetten naar totaal aantal deelnemers."],
+    "survival.ratio": ["Used to calculate the allocation fraction product.", "Digunakan untuk menghitung allocation fraction product.", "Wordt gebruikt om het allocatiefract product te berekenen."],
+    "linear-regression.r2": ["Formula symbols: R² and f², where f² = R² / (1 - R²).", "Simbol rumus: R² dan f², dengan f² = R² / (1 - R²).", "Formulesymbolen: R² en f², waarbij f² = R² / (1 - R²)."],
+    "linear-regression.predictors": ["Formula term: predictors, the planned model terms or degrees of freedom.", "Istilah rumus: prediktor, istilah model atau derajat kebebasan yang direncanakan.", "Formuleterm: predictoren, de geplande modeltermen of vrijheidsgraden."],
+    "logistic-regression.predictors": ["Used to calculate the required number of events.", "Digunakan untuk menghitung jumlah kejadian yang dibutuhkan.", "Wordt gebruikt om het benodigde aantal events te berekenen."],
+    "logistic-regression.eventsPerPredictor": ["Formula term: events-per-predictor, the chosen stability rule.", "Istilah rumus: events-per-predictor, aturan stabilitas yang dipilih.", "Formuleterm: events-per-predictor, de gekozen stabiliteitsregel."],
+    "logistic-regression.eventRate": ["Used to convert events into total sample size.", "Digunakan untuk mengubah jumlah kejadian menjadi total besar sampel.", "Wordt gebruikt om events om te zetten naar totale steekproefgrootte."],
+  };
+  const common: Record<string, [string, string, string]> = {
+    alpha: ["Formula symbol: α; this determines Zα or Zα/2.", "Simbol rumus: α; nilai ini menentukan Zα atau Zα/2.", "Formulesymbool: α; deze waarde bepaalt Zα of Zα/2."],
+    power: ["Formula term: power = 1 - β; this determines Zβ.", "Istilah rumus: power = 1 - β; nilai ini menentukan Zβ.", "Formuleterm: power = 1 - β; deze waarde bepaalt Zβ."],
+    ratio: ["Formula symbol: r, the allocation ratio.", "Simbol rumus: r, rasio alokasi.", "Formulesymbool: r, de allocatieratio."],
+    confidence: ["This determines the Z value used in the formula.", "Nilai ini menentukan nilai Z yang digunakan dalam rumus.", "Deze waarde bepaalt de Z-waarde in de formule."],
+  };
+  const entry = notes[`${calculatorId}.${variableKey}`] ?? common[variableKey];
+  return entry ? localNote(language, entry[0], entry[1], entry[2]) : "";
 }
 
 function approximatePooledSd(sd1: number, sd2: number) {
@@ -4847,6 +5041,7 @@ export function SampleSizeApp() {
   const [showCitationModal, setShowCitationModal] = useState(false);
   const [showProtocolModal, setShowProtocolModal] = useState(false);
   const [showScenarioModal, setShowScenarioModal] = useState(false);
+  const [showZTableModal, setShowZTableModal] = useState(false);
   const [valuesByCalculator, setValuesByCalculator] = useState<Record<string, Values>>(() =>
     Object.fromEntries(calculators.map((calculator) => [calculator.id, initialValues(calculator)])),
   );
@@ -4926,6 +5121,9 @@ export function SampleSizeApp() {
   const frameworkCovariates = useMemo(() => parseFrameworkVariables(covariateVariables, []), [covariateVariables]);
   const values = valuesByCalculator[calculator.id] ?? initialValues(calculator);
   const result = useMemo(() => calculator.compute(values), [calculator, values]);
+  const activeFormulaLines = formulaLines(calculator.formula);
+  const activeFormulaSymbols = formulaSymbolNotes(calculator.id, language);
+  const activeFormulaUsesZ = formulaUsesZ(calculator.formula);
   const filtered = calculators.filter((item) =>
     activeCategory === "All" || (activeCategory === "Most used" ? mostUsedCalculatorIds.has(item.id) : item.category === activeCategory),
   );
@@ -6850,12 +7048,14 @@ export function SampleSizeApp() {
             <div className="inputs-grid">
               {calculator.variables.map((variable) => {
                 const guidance = parameterGuidance(calculator.id, variable.key, language);
+                const formulaNote = formulaVariableNote(calculator.id, variable.key, language);
 
                 return (
                   <label className="control" key={variable.key}>
                     <span>
                       <strong>{t(variable.label, language)}</strong>
                       <small>{t(variable.help, language)}</small>
+                      {formulaNote && <small className="formula-variable-note">{formulaNote}</small>}
                       {guidance && <small className="parameter-guidance">{guidance}</small>}
                     </span>
                     <div className="input-row">
@@ -6891,7 +7091,22 @@ export function SampleSizeApp() {
             <div className="evidence">
               <article>
                 <h3>{t("Formula", language)}</h3>
-                <p>{calculator.formula}</p>
+                <div className="formula-lines" aria-label={t("Formula", language)}>
+                  {activeFormulaLines.map((line) => (
+                    <code className="formula-line" key={line}>{line}</code>
+                  ))}
+                </div>
+                {activeFormulaUsesZ && (
+                  <button className="subtle-button z-table-button" type="button" onClick={() => setShowZTableModal(true)}>
+                    {t("Open Z value table", language)}
+                  </button>
+                )}
+                {activeFormulaSymbols.length > 0 && (
+                  <div className="formula-symbols">
+                    <strong>{t("Formula symbols", language)}</strong>
+                    <ul>{activeFormulaSymbols.map((item) => <li key={item}>{item}</li>)}</ul>
+                  </div>
+                )}
               </article>
               <article>
                 <h3>{t("Assumptions", language)}</h3>
@@ -7038,7 +7253,7 @@ export function SampleSizeApp() {
         ) : null}
       </section>
 
-      <footer className="app-footer"><strong>{t("StudySize Studio version 1.38 © Ryalino, 2026.", language)}</strong></footer>
+      <footer className="app-footer"><strong>{t("StudySize Studio version 1.39 © Ryalino, 2026.", language)}</strong></footer>
 
       {copiedNotice && (
         <div className="copy-toast" role="status" aria-live="polite">
@@ -7112,6 +7327,48 @@ export function SampleSizeApp() {
               >
                 {t("Open Scenario Comparison", language)}
               </button>
+            </div>
+          </section>
+        </div>
+      )}
+
+      {showZTableModal && (
+        <div className="modal-backdrop" role="presentation" onClick={() => setShowZTableModal(false)}>
+          <section
+            aria-labelledby="z-table-title"
+            aria-modal="true"
+            className="citation-modal z-table-modal"
+            onClick={(event) => event.stopPropagation()}
+            role="dialog"
+          >
+            <div className="modal-head">
+              <div>
+                <p className="eyebrow">{t("Common Z values", language)}</p>
+                <h2 id="z-table-title">{t("Z value table", language)}</h2>
+              </div>
+              <button aria-label={t("Close Z value table", language)} type="button" onClick={() => setShowZTableModal(false)}>
+                {t("Close", language)}
+              </button>
+            </div>
+            <div className="z-table-wrap">
+              <table className="z-table">
+                <thead>
+                  <tr>
+                    <th>{t("Planning context", language)}</th>
+                    <th>{t("Probability", language)}</th>
+                    <th>{t("Z value", language)}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {zTableRows.map((row) => (
+                    <tr key={`${row.context}-${row.z}`}>
+                      <td>{row.context}</td>
+                      <td>{row.probability}</td>
+                      <td>{row.z}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </section>
         </div>
