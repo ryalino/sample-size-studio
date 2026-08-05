@@ -362,7 +362,7 @@ const indonesianText: Record<string, string> = {
   "Citation copied": "Sitasi disalin",
   "Clear scenarios": "Hapus skenario",
   "Scenarios cleared": "Skenario dihapus",
-  "StudySize Studio version 1.41 © Ryalino, 2026.": "StudySize Studio versi 1.41 © Ryalino, 2026.",
+  "StudySize Studio version 1.42 © Ryalino, 2026.": "StudySize Studio versi 1.42 © Ryalino, 2026.",
   "Scenario saved": "Skenario disimpan",
   "Scenario is ready": "Skenario siap",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Skenario ini sekarang tersedia di menu Perbandingan Skenario, tempat Anda dapat membandingkannya dengan skenario perencanaan tersimpan lainnya.",
@@ -988,7 +988,7 @@ const dutchText: Record<string, string> = {
   "Citation copied": "Citatie gekopieerd",
   "Clear scenarios": "Scenario's wissen",
   "Scenarios cleared": "Scenario's gewist",
-  "StudySize Studio version 1.41 © Ryalino, 2026.": "StudySize Studio versie 1.41 © Ryalino, 2026.",
+  "StudySize Studio version 1.42 © Ryalino, 2026.": "StudySize Studio versie 1.42 © Ryalino, 2026.",
   "Scenario is ready": "Scenario is klaar",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Dit scenario is nu beschikbaar in de balk Scenariovergelijking, waar u het kunt vergelijken met andere opgeslagen planningsscenario's.",
   "Open Scenario Comparison": "Scenariovergelijking openen",
@@ -1317,7 +1317,7 @@ Object.assign(indonesianText, {
   "Reference SD group 1": "SD kelompok 1 dari studi referensi",
   "Reference SD group 2": "SD kelompok 2 dari studi referensi",
   "Expected R²": "R² yang diharapkan",
-  "StudySize Studio version 1.41 © Ryalino, 2026.": "StudySize Studio versi 1.41 © Ryalino, 2026.",
+  "StudySize Studio version 1.42 © Ryalino, 2026.": "StudySize Studio versi 1.42 © Ryalino, 2026.",
   "Randomised trial": "Uji klinis acak",
   "CONSORT for trial reports; SPIRIT for trial protocols.": "CONSORT untuk laporan uji klinis; SPIRIT untuk protokol uji klinis.",
   "Study protocol": "Protokol penelitian",
@@ -1516,7 +1516,7 @@ Object.assign(dutchText, {
   "Expected variance explained by the model.": "Verwacht percentage verklaarde variantie door het model.",
   "Reference SD group 1": "SD van groep 1 uit referentiestudie",
   "Reference SD group 2": "SD van groep 2 uit referentiestudie",
-  "StudySize Studio version 1.41 © Ryalino, 2026.": "StudySize Studio versie 1.41 © Ryalino, 2026.",
+  "StudySize Studio version 1.42 © Ryalino, 2026.": "StudySize Studio versie 1.42 © Ryalino, 2026.",
   "Randomised trial": "Gerandomiseerde trial",
   "CONSORT for trial reports; SPIRIT for trial protocols.": "CONSORT voor trialrapportages; SPIRIT voor trialprotocollen.",
   "Study protocol": "Onderzoeksprotocol",
@@ -1766,7 +1766,7 @@ Object.assign(indonesianText, {
   "Ethics approval target": "Target persetujuan etik",
   "Recruitment completion target": "Target selesai rekrutmen",
   "Analysis and writing target": "Target analisis dan penulisan",
-  "StudySize Studio version 1.41 © Ryalino, 2026.": "StudySize Studio versi 1.41 © Ryalino, 2026.",
+  "StudySize Studio version 1.42 © Ryalino, 2026.": "StudySize Studio versi 1.42 © Ryalino, 2026.",
 });
 
 Object.assign(dutchText, {
@@ -1899,7 +1899,7 @@ Object.assign(dutchText, {
   "Ethics approval target": "Streefdatum ethische goedkeuring",
   "Recruitment completion target": "Streefdatum einde inclusie",
   "Analysis and writing target": "Streefdatum analyse en schrijven",
-  "StudySize Studio version 1.41 © Ryalino, 2026.": "StudySize Studio versie 1.41 © Ryalino, 2026.",
+  "StudySize Studio version 1.42 © Ryalino, 2026.": "StudySize Studio versie 1.42 © Ryalino, 2026.",
 });
 
 Object.assign(indonesianText, {
@@ -1995,6 +1995,9 @@ Object.assign(indonesianText, {
   "Time horizon": "Horizon waktu",
   "Copy question": "Salin pertanyaan",
   "Use for sample size decision tree": "Gunakan untuk alur besar sampel",
+  "Started from your research question": "Dimulai dari pertanyaan penelitian Anda",
+  "Please confirm the remaining design details before choosing a formula.": "Konfirmasi detail desain yang tersisa sebelum memilih rumus.",
+  "The qualitative PICo framework does not map directly to a standard quantitative sample-size formula. The tree will show where statistical review or qualitative sampling justification is needed.": "Kerangka PICo kualitatif tidak langsung terhubung dengan rumus besar sampel kuantitatif standar. Alur akan menunjukkan kapan telaah statistik atau justifikasi sampling kualitatif diperlukan.",
 });
 
 Object.assign(dutchText, {
@@ -2024,6 +2027,9 @@ Object.assign(dutchText, {
   "Time horizon": "Tijdshorizon",
   "Copy question": "Vraag kopiëren",
   "Use for sample size decision tree": "Gebruiken voor beslisboom steekproefgrootte",
+  "Started from your research question": "Gestart vanuit uw onderzoeksvraag",
+  "Please confirm the remaining design details before choosing a formula.": "Bevestig de resterende ontwerpdetails voordat u een formule kiest.",
+  "The qualitative PICo framework does not map directly to a standard quantitative sample-size formula. The tree will show where statistical review or qualitative sampling justification is needed.": "Het kwalitatieve PICo-kader sluit niet rechtstreeks aan op een standaard kwantitatieve steekproefgrootteformule. De beslisboom laat zien waar statistische beoordeling of kwalitatieve steekproefonderbouwing nodig is.",
 });
 
 const pct = (value: number) => value / 100;
@@ -5325,6 +5331,7 @@ export function SampleSizeApp() {
   const [activeId, setActiveId] = useState(calculators[0].id);
   const [referenceFormat, setReferenceFormat] = useState<ReferenceFormat>("vancouver");
   const [decisionAnswers, setDecisionAnswers] = useState<DecisionAnswers>({});
+  const [decisionHandoff, setDecisionHandoff] = useState("");
   const [randomSubjectCount, setRandomSubjectCount] = useState(60);
   const [randomGroups, setRandomGroups] = useState(() => defaultRandomGroups(language));
   const [randomStrata, setRandomStrata] = useState(() => defaultRandomStrata(language));
@@ -6049,6 +6056,7 @@ export function SampleSizeApp() {
 
   function answerDecision(questionId: string, value: string) {
     const index = decisionOrder.indexOf(questionId);
+    setDecisionHandoff("");
     setDecisionAnswers((current) => {
       const next: DecisionAnswers = {};
       decisionOrder.slice(0, index).forEach((id) => {
@@ -6059,10 +6067,29 @@ export function SampleSizeApp() {
     });
   }
 
+  function useQuestionForDecisionTree() {
+    const seededAnswers: Record<QuestionFramework, DecisionAnswers> = {
+      pico: { goal: "compare" },
+      peco: { goal: "association" },
+      pird: { goal: "diagnostic" },
+      "pico-qual": { goal: "compare", comparisonOutcome: "binary", comparisonStructure: "paired", complexity: "yes" },
+      prognostic: { goal: "modeling" },
+    };
+    const frameworkLabel = questionFrameworkOptions.find((option) => option.value === questionFramework)?.label ?? "research question";
+    setDecisionAnswers(seededAnswers[questionFramework]);
+    setDecisionHandoff(
+      questionFramework === "pico-qual"
+        ? t("The qualitative PICo framework does not map directly to a standard quantitative sample-size formula. The tree will show where statistical review or qualitative sampling justification is needed.", language)
+        : `${t("Started from your research question", language)} (${t(frameworkLabel, language)}). ${t("Please confirm the remaining design details before choosing a formula.", language)}`,
+    );
+    setMode("finder");
+  }
+
   function goBackDecision() {
     const answered = decisionOrder.filter((id) => decisionAnswers[id]);
     const last = answered.at(-1);
     if (!last) return;
+    setDecisionHandoff("");
     setDecisionAnswers((current) => {
       const next = { ...current };
       delete next[last];
@@ -6315,7 +6342,10 @@ export function SampleSizeApp() {
                 <button type="button" onClick={goBackDecision} disabled={decisionPath.length === 0}>
                   {t("Back", language)}
                 </button>
-                <button type="button" onClick={() => setDecisionAnswers({})}>
+                <button type="button" onClick={() => {
+                  setDecisionAnswers({});
+                  setDecisionHandoff("");
+                }}>
                   {t("Reset", language)}
                 </button>
               </div>
@@ -6323,6 +6353,11 @@ export function SampleSizeApp() {
 
             <div className="decision-body">
               <div className="decision-card">
+                {decisionHandoff && (
+                  <div className="handoff-note" role="status">
+                    {decisionHandoff}
+                  </div>
+                )}
                 {currentDecisionQuestion ? (
                   <>
                     <span>{t("Question", language)} {decisionPath.length + 1}</span>
@@ -6444,7 +6479,7 @@ export function SampleSizeApp() {
                   </small>
                   <div className="copy-actions">
                     <button type="button" onClick={() => copyGeneratedWording(questionWording, "Protocol wording copied")}>{t("Copy question", language)}</button>
-                    <button type="button" onClick={() => setMode("finder")}>{t("Use for sample size decision tree", language)}</button>
+                    <button type="button" onClick={useQuestionForDecisionTree}>{t("Use for sample size decision tree", language)}</button>
                   </div>
                 </aside>
               </div>
@@ -7648,7 +7683,7 @@ export function SampleSizeApp() {
         ) : null}
       </section>
 
-      <footer className="app-footer"><strong>{t("StudySize Studio version 1.41 © Ryalino, 2026.", language)}</strong></footer>
+      <footer className="app-footer"><strong>{t("StudySize Studio version 1.42 © Ryalino, 2026.", language)}</strong></footer>
 
       {copiedNotice && (
         <div className="copy-toast" role="status" aria-live="polite">

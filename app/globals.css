@@ -415,6 +415,18 @@ h3 {
     #fff;
 }
 
+.handoff-note {
+  border: 1px solid rgba(15, 159, 154, 0.24);
+  border-radius: 8px;
+  background: rgba(15, 159, 154, 0.09);
+  color: var(--foreground);
+  margin-bottom: 14px;
+  padding: 12px;
+  font-size: 0.9rem;
+  font-weight: 750;
+  line-height: 1.45;
+}
+
 .decision-card > span,
 .path-card > span {
   display: block;
@@ -1703,6 +1715,8 @@ input:disabled {
 
 .copy-actions {
   display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
   justify-content: flex-end;
   margin-top: 12px;
 }
