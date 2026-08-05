@@ -42,7 +42,7 @@ test("server-renders the sample size calculator shell", async () => {
   assert.match(html, /Figure Generator/);
   assert.match(html, /Scenario Comparison/);
   assert.match(html, /Study Design/);
-  assert.match(html, /StudySize Studio version 1\.40 © Ryalino, 2026\./);
+  assert.match(html, /StudySize Studio version 1\.41 © Ryalino, 2026\./);
   assert.match(html, /What is the main purpose of the study/);
   assert.match(html, /Calculator catalog/);
   assert.doesNotMatch(html, /Prevalence \/ Single Proportion|Two Independent Means|Saved scenarios/);
@@ -86,6 +86,12 @@ test("removes disposable starter references", async () => {
   assert.match(app, /Use Non-Inferiority Proportion/);
   assert.match(app, /Use Equivalence Proportion/);
   assert.match(app, /answers\.comparisonDesign === "trial"/);
+  assert.match(app, /type QuestionFramework = "pico" \| "peco" \| "pird" \| "pico-qual" \| "prognostic"/);
+  assert.match(app, /questionFrameworkOptions/);
+  assert.match(app, /Question framework/);
+  assert.match(app, /Diagnostic accuracy question using an index test and reference standard/);
+  assert.match(app, /Qualitative question focused on participants/);
+  assert.match(app, /Use for sample size decision tree/);
   assert.match(app, /Protocol wording disclaimer/);
   assert.match(app, /Legal disclaimer: StudySize Studio provides educational planning support/);
   assert.match(app, /Cochran WG\. Sampling techniques\. 3rd ed\./);

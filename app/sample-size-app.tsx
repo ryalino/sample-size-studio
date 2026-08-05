@@ -28,6 +28,7 @@ type ZTableRow = {
   probability: string;
   z: string;
 };
+type QuestionFramework = "pico" | "peco" | "pird" | "pico-qual" | "prognostic";
 type Calculator = {
   id: string;
   category: string;
@@ -361,7 +362,7 @@ const indonesianText: Record<string, string> = {
   "Citation copied": "Sitasi disalin",
   "Clear scenarios": "Hapus skenario",
   "Scenarios cleared": "Skenario dihapus",
-  "StudySize Studio version 1.40 © Ryalino, 2026.": "StudySize Studio versi 1.40 © Ryalino, 2026.",
+  "StudySize Studio version 1.41 © Ryalino, 2026.": "StudySize Studio versi 1.41 © Ryalino, 2026.",
   "Scenario saved": "Skenario disimpan",
   "Scenario is ready": "Skenario siap",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Skenario ini sekarang tersedia di menu Perbandingan Skenario, tempat Anda dapat membandingkannya dengan skenario perencanaan tersimpan lainnya.",
@@ -987,7 +988,7 @@ const dutchText: Record<string, string> = {
   "Citation copied": "Citatie gekopieerd",
   "Clear scenarios": "Scenario's wissen",
   "Scenarios cleared": "Scenario's gewist",
-  "StudySize Studio version 1.40 © Ryalino, 2026.": "StudySize Studio versie 1.40 © Ryalino, 2026.",
+  "StudySize Studio version 1.41 © Ryalino, 2026.": "StudySize Studio versie 1.41 © Ryalino, 2026.",
   "Scenario is ready": "Scenario is klaar",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Dit scenario is nu beschikbaar in de balk Scenariovergelijking, waar u het kunt vergelijken met andere opgeslagen planningsscenario's.",
   "Open Scenario Comparison": "Scenariovergelijking openen",
@@ -1316,7 +1317,7 @@ Object.assign(indonesianText, {
   "Reference SD group 1": "SD kelompok 1 dari studi referensi",
   "Reference SD group 2": "SD kelompok 2 dari studi referensi",
   "Expected R²": "R² yang diharapkan",
-  "StudySize Studio version 1.40 © Ryalino, 2026.": "StudySize Studio versi 1.40 © Ryalino, 2026.",
+  "StudySize Studio version 1.41 © Ryalino, 2026.": "StudySize Studio versi 1.41 © Ryalino, 2026.",
   "Randomised trial": "Uji klinis acak",
   "CONSORT for trial reports; SPIRIT for trial protocols.": "CONSORT untuk laporan uji klinis; SPIRIT untuk protokol uji klinis.",
   "Study protocol": "Protokol penelitian",
@@ -1515,7 +1516,7 @@ Object.assign(dutchText, {
   "Expected variance explained by the model.": "Verwacht percentage verklaarde variantie door het model.",
   "Reference SD group 1": "SD van groep 1 uit referentiestudie",
   "Reference SD group 2": "SD van groep 2 uit referentiestudie",
-  "StudySize Studio version 1.40 © Ryalino, 2026.": "StudySize Studio versie 1.40 © Ryalino, 2026.",
+  "StudySize Studio version 1.41 © Ryalino, 2026.": "StudySize Studio versie 1.41 © Ryalino, 2026.",
   "Randomised trial": "Gerandomiseerde trial",
   "CONSORT for trial reports; SPIRIT for trial protocols.": "CONSORT voor trialrapportages; SPIRIT voor trialprotocollen.",
   "Study protocol": "Onderzoeksprotocol",
@@ -1765,7 +1766,7 @@ Object.assign(indonesianText, {
   "Ethics approval target": "Target persetujuan etik",
   "Recruitment completion target": "Target selesai rekrutmen",
   "Analysis and writing target": "Target analisis dan penulisan",
-  "StudySize Studio version 1.40 © Ryalino, 2026.": "StudySize Studio versi 1.40 © Ryalino, 2026.",
+  "StudySize Studio version 1.41 © Ryalino, 2026.": "StudySize Studio versi 1.41 © Ryalino, 2026.",
 });
 
 Object.assign(dutchText, {
@@ -1898,7 +1899,7 @@ Object.assign(dutchText, {
   "Ethics approval target": "Streefdatum ethische goedkeuring",
   "Recruitment completion target": "Streefdatum einde inclusie",
   "Analysis and writing target": "Streefdatum analyse en schrijven",
-  "StudySize Studio version 1.40 © Ryalino, 2026.": "StudySize Studio versie 1.40 © Ryalino, 2026.",
+  "StudySize Studio version 1.41 © Ryalino, 2026.": "StudySize Studio versie 1.41 © Ryalino, 2026.",
 });
 
 Object.assign(indonesianText, {
@@ -1965,6 +1966,64 @@ Object.assign(dutchText, {
   "Equivalence margin is clinically justified before recruitment.": "De equivalentiemarge is klinisch onderbouwd vóór de start van inclusie.",
   "Two independent groups are being compared on a binary event or response rate under a superiority objective.": "Twee onafhankelijke groepen worden vergeleken op een binair event- of responspercentage met een superioriteitsdoel.",
   "Superiority comparison.": "Superioriteitsvergelijking.",
+});
+
+Object.assign(indonesianText, {
+  "Question framework": "Kerangka pertanyaan",
+  "Choose the framework that best matches the study design before writing the question.": "Pilih kerangka yang paling sesuai dengan desain studi sebelum menyusun pertanyaan.",
+  "PICO": "PICO",
+  "Intervention/comparison question, including RCTs and quasi-experimental studies.": "Pertanyaan intervensi/perbandingan, termasuk RCT dan studi kuasi-eksperimental.",
+  "PECO": "PECO",
+  "Exposure and outcome question for observational research.": "Pertanyaan pajanan dan luaran untuk penelitian observasional.",
+  "PIRD": "PIRD",
+  "Diagnostic accuracy question using an index test and reference standard.": "Pertanyaan akurasi diagnostik dengan tes indeks dan standar referensi.",
+  "PICo": "PICo",
+  "Qualitative question focused on participants, phenomenon of interest, and context.": "Pertanyaan kualitatif yang berfokus pada partisipan, fenomena minat, dan konteks.",
+  "Prognostic": "Prognostik",
+  "Prognostic factor, model, or prediction question with an outcome and time horizon.": "Pertanyaan faktor prognostik, model, atau prediksi dengan luaran dan horizon waktu.",
+  "Intervention": "Intervensi",
+  "Outcome": "Luaran",
+  "Exposure": "Pajanan",
+  "Comparator/control": "Pembanding/kontrol",
+  "Index test": "Tes indeks",
+  "Reference standard": "Standar referensi",
+  "Target condition": "Kondisi target",
+  "Participants": "Partisipan",
+  "Interest / phenomenon": "Minat / fenomena",
+  "Context": "Konteks",
+  "Prognostic factor/model": "Faktor/model prognostik",
+  "Time horizon": "Horizon waktu",
+  "Copy question": "Salin pertanyaan",
+  "Use for sample size decision tree": "Gunakan untuk alur besar sampel",
+});
+
+Object.assign(dutchText, {
+  "Question framework": "Vraagkader",
+  "Choose the framework that best matches the study design before writing the question.": "Kies eerst het kader dat het best past bij het studiedesign voordat u de vraag formuleert.",
+  "PICO": "PICO",
+  "Intervention/comparison question, including RCTs and quasi-experimental studies.": "Interventie- of vergelijkingsvraag, inclusief RCT's en quasi-experimentele studies.",
+  "PECO": "PECO",
+  "Exposure and outcome question for observational research.": "Blootstellings- en uitkomstvraag voor observationeel onderzoek.",
+  "PIRD": "PIRD",
+  "Diagnostic accuracy question using an index test and reference standard.": "Diagnostische accuratessevraag met een indextest en referentiestandaard.",
+  "PICo": "PICo",
+  "Qualitative question focused on participants, phenomenon of interest, and context.": "Kwalitatieve vraag gericht op deelnemers, fenomeen van interesse en context.",
+  "Prognostic": "Prognostisch",
+  "Prognostic factor, model, or prediction question with an outcome and time horizon.": "Vraag over prognostische factor, model of voorspelling met uitkomst en tijdshorizon.",
+  "Intervention": "Interventie",
+  "Outcome": "Uitkomst",
+  "Exposure": "Blootstelling",
+  "Comparator/control": "Vergelijking/controle",
+  "Index test": "Indextest",
+  "Reference standard": "Referentiestandaard",
+  "Target condition": "Doelaandoening",
+  "Participants": "Deelnemers",
+  "Interest / phenomenon": "Interesse / fenomeen",
+  "Context": "Context",
+  "Prognostic factor/model": "Prognostische factor/model",
+  "Time horizon": "Tijdshorizon",
+  "Copy question": "Vraag kopiëren",
+  "Use for sample size decision tree": "Gebruiken voor beslisboom steekproefgrootte",
 });
 
 const pct = (value: number) => value / 100;
@@ -2211,6 +2270,14 @@ const languageOptions: { code: Language; label: string; flag: string; aria: stri
   { code: "en", label: "English", flag: "🇬🇧", aria: "Switch to English" },
   { code: "id", label: "Bahasa Indonesia", flag: "🇮🇩", aria: "Ganti ke Bahasa Indonesia" },
   { code: "nl", label: "Nederlands", flag: "🇳🇱", aria: "Schakel naar Nederlands" },
+];
+
+const questionFrameworkOptions: { value: QuestionFramework; label: string; description: string }[] = [
+  { value: "pico", label: "PICO", description: "Intervention/comparison question, including RCTs and quasi-experimental studies." },
+  { value: "peco", label: "PECO", description: "Exposure and outcome question for observational research." },
+  { value: "pird", label: "PIRD", description: "Diagnostic accuracy question using an index test and reference standard." },
+  { value: "pico-qual", label: "PICo", description: "Qualitative question focused on participants, phenomenon of interest, and context." },
+  { value: "prognostic", label: "Prognostic", description: "Prognostic factor, model, or prediction question with an outcome and time horizon." },
 ];
 
 const zTableRows: ZTableRow[] = [
@@ -5208,6 +5275,7 @@ export function SampleSizeApp() {
     return saved === "id" || saved === "nl" || saved === "en" ? saved : "en";
   });
   const [mode, setMode] = useState<AppMode>("finder");
+  const [questionFramework, setQuestionFramework] = useState<QuestionFramework>("pico");
   const [studyPopulation, setStudyPopulation] = useState("adult surgical patients");
   const [studyExposure, setStudyExposure] = useState("perioperative intervention");
   const [studyComparator, setStudyComparator] = useState("standard care");
@@ -5571,12 +5639,79 @@ export function SampleSizeApp() {
     date.setMonth(date.getMonth() + months);
     return date.toISOString().slice(0, 10);
   };
-  const questionWording =
-    language === "id"
-      ? `Pada ${studyPopulation} di ${studySetting}, apakah ${studyExposure} dibandingkan dengan ${studyComparator} berhubungan dengan perubahan ${studyPrimaryOutcome}?`
+  const questionFieldRows: [string, string, (next: string) => void][] =
+    questionFramework === "pico"
+      ? [
+          ["Population", studyPopulation, setStudyPopulation],
+          ["Intervention", studyExposure, setStudyExposure],
+          ["Comparator", studyComparator, setStudyComparator],
+          ["Outcome", studyPrimaryOutcome, setStudyPrimaryOutcome],
+          ["Study setting", studySetting, setStudySetting],
+        ]
+      : questionFramework === "peco"
+        ? [
+            ["Population", studyPopulation, setStudyPopulation],
+            ["Exposure", studyExposure, setStudyExposure],
+            ["Comparator/control", studyComparator, setStudyComparator],
+            ["Outcome", studyPrimaryOutcome, setStudyPrimaryOutcome],
+            ["Study setting", studySetting, setStudySetting],
+          ]
+        : questionFramework === "pird"
+          ? [
+              ["Population", studyPopulation, setStudyPopulation],
+              ["Index test", studyExposure, setStudyExposure],
+              ["Reference standard", studyComparator, setStudyComparator],
+              ["Target condition", studyPrimaryOutcome, setStudyPrimaryOutcome],
+              ["Study setting", studySetting, setStudySetting],
+            ]
+          : questionFramework === "pico-qual"
+            ? [
+                ["Participants", studyPopulation, setStudyPopulation],
+                ["Interest / phenomenon", studyExposure, setStudyExposure],
+                ["Context", studySetting, setStudySetting],
+              ]
+            : [
+                ["Population", studyPopulation, setStudyPopulation],
+                ["Prognostic factor/model", studyExposure, setStudyExposure],
+                ["Outcome", studyPrimaryOutcome, setStudyPrimaryOutcome],
+                ["Time horizon", studyComparator, setStudyComparator],
+                ["Study setting", studySetting, setStudySetting],
+              ];
+  const questionWording = (() => {
+    if (questionFramework === "pico") {
+      return language === "id"
+        ? `Pada ${studyPopulation} di ${studySetting}, apakah ${studyExposure}, dibandingkan dengan ${studyComparator}, memengaruhi ${studyPrimaryOutcome}?`
+        : language === "nl"
+          ? `Heeft ${studyExposure}, vergeleken met ${studyComparator}, bij ${studyPopulation} in ${studySetting} invloed op ${studyPrimaryOutcome}?`
+          : `Among ${studyPopulation} in ${studySetting}, does ${studyExposure}, compared with ${studyComparator}, affect ${studyPrimaryOutcome}?`;
+    }
+    if (questionFramework === "peco") {
+      return language === "id"
+        ? `Pada ${studyPopulation} di ${studySetting}, apakah ${studyExposure}, dibandingkan dengan ${studyComparator}, berhubungan dengan ${studyPrimaryOutcome}?`
+        : language === "nl"
+          ? `Is ${studyExposure}, vergeleken met ${studyComparator}, bij ${studyPopulation} in ${studySetting} geassocieerd met ${studyPrimaryOutcome}?`
+          : `Among ${studyPopulation} in ${studySetting}, is ${studyExposure}, compared with ${studyComparator}, associated with ${studyPrimaryOutcome}?`;
+    }
+    if (questionFramework === "pird") {
+      return language === "id"
+        ? `Pada ${studyPopulation} di ${studySetting}, seberapa akurat ${studyExposure} dibandingkan dengan ${studyComparator} untuk mendeteksi ${studyPrimaryOutcome}?`
+        : language === "nl"
+          ? `Hoe accuraat is ${studyExposure}, vergeleken met ${studyComparator}, voor het vaststellen van ${studyPrimaryOutcome} bij ${studyPopulation} in ${studySetting}?`
+          : `Among ${studyPopulation} in ${studySetting}, how accurate is ${studyExposure}, compared with ${studyComparator}, for detecting ${studyPrimaryOutcome}?`;
+    }
+    if (questionFramework === "pico-qual") {
+      return language === "id"
+        ? `Bagaimana ${studyPopulation} mengalami atau memaknai ${studyExposure} dalam konteks ${studySetting}?`
+        : language === "nl"
+          ? `Hoe ervaren of begrijpen ${studyPopulation} ${studyExposure} binnen de context van ${studySetting}?`
+          : `How do ${studyPopulation} experience or understand ${studyExposure} within the context of ${studySetting}?`;
+    }
+    return language === "id"
+      ? `Pada ${studyPopulation} di ${studySetting}, apakah ${studyExposure} memprediksi ${studyPrimaryOutcome} dalam ${studyComparator}?`
       : language === "nl"
-        ? `Is ${studyExposure}, vergeleken met ${studyComparator}, bij ${studyPopulation} in ${studySetting} geassocieerd met een verandering in ${studyPrimaryOutcome}?`
-        : `Among ${studyPopulation} in ${studySetting}, is ${studyExposure}, compared with ${studyComparator}, associated with a change in ${studyPrimaryOutcome}?`;
+        ? `Voorspelt ${studyExposure} ${studyPrimaryOutcome} binnen ${studyComparator} bij ${studyPopulation} in ${studySetting}?`
+        : `Among ${studyPopulation} in ${studySetting}, does ${studyExposure} predict ${studyPrimaryOutcome} over ${studyComparator}?`;
+  })();
   const outcomeWording =
     language === "id"
       ? `Luaran primer penelitian adalah ${outcomeName}, yang didefinisikan sebagai luaran ${outcomeType} dan dinilai pada ${outcomeTimepoint} menggunakan ${outcomeInstrument}. Perbedaan yang dianggap bermakna secara klinis adalah ${outcomeDifference}; definisi ini sebaiknya digunakan secara konsisten dalam protokol, perhitungan besar sampel, dan rencana analisis.`
@@ -6275,18 +6410,29 @@ export function SampleSizeApp() {
                   <div className="protocol-intro">
                     <span>{t("Study Question", language)}</span>
                     <h3>{t("Research question builder", language)}</h3>
-                    <p>{t("Use a structured PICO/PECO frame so the objective, population, comparison, and outcome stay aligned.", language)}</p>
+                    <p>{t("Choose the framework that best matches the study design before writing the question.", language)}</p>
                   </div>
-                  {[
-                    ["Population", studyPopulation, setStudyPopulation],
-                    ["Exposure / intervention", studyExposure, setStudyExposure],
-                    ["Comparator", studyComparator, setStudyComparator],
-                    ["Primary outcome", studyPrimaryOutcome, setStudyPrimaryOutcome],
-                    ["Study setting", studySetting, setStudySetting],
-                  ].map(([label, value, setter]) => (
+                  <label className="control compact-control">
+                    <span>
+                      <strong>{t("Question framework", language)}</strong>
+                      <small>{t(questionFrameworkOptions.find((option) => option.value === questionFramework)?.description ?? "", language)}</small>
+                    </span>
+                    <select
+                      aria-label={t("Question framework", language)}
+                      value={questionFramework}
+                      onChange={(event) => setQuestionFramework(event.target.value as QuestionFramework)}
+                    >
+                      {questionFrameworkOptions.map((option) => (
+                        <option key={option.value} value={option.value}>
+                          {t(option.label, language)}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                  {questionFieldRows.map(([label, value, setter]) => (
                     <label className="control compact-control" key={label as string}>
                       <strong>{t(label as string, language)}</strong>
-                      <input type="text" value={value as string} onChange={(event) => (setter as (next: string) => void)(event.target.value)} />
+                      <input type="text" value={value} onChange={(event) => setter(event.target.value)} />
                     </label>
                   ))}
                 </section>
@@ -6296,7 +6442,10 @@ export function SampleSizeApp() {
                   <small className="protocol-disclaimer">
                     {t("This generated question is only a recommendation; the concept, scope, and wording may still need revision with supervisors, statisticians, or content experts.", language)}
                   </small>
-                  <button type="button" onClick={() => copyGeneratedWording(questionWording, "Protocol wording copied")}>{t("Copy section", language)}</button>
+                  <div className="copy-actions">
+                    <button type="button" onClick={() => copyGeneratedWording(questionWording, "Protocol wording copied")}>{t("Copy question", language)}</button>
+                    <button type="button" onClick={() => setMode("finder")}>{t("Use for sample size decision tree", language)}</button>
+                  </div>
                 </aside>
               </div>
             )}
@@ -7499,7 +7648,7 @@ export function SampleSizeApp() {
         ) : null}
       </section>
 
-      <footer className="app-footer"><strong>{t("StudySize Studio version 1.40 © Ryalino, 2026.", language)}</strong></footer>
+      <footer className="app-footer"><strong>{t("StudySize Studio version 1.41 © Ryalino, 2026.", language)}</strong></footer>
 
       {copiedNotice && (
         <div className="copy-toast" role="status" aria-live="polite">
