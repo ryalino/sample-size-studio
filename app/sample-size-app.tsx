@@ -22,6 +22,7 @@ type Variable = {
   help: string;
   slider?: boolean;
 };
+type ReferenceFormat = "vancouver" | "harvard";
 type Calculator = {
   id: string;
   category: string;
@@ -309,6 +310,9 @@ const indonesianText: Record<string, string> = {
   "Formula": "Rumus",
   "Assumptions": "Asumsi",
   "References": "Referensi",
+  "Reference style": "Gaya referensi",
+  "Vancouver": "Vancouver",
+  "Harvard": "Harvard",
   "Randomiser summary": "Ringkasan randomisasi",
   "Randomisation slots": "Slot randomisasi",
   "allocation groups": "kelompok alokasi",
@@ -327,6 +331,9 @@ const indonesianText: Record<string, string> = {
   "Planning notes": "Catatan perencanaan",
   "Protocol wording": "Kalimat protokol",
   "Open wording popup": "Buka jendela kalimat",
+  "Protocol wording disclaimer": "Peringatan narasi protokol",
+  "This wording is a drafting aid only. Review and revise it against your final protocol, local ethics requirements, statistical review, and supervisor or collaborator feedback before use.": "Narasi ini hanya alat bantu draf. Tinjau dan revisi sesuai protokol final, persyaratan etik lokal, telaah statistik, serta masukan pembimbing atau kolaborator sebelum digunakan.",
+  "Legal disclaimer: StudySize Studio provides educational planning support and does not provide medical, legal, ethical, regulatory, or statistical consultancy. Users remain responsible for verifying all wording, assumptions, calculations, and references before using them in protocols, manuscripts, grant applications, or submissions.": "Peringatan hukum: StudySize Studio menyediakan bantuan perencanaan edukatif dan tidak memberikan konsultasi medis, hukum, etik, regulatori, atau statistik. Pengguna tetap bertanggung jawab untuk memverifikasi semua narasi, asumsi, perhitungan, dan referensi sebelum digunakan dalam protokol, manuskrip, aplikasi hibah, atau pengajuan.",
   "Saved scenarios": "Skenario tersimpan",
   "No saved scenarios yet.": "Belum ada skenario tersimpan.",
   "adjusted": "disesuaikan",
@@ -341,7 +348,7 @@ const indonesianText: Record<string, string> = {
   "Citation copied": "Sitasi disalin",
   "Clear scenarios": "Hapus skenario",
   "Scenarios cleared": "Skenario dihapus",
-  "StudySize Studio version 1.37 © Ryalino, 2026.": "StudySize Studio versi 1.37 © Ryalino, 2026.",
+  "StudySize Studio version 1.38 © Ryalino, 2026.": "StudySize Studio versi 1.38 © Ryalino, 2026.",
   "Scenario saved": "Skenario disimpan",
   "Scenario is ready": "Skenario siap",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Skenario ini sekarang tersedia di menu Perbandingan Skenario, tempat Anda dapat membandingkannya dengan skenario perencanaan tersimpan lainnya.",
@@ -926,6 +933,9 @@ const dutchText: Record<string, string> = {
   "Formula": "Formule",
   "Assumptions": "Aannames",
   "References": "Referenties",
+  "Reference style": "Referentiestijl",
+  "Vancouver": "Vancouver",
+  "Harvard": "Harvard",
   "Randomiser summary": "Randomisatieoverzicht",
   "Randomisation slots": "Randomisatieslots",
   "allocation groups": "allocatiegroepen",
@@ -942,6 +952,9 @@ const dutchText: Record<string, string> = {
   "Planning notes": "Planningsnotities",
   "Protocol wording": "Protocoltekst",
   "Open wording popup": "Protocoltekst openen",
+  "Protocol wording disclaimer": "Disclaimer bij protocoltekst",
+  "This wording is a drafting aid only. Review and revise it against your final protocol, local ethics requirements, statistical review, and supervisor or collaborator feedback before use.": "Deze tekst is alleen bedoeld als hulpmiddel voor een concept. Controleer en pas de tekst aan op basis van uw definitieve protocol, lokale ethische vereisten, statistische beoordeling en feedback van supervisor of samenwerkingspartners voordat u deze gebruikt.",
+  "Legal disclaimer: StudySize Studio provides educational planning support and does not provide medical, legal, ethical, regulatory, or statistical consultancy. Users remain responsible for verifying all wording, assumptions, calculations, and references before using them in protocols, manuscripts, grant applications, or submissions.": "Juridische disclaimer: StudySize Studio biedt educatieve ondersteuning bij onderzoeksplanning en verstrekt geen medisch, juridisch, ethisch, regulatoir of statistisch advies. Gebruikers blijven verantwoordelijk voor het controleren van alle tekst, aannames, berekeningen en referenties voordat zij deze gebruiken in protocollen, manuscripten, subsidieaanvragen of indieningen.",
   "Saved scenarios": "Opgeslagen scenario's",
   "No saved scenarios yet.": "Nog geen opgeslagen scenario's.",
   "adjusted": "aangepast",
@@ -953,7 +966,7 @@ const dutchText: Record<string, string> = {
   "Citation copied": "Citatie gekopieerd",
   "Clear scenarios": "Scenario's wissen",
   "Scenarios cleared": "Scenario's gewist",
-  "StudySize Studio version 1.37 © Ryalino, 2026.": "StudySize Studio versie 1.37 © Ryalino, 2026.",
+  "StudySize Studio version 1.38 © Ryalino, 2026.": "StudySize Studio versie 1.38 © Ryalino, 2026.",
   "Scenario is ready": "Scenario is klaar",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Dit scenario is nu beschikbaar in de balk Scenariovergelijking, waar u het kunt vergelijken met andere opgeslagen planningsscenario's.",
   "Open Scenario Comparison": "Scenariovergelijking openen",
@@ -1282,7 +1295,7 @@ Object.assign(indonesianText, {
   "Reference SD group 1": "SD kelompok 1 dari studi referensi",
   "Reference SD group 2": "SD kelompok 2 dari studi referensi",
   "Expected R²": "R² yang diharapkan",
-  "StudySize Studio version 1.37 © Ryalino, 2026.": "StudySize Studio versi 1.37 © Ryalino, 2026.",
+  "StudySize Studio version 1.38 © Ryalino, 2026.": "StudySize Studio versi 1.38 © Ryalino, 2026.",
   "Randomised trial": "Uji klinis acak",
   "CONSORT for trial reports; SPIRIT for trial protocols.": "CONSORT untuk laporan uji klinis; SPIRIT untuk protokol uji klinis.",
   "Study protocol": "Protokol penelitian",
@@ -1481,7 +1494,7 @@ Object.assign(dutchText, {
   "Expected variance explained by the model.": "Verwacht percentage verklaarde variantie door het model.",
   "Reference SD group 1": "SD van groep 1 uit referentiestudie",
   "Reference SD group 2": "SD van groep 2 uit referentiestudie",
-  "StudySize Studio version 1.37 © Ryalino, 2026.": "StudySize Studio versie 1.37 © Ryalino, 2026.",
+  "StudySize Studio version 1.38 © Ryalino, 2026.": "StudySize Studio versie 1.38 © Ryalino, 2026.",
   "Randomised trial": "Gerandomiseerde trial",
   "CONSORT for trial reports; SPIRIT for trial protocols.": "CONSORT voor trialrapportages; SPIRIT voor trialprotocollen.",
   "Study protocol": "Onderzoeksprotocol",
@@ -1731,7 +1744,7 @@ Object.assign(indonesianText, {
   "Ethics approval target": "Target persetujuan etik",
   "Recruitment completion target": "Target selesai rekrutmen",
   "Analysis and writing target": "Target analisis dan penulisan",
-  "StudySize Studio version 1.37 © Ryalino, 2026.": "StudySize Studio versi 1.37 © Ryalino, 2026.",
+  "StudySize Studio version 1.38 © Ryalino, 2026.": "StudySize Studio versi 1.38 © Ryalino, 2026.",
 });
 
 Object.assign(dutchText, {
@@ -1864,7 +1877,7 @@ Object.assign(dutchText, {
   "Ethics approval target": "Streefdatum ethische goedkeuring",
   "Recruitment completion target": "Streefdatum einde inclusie",
   "Analysis and writing target": "Streefdatum analyse en schrijven",
-  "StudySize Studio version 1.37 © Ryalino, 2026.": "StudySize Studio versie 1.37 © Ryalino, 2026.",
+  "StudySize Studio version 1.38 © Ryalino, 2026.": "StudySize Studio versie 1.38 © Ryalino, 2026.",
 });
 
 const pct = (value: number) => value / 100;
@@ -1915,6 +1928,101 @@ const ethicsWorkflowSteps = [
   "Register systematic reviews in PROSPERO when eligible, ideally before screening starts.",
   "Store or publish the complete protocol in a durable repository to improve transparency and reduce selective reporting.",
 ];
+
+const referenceCitations: Record<string, { vancouver: string; harvard: string }> = {
+  "Cochran WG. Sampling Techniques.": {
+    vancouver: "Cochran WG. Sampling techniques. 3rd ed. New York: John Wiley & Sons; 1977.",
+    harvard: "Cochran, W.G. (1977) Sampling techniques. 3rd edn. New York: John Wiley & Sons.",
+  },
+  "Lwanga SK, Lemeshow S. Sample Size Determination in Health Studies.": {
+    vancouver: "Lwanga SK, Lemeshow S. Sample size determination in health studies: a practical manual. Geneva: World Health Organization; 1991.",
+    harvard: "Lwanga, S.K. and Lemeshow, S. (1991) Sample size determination in health studies: a practical manual. Geneva: World Health Organization.",
+  },
+  "Julious SA. Sample Sizes for Clinical Trials.": {
+    vancouver: "Julious SA. Sample sizes for clinical trials. Boca Raton: CRC Press; 2009.",
+    harvard: "Julious, S.A. (2009) Sample sizes for clinical trials. Boca Raton: CRC Press.",
+  },
+  "Chow SC, Shao J, Wang H, Lokhnygina Y. Sample Size Calculations in Clinical Research.": {
+    vancouver: "Chow SC, Shao J, Wang H, Lokhnygina Y. Sample size calculations in clinical research. 3rd ed. Boca Raton: CRC Press; 2018.",
+    harvard: "Chow, S.C., Shao, J., Wang, H. and Lokhnygina, Y. (2018) Sample size calculations in clinical research. 3rd edn. Boca Raton: CRC Press.",
+  },
+  "Chow SC et al. Sample Size Calculations in Clinical Research.": {
+    vancouver: "Chow SC, Shao J, Wang H, Lokhnygina Y. Sample size calculations in clinical research. 3rd ed. Boca Raton: CRC Press; 2018.",
+    harvard: "Chow, S.C., Shao, J., Wang, H. and Lokhnygina, Y. (2018) Sample size calculations in clinical research. 3rd edn. Boca Raton: CRC Press.",
+  },
+  "Machin D et al. Sample Size Tables for Clinical Studies.": {
+    vancouver: "Machin D, Campbell MJ, Tan SB, Tan SH. Sample size tables for clinical studies. 3rd ed. Chichester: Wiley-Blackwell; 2009.",
+    harvard: "Machin, D., Campbell, M.J., Tan, S.B. and Tan, S.H. (2009) Sample size tables for clinical studies. 3rd edn. Chichester: Wiley-Blackwell.",
+  },
+  "Fleiss JL, Levin B, Paik MC. Statistical Methods for Rates and Proportions.": {
+    vancouver: "Fleiss JL, Levin B, Paik MC. Statistical methods for rates and proportions. 3rd ed. Hoboken: John Wiley & Sons; 2003.",
+    harvard: "Fleiss, J.L., Levin, B. and Paik, M.C. (2003) Statistical methods for rates and proportions. 3rd edn. Hoboken: John Wiley & Sons.",
+  },
+  "Fleiss JL et al. Statistical Methods for Rates and Proportions.": {
+    vancouver: "Fleiss JL, Levin B, Paik MC. Statistical methods for rates and proportions. 3rd ed. Hoboken: John Wiley & Sons; 2003.",
+    harvard: "Fleiss, J.L., Levin, B. and Paik, M.C. (2003) Statistical methods for rates and proportions. 3rd edn. Hoboken: John Wiley & Sons.",
+  },
+  "Cohen J. Statistical Power Analysis for the Behavioral Sciences.": {
+    vancouver: "Cohen J. Statistical power analysis for the behavioral sciences. 2nd ed. Hillsdale: Lawrence Erlbaum Associates; 1988.",
+    harvard: "Cohen, J. (1988) Statistical power analysis for the behavioral sciences. 2nd edn. Hillsdale: Lawrence Erlbaum Associates.",
+  },
+  "Buderer NMF. Statistical methodology: I. Incorporating prevalence into sample size calculations for sensitivity and specificity.": {
+    vancouver: "Buderer NMF. Statistical methodology: I. Incorporating the prevalence of disease into the sample size calculation for sensitivity and specificity. Acad Emerg Med. 1996;3(9):895-900.",
+    harvard: "Buderer, N.M.F. (1996) 'Statistical methodology: I. Incorporating the prevalence of disease into the sample size calculation for sensitivity and specificity', Academic Emergency Medicine, 3(9), pp. 895-900.",
+  },
+  "Flahault A et al. Sample size calculation should be performed for design accuracy in diagnostic test studies.": {
+    vancouver: "Flahault A, Cadilhac M, Thomas G. Sample size calculation should be performed for design accuracy in diagnostic test studies. J Clin Epidemiol. 2005;58(8):859-862.",
+    harvard: "Flahault, A., Cadilhac, M. and Thomas, G. (2005) 'Sample size calculation should be performed for design accuracy in diagnostic test studies', Journal of Clinical Epidemiology, 58(8), pp. 859-862.",
+  },
+  "Flahault A et al. Diagnostic test sample size methodology.": {
+    vancouver: "Flahault A, Cadilhac M, Thomas G. Sample size calculation should be performed for design accuracy in diagnostic test studies. J Clin Epidemiol. 2005;58(8):859-862.",
+    harvard: "Flahault, A., Cadilhac, M. and Thomas, G. (2005) 'Sample size calculation should be performed for design accuracy in diagnostic test studies', Journal of Clinical Epidemiology, 58(8), pp. 859-862.",
+  },
+  "Kelsey JL et al. Methods in Observational Epidemiology.": {
+    vancouver: "Kelsey JL, Whittemore AS, Evans AS, Thompson WD. Methods in observational epidemiology. 2nd ed. New York: Oxford University Press; 1996.",
+    harvard: "Kelsey, J.L., Whittemore, A.S., Evans, A.S. and Thompson, W.D. (1996) Methods in observational epidemiology. 2nd edn. New York: Oxford University Press.",
+  },
+  "Schlesselman JJ. Case-Control Studies.": {
+    vancouver: "Schlesselman JJ. Case-control studies: design, conduct, analysis. New York: Oxford University Press; 1982.",
+    harvard: "Schlesselman, J.J. (1982) Case-control studies: design, conduct, analysis. New York: Oxford University Press.",
+  },
+  "ICH E9 Statistical Principles for Clinical Trials.": {
+    vancouver: "International Council for Harmonisation. ICH E9: statistical principles for clinical trials. Geneva: ICH; 1998.",
+    harvard: "International Council for Harmonisation (1998) ICH E9: statistical principles for clinical trials. Geneva: ICH.",
+  },
+  "Donner A, Klar N. Design and Analysis of Cluster Randomization Trials.": {
+    vancouver: "Donner A, Klar N. Design and analysis of cluster randomization trials in health research. London: Arnold; 2000.",
+    harvard: "Donner, A. and Klar, N. (2000) Design and analysis of cluster randomization trials in health research. London: Arnold.",
+  },
+  "Hayes RJ, Moulton LH. Cluster Randomised Trials.": {
+    vancouver: "Hayes RJ, Moulton LH. Cluster randomised trials. 2nd ed. Boca Raton: CRC Press; 2017.",
+    harvard: "Hayes, R.J. and Moulton, L.H. (2017) Cluster randomised trials. 2nd edn. Boca Raton: CRC Press.",
+  },
+  "Schoenfeld DA. Sample-size formula for the proportional-hazards regression model.": {
+    vancouver: "Schoenfeld DA. Sample-size formula for the proportional-hazards regression model. Biometrics. 1983;39(2):499-503.",
+    harvard: "Schoenfeld, D.A. (1983) 'Sample-size formula for the proportional-hazards regression model', Biometrics, 39(2), pp. 499-503.",
+  },
+  "Freedman LS. Tables of the number of patients required in clinical trials using the logrank test.": {
+    vancouver: "Freedman LS. Tables of the number of patients required in clinical trials using the logrank test. Stat Med. 1982;1(2):121-129.",
+    harvard: "Freedman, L.S. (1982) 'Tables of the number of patients required in clinical trials using the logrank test', Statistics in Medicine, 1(2), pp. 121-129.",
+  },
+  "Green SB. How many subjects does it take to do a regression analysis?": {
+    vancouver: "Green SB. How many subjects does it take to do a regression analysis? Multivariate Behav Res. 1991;26(3):499-510.",
+    harvard: "Green, S.B. (1991) 'How many subjects does it take to do a regression analysis?', Multivariate Behavioral Research, 26(3), pp. 499-510.",
+  },
+  "Peduzzi P et al. A simulation study of the number of events per variable in logistic regression analysis.": {
+    vancouver: "Peduzzi P, Concato J, Kemper E, Holford TR, Feinstein AR. A simulation study of the number of events per variable in logistic regression analysis. J Clin Epidemiol. 1996;49(12):1373-1379.",
+    harvard: "Peduzzi, P., Concato, J., Kemper, E., Holford, T.R. and Feinstein, A.R. (1996) 'A simulation study of the number of events per variable in logistic regression analysis', Journal of Clinical Epidemiology, 49(12), pp. 1373-1379.",
+  },
+  "Riley RD et al. Minimum sample size for developing a multivariable prediction model.": {
+    vancouver: "Riley RD, Snell KIE, Ensor J, Burke DL, Harrell FE Jr, Moons KGM, et al. Minimum sample size for developing a multivariable prediction model: PART II - binary and time-to-event outcomes. Stat Med. 2019;38(7):1276-1296.",
+    harvard: "Riley, R.D. et al. (2019) 'Minimum sample size for developing a multivariable prediction model: PART II - binary and time-to-event outcomes', Statistics in Medicine, 38(7), pp. 1276-1296.",
+  },
+};
+
+function formatCalculatorReference(reference: string, format: ReferenceFormat) {
+  return referenceCitations[reference]?.[format] ?? reference;
+}
 
 function PresetField({ label, value, options, language, onChange }: PresetFieldProps) {
   const isPreset = options.includes(value);
@@ -4707,6 +4815,7 @@ export function SampleSizeApp() {
   });
   const [activeCategory, setActiveCategory] = useState("All");
   const [activeId, setActiveId] = useState(calculators[0].id);
+  const [referenceFormat, setReferenceFormat] = useState<ReferenceFormat>("vancouver");
   const [decisionAnswers, setDecisionAnswers] = useState<DecisionAnswers>({});
   const [randomSubjectCount, setRandomSubjectCount] = useState(60);
   const [randomGroups, setRandomGroups] = useState(() => defaultRandomGroups(language));
@@ -4988,24 +5097,24 @@ export function SampleSizeApp() {
       ? [
           `Besar sampel dihitung untuk desain ${t(calculator.title, language).toLowerCase()} dengan bantuan StudySize Studio.`,
           `Perencanaan didasarkan pada parameter berikut: ${planningAssumptionsText}.`,
-          `Berdasarkan asumsi tersebut, diperlukan minimal ${formatNumber(result.total ?? result.primary)} peserta atau observasi sebelum penyesuaian untuk dropout, data hilang, atau data yang tidak dapat dievaluasi.`,
-          `Setelah memperhitungkan kehilangan data yang diperkirakan, besar sampel yang direncanakan menjadi ${formatNumber(result.adjustedTotal)}.`,
           `Estimasi ini menggunakan pendekatan ${calculator.formula}. Asumsi utama yang perlu diperhatikan adalah: ${calculator.assumptions.map((item) => t(item, language)).join(" ")}`,
+          `Berdasarkan asumsi tersebut, diperlukan minimal ${formatNumber(result.total ?? result.primary)} peserta atau observasi sebelum penyesuaian untuk dropout, data hilang, atau data yang tidak dapat dievaluasi.`,
+          `Setelah memperhitungkan kehilangan data yang diperkirakan, besar sampel final yang direncanakan adalah ${formatNumber(result.adjustedTotal)}.`,
         ].join(" ")
       : language === "nl"
         ? [
             `De steekproefgrootte is berekend voor een ${t(calculator.title, language).toLowerCase()} design met StudySize Studio.`,
             `De berekening was gebaseerd op de volgende planningsparameters: ${planningAssumptionsText}.`,
-            `Onder deze aannames zijn minimaal ${formatNumber(result.total ?? result.primary)} deelnemers of observaties nodig vóór correctie voor uitval, ontbrekende gegevens of niet-evalueerbare metingen.`,
-            `Na correctie voor het verwachte verlies aan bruikbare gegevens bedraagt de geplande steekproefgrootte ${formatNumber(result.adjustedTotal)}.`,
             `De schatting is gebaseerd op de benadering ${calculator.formula}. De belangrijkste aannames voor interpretatie zijn: ${calculator.assumptions.map((item) => t(item, language)).join(" ")}`,
+            `Onder deze aannames zijn minimaal ${formatNumber(result.total ?? result.primary)} deelnemers of observaties nodig vóór correctie voor uitval, ontbrekende gegevens of niet-evalueerbare metingen.`,
+            `Na correctie voor het verwachte verlies aan bruikbare gegevens bedraagt de geplande finale steekproefgrootte ${formatNumber(result.adjustedTotal)}.`,
           ].join(" ")
       : [
           `Sample size was estimated for a ${calculator.title.toLowerCase()} design using StudySize Studio.`,
           `The calculation was based on the following planning parameters: ${planningAssumptionsText}.`,
-          `Under these assumptions, a minimum of ${formatNumber(result.total ?? result.primary)} participants or observations is required before accounting for dropout, missing data, or non-evaluable measurements.`,
-          `After adjustment for the anticipated loss of usable data, the planned sample size is ${formatNumber(result.adjustedTotal)}.`,
           `This estimate uses the ${calculator.formula} approach; the main interpretive assumptions are: ${calculator.assumptions.join(" ")}`,
+          `Under these assumptions, a minimum of ${formatNumber(result.total ?? result.primary)} participants or observations is required before accounting for dropout, missing data, or non-evaluable measurements.`,
+          `After adjustment for the anticipated loss of usable data, the planned final sample size is ${formatNumber(result.adjustedTotal)}.`,
         ].join(" ");
   const listFromText = (text: string) => text.split(/\n|,/).map((item) => item.trim()).filter(Boolean);
   const formatList = (items: string[]) => {
@@ -5169,7 +5278,7 @@ export function SampleSizeApp() {
       `Formula: ${calculator.formula}`,
       ...result.details,
       ...calculator.assumptions.map((item) => `Assumption: ${item}`),
-      ...calculator.references.map((item) => `Reference: ${item}`),
+      ...calculator.references.map((item) => `Reference: ${formatCalculatorReference(item, referenceFormat)}`),
     ];
     const url = URL.createObjectURL(makePdf("StudySize Studio Result", lines));
     const anchor = document.createElement("a");
@@ -6789,8 +6898,26 @@ export function SampleSizeApp() {
                 <ul>{calculator.assumptions.map((item) => <li key={item}>{t(item, language)}</li>)}</ul>
               </article>
               <article>
-                <h3>{t("References", language)}</h3>
-                <ul>{calculator.references.map((item) => <li key={item}>{item}</li>)}</ul>
+                <div className="reference-head">
+                  <h3>{t("References", language)}</h3>
+                  <div className="reference-toggle" aria-label={t("Reference style", language)}>
+                    <button
+                      className={referenceFormat === "vancouver" ? "active" : ""}
+                      type="button"
+                      onClick={() => setReferenceFormat("vancouver")}
+                    >
+                      {t("Vancouver", language)}
+                    </button>
+                    <button
+                      className={referenceFormat === "harvard" ? "active" : ""}
+                      type="button"
+                      onClick={() => setReferenceFormat("harvard")}
+                    >
+                      {t("Harvard", language)}
+                    </button>
+                  </div>
+                </div>
+                <ol>{calculator.references.map((item) => <li key={item}>{formatCalculatorReference(item, referenceFormat)}</li>)}</ol>
               </article>
             </div>
           </section>
@@ -6911,7 +7038,7 @@ export function SampleSizeApp() {
         ) : null}
       </section>
 
-      <footer className="app-footer"><strong>{t("StudySize Studio version 1.37 © Ryalino, 2026.", language)}</strong></footer>
+      <footer className="app-footer"><strong>{t("StudySize Studio version 1.38 © Ryalino, 2026.", language)}</strong></footer>
 
       {copiedNotice && (
         <div className="copy-toast" role="status" aria-live="polite">
@@ -7007,6 +7134,11 @@ export function SampleSizeApp() {
               <button aria-label={t("Close protocol wording dialog", language)} type="button" onClick={() => setShowProtocolModal(false)}>
                 {t("Close", language)}
               </button>
+            </div>
+            <div className="protocol-modal-disclaimer" role="note">
+              <strong>{t("Protocol wording disclaimer", language)}</strong>
+              <p>{t("This wording is a drafting aid only. Review and revise it against your final protocol, local ethics requirements, statistical review, and supervisor or collaborator feedback before use.", language)}</p>
+              <p>{t("Legal disclaimer: StudySize Studio provides educational planning support and does not provide medical, legal, ethical, regulatory, or statistical consultancy. Users remain responsible for verifying all wording, assumptions, calculations, and references before using them in protocols, manuscripts, grant applications, or submissions.", language)}</p>
             </div>
             <textarea
               aria-label={t("Protocol wording text", language)}

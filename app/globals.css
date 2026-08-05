@@ -1388,6 +1388,7 @@ input:disabled {
 }
 
 .evidence ul,
+.evidence ol,
 .result-card ul {
   margin: 0;
   padding-left: 18px;
@@ -1398,6 +1399,40 @@ input:disabled {
   margin-bottom: 8px;
   color: var(--ink-muted);
   line-height: 1.35;
+}
+
+.reference-head {
+  display: flex;
+  gap: 10px;
+  align-items: start;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.reference-toggle {
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 4px;
+  border: 1px solid rgba(15, 159, 154, 0.22);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.68);
+  padding: 3px;
+}
+
+.reference-toggle button {
+  min-height: 28px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink-muted);
+  padding: 5px 9px;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.reference-toggle button.active {
+  background: var(--teal);
+  color: #fff;
 }
 
 .results {
@@ -1557,6 +1592,25 @@ input:disabled {
   margin: 16px 0 0;
   color: var(--ink-muted);
   line-height: 1.55;
+}
+
+.protocol-modal-disclaimer {
+  border: 1px solid rgba(242, 184, 75, 0.45);
+  border-radius: 8px;
+  background: rgba(255, 244, 206, 0.62);
+  margin-top: 14px;
+  padding: 13px;
+}
+
+.protocol-modal-disclaimer strong {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.protocol-modal-disclaimer p {
+  margin: 6px 0 0;
+  color: var(--ink-muted);
+  line-height: 1.45;
 }
 
 .protocol-copy-box {

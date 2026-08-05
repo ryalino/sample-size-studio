@@ -42,7 +42,7 @@ test("server-renders the sample size calculator shell", async () => {
   assert.match(html, /Figure Generator/);
   assert.match(html, /Scenario Comparison/);
   assert.match(html, /Study Design/);
-  assert.match(html, /StudySize Studio version 1\.37 © Ryalino, 2026\./);
+  assert.match(html, /StudySize Studio version 1\.38 © Ryalino, 2026\./);
   assert.match(html, /What is the main purpose of the study/);
   assert.match(html, /Calculator catalog/);
   assert.doesNotMatch(html, /Prevalence \/ Single Proportion|Two Independent Means|Saved scenarios/);
@@ -70,6 +70,13 @@ test("removes disposable starter references", async () => {
   assert.match(app, /Harvard\/APA/);
   assert.match(app, /Copy citation/);
   assert.match(app, /Clear scenarios/);
+  assert.match(app, /type ReferenceFormat = "vancouver" \| "harvard"/);
+  assert.match(app, /formatCalculatorReference/);
+  assert.match(app, /Reference style/);
+  assert.match(app, /Protocol wording disclaimer/);
+  assert.match(app, /Legal disclaimer: StudySize Studio provides educational planning support/);
+  assert.match(app, /Cochran WG\. Sampling techniques\. 3rd ed\./);
+  assert.match(app, /Cochran, W\.G\. \(1977\) Sampling techniques/);
   assert.match(app, /US Clinical Trial Registration/);
   assert.match(app, /UK Clinical Study Registry \(ISRCTN\)/);
   assert.match(app, /Dutch CCMO/);
