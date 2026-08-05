@@ -341,7 +341,7 @@ const indonesianText: Record<string, string> = {
   "Citation copied": "Sitasi disalin",
   "Clear scenarios": "Hapus skenario",
   "Scenarios cleared": "Skenario dihapus",
-  "StudySize Studio version 1.35 © Ryalino, 2026.": "StudySize Studio versi 1.35 © Ryalino, 2026.",
+  "StudySize Studio version 1.36 © Ryalino, 2026.": "StudySize Studio versi 1.36 © Ryalino, 2026.",
   "Scenario saved": "Skenario disimpan",
   "Scenario is ready": "Skenario siap",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Skenario ini sekarang tersedia di menu Perbandingan Skenario, tempat Anda dapat membandingkannya dengan skenario perencanaan tersimpan lainnya.",
@@ -953,7 +953,7 @@ const dutchText: Record<string, string> = {
   "Citation copied": "Citatie gekopieerd",
   "Clear scenarios": "Scenario's wissen",
   "Scenarios cleared": "Scenario's gewist",
-  "StudySize Studio version 1.35 © Ryalino, 2026.": "StudySize Studio versie 1.35 © Ryalino, 2026.",
+  "StudySize Studio version 1.36 © Ryalino, 2026.": "StudySize Studio versie 1.36 © Ryalino, 2026.",
   "Scenario is ready": "Scenario is klaar",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Dit scenario is nu beschikbaar in de balk Scenariovergelijking, waar u het kunt vergelijken met andere opgeslagen planningsscenario's.",
   "Open Scenario Comparison": "Scenariovergelijking openen",
@@ -1282,7 +1282,7 @@ Object.assign(indonesianText, {
   "Reference SD group 1": "SD kelompok 1 dari studi referensi",
   "Reference SD group 2": "SD kelompok 2 dari studi referensi",
   "Expected R²": "R² yang diharapkan",
-  "StudySize Studio version 1.35 © Ryalino, 2026.": "StudySize Studio versi 1.35 © Ryalino, 2026.",
+  "StudySize Studio version 1.36 © Ryalino, 2026.": "StudySize Studio versi 1.36 © Ryalino, 2026.",
   "Randomised trial": "Uji klinis acak",
   "CONSORT for trial reports; SPIRIT for trial protocols.": "CONSORT untuk laporan uji klinis; SPIRIT untuk protokol uji klinis.",
   "Study protocol": "Protokol penelitian",
@@ -1481,7 +1481,7 @@ Object.assign(dutchText, {
   "Expected variance explained by the model.": "Verwacht percentage verklaarde variantie door het model.",
   "Reference SD group 1": "SD van groep 1 uit referentiestudie",
   "Reference SD group 2": "SD van groep 2 uit referentiestudie",
-  "StudySize Studio version 1.35 © Ryalino, 2026.": "StudySize Studio versie 1.35 © Ryalino, 2026.",
+  "StudySize Studio version 1.36 © Ryalino, 2026.": "StudySize Studio versie 1.36 © Ryalino, 2026.",
   "Randomised trial": "Gerandomiseerde trial",
   "CONSORT for trial reports; SPIRIT for trial protocols.": "CONSORT voor trialrapportages; SPIRIT voor trialprotocollen.",
   "Study protocol": "Onderzoeksprotocol",
@@ -1673,11 +1673,13 @@ Object.assign(indonesianText, {
   "Register systematic reviews in PROSPERO when eligible, ideally before screening starts.": "Daftarkan tinjauan sistematis di PROSPERO bila memenuhi syarat, idealnya sebelum penyaringan dimulai.",
   "Store or publish the complete protocol in a durable repository to improve transparency and reduce selective reporting.": "Simpan atau publikasikan protokol lengkap di repositori yang tahan lama untuk meningkatkan transparansi dan mengurangi pelaporan selektif.",
   "Registry resources": "Sumber registri",
-  "ClinicalTrials.gov PRS": "ClinicalTrials.gov PRS",
-  "Indonesia Clinical Research Registry (INA-CRR)": "Indonesia Clinical Research Registry (INA-CRR)",
-  "PROSPERO systematic review register": "Registri tinjauan sistematis PROSPERO",
-  "WHO ICTRP trial registry search portal": "Portal pencarian registri uji klinis WHO ICTRP",
+  "US Clinical Trial Registration": "Registrasi Uji Klinis Amerika Serikat",
+  "UK Clinical Study Registry (ISRCTN)": "Registri Studi Klinis Inggris (ISRCTN)",
+  "Dutch CCMO": "CCMO Belanda",
+  "Indonesian Clinical Research Registry (Ina-CRR)": "Indonesian Clinical Research Registry (Ina-CRR)",
+  "WHO-recommended Registry Network": "Jaringan Registri yang Direkomendasikan WHO",
   "Open Science Framework": "Open Science Framework",
+  "PROSPERO (for Systematic Reviews)": "PROSPERO (untuk Tinjauan Sistematis)",
   "Study timeline planner": "Perencana linimasa studi",
   "Turn target dates into a simple milestone plan for protocol, approval, recruitment, analysis, and reporting.": "Ubah target tanggal menjadi rencana tonggak untuk protokol, persetujuan, rekrutmen, analisis, dan pelaporan.",
   "Start date": "Tanggal mulai",
@@ -1729,7 +1731,7 @@ Object.assign(indonesianText, {
   "Ethics approval target": "Target persetujuan etik",
   "Recruitment completion target": "Target selesai rekrutmen",
   "Analysis and writing target": "Target analisis dan penulisan",
-  "StudySize Studio version 1.35 © Ryalino, 2026.": "StudySize Studio versi 1.35 © Ryalino, 2026.",
+  "StudySize Studio version 1.36 © Ryalino, 2026.": "StudySize Studio versi 1.36 © Ryalino, 2026.",
 });
 
 Object.assign(dutchText, {
@@ -1804,11 +1806,13 @@ Object.assign(dutchText, {
   "Register systematic reviews in PROSPERO when eligible, ideally before screening starts.": "Registreer systematische reviews in PROSPERO wanneer ze daarvoor in aanmerking komen, bij voorkeur vóór de start van screening.",
   "Store or publish the complete protocol in a durable repository to improve transparency and reduce selective reporting.": "Bewaar of publiceer het volledige protocol in een duurzame repository om transparantie te vergroten en selectieve rapportage te beperken.",
   "Registry resources": "Registratiebronnen",
-  "ClinicalTrials.gov PRS": "ClinicalTrials.gov PRS",
-  "Indonesia Clinical Research Registry (INA-CRR)": "Indonesia Clinical Research Registry (INA-CRR)",
-  "PROSPERO systematic review register": "PROSPERO-register voor systematische reviews",
-  "WHO ICTRP trial registry search portal": "WHO ICTRP-zoekportaal voor trialregistraties",
+  "US Clinical Trial Registration": "Registratie voor klinische trials in de VS",
+  "UK Clinical Study Registry (ISRCTN)": "UK Clinical Study Registry (ISRCTN)",
+  "Dutch CCMO": "Nederlandse CCMO",
+  "Indonesian Clinical Research Registry (Ina-CRR)": "Indonesian Clinical Research Registry (Ina-CRR)",
+  "WHO-recommended Registry Network": "Door de WHO aanbevolen registratienetwerk",
   "Open Science Framework": "Open Science Framework",
+  "PROSPERO (for Systematic Reviews)": "PROSPERO (voor systematische reviews)",
   "Study timeline planner": "Planner voor studietijdlijn",
   "Turn target dates into a simple milestone plan for protocol, approval, recruitment, analysis, and reporting.": "Zet streefdata om in een mijlpalenplan voor protocol, goedkeuring, inclusie, analyse en rapportage.",
   "Start date": "Startdatum",
@@ -1860,7 +1864,7 @@ Object.assign(dutchText, {
   "Ethics approval target": "Streefdatum ethische goedkeuring",
   "Recruitment completion target": "Streefdatum einde inclusie",
   "Analysis and writing target": "Streefdatum analyse en schrijven",
-  "StudySize Studio version 1.35 © Ryalino, 2026.": "StudySize Studio versie 1.35 © Ryalino, 2026.",
+  "StudySize Studio version 1.36 © Ryalino, 2026.": "StudySize Studio versie 1.36 © Ryalino, 2026.",
 });
 
 const pct = (value: number) => value / 100;
@@ -1895,11 +1899,13 @@ const dataPlanPresets = {
 };
 
 const ethicsWorkflowLinks = [
-  ["ClinicalTrials.gov PRS", "https://register.clinicaltrials.gov/"],
-  ["Indonesia Clinical Research Registry (INA-CRR)", "https://ina-registry.org/"],
-  ["PROSPERO systematic review register", "https://www.crd.york.ac.uk/prospero/"],
-  ["WHO ICTRP trial registry search portal", "https://trialsearch.who.int/"],
+  ["US Clinical Trial Registration", "https://register.clinicaltrials.gov/"],
+  ["UK Clinical Study Registry (ISRCTN)", "https://www.isrctn.com/"],
+  ["Dutch CCMO", "https://portaal.onderzoekmetmensen.nl/en/auth/login"],
+  ["Indonesian Clinical Research Registry (Ina-CRR)", "https://ina-crr.id/"],
+  ["WHO-recommended Registry Network", "http://who.int/tools/clinical-trials-registry-platform/network/primary-registries"],
   ["Open Science Framework", "https://osf.io/"],
+  ["PROSPERO (for Systematic Reviews)", "https://www.crd.york.ac.uk/prospero/"],
 ];
 
 const ethicsWorkflowSteps = [
@@ -5496,21 +5502,21 @@ export function SampleSizeApp() {
         ))}
       </div>
       <section className="masthead" aria-labelledby="app-title">
-        <div>
-          <p className="eyebrow">{t("Your one-stop solution for medical research", language)}</p>
-          <h1 id="app-title">StudySize Studio</h1>
-          <button className="citation-button" type="button" onClick={() => setShowCitationModal(true)}>
-            {t("How to cite us", language)}
-          </button>
+        <div className="masthead-brand">
+          <img src="/studysize-logo.png" alt="" aria-hidden="true" className="masthead-logo" />
+          <div>
+            <p className="eyebrow">{t("Your one-stop solution for medical research", language)}</p>
+            <h1 id="app-title">StudySize Studio</h1>
+            <button className="citation-button" type="button" onClick={() => setShowCitationModal(true)}>
+              {t("How to cite us", language)}
+            </button>
+          </div>
         </div>
       </section>
 
       <nav className="mode-tabs" aria-label={t("Main app modes", language)}>
         <button className={activeMainMode === "checklist" ? "active" : ""} type="button" onClick={() => openMainMode("checklist")}>
           {t("Study Design", language)}
-        </button>
-        <button className={activeMainMode === "protocol" ? "active" : ""} type="button" onClick={() => openMainMode("protocol")}>
-          {t("Protocol Builder", language)}
         </button>
         <button className={activeMainMode === "sample-size" ? "active" : ""} type="button" onClick={() => openMainMode("sample-size")}>
           {t("Sample Size", language)}
@@ -5523,6 +5529,9 @@ export function SampleSizeApp() {
         </button>
         <button className={activeMainMode === "figures" ? "active" : ""} type="button" onClick={() => openMainMode("figures")}>
           {t("Figure Generator", language)}
+        </button>
+        <button className={activeMainMode === "protocol" ? "active" : ""} type="button" onClick={() => openMainMode("protocol")}>
+          {t("Protocol Builder", language)}
         </button>
       </nav>
 
@@ -6902,7 +6911,7 @@ export function SampleSizeApp() {
         ) : null}
       </section>
 
-      <footer className="app-footer"><strong>{t("StudySize Studio version 1.35 © Ryalino, 2026.", language)}</strong></footer>
+      <footer className="app-footer"><strong>{t("StudySize Studio version 1.36 © Ryalino, 2026.", language)}</strong></footer>
 
       {copiedNotice && (
         <div className="copy-toast" role="status" aria-live="polite">

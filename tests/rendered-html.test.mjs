@@ -33,6 +33,7 @@ test("server-renders the sample size calculator shell", async () => {
   const html = await response.text();
   assert.match(html, /<title>StudySize Studio<\/title>/i);
   assert.match(html, /Your one-stop solution for medical research/i);
+  assert.match(html, /studysize-logo\.png/);
   assert.match(html, /How to cite us/);
   assert.match(html, /Sample Size/);
   assert.match(html, /Protocol Builder/);
@@ -41,7 +42,7 @@ test("server-renders the sample size calculator shell", async () => {
   assert.match(html, /Figure Generator/);
   assert.match(html, /Scenario Comparison/);
   assert.match(html, /Study Design/);
-  assert.match(html, /StudySize Studio version 1\.35 © Ryalino, 2026\./);
+  assert.match(html, /StudySize Studio version 1\.36 © Ryalino, 2026\./);
   assert.match(html, /What is the main purpose of the study/);
   assert.match(html, /Calculator catalog/);
   assert.doesNotMatch(html, /Prevalence \/ Single Proportion|Two Independent Means|Saved scenarios/);
@@ -69,9 +70,13 @@ test("removes disposable starter references", async () => {
   assert.match(app, /Harvard\/APA/);
   assert.match(app, /Copy citation/);
   assert.match(app, /Clear scenarios/);
-  assert.match(app, /ClinicalTrials\.gov PRS/);
-  assert.match(app, /PROSPERO systematic review register/);
-  assert.match(app, /WHO ICTRP trial registry search portal/);
+  assert.match(app, /US Clinical Trial Registration/);
+  assert.match(app, /UK Clinical Study Registry \(ISRCTN\)/);
+  assert.match(app, /Dutch CCMO/);
+  assert.match(app, /Indonesian Clinical Research Registry \(Ina-CRR\)/);
+  assert.match(app, /WHO-recommended Registry Network/);
+  assert.match(app, /PROSPERO \(for Systematic Reviews\)/);
+  assert.match(app, /https:\/\/ina-crr\.id\//);
   assert.match(app, /Protocol transparency note/);
   assert.match(app, /value=\{isPreset \? value : "Others"\}/);
   assert.match(app, /twoProportionSampleSize/);
@@ -97,4 +102,6 @@ test("ships generated favicon asset", async () => {
   assert.ok(favicon.size > 1000);
   const masthead = await stat(new URL("../public/masthead-bg.png", import.meta.url));
   assert.ok(masthead.size > 1000);
+  const logo = await stat(new URL("../public/studysize-logo.png", import.meta.url));
+  assert.ok(logo.size > 1000);
 });
