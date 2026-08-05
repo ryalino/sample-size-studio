@@ -42,7 +42,7 @@ test("server-renders the sample size calculator shell", async () => {
   assert.match(html, /Figure Generator/);
   assert.match(html, /Scenario Comparison/);
   assert.match(html, /Study Design/);
-  assert.match(html, /StudySize Studio version 1\.39 © Ryalino, 2026\./);
+  assert.match(html, /StudySize Studio version 1\.40 © Ryalino, 2026\./);
   assert.match(html, /What is the main purpose of the study/);
   assert.match(html, /Calculator catalog/);
   assert.doesNotMatch(html, /Prevalence \/ Single Proportion|Two Independent Means|Saved scenarios/);
@@ -80,6 +80,12 @@ test("removes disposable starter references", async () => {
   assert.match(app, /formulaVariableNote/);
   assert.match(app, /Formula symbol: r, treatment participants per control participant/);
   assert.match(app, /formulaLines\(calculator\.formula\)/);
+  assert.match(app, /id: "noninferiority-proportions"/);
+  assert.match(app, /id: "equivalence-proportions"/);
+  assert.match(app, /binaryMarginSampleSize/);
+  assert.match(app, /Use Non-Inferiority Proportion/);
+  assert.match(app, /Use Equivalence Proportion/);
+  assert.match(app, /answers\.comparisonDesign === "trial"/);
   assert.match(app, /Protocol wording disclaimer/);
   assert.match(app, /Legal disclaimer: StudySize Studio provides educational planning support/);
   assert.match(app, /Cochran WG\. Sampling techniques\. 3rd ed\./);

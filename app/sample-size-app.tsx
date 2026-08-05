@@ -361,7 +361,7 @@ const indonesianText: Record<string, string> = {
   "Citation copied": "Sitasi disalin",
   "Clear scenarios": "Hapus skenario",
   "Scenarios cleared": "Skenario dihapus",
-  "StudySize Studio version 1.39 © Ryalino, 2026.": "StudySize Studio versi 1.39 © Ryalino, 2026.",
+  "StudySize Studio version 1.40 © Ryalino, 2026.": "StudySize Studio versi 1.40 © Ryalino, 2026.",
   "Scenario saved": "Skenario disimpan",
   "Scenario is ready": "Skenario siap",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Skenario ini sekarang tersedia di menu Perbandingan Skenario, tempat Anda dapat membandingkannya dengan skenario perencanaan tersimpan lainnya.",
@@ -987,7 +987,7 @@ const dutchText: Record<string, string> = {
   "Citation copied": "Citatie gekopieerd",
   "Clear scenarios": "Scenario's wissen",
   "Scenarios cleared": "Scenario's gewist",
-  "StudySize Studio version 1.39 © Ryalino, 2026.": "StudySize Studio versie 1.39 © Ryalino, 2026.",
+  "StudySize Studio version 1.40 © Ryalino, 2026.": "StudySize Studio versie 1.40 © Ryalino, 2026.",
   "Scenario is ready": "Scenario is klaar",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Dit scenario is nu beschikbaar in de balk Scenariovergelijking, waar u het kunt vergelijken met andere opgeslagen planningsscenario's.",
   "Open Scenario Comparison": "Scenariovergelijking openen",
@@ -1316,7 +1316,7 @@ Object.assign(indonesianText, {
   "Reference SD group 1": "SD kelompok 1 dari studi referensi",
   "Reference SD group 2": "SD kelompok 2 dari studi referensi",
   "Expected R²": "R² yang diharapkan",
-  "StudySize Studio version 1.39 © Ryalino, 2026.": "StudySize Studio versi 1.39 © Ryalino, 2026.",
+  "StudySize Studio version 1.40 © Ryalino, 2026.": "StudySize Studio versi 1.40 © Ryalino, 2026.",
   "Randomised trial": "Uji klinis acak",
   "CONSORT for trial reports; SPIRIT for trial protocols.": "CONSORT untuk laporan uji klinis; SPIRIT untuk protokol uji klinis.",
   "Study protocol": "Protokol penelitian",
@@ -1515,7 +1515,7 @@ Object.assign(dutchText, {
   "Expected variance explained by the model.": "Verwacht percentage verklaarde variantie door het model.",
   "Reference SD group 1": "SD van groep 1 uit referentiestudie",
   "Reference SD group 2": "SD van groep 2 uit referentiestudie",
-  "StudySize Studio version 1.39 © Ryalino, 2026.": "StudySize Studio versie 1.39 © Ryalino, 2026.",
+  "StudySize Studio version 1.40 © Ryalino, 2026.": "StudySize Studio versie 1.40 © Ryalino, 2026.",
   "Randomised trial": "Gerandomiseerde trial",
   "CONSORT for trial reports; SPIRIT for trial protocols.": "CONSORT voor trialrapportages; SPIRIT voor trialprotocollen.",
   "Study protocol": "Onderzoeksprotocol",
@@ -1765,7 +1765,7 @@ Object.assign(indonesianText, {
   "Ethics approval target": "Target persetujuan etik",
   "Recruitment completion target": "Target selesai rekrutmen",
   "Analysis and writing target": "Target analisis dan penulisan",
-  "StudySize Studio version 1.39 © Ryalino, 2026.": "StudySize Studio versi 1.39 © Ryalino, 2026.",
+  "StudySize Studio version 1.40 © Ryalino, 2026.": "StudySize Studio versi 1.40 © Ryalino, 2026.",
 });
 
 Object.assign(dutchText, {
@@ -1898,7 +1898,73 @@ Object.assign(dutchText, {
   "Ethics approval target": "Streefdatum ethische goedkeuring",
   "Recruitment completion target": "Streefdatum einde inclusie",
   "Analysis and writing target": "Streefdatum analyse en schrijven",
-  "StudySize Studio version 1.39 © Ryalino, 2026.": "StudySize Studio versie 1.39 © Ryalino, 2026.",
+  "StudySize Studio version 1.40 © Ryalino, 2026.": "StudySize Studio versie 1.40 © Ryalino, 2026.",
+});
+
+Object.assign(indonesianText, {
+  "Non-Inferiority Proportion": "Proporsi Non-Inferioritas",
+  "Plan a binary-outcome non-inferiority trial using an absolute risk-difference margin.": "Merencanakan uji non-inferioritas dengan luaran biner menggunakan margin selisih risiko absolut.",
+  "Control event rate": "Angka kejadian kontrol",
+  "Expected event, response, or success rate in control.": "Angka kejadian, respons, atau keberhasilan yang diharapkan pada kontrol.",
+  "Experimental event rate": "Angka kejadian eksperimental",
+  "Expected event, response, or success rate in experimental treatment.": "Angka kejadian, respons, atau keberhasilan yang diharapkan pada terapi eksperimental.",
+  "NI risk-difference margin": "Margin selisih risiko NI",
+  "Largest acceptable absolute loss in percentage points.": "Kehilangan absolut terbesar yang masih dapat diterima dalam poin persentase.",
+  "One-sided non-inferiority test on the absolute risk-difference scale.": "Uji non-inferioritas satu sisi pada skala selisih risiko absolut.",
+  "Higher event rates are assumed beneficial; reverse the endpoint direction before using if lower rates are beneficial.": "Angka kejadian yang lebih tinggi dianggap menguntungkan; balik arah endpoint sebelum memakai kalkulator bila angka yang lebih rendah justru lebih baik.",
+  "Margin must be prespecified and clinically justified.": "Margin harus ditetapkan sebelumnya dan dijustifikasi secara klinis.",
+  "Equivalence Proportion": "Proporsi Ekivalensi",
+  "Plan a binary-outcome equivalence trial using a symmetric absolute risk-difference margin.": "Merencanakan uji ekivalensi dengan luaran biner menggunakan margin selisih risiko absolut yang simetris.",
+  "Group A event rate": "Angka kejadian kelompok A",
+  "Expected event, response, or success rate in group A.": "Angka kejadian, respons, atau keberhasilan yang diharapkan pada kelompok A.",
+  "Group B event rate": "Angka kejadian kelompok B",
+  "Expected event, response, or success rate in group B.": "Angka kejadian, respons, atau keberhasilan yang diharapkan pada kelompok B.",
+  "Equivalence risk-difference margin": "Margin selisih risiko ekivalensi",
+  "Maximum acceptable absolute difference in either direction.": "Perbedaan absolut maksimum yang masih dapat diterima pada kedua arah.",
+  "Two one-sided tests approximation on the absolute risk-difference scale.": "Aproksimasi dua uji satu sisi pada skala selisih risiko absolut.",
+  "Expected difference must lie within the equivalence margin.": "Perbedaan yang diharapkan harus berada dalam margin ekivalensi.",
+  "Use Non-Inferiority Proportion": "Gunakan Proporsi Non-Inferioritas",
+  "The trial compares binary event rates and is designed to rule out an unacceptable absolute risk-difference loss.": "Uji ini membandingkan angka kejadian biner dan dirancang untuk menyingkirkan kehilangan selisih risiko absolut yang tidak dapat diterima.",
+  "One-sided non-inferiority margin is clinically justified.": "Margin non-inferioritas satu sisi dijustifikasi secara klinis.",
+  "Endpoint direction is defined so the margin represents an acceptable loss.": "Arah endpoint ditetapkan sehingga margin merepresentasikan kehilangan yang masih dapat diterima.",
+  "Use Equivalence Proportion": "Gunakan Proporsi Ekivalensi",
+  "The trial compares binary event rates and is designed to show the absolute risk difference lies within a symmetric equivalence margin.": "Uji ini membandingkan angka kejadian biner dan dirancang untuk menunjukkan selisih risiko absolut berada dalam margin ekivalensi simetris.",
+  "Equivalence margin is clinically justified before recruitment.": "Margin ekivalensi dijustifikasi secara klinis sebelum rekrutmen.",
+  "Two independent groups are being compared on a binary event or response rate under a superiority objective.": "Dua kelompok independen dibandingkan pada angka kejadian atau respons biner dengan objektif superiority.",
+  "Superiority comparison.": "Perbandingan superiority.",
+});
+
+Object.assign(dutchText, {
+  "Non-Inferiority Proportion": "Non-inferioriteitsproportie",
+  "Plan a binary-outcome non-inferiority trial using an absolute risk-difference margin.": "Plan een non-inferioriteitstrial met een binaire uitkomst op basis van een absolute risicoverschilmarge.",
+  "Control event rate": "Controle-eventpercentage",
+  "Expected event, response, or success rate in control.": "Verwacht event-, respons- of succespercentage in de controlegroep.",
+  "Experimental event rate": "Experimenteel eventpercentage",
+  "Expected event, response, or success rate in experimental treatment.": "Verwacht event-, respons- of succespercentage in de experimentele behandelgroep.",
+  "NI risk-difference margin": "NI-risicoverschilmarge",
+  "Largest acceptable absolute loss in percentage points.": "Grootste aanvaardbare absolute verlies in procentpunten.",
+  "One-sided non-inferiority test on the absolute risk-difference scale.": "Eenzijdige non-inferioriteitstoets op de absolute risicoverschilschaal.",
+  "Higher event rates are assumed beneficial; reverse the endpoint direction before using if lower rates are beneficial.": "Hogere eventpercentages worden als gunstig beschouwd; keer de eindpuntrichting om als lagere percentages gunstig zijn.",
+  "Margin must be prespecified and clinically justified.": "De marge moet vooraf zijn vastgelegd en klinisch onderbouwd.",
+  "Equivalence Proportion": "Equivalentieproportie",
+  "Plan a binary-outcome equivalence trial using a symmetric absolute risk-difference margin.": "Plan een equivalentietrial met een binaire uitkomst op basis van een symmetrische absolute risicoverschilmarge.",
+  "Group A event rate": "Eventpercentage groep A",
+  "Expected event, response, or success rate in group A.": "Verwacht event-, respons- of succespercentage in groep A.",
+  "Group B event rate": "Eventpercentage groep B",
+  "Expected event, response, or success rate in group B.": "Verwacht event-, respons- of succespercentage in groep B.",
+  "Equivalence risk-difference margin": "Equivalentie-risicoverschilmarge",
+  "Maximum acceptable absolute difference in either direction.": "Maximaal aanvaardbaar absoluut verschil in beide richtingen.",
+  "Two one-sided tests approximation on the absolute risk-difference scale.": "Benadering met twee eenzijdige toetsen op de absolute risicoverschilschaal.",
+  "Expected difference must lie within the equivalence margin.": "Het verwachte verschil moet binnen de equivalentiemarge liggen.",
+  "Use Non-Inferiority Proportion": "Gebruik Non-inferioriteitsproportie",
+  "The trial compares binary event rates and is designed to rule out an unacceptable absolute risk-difference loss.": "De trial vergelijkt binaire eventpercentages en is ontworpen om een onaanvaardbaar absoluut risicoverschilverlies uit te sluiten.",
+  "One-sided non-inferiority margin is clinically justified.": "De eenzijdige non-inferioriteitsmarge is klinisch onderbouwd.",
+  "Endpoint direction is defined so the margin represents an acceptable loss.": "De eindpuntrichting is zo gedefinieerd dat de marge een aanvaardbaar verlies weergeeft.",
+  "Use Equivalence Proportion": "Gebruik Equivalentieproportie",
+  "The trial compares binary event rates and is designed to show the absolute risk difference lies within a symmetric equivalence margin.": "De trial vergelijkt binaire eventpercentages en is ontworpen om aan te tonen dat het absolute risicoverschil binnen een symmetrische equivalentiemarge ligt.",
+  "Equivalence margin is clinically justified before recruitment.": "De equivalentiemarge is klinisch onderbouwd vóór de start van inclusie.",
+  "Two independent groups are being compared on a binary event or response rate under a superiority objective.": "Twee onafhankelijke groepen worden vergeleken op een binair event- of responspercentage met een superioriteitsdoel.",
+  "Superiority comparison.": "Superioriteitsvergelijking.",
 });
 
 const pct = (value: number) => value / 100;
@@ -2039,6 +2105,14 @@ const referenceCitations: Record<string, { vancouver: string; harvard: string }>
     vancouver: "Riley RD, Snell KIE, Ensor J, Burke DL, Harrell FE Jr, Moons KGM, et al. Minimum sample size for developing a multivariable prediction model: PART II - binary and time-to-event outcomes. Stat Med. 2019;38(7):1276-1296.",
     harvard: "Riley, R.D. et al. (2019) 'Minimum sample size for developing a multivariable prediction model: PART II - binary and time-to-event outcomes', Statistics in Medicine, 38(7), pp. 1276-1296.",
   },
+  "Blackwelder WC. Proving the null hypothesis in clinical trials.": {
+    vancouver: "Blackwelder WC. Proving the null hypothesis in clinical trials. Control Clin Trials. 1982;3(4):345-353.",
+    harvard: "Blackwelder, W.C. (1982) 'Proving the null hypothesis in clinical trials', Controlled Clinical Trials, 3(4), pp. 345-353.",
+  },
+  "Farrington CP, Manning G. Test statistics and sample size formulae for comparative binomial trials with null hypothesis of non-zero risk difference or non-unity relative risk.": {
+    vancouver: "Farrington CP, Manning G. Test statistics and sample size formulae for comparative binomial trials with null hypothesis of non-zero risk difference or non-unity relative risk. Stat Med. 1990;9(12):1447-1454.",
+    harvard: "Farrington, C.P. and Manning, G. (1990) 'Test statistics and sample size formulae for comparative binomial trials with null hypothesis of non-zero risk difference or non-unity relative risk', Statistics in Medicine, 9(12), pp. 1447-1454.",
+  },
 };
 
 function formatCalculatorReference(reference: string, format: ReferenceFormat) {
@@ -2109,6 +2183,28 @@ function twoProportionSampleSize(pControl: number, pTreatment: number, allocatio
   const controlN = ceil(control);
   const treatmentN = ceil(controlN * ratio);
   return { control: controlN, treatment: treatmentN, total: controlN + treatmentN };
+}
+
+function binaryMarginSampleSize(
+  pControl: number,
+  pExperimental: number,
+  margin: number,
+  allocationRatio: number,
+  alpha: number,
+  power: number,
+  objective: "noninferiority" | "equivalence",
+) {
+  const ratio = Math.max(0.01, allocationRatio);
+  const expectedDifference = pExperimental - pControl;
+  const distanceToMargin = objective === "noninferiority" ? expectedDifference + margin : margin - Math.abs(expectedDifference);
+  if (distanceToMargin <= 1e-9) {
+    return { control: Number.POSITIVE_INFINITY, experimental: Number.POSITIVE_INFINITY, total: Number.POSITIVE_INFINITY, distanceToMargin };
+  }
+  const variance = pControl * (1 - pControl) + (pExperimental * (1 - pExperimental)) / ratio;
+  const control = ((zAlpha(alpha, 1) + zPower(power)) ** 2 * variance) / distanceToMargin ** 2;
+  const controlN = ceil(control);
+  const experimentalN = ceil(controlN * ratio);
+  return { control: controlN, experimental: experimentalN, total: controlN + experimentalN, distanceToMargin };
 }
 
 const languageOptions: { code: Language; label: string; flag: string; aria: string }[] = [
@@ -2292,6 +2388,36 @@ const parameterGuidanceText: Record<string, Partial<Record<Language, string>>> =
     en: "Treatment proportion is the expected rate in the intervention group. The clinically meaningful absolute difference from control should drive the choice.",
     id: "Proporsi perlakuan adalah angka yang diperkirakan pada kelompok intervensi. Selisih absolut yang bermakna klinis dari kontrol harus menjadi dasar pemilihan nilai.",
     nl: "De behandelproportie is het verwachte percentage in de interventiegroep. Het klinisch relevante absolute verschil met controle moet de keuze sturen.",
+  },
+  "noninferiority-proportions.pControl": {
+    en: "Control event rate is the expected event, response, or success rate in the standard-care group. Use the endpoint direction defined in the protocol.",
+    id: "Angka kejadian kontrol adalah kejadian, respons, atau keberhasilan yang diharapkan pada kelompok standar. Gunakan arah endpoint sesuai protokol.",
+    nl: "Het controle-eventpercentage is het verwachte event-, respons- of succespercentage in de standaardzorggroep. Gebruik de eindpuntrichting zoals in het protocol vastgelegd.",
+  },
+  "noninferiority-proportions.pExperimental": {
+    en: "Experimental event rate is the expected rate in the new treatment group. The app compares this with control on the absolute risk-difference scale.",
+    id: "Angka kejadian eksperimental adalah angka yang diharapkan pada kelompok terapi baru. Aplikasi membandingkannya dengan kontrol pada skala selisih risiko absolut.",
+    nl: "Het experimentele eventpercentage is het verwachte percentage in de nieuwe behandelgroep. De app vergelijkt dit met controle op de absolute risicoverschilschaal.",
+  },
+  "noninferiority-proportions.margin": {
+    en: "This is the largest acceptable absolute loss in percentage points. It must be prespecified and clinically justified; no universal standard margin exists.",
+    id: "Ini adalah kehilangan absolut terbesar yang masih dapat diterima dalam poin persentase. Nilai ini harus ditetapkan sebelumnya dan dijustifikasi secara klinis; tidak ada margin standar universal.",
+    nl: "Dit is het grootste aanvaardbare absolute verlies in procentpunten. Deze marge moet vooraf worden vastgelegd en klinisch onderbouwd; er bestaat geen universele standaardmarge.",
+  },
+  "equivalence-proportions.pGroupA": {
+    en: "Group A event rate is one expected binary endpoint rate. Use the same endpoint direction and definition as planned for analysis.",
+    id: "Angka kejadian kelompok A adalah salah satu angka endpoint biner yang diharapkan. Gunakan arah dan definisi endpoint yang sama dengan rencana analisis.",
+    nl: "Het eventpercentage in groep A is een van de verwachte binaire eindpuntpercentages. Gebruik dezelfde eindpuntrichting en definitie als in de geplande analyse.",
+  },
+  "equivalence-proportions.pGroupB": {
+    en: "Group B event rate is the expected comparator rate. Equivalence is hardest to show when the expected rates are close to the margin boundary.",
+    id: "Angka kejadian kelompok B adalah angka pembanding yang diharapkan. Ekivalensi paling sulit dibuktikan bila angka yang diharapkan mendekati batas margin.",
+    nl: "Het eventpercentage in groep B is het verwachte vergelijkingspercentage. Equivalentie is het moeilijkst aan te tonen wanneer de verwachte percentages dicht bij de margegrens liggen.",
+  },
+  "equivalence-proportions.margin": {
+    en: "This symmetric margin is the maximum acceptable absolute difference in either direction. It must be clinically justified before the trial starts.",
+    id: "Margin simetris ini adalah perbedaan absolut maksimum yang masih dapat diterima pada kedua arah. Nilai ini harus dijustifikasi secara klinis sebelum uji dimulai.",
+    nl: "Deze symmetrische marge is het maximaal aanvaardbare absolute verschil in beide richtingen. De marge moet klinisch worden onderbouwd voordat de trial start.",
   },
   "one-proportion-test.p0": {
     en: "Benchmark is the fixed null, historical, or target proportion. It should come from a standard, registry, previous study, or protocol-defined threshold.",
@@ -2650,6 +2776,18 @@ function formulaSymbolNotes(calculatorId: string, language: Language) {
       localNote(language, "p1 and p2 are the two entered proportions; q1 = 1 - p1 and q2 = 1 - p2.", "p1 dan p2 adalah dua proporsi yang dimasukkan; q1 = 1 - p1 dan q2 = 1 - p2.", "p1 en p2 zijn de twee ingevulde proporties; q1 = 1 - p1 en q2 = 1 - p2."),
       localNote(language, "p̄ and q̄ are the pooled event and non-event proportions; r is the treatment-to-control allocation ratio.", "p̄ dan q̄ adalah proporsi kejadian dan non-kejadian gabungan; r adalah rasio alokasi perlakuan terhadap kontrol.", "p̄ en q̄ zijn de gepoolde event- en non-eventproporties; r is de behandel-controle-allocatieratio."),
     ],
+    "noninferiority-proportions": [
+      ...commonZ,
+      ...commonPowerNotes,
+      localNote(language, "pC is the control event proportion and pE is the experimental event proportion; qC = 1 - pC and qE = 1 - pE.", "pC adalah proporsi kejadian kontrol dan pE adalah proporsi kejadian eksperimental; qC = 1 - pC dan qE = 1 - pE.", "pC is de controle-eventproportie en pE is de experimentele eventproportie; qC = 1 - pC en qE = 1 - pE."),
+      localNote(language, "M is the non-inferiority margin on the absolute risk-difference scale; Δ is pE - pC; r is the experimental-to-control allocation ratio.", "M adalah margin non-inferioritas pada skala selisih risiko absolut; Δ adalah pE - pC; r adalah rasio alokasi eksperimental terhadap kontrol.", "M is de non-inferioriteitsmarge op de absolute risicoverschilschaal; Δ is pE - pC; r is de experimenteel-controle-allocatieratio."),
+    ],
+    "equivalence-proportions": [
+      ...commonZ,
+      ...commonPowerNotes,
+      localNote(language, "pA and pB are the expected event proportions in the two groups; qA = 1 - pA and qB = 1 - pB.", "pA dan pB adalah proporsi kejadian yang diharapkan pada dua kelompok; qA = 1 - pA dan qB = 1 - pB.", "pA en pB zijn de verwachte eventproporties in de twee groepen; qA = 1 - pA en qB = 1 - pB."),
+      localNote(language, "M is the symmetric equivalence margin on the absolute risk-difference scale; Δ is pB - pA; r is the group B-to-group A allocation ratio.", "M adalah margin ekivalensi simetris pada skala selisih risiko absolut; Δ adalah pB - pA; r adalah rasio alokasi kelompok B terhadap kelompok A.", "M is de symmetrische equivalentiemarge op de absolute risicoverschilschaal; Δ is pB - pA; r is de groep-B-groep-A-allocatieratio."),
+    ],
     "one-proportion-test": [
       ...commonZ,
       ...commonPowerNotes,
@@ -2729,6 +2867,14 @@ function formulaVariableNote(calculatorId: string, variableKey: string, language
     "two-proportions.p1": ["Formula symbol: p1; q1 is calculated as 1 - p1.", "Simbol rumus: p1; q1 dihitung sebagai 1 - p1.", "Formulesymbool: p1; q1 wordt berekend als 1 - p1."],
     "two-proportions.p2": ["Formula symbol: p2; q2 is calculated as 1 - p2.", "Simbol rumus: p2; q2 dihitung sebagai 1 - p2.", "Formulesymbool: p2; q2 wordt berekend als 1 - p2."],
     "two-proportions.ratio": ["Formula symbol: r, treatment participants per control participant.", "Simbol rumus: r, jumlah peserta perlakuan per peserta kontrol.", "Formulesymbool: r, behandelgroepdeelnemers per controlegroepdeelnemer."],
+    "noninferiority-proportions.pControl": ["Formula symbol: pC, the expected control event proportion.", "Simbol rumus: pC, proporsi kejadian kontrol yang diharapkan.", "Formulesymbool: pC, de verwachte controle-eventproportie."],
+    "noninferiority-proportions.pExperimental": ["Formula symbol: pE, the expected experimental event proportion.", "Simbol rumus: pE, proporsi kejadian eksperimental yang diharapkan.", "Formulesymbool: pE, de verwachte experimentele eventproportie."],
+    "noninferiority-proportions.margin": ["Formula symbol: M, the largest acceptable absolute risk-difference loss.", "Simbol rumus: M, penurunan selisih risiko absolut terbesar yang masih dapat diterima.", "Formulesymbool: M, het grootste aanvaardbare absolute risicoverschilverlies."],
+    "noninferiority-proportions.ratio": ["Formula symbol: r, experimental participants per control participant.", "Simbol rumus: r, jumlah peserta eksperimental per peserta kontrol.", "Formulesymbool: r, experimentele deelnemers per controledeelnemer."],
+    "equivalence-proportions.pGroupA": ["Formula symbol: pA, the expected event proportion in group A.", "Simbol rumus: pA, proporsi kejadian yang diharapkan pada kelompok A.", "Formulesymbool: pA, de verwachte eventproportie in groep A."],
+    "equivalence-proportions.pGroupB": ["Formula symbol: pB, the expected event proportion in group B.", "Simbol rumus: pB, proporsi kejadian yang diharapkan pada kelompok B.", "Formulesymbool: pB, de verwachte eventproportie in groep B."],
+    "equivalence-proportions.margin": ["Formula symbol: M, the symmetric equivalence boundary for the absolute risk difference.", "Simbol rumus: M, batas ekivalensi simetris untuk selisih risiko absolut.", "Formulesymbool: M, de symmetrische equivalentiegrens voor het absolute risicoverschil."],
+    "equivalence-proportions.ratio": ["Formula symbol: r, group B participants per group A participant.", "Simbol rumus: r, jumlah peserta kelompok B per peserta kelompok A.", "Formulesymbool: r, deelnemers in groep B per deelnemer in groep A."],
     "one-proportion-test.p0": ["Formula symbol: p0; q0 is calculated as 1 - p0.", "Simbol rumus: p0; q0 dihitung sebagai 1 - p0.", "Formulesymbool: p0; q0 wordt berekend als 1 - p0."],
     "one-proportion-test.p1": ["Formula symbol: p1; q1 is calculated as 1 - p1.", "Simbol rumus: p1; q1 dihitung sebagai 1 - p1.", "Formulesymbool: p1; q1 wordt berekend als 1 - p1."],
     "correlation.rho": ["Formula symbol: r, the expected Pearson correlation.", "Simbol rumus: r, korelasi Pearson yang diharapkan.", "Formulesymbool: r, de verwachte Pearson-correlatie."],
@@ -2899,6 +3045,80 @@ const calculators: Calculator[] = [
       }
       const { control, treatment, total } = twoProportionSampleSize(p1, p2, v.ratio, v.alpha, v.power);
       return { primary: total, perGroup: control, total, adjustedTotal: dropoutInflation(total, v.dropout), details: [`Control n = ${control}; treatment n = ${treatment}`, `Absolute difference = ${Math.abs(v.p2 - v.p1).toFixed(1)} percentage points`] };
+    },
+  },
+  {
+    id: "noninferiority-proportions",
+    category: "Advanced Trials",
+    title: "Non-Inferiority Proportion",
+    purpose: "Plan a binary-outcome non-inferiority trial using an absolute risk-difference margin.",
+    variables: [
+      { key: "pControl", label: "Control event rate", min: 1, max: 95, step: 1, default: 80, suffix: "%", help: "Expected event, response, or success rate in control.", slider: true },
+      { key: "pExperimental", label: "Experimental event rate", min: 1, max: 95, step: 1, default: 78, suffix: "%", help: "Expected event, response, or success rate in experimental treatment.", slider: true },
+      { key: "margin", label: "NI risk-difference margin", min: 1, max: 30, step: 0.5, default: 10, suffix: " pp", help: "Largest acceptable absolute loss in percentage points.", slider: true },
+      { key: "ratio", label: "Allocation ratio", min: 0.5, max: 3, step: 0.1, default: 1, help: "Experimental participants per control participant.", slider: true },
+      ...commonPower(2.5, 80, 10),
+    ],
+    formula: "Δ = pE - pC; n_control ≈ (Zα + Zβ)²[pC(1-pC) + pE(1-pE)/r] / (Δ + M)²; n_experimental = r×n_control",
+    assumptions: ["One-sided non-inferiority test on the absolute risk-difference scale.", "Higher event rates are assumed beneficial; reverse the endpoint direction before using if lower rates are beneficial.", "Margin must be prespecified and clinically justified."],
+    references: ["Blackwelder WC. Proving the null hypothesis in clinical trials.", "Farrington CP, Manning G. Test statistics and sample size formulae for comparative binomial trials with null hypothesis of non-zero risk difference or non-unity relative risk."],
+    compute: (v) => {
+      const pControl = pct(v.pControl);
+      const pExperimental = pct(v.pExperimental);
+      const margin = pct(v.margin);
+      const { control, experimental, total, distanceToMargin } = binaryMarginSampleSize(pControl, pExperimental, margin, v.ratio, v.alpha, v.power, "noninferiority");
+      if (!Number.isFinite(total)) {
+        return {
+          primary: Number.POSITIVE_INFINITY,
+          total: Number.POSITIVE_INFINITY,
+          adjustedTotal: Number.POSITIVE_INFINITY,
+          details: ["Expected experimental performance is outside the non-inferiority margin; revise the event rates or margin."],
+        };
+      }
+      return {
+        primary: total,
+        perGroup: control,
+        total,
+        adjustedTotal: dropoutInflation(total, v.dropout),
+        details: [`Control n = ${control}; experimental n = ${experimental}`, `Expected risk difference = ${(v.pExperimental - v.pControl).toFixed(1)} percentage points`, `Distance to NI margin = ${(distanceToMargin * 100).toFixed(1)} percentage points`],
+      };
+    },
+  },
+  {
+    id: "equivalence-proportions",
+    category: "Advanced Trials",
+    title: "Equivalence Proportion",
+    purpose: "Plan a binary-outcome equivalence trial using a symmetric absolute risk-difference margin.",
+    variables: [
+      { key: "pGroupA", label: "Group A event rate", min: 1, max: 95, step: 1, default: 80, suffix: "%", help: "Expected event, response, or success rate in group A.", slider: true },
+      { key: "pGroupB", label: "Group B event rate", min: 1, max: 95, step: 1, default: 80, suffix: "%", help: "Expected event, response, or success rate in group B.", slider: true },
+      { key: "margin", label: "Equivalence risk-difference margin", min: 1, max: 30, step: 0.5, default: 10, suffix: " pp", help: "Maximum acceptable absolute difference in either direction.", slider: true },
+      { key: "ratio", label: "Allocation ratio", min: 0.5, max: 3, step: 0.1, default: 1, help: "Group B participants per group A participant.", slider: true },
+      ...commonPower(5, 80, 10),
+    ],
+    formula: "Δ = pB - pA; n_groupA ≈ (Zα + Zβ)²[pA(1-pA) + pB(1-pB)/r] / (M - |Δ|)²; n_groupB = r×n_groupA",
+    assumptions: ["Two one-sided tests approximation on the absolute risk-difference scale.", "Expected difference must lie within the equivalence margin.", "Margin must be prespecified and clinically justified."],
+    references: ["Blackwelder WC. Proving the null hypothesis in clinical trials.", "Farrington CP, Manning G. Test statistics and sample size formulae for comparative binomial trials with null hypothesis of non-zero risk difference or non-unity relative risk."],
+    compute: (v) => {
+      const pGroupA = pct(v.pGroupA);
+      const pGroupB = pct(v.pGroupB);
+      const margin = pct(v.margin);
+      const { control: groupA, experimental: groupB, total, distanceToMargin } = binaryMarginSampleSize(pGroupA, pGroupB, margin, v.ratio, v.alpha, v.power, "equivalence");
+      if (!Number.isFinite(total)) {
+        return {
+          primary: Number.POSITIVE_INFINITY,
+          total: Number.POSITIVE_INFINITY,
+          adjustedTotal: Number.POSITIVE_INFINITY,
+          details: ["Expected group difference is outside the equivalence margin; revise the event rates or margin."],
+        };
+      }
+      return {
+        primary: total,
+        perGroup: groupA,
+        total,
+        adjustedTotal: dropoutInflation(total, v.dropout),
+        details: [`Group A n = ${groupA}; group B n = ${groupB}`, `Expected risk difference = ${(v.pGroupB - v.pGroupA).toFixed(1)} percentage points`, `Distance to equivalence boundary = ${(distanceToMargin * 100).toFixed(1)} percentage points`],
+      };
     },
   },
   {
@@ -3342,6 +3562,14 @@ function getCurrentDecisionQuestion(answers: DecisionAnswers) {
     ) {
       return decisionQuestions.trialObjective;
     }
+    if (
+      answers.comparisonOutcome === "binary" &&
+      answers.comparisonStructure === "independent" &&
+      answers.comparisonDesign === "trial" &&
+      !answers.trialObjective
+    ) {
+      return decisionQuestions.trialObjective;
+    }
   }
 
   if (answers.goal === "association" && !answers.associationType) return decisionQuestions.associationType;
@@ -3524,11 +3752,29 @@ function decisionResult(answers: DecisionAnswers): DecisionResult | undefined {
           warnings,
         };
       }
+      if (answers.trialObjective === "noninferiority") {
+        return {
+          calculatorId: "noninferiority-proportions",
+          title: "Use Non-Inferiority Proportion",
+          explanation: "The trial compares binary event rates and is designed to rule out an unacceptable absolute risk-difference loss.",
+          assumptions: ["Independent binary outcomes.", "One-sided non-inferiority margin is clinically justified.", "Endpoint direction is defined so the margin represents an acceptable loss."],
+          warnings,
+        };
+      }
+      if (answers.trialObjective === "equivalence") {
+        return {
+          calculatorId: "equivalence-proportions",
+          title: "Use Equivalence Proportion",
+          explanation: "The trial compares binary event rates and is designed to show the absolute risk difference lies within a symmetric equivalence margin.",
+          assumptions: ["Independent binary outcomes.", "Two one-sided tests framework.", "Equivalence margin is clinically justified before recruitment."],
+          warnings,
+        };
+      }
       return {
         calculatorId: "two-proportions",
         title: "Use Two Independent Proportions",
-        explanation: "Two independent groups are being compared on a binary event or response rate.",
-        assumptions: ["Independent binary outcomes.", "Superiority comparison by default."],
+        explanation: "Two independent groups are being compared on a binary event or response rate under a superiority objective.",
+        assumptions: ["Independent binary outcomes.", "Superiority comparison."],
         warnings,
       };
     }
@@ -7253,7 +7499,7 @@ export function SampleSizeApp() {
         ) : null}
       </section>
 
-      <footer className="app-footer"><strong>{t("StudySize Studio version 1.39 © Ryalino, 2026.", language)}</strong></footer>
+      <footer className="app-footer"><strong>{t("StudySize Studio version 1.40 © Ryalino, 2026.", language)}</strong></footer>
 
       {copiedNotice && (
         <div className="copy-toast" role="status" aria-live="polite">
