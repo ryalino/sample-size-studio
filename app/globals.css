@@ -119,20 +119,15 @@ button {
 
 .masthead-brand {
   display: flex;
-  gap: 18px;
+  gap: 20px;
   align-items: center;
 }
 
 .masthead-logo {
   flex: 0 0 auto;
-  width: clamp(58px, 8vw, 104px);
-  height: clamp(58px, 8vw, 104px);
-  border: 1px solid rgba(15, 159, 154, 0.16);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.82);
+  width: auto;
+  height: clamp(128px, 12vw, 166px);
   object-fit: contain;
-  padding: 6px;
-  box-shadow: 0 14px 34px rgba(34, 51, 84, 0.12);
 }
 
 .eyebrow {
@@ -1687,12 +1682,10 @@ input:disabled {
 
   .masthead-brand {
     gap: 12px;
-    align-items: flex-start;
   }
 
   .masthead-logo {
-    width: 58px;
-    height: 58px;
+    height: 118px;
   }
 
   h1 {
