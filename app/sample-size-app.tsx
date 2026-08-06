@@ -5406,20 +5406,9 @@ export function SampleSizeApp() {
   }, [language]);
 
   useEffect(() => {
-    const groupDefaults = languageOptions.map((option) => defaultRandomGroups(option.code));
-    const strataDefaults = languageOptions.map((option) => defaultRandomStrata(option.code));
-    const armDefaults = languageOptions.map((option) => defaultArmLabels(option.code));
-    const frameworkDefaults = languageOptions.map((option) => defaultFrameworkText(option.code));
-    const nextFrameworkDefaults = defaultFrameworkText(language);
-
-    setRandomGroups((current) => (groupDefaults.includes(current) ? defaultRandomGroups(language) : current));
-    setRandomStrata((current) => (strataDefaults.includes(current) ? defaultRandomStrata(language) : current));
-    setFlowArmLabels((current) => (armDefaults.includes(current) ? defaultArmLabels(language) : current));
-    setFrameworkTitle((current) => (frameworkDefaults.some((defaults) => defaults.title === current) ? nextFrameworkDefaults.title : current));
-    setIndependentVariables((current) => (frameworkDefaults.some((defaults) => defaults.independent === current) ? nextFrameworkDefaults.independent : current));
-    setDependentVariables((current) => (frameworkDefaults.some((defaults) => defaults.dependent === current) ? nextFrameworkDefaults.dependent : current));
-    setConfoundingVariables((current) => (frameworkDefaults.some((defaults) => defaults.confounders === current) ? nextFrameworkDefaults.confounders : current));
-  }, [language]);
+    if (!("serviceWorker" in navigator)) return;
+    navigator.serviceWorker.register("/sw.js").catch(() => undefined);
+  }, []);
 
   const calculator = calculators.find((item) => item.id === activeId) ?? calculators[0];
   const flowArmNames = useMemo(() => parseFlowArmLabels(flowArmLabels, flowArmCount, language), [flowArmCount, flowArmLabels, language]);
@@ -6200,6 +6189,25 @@ export function SampleSizeApp() {
     setStatus(t("Checklist tree reset", language));
   }
 
+  function changeLanguage(nextLanguage: Language) {
+    if (nextLanguage === language) return;
+
+    const groupDefaults = languageOptions.map((option) => defaultRandomGroups(option.code));
+    const strataDefaults = languageOptions.map((option) => defaultRandomStrata(option.code));
+    const armDefaults = languageOptions.map((option) => defaultArmLabels(option.code));
+    const frameworkDefaults = languageOptions.map((option) => defaultFrameworkText(option.code));
+    const nextFrameworkDefaults = defaultFrameworkText(nextLanguage);
+
+    setLanguage(nextLanguage);
+    setRandomGroups((current) => (groupDefaults.includes(current) ? defaultRandomGroups(nextLanguage) : current));
+    setRandomStrata((current) => (strataDefaults.includes(current) ? defaultRandomStrata(nextLanguage) : current));
+    setFlowArmLabels((current) => (armDefaults.includes(current) ? defaultArmLabels(nextLanguage) : current));
+    setFrameworkTitle((current) => (frameworkDefaults.some((defaults) => defaults.title === current) ? nextFrameworkDefaults.title : current));
+    setIndependentVariables((current) => (frameworkDefaults.some((defaults) => defaults.independent === current) ? nextFrameworkDefaults.independent : current));
+    setDependentVariables((current) => (frameworkDefaults.some((defaults) => defaults.dependent === current) ? nextFrameworkDefaults.dependent : current));
+    setConfoundingVariables((current) => (frameworkDefaults.some((defaults) => defaults.confounders === current) ? nextFrameworkDefaults.confounders : current));
+  }
+
   return (
     <main className="app-shell">
       <div className="language-switcher" aria-label={t("Language selector", language)}>
@@ -6209,7 +6217,7 @@ export function SampleSizeApp() {
             className={language === option.code ? "active" : ""}
             key={option.code}
             type="button"
-            onClick={() => setLanguage(option.code)}
+            onClick={() => changeLanguage(option.code)}
             title={option.label}
           >
             <span aria-hidden="true">{option.flag}</span>
