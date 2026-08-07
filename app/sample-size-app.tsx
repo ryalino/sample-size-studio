@@ -362,7 +362,7 @@ const indonesianText: Record<string, string> = {
   "Citation copied": "Sitasi disalin",
   "Clear scenarios": "Hapus skenario",
   "Scenarios cleared": "Skenario dihapus",
-  "StudySize Studio version 1.42 © Ryalino, 2026.": "StudySize Studio versi 1.42 © Ryalino, 2026.",
+  "StudySize Studio version 1.43 © Ryalino, 2026.": "StudySize Studio versi 1.43 © Ryalino, 2026.",
   "Scenario saved": "Skenario disimpan",
   "Scenario is ready": "Skenario siap",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Skenario ini sekarang tersedia di menu Perbandingan Skenario, tempat Anda dapat membandingkannya dengan skenario perencanaan tersimpan lainnya.",
@@ -988,7 +988,7 @@ const dutchText: Record<string, string> = {
   "Citation copied": "Citatie gekopieerd",
   "Clear scenarios": "Scenario's wissen",
   "Scenarios cleared": "Scenario's gewist",
-  "StudySize Studio version 1.42 © Ryalino, 2026.": "StudySize Studio versie 1.42 © Ryalino, 2026.",
+  "StudySize Studio version 1.43 © Ryalino, 2026.": "StudySize Studio versie 1.43 © Ryalino, 2026.",
   "Scenario is ready": "Scenario is klaar",
   "This scenario is now available in the Scenario Comparison bar, where you can compare it with other saved planning scenarios.": "Dit scenario is nu beschikbaar in de balk Scenariovergelijking, waar u het kunt vergelijken met andere opgeslagen planningsscenario's.",
   "Open Scenario Comparison": "Scenariovergelijking openen",
@@ -1317,7 +1317,7 @@ Object.assign(indonesianText, {
   "Reference SD group 1": "SD kelompok 1 dari studi referensi",
   "Reference SD group 2": "SD kelompok 2 dari studi referensi",
   "Expected R²": "R² yang diharapkan",
-  "StudySize Studio version 1.42 © Ryalino, 2026.": "StudySize Studio versi 1.42 © Ryalino, 2026.",
+  "StudySize Studio version 1.43 © Ryalino, 2026.": "StudySize Studio versi 1.43 © Ryalino, 2026.",
   "Randomised trial": "Uji klinis acak",
   "CONSORT for trial reports; SPIRIT for trial protocols.": "CONSORT untuk laporan uji klinis; SPIRIT untuk protokol uji klinis.",
   "Study protocol": "Protokol penelitian",
@@ -1516,7 +1516,7 @@ Object.assign(dutchText, {
   "Expected variance explained by the model.": "Verwacht percentage verklaarde variantie door het model.",
   "Reference SD group 1": "SD van groep 1 uit referentiestudie",
   "Reference SD group 2": "SD van groep 2 uit referentiestudie",
-  "StudySize Studio version 1.42 © Ryalino, 2026.": "StudySize Studio versie 1.42 © Ryalino, 2026.",
+  "StudySize Studio version 1.43 © Ryalino, 2026.": "StudySize Studio versie 1.43 © Ryalino, 2026.",
   "Randomised trial": "Gerandomiseerde trial",
   "CONSORT for trial reports; SPIRIT for trial protocols.": "CONSORT voor trialrapportages; SPIRIT voor trialprotocollen.",
   "Study protocol": "Onderzoeksprotocol",
@@ -1766,7 +1766,7 @@ Object.assign(indonesianText, {
   "Ethics approval target": "Target persetujuan etik",
   "Recruitment completion target": "Target selesai rekrutmen",
   "Analysis and writing target": "Target analisis dan penulisan",
-  "StudySize Studio version 1.42 © Ryalino, 2026.": "StudySize Studio versi 1.42 © Ryalino, 2026.",
+  "StudySize Studio version 1.43 © Ryalino, 2026.": "StudySize Studio versi 1.43 © Ryalino, 2026.",
 });
 
 Object.assign(dutchText, {
@@ -1899,7 +1899,7 @@ Object.assign(dutchText, {
   "Ethics approval target": "Streefdatum ethische goedkeuring",
   "Recruitment completion target": "Streefdatum einde inclusie",
   "Analysis and writing target": "Streefdatum analyse en schrijven",
-  "StudySize Studio version 1.42 © Ryalino, 2026.": "StudySize Studio versie 1.42 © Ryalino, 2026.",
+  "StudySize Studio version 1.43 © Ryalino, 2026.": "StudySize Studio versie 1.43 © Ryalino, 2026.",
 });
 
 Object.assign(indonesianText, {
@@ -2035,6 +2035,109 @@ Object.assign(dutchText, {
 const pct = (value: number) => value / 100;
 const ceil = (value: number) => Math.max(1, Math.ceil(value));
 const dropoutInflation = (n: number, dropout: number) => ceil(n / (1 - pct(dropout)));
+const appVersion = "1.43";
+
+Object.assign(indonesianText, {
+  "Report Bug": "Laporkan masalah",
+  "Beta Feedback": "Umpan balik beta",
+  "Bug report": "Laporan masalah",
+  "Beta feedback": "Umpan balik beta",
+  "Use this structured form during beta testing. Copy or download the report and send it to the StudySize Studio team. Do not include names, medical record numbers, dates of birth, or other patient-identifiable information.": "Gunakan formulir terstruktur ini selama uji beta. Salin atau unduh laporan lalu kirimkan ke tim StudySize Studio. Jangan mencantumkan nama, nomor rekam medis, tanggal lahir, atau informasi lain yang dapat mengidentifikasi pasien.",
+  "Your feedback helps identify confusing wording, calculation concerns, mobile usability problems, and missing research-planning features.": "Umpan balik Anda membantu menemukan istilah yang membingungkan, masalah perhitungan, kendala penggunaan di ponsel, dan fitur perencanaan riset yang masih perlu ditambahkan.",
+  "Name (optional)": "Nama (opsional)",
+  "Email (optional)": "Email (opsional)",
+  "User role": "Peran pengguna",
+  "Country / institution type": "Negara / jenis institusi",
+  "Page or tool affected": "Halaman atau alat yang terdampak",
+  "What were you trying to do?": "Apa yang sedang Anda coba lakukan?",
+  "What happened?": "Apa yang terjadi?",
+  "What did you expect to happen?": "Apa yang Anda harapkan terjadi?",
+  "Steps to reproduce": "Langkah untuk mereproduksi",
+  "Severity": "Tingkat keparahan",
+  "Screenshot (optional)": "Tangkapan layar (opsional)",
+  "Browser and device": "Browser dan perangkat",
+  "Report date/time": "Tanggal/waktu laporan",
+  "App version": "Versi aplikasi",
+  "Calculation-related details": "Detail terkait perhitungan",
+  "Calculator name": "Nama kalkulator",
+  "Input values": "Nilai input",
+  "Output shown": "Hasil yang tampil",
+  "Expected output or reference": "Hasil yang diharapkan atau referensi",
+  "Privacy confirmation": "Konfirmasi privasi",
+  "I confirm this report does not include patient-identifiable information.": "Saya mengonfirmasi laporan ini tidak memuat informasi yang dapat mengidentifikasi pasien.",
+  "Copy report": "Salin laporan",
+  "Download report": "Unduh laporan",
+  "Bug report copied": "Laporan masalah disalin",
+  "Feedback copied": "Umpan balik disalin",
+  "Overall ease of use": "Kemudahan penggunaan secara keseluruhan",
+  "Tools used": "Alat yang digunakan",
+  "Calculator recommendation was understandable": "Rekomendasi kalkulator mudah dipahami",
+  "Formula and parameter explanations helped me": "Penjelasan rumus dan parameter membantu saya",
+  "I trusted the result": "Saya percaya pada hasilnya",
+  "I would use this in protocol preparation": "Saya akan menggunakannya dalam penyusunan protokol",
+  "Permission to contact for follow-up": "Kesediaan dihubungi untuk tindak lanjut",
+  "Anything confusing or missing?": "Apa yang membingungkan atau belum tersedia?",
+  "Suggested features": "Saran fitur",
+  "Likert scale": "Skala Likert",
+  "Use the 1 to 5 scale instead of yes/no answers.": "Gunakan skala 1 sampai 5, bukan jawaban ya/tidak.",
+  "Strongly disagree": "Sangat tidak setuju",
+  "Disagree": "Tidak setuju",
+  "Neutral": "Netral",
+  "Agree": "Setuju",
+  "Strongly agree": "Sangat setuju",
+  "Not applicable": "Tidak berlaku",
+});
+
+Object.assign(dutchText, {
+  "Report Bug": "Probleem melden",
+  "Beta Feedback": "Beta-feedback",
+  "Bug report": "Probleemrapport",
+  "Beta feedback": "Beta-feedback",
+  "Use this structured form during beta testing. Copy or download the report and send it to the StudySize Studio team. Do not include names, medical record numbers, dates of birth, or other patient-identifiable information.": "Gebruik dit gestructureerde formulier tijdens de betatest. Kopieer of download het rapport en stuur het naar het StudySize Studio-team. Vermeld geen namen, patiëntnummers, geboortedata of andere herleidbare patiëntgegevens.",
+  "Your feedback helps identify confusing wording, calculation concerns, mobile usability problems, and missing research-planning features.": "Uw feedback helpt om onduidelijke formuleringen, mogelijke rekenproblemen, mobiele gebruiksproblemen en ontbrekende functies voor onderzoeksplanning te vinden.",
+  "Name (optional)": "Naam (optioneel)",
+  "Email (optional)": "E-mail (optioneel)",
+  "User role": "Rol van gebruiker",
+  "Country / institution type": "Land / type instelling",
+  "Page or tool affected": "Betrokken pagina of functie",
+  "What were you trying to do?": "Wat probeerde u te doen?",
+  "What happened?": "Wat gebeurde er?",
+  "What did you expect to happen?": "Wat had u verwacht?",
+  "Steps to reproduce": "Stappen om het probleem te reproduceren",
+  "Severity": "Ernst",
+  "Screenshot (optional)": "Screenshot (optioneel)",
+  "Browser and device": "Browser en apparaat",
+  "Report date/time": "Datum/tijd van melding",
+  "App version": "App-versie",
+  "Calculation-related details": "Details over de berekening",
+  "Calculator name": "Naam van calculator",
+  "Input values": "Ingevoerde waarden",
+  "Output shown": "Getoonde uitkomst",
+  "Expected output or reference": "Verwachte uitkomst of referentie",
+  "Privacy confirmation": "Privacybevestiging",
+  "I confirm this report does not include patient-identifiable information.": "Ik bevestig dat dit rapport geen herleidbare patiëntgegevens bevat.",
+  "Copy report": "Rapport kopiëren",
+  "Download report": "Rapport downloaden",
+  "Bug report copied": "Probleemrapport gekopieerd",
+  "Feedback copied": "Feedback gekopieerd",
+  "Overall ease of use": "Algemene gebruiksvriendelijkheid",
+  "Tools used": "Gebruikte functies",
+  "Calculator recommendation was understandable": "De calculatoraanbeveling was begrijpelijk",
+  "Formula and parameter explanations helped me": "De uitleg van formule en parameters hielp mij",
+  "I trusted the result": "Ik vertrouwde de uitkomst",
+  "I would use this in protocol preparation": "Ik zou dit gebruiken bij protocolvoorbereiding",
+  "Permission to contact for follow-up": "Toestemming voor contact over vervolgvragen",
+  "Anything confusing or missing?": "Wat was onduidelijk of ontbrak?",
+  "Suggested features": "Suggesties voor functies",
+  "Likert scale": "Likertschaal",
+  "Use the 1 to 5 scale instead of yes/no answers.": "Gebruik de schaal van 1 tot 5 in plaats van ja/nee-antwoorden.",
+  "Strongly disagree": "Helemaal oneens",
+  "Disagree": "Oneens",
+  "Neutral": "Neutraal",
+  "Agree": "Eens",
+  "Strongly agree": "Helemaal eens",
+  "Not applicable": "Niet van toepassing",
+});
 
 const dataPlanPresets = {
   storageLocation: [
@@ -5363,6 +5466,10 @@ export function SampleSizeApp() {
   const [showProtocolModal, setShowProtocolModal] = useState(false);
   const [showScenarioModal, setShowScenarioModal] = useState(false);
   const [showZTableModal, setShowZTableModal] = useState(false);
+  const [showBugModal, setShowBugModal] = useState(false);
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+  const [reportTimestamp, setReportTimestamp] = useState("");
+  const [browserDevice, setBrowserDevice] = useState("");
   const [valuesByCalculator, setValuesByCalculator] = useState<Record<string, Values>>(() =>
     Object.fromEntries(calculators.map((calculator) => [calculator.id, initialValues(calculator)])),
   );
@@ -5408,6 +5515,11 @@ export function SampleSizeApp() {
   useEffect(() => {
     if (!("serviceWorker" in navigator)) return;
     navigator.serviceWorker.register("/sw.js").catch(() => undefined);
+  }, []);
+
+  useEffect(() => {
+    setReportTimestamp(new Date().toISOString());
+    setBrowserDevice(window.navigator.userAgent);
   }, []);
 
   const calculator = calculators.find((item) => item.id === activeId) ?? calculators[0];
@@ -6113,6 +6225,60 @@ export function SampleSizeApp() {
     showCopiedToast();
   }
 
+  function formReportText(form: HTMLFormElement, title: string) {
+    const fields = Array.from(form.querySelectorAll("input, textarea, select")) as Array<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>;
+    const lines = [
+      title,
+      `Generated: ${new Date().toISOString()}`,
+      `StudySize Studio version: ${appVersion}`,
+      "",
+    ];
+
+    fields.forEach((field) => {
+      if (!field.name) return;
+      const label = field.getAttribute("data-label") ?? field.name;
+      let value = "";
+
+      if (field instanceof HTMLInputElement && field.type === "checkbox") {
+        value = field.checked ? "Confirmed" : "Not confirmed";
+      } else if (field instanceof HTMLInputElement && field.type === "file") {
+        value = Array.from(field.files ?? []).map((file) => `${file.name} (${file.size} bytes)`).join(", ");
+      } else {
+        value = field.value.trim();
+      }
+
+      lines.push(`${label}: ${value || "Not provided"}`);
+    });
+
+    return lines.join("\n");
+  }
+
+  function downloadTextFile(filename: string, text: string) {
+    const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  function copyFormReport(event: { currentTarget: HTMLButtonElement }, title: string, message: string) {
+    const form = event.currentTarget.form;
+    if (!form) return;
+    if (!form.reportValidity()) return;
+    copyGeneratedWording(formReportText(form, t(title, language)), message);
+  }
+
+  function downloadFormReport(event: { currentTarget: HTMLButtonElement }, title: string, filename: string) {
+    const form = event.currentTarget.form;
+    if (!form) return;
+    if (!form.reportValidity()) return;
+    downloadTextFile(filename, formReportText(form, t(title, language)));
+  }
+
   function downloadProtocolTemplate() {
     const lines = [
       "Study question:",
@@ -6210,19 +6376,29 @@ export function SampleSizeApp() {
 
   return (
     <main className="app-shell">
-      <div className="language-switcher" aria-label={t("Language selector", language)}>
-        {languageOptions.map((option) => (
-          <button
-            aria-label={option.aria}
-            className={language === option.code ? "active" : ""}
-            key={option.code}
-            type="button"
-            onClick={() => changeLanguage(option.code)}
-            title={option.label}
-          >
-            <span aria-hidden="true">{option.flag}</span>
+      <div className="top-right-tools">
+        <div className="language-switcher" aria-label={t("Language selector", language)}>
+          {languageOptions.map((option) => (
+            <button
+              aria-label={option.aria}
+              className={language === option.code ? "active" : ""}
+              key={option.code}
+              type="button"
+              onClick={() => changeLanguage(option.code)}
+              title={option.label}
+            >
+              <span aria-hidden="true">{option.flag}</span>
+            </button>
+          ))}
+        </div>
+        <div className="beta-actions" aria-label="Beta testing actions">
+          <button type="button" onClick={() => setShowBugModal(true)}>
+            {t("Report Bug", language)}
           </button>
-        ))}
+          <button type="button" onClick={() => setShowFeedbackModal(true)}>
+            {t("Beta Feedback", language)}
+          </button>
+        </div>
       </div>
       <section className="masthead" aria-labelledby="app-title">
         <div className="masthead-brand">
@@ -7691,7 +7867,7 @@ export function SampleSizeApp() {
         ) : null}
       </section>
 
-      <footer className="app-footer"><strong>{t("StudySize Studio version 1.42 © Ryalino, 2026.", language)}</strong></footer>
+      <footer className="app-footer"><strong>{t("StudySize Studio version 1.43 © Ryalino, 2026.", language)}</strong></footer>
 
       {copiedNotice && (
         <div className="copy-toast" role="status" aria-live="polite">
@@ -7730,6 +7906,260 @@ export function SampleSizeApp() {
                 </article>
               ))}
             </div>
+          </section>
+        </div>
+      )}
+
+      {showBugModal && (
+        <div className="modal-backdrop" role="presentation" onClick={() => setShowBugModal(false)}>
+          <section
+            aria-labelledby="bug-report-title"
+            aria-modal="true"
+            className="citation-modal feedback-modal"
+            onClick={(event) => event.stopPropagation()}
+            role="dialog"
+          >
+            <div className="modal-head">
+              <div>
+                <p className="eyebrow">{t("Bug report", language)}</p>
+                <h2 id="bug-report-title">{t("Report Bug", language)}</h2>
+              </div>
+              <button aria-label={t("Close", language)} type="button" onClick={() => setShowBugModal(false)}>
+                {t("Close", language)}
+              </button>
+            </div>
+            <p className="modal-copy">
+              {t("Use this structured form during beta testing. Copy or download the report and send it to the StudySize Studio team. Do not include names, medical record numbers, dates of birth, or other patient-identifiable information.", language)}
+            </p>
+            <form className="feedback-form">
+              <div className="feedback-grid">
+                <label>
+                  <span>{t("Name (optional)", language)}</span>
+                  <input name="name" data-label={t("Name (optional)", language)} />
+                </label>
+                <label>
+                  <span>{t("Email (optional)", language)}</span>
+                  <input name="email" data-label={t("Email (optional)", language)} type="email" />
+                </label>
+                <label>
+                  <span>{t("User role", language)}</span>
+                  <select name="user-role" data-label={t("User role", language)}>
+                    <option>Junior researcher</option>
+                    <option>Clinician</option>
+                    <option>Statistician / methodologist</option>
+                    <option>Supervisor / educator</option>
+                    <option>Other</option>
+                  </select>
+                </label>
+                <label>
+                  <span>{t("Country / institution type", language)}</span>
+                  <input name="country-institution" data-label={t("Country / institution type", language)} />
+                </label>
+                <label>
+                  <span>{t("Page or tool affected", language)}</span>
+                  <select name="affected-tool" data-label={t("Page or tool affected", language)}>
+                    <option>Study Design</option>
+                    <option>Find my study size calculator</option>
+                    <option>Calculator catalog</option>
+                    <option>Scenario Comparison</option>
+                    <option>Randomisation</option>
+                    <option>Blinding</option>
+                    <option>Figure Generator</option>
+                    <option>Protocol Builder</option>
+                    <option>Language / mobile layout</option>
+                    <option>Other</option>
+                  </select>
+                </label>
+                <label>
+                  <span>{t("Severity", language)}</span>
+                  <select name="severity" data-label={t("Severity", language)}>
+                    <option>Minor wording or display issue</option>
+                    <option>Confusing guidance</option>
+                    <option>Blocks use of a feature</option>
+                    <option>Possible wrong calculation or logic</option>
+                  </select>
+                </label>
+              </div>
+              <label>
+                <span>{t("What were you trying to do?", language)}</span>
+                <textarea name="trying-to-do" data-label={t("What were you trying to do?", language)} rows={3} />
+              </label>
+              <label>
+                <span>{t("What happened?", language)}</span>
+                <textarea name="what-happened" data-label={t("What happened?", language)} rows={3} />
+              </label>
+              <label>
+                <span>{t("What did you expect to happen?", language)}</span>
+                <textarea name="expected" data-label={t("What did you expect to happen?", language)} rows={3} />
+              </label>
+              <label>
+                <span>{t("Steps to reproduce", language)}</span>
+                <textarea name="steps-to-reproduce" data-label={t("Steps to reproduce", language)} rows={4} />
+              </label>
+              <fieldset className="feedback-fieldset">
+                <legend>{t("Calculation-related details", language)}</legend>
+                <div className="feedback-grid">
+                  <label>
+                    <span>{t("Calculator name", language)}</span>
+                    <input name="calculator-name" data-label={t("Calculator name", language)} />
+                  </label>
+                  <label>
+                    <span>{t("Input values", language)}</span>
+                    <textarea name="input-values" data-label={t("Input values", language)} rows={3} />
+                  </label>
+                  <label>
+                    <span>{t("Output shown", language)}</span>
+                    <textarea name="output-shown" data-label={t("Output shown", language)} rows={3} />
+                  </label>
+                  <label>
+                    <span>{t("Expected output or reference", language)}</span>
+                    <textarea name="expected-output" data-label={t("Expected output or reference", language)} rows={3} />
+                  </label>
+                </div>
+              </fieldset>
+              <div className="feedback-grid">
+                <label>
+                  <span>{t("Screenshot (optional)", language)}</span>
+                  <input name="screenshot" data-label={t("Screenshot (optional)", language)} type="file" accept="image/*,.pdf" />
+                </label>
+                <label>
+                  <span>{t("Browser and device", language)}</span>
+                  <textarea name="browser-device" data-label={t("Browser and device", language)} rows={3} value={browserDevice} onChange={(event) => setBrowserDevice(event.target.value)} />
+                </label>
+                <label>
+                  <span>{t("Report date/time", language)}</span>
+                  <input name="report-date-time" data-label={t("Report date/time", language)} value={reportTimestamp} onChange={(event) => setReportTimestamp(event.target.value)} />
+                </label>
+                <label>
+                  <span>{t("App version", language)}</span>
+                  <input name="app-version" data-label={t("App version", language)} value={appVersion} readOnly />
+                </label>
+              </div>
+              <label className="privacy-check">
+                <input name="privacy-confirmation" data-label={t("Privacy confirmation", language)} type="checkbox" required />
+                <span>{t("I confirm this report does not include patient-identifiable information.", language)}</span>
+              </label>
+              <div className="copy-actions">
+                <button type="button" onClick={(event) => copyFormReport(event, "Bug report", "Bug report copied")}>
+                  {t("Copy report", language)}
+                </button>
+                <button type="button" onClick={(event) => downloadFormReport(event, "Bug report", "studysize-bug-report.txt")}>
+                  {t("Download report", language)}
+                </button>
+              </div>
+            </form>
+          </section>
+        </div>
+      )}
+
+      {showFeedbackModal && (
+        <div className="modal-backdrop" role="presentation" onClick={() => setShowFeedbackModal(false)}>
+          <section
+            aria-labelledby="beta-feedback-title"
+            aria-modal="true"
+            className="citation-modal feedback-modal"
+            onClick={(event) => event.stopPropagation()}
+            role="dialog"
+          >
+            <div className="modal-head">
+              <div>
+                <p className="eyebrow">{t("Beta feedback", language)}</p>
+                <h2 id="beta-feedback-title">{t("Beta Feedback", language)}</h2>
+              </div>
+              <button aria-label={t("Close", language)} type="button" onClick={() => setShowFeedbackModal(false)}>
+                {t("Close", language)}
+              </button>
+            </div>
+            <p className="modal-copy">
+              {t("Your feedback helps identify confusing wording, calculation concerns, mobile usability problems, and missing research-planning features.", language)}
+            </p>
+            <p className="likert-note"><strong>{t("Likert scale", language)}:</strong> {t("Use the 1 to 5 scale instead of yes/no answers.", language)}</p>
+            <form className="feedback-form">
+              <div className="feedback-grid">
+                <label>
+                  <span>{t("Name (optional)", language)}</span>
+                  <input name="name" data-label={t("Name (optional)", language)} />
+                </label>
+                <label>
+                  <span>{t("Email (optional)", language)}</span>
+                  <input name="email" data-label={t("Email (optional)", language)} type="email" />
+                </label>
+                <label>
+                  <span>{t("User role", language)}</span>
+                  <select name="user-role" data-label={t("User role", language)}>
+                    <option>Junior researcher</option>
+                    <option>Clinician</option>
+                    <option>Statistician / methodologist</option>
+                    <option>Supervisor / educator</option>
+                    <option>Other</option>
+                  </select>
+                </label>
+                <label>
+                  <span>{t("Country / institution type", language)}</span>
+                  <input name="country-institution" data-label={t("Country / institution type", language)} />
+                </label>
+              </div>
+              <label>
+                <span>{t("Tools used", language)}</span>
+                <textarea name="tools-used" data-label={t("Tools used", language)} rows={3} placeholder="Calculator catalog, Randomisation, Blinding, Figure Generator..." />
+              </label>
+              <div className="feedback-grid">
+                {[
+                  "Overall ease of use",
+                  "Calculator recommendation was understandable",
+                  "Formula and parameter explanations helped me",
+                  "I trusted the result",
+                  "I would use this in protocol preparation",
+                  "Permission to contact for follow-up",
+                ].map((label) => (
+                  <label key={label}>
+                    <span>{t(label, language)}</span>
+                    <select name={label.toLowerCase().replaceAll(" ", "-")} data-label={t(label, language)}>
+                      <option>1 - {t("Strongly disagree", language)}</option>
+                      <option>2 - {t("Disagree", language)}</option>
+                      <option>3 - {t("Neutral", language)}</option>
+                      <option>4 - {t("Agree", language)}</option>
+                      <option>5 - {t("Strongly agree", language)}</option>
+                      <option>{t("Not applicable", language)}</option>
+                    </select>
+                  </label>
+                ))}
+              </div>
+              <label>
+                <span>{t("Anything confusing or missing?", language)}</span>
+                <textarea name="confusing-or-missing" data-label={t("Anything confusing or missing?", language)} rows={4} />
+              </label>
+              <label>
+                <span>{t("Suggested features", language)}</span>
+                <textarea name="suggested-features" data-label={t("Suggested features", language)} rows={4} />
+              </label>
+              <div className="feedback-grid">
+                <label>
+                  <span>{t("Browser and device", language)}</span>
+                  <textarea name="browser-device" data-label={t("Browser and device", language)} rows={3} value={browserDevice} onChange={(event) => setBrowserDevice(event.target.value)} />
+                </label>
+                <label>
+                  <span>{t("Report date/time", language)}</span>
+                  <input name="report-date-time" data-label={t("Report date/time", language)} value={reportTimestamp} onChange={(event) => setReportTimestamp(event.target.value)} />
+                </label>
+                <label>
+                  <span>{t("App version", language)}</span>
+                  <input name="app-version" data-label={t("App version", language)} value={appVersion} readOnly />
+                </label>
+              </div>
+              <label className="privacy-check">
+                <input name="privacy-confirmation" data-label={t("Privacy confirmation", language)} type="checkbox" required />
+                <span>{t("I confirm this report does not include patient-identifiable information.", language)}</span>
+              </label>
+              <div className="copy-actions">
+                <button type="button" onClick={(event) => copyFormReport(event, "Beta feedback", "Feedback copied")}>
+                  {t("Copy report", language)}
+                </button>
+                <button type="button" onClick={(event) => downloadFormReport(event, "Beta feedback", "studysize-beta-feedback.txt")}>
+                  {t("Download report", language)}
+                </button>
+              </div>
+            </form>
           </section>
         </div>
       )}

@@ -35,6 +35,8 @@ test("server-renders the sample size calculator shell", async () => {
   assert.match(html, /Your one-stop solution for medical research/i);
   assert.match(html, /studysize-logo\.png/);
   assert.match(html, /How to cite us/);
+  assert.match(html, /Report Bug/);
+  assert.match(html, /Beta Feedback/);
   assert.match(html, /Sample Size/);
   assert.match(html, /Protocol Builder/);
   assert.match(html, /Find my calculator/);
@@ -42,7 +44,7 @@ test("server-renders the sample size calculator shell", async () => {
   assert.match(html, /Figure Generator/);
   assert.match(html, /Scenario Comparison/);
   assert.match(html, /Study Design/);
-  assert.match(html, /StudySize Studio version 1\.42 © Ryalino, 2026\./);
+  assert.match(html, /StudySize Studio version 1\.43 © Ryalino, 2026\./);
   assert.match(html, /What is the main purpose of the study/);
   assert.match(html, /Calculator catalog/);
   assert.doesNotMatch(html, /Prevalence \/ Single Proportion|Two Independent Means|Saved scenarios/);
@@ -89,6 +91,14 @@ test("removes disposable starter references", async () => {
   assert.match(app, /type QuestionFramework = "pico" \| "peco" \| "pird" \| "pico-qual" \| "prognostic"/);
   assert.match(app, /questionFrameworkOptions/);
   assert.match(app, /Question framework/);
+  assert.match(app, /showBugModal/);
+  assert.match(app, /showFeedbackModal/);
+  assert.match(app, /formReportText/);
+  assert.match(app, /downloadTextFile/);
+  assert.match(app, /Use the 1 to 5 scale instead of yes\/no answers/);
+  assert.match(app, /I confirm this report does not include patient-identifiable information/);
+  assert.match(app, /Possible wrong calculation or logic/);
+  assert.match(app, /Permission to contact for follow-up/);
   assert.match(app, /Diagnostic accuracy question using an index test and reference standard/);
   assert.match(app, /Qualitative question focused on participants/);
   assert.match(app, /Use for sample size decision tree/);

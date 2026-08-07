@@ -57,11 +57,17 @@ button {
   padding: 28px;
 }
 
-.language-switcher {
+.top-right-tools {
   position: absolute;
   top: 18px;
   right: 28px;
   z-index: 5;
+  display: grid;
+  gap: 8px;
+  justify-items: end;
+}
+
+.language-switcher {
   display: inline-flex;
   gap: 6px;
   border: 1px solid var(--line);
@@ -85,6 +91,26 @@ button {
 .language-switcher button.active {
   border-color: rgba(15, 159, 154, 0.35);
   background: var(--mint);
+}
+
+.beta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  justify-content: flex-end;
+  max-width: 260px;
+}
+
+.beta-actions button {
+  min-height: 34px;
+  border: 1px solid rgba(81, 102, 214, 0.24);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #24326f;
+  padding: 7px 11px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  box-shadow: 0 8px 20px rgba(34, 51, 84, 0.08);
 }
 
 .masthead {
@@ -1680,6 +1706,87 @@ input:disabled {
   line-height: 1.55;
 }
 
+.feedback-modal {
+  width: min(920px, 100%);
+}
+
+.feedback-form {
+  display: grid;
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.feedback-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.feedback-form label {
+  display: grid;
+  gap: 6px;
+}
+
+.feedback-form span,
+.feedback-fieldset legend {
+  color: var(--foreground);
+  font-size: 0.84rem;
+  font-weight: 800;
+}
+
+.feedback-form input,
+.feedback-form select,
+.feedback-form textarea {
+  width: 100%;
+  min-height: 40px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfcff;
+  color: var(--foreground);
+  padding: 9px 10px;
+}
+
+.feedback-form textarea {
+  resize: vertical;
+  line-height: 1.45;
+}
+
+.feedback-fieldset {
+  display: grid;
+  gap: 12px;
+  border: 1px solid rgba(81, 102, 214, 0.2);
+  border-radius: 8px;
+  background: rgba(231, 240, 255, 0.5);
+  margin: 0;
+  padding: 12px;
+}
+
+.likert-note {
+  border: 1px solid rgba(242, 184, 75, 0.45);
+  border-radius: 8px;
+  background: rgba(255, 244, 206, 0.58);
+  margin: 12px 0 0;
+  padding: 11px;
+  color: var(--ink-muted);
+  line-height: 1.45;
+}
+
+.privacy-check {
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  border: 1px solid rgba(232, 93, 79, 0.26);
+  border-radius: 8px;
+  background: rgba(255, 232, 228, 0.55);
+  padding: 11px;
+}
+
+.privacy-check input {
+  width: 18px;
+  min-height: 18px;
+  margin-top: 1px;
+  accent-color: var(--teal);
+}
+
 .protocol-modal-disclaimer {
   border: 1px solid rgba(242, 184, 75, 0.45);
   border-radius: 8px;
@@ -1812,10 +1919,18 @@ input:disabled {
     padding: 16px;
   }
 
-  .language-switcher {
+  .top-right-tools {
     position: static;
     justify-self: end;
     margin: 0 0 10px auto;
+  }
+
+  .language-switcher {
+    justify-self: end;
+  }
+
+  .beta-actions {
+    max-width: 100%;
   }
 
   .masthead {
@@ -1866,6 +1981,7 @@ input:disabled {
   .protocol-grid,
   .framework-workbench,
   .framework-input-grid,
+  .feedback-grid,
   .best-practice,
   .research-grid,
   .design-list {
